@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="icon-mask" viewBox="0 0 32 32">
+        <path
+          d="M0 0v32h32v-32h-32zM29.276 29.276c-2.249 2.292-5.924 2.292-13.276 2.292s-11.027 0-13.276-2.292-2.292-5.924-2.292-13.276c0-7.351 0-11.027 2.292-13.276s5.924-2.292 13.276-2.292 11.027 0 13.276 2.292 2.292 5.924 2.292 13.276c0 7.351 0 11.027-2.292 13.276z">
+        </path>
+      </symbol>
+    </defs>
+  </svg>
+
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="col-md-3 sidebar-top">
+      <a class="navbar-brand" href="#"><img src="images/logo-white.svg" alt="" />
+      </a>
+    </div>
+    <span class="sidebar-toggler">
+      <i class="icon-more"></i>
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="icon-bold"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <input class="form-control" type="text" name="" value="" />
+      <ul class="navbar-nav ml-auto">
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="icon-notifications"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h3>Notifications</h3>
+            <div class="notifications">
+              <p>Your account has been restricted from advertising.</p>
+              <p>Your account has been restricted from advertising.</p>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="images/admin.jpg" alt="" />
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h3>Jhon Doe</h3>
+            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="#">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-3 d-md-block sidebar">
+        <div class="sidebar-sticky">
+
+          <div>
+            <ul class="sidebar-menu">
+              <li class="active">
+                <a href="#"> <i class="icon-home"></i><span>Home </span> </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-message-square"></i><span>message </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-settings"></i><span>Settings </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-phone"></i><span>My Contact </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-clipboard"></i><span>My blog </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button class="common-btn global-add" onclick="showModal('addRule')">
+            <i class="icon-plus"></i> <span>New Post</span>
+          </button>
+        </div>
+      </nav>
+
+      <main role="main" class="main col-md-12 ml-sm-auto col-lg-9">
+        <div class="row" style="position: relative;">
+          <div class="col-md-8">
+            <div class="main-inner">
+              <div class="widget">
+                <div class="widget-head">
+                  <a href="#" class="user-avatar">
+                    <div class="mask">
+                      <img class="mask-img" src="images/man_avatar1.jpg" alt="" />
+                      <svg>
+                        <use xlink:href="#icon-mask"></use>
+                      </svg>
+                    </div>
+                    <div class="user-avatar-name">
+                      <h4>Nusa Penida</h4>
+                      <span>12:53 PM · Sep 22, 2022</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="widget-inner">
+                  <div class="post">
+                    <p>Finally, the focus on catalyzing payments innovation is part and parcel to the evolution of the
+                      financial services industry at large, and brings into focus the kind of impact it can have on
+                      financial inclusion especially for low and moderate income (LMI) communities. (8/9)</p>
+                    <span class="icon-time">Delivery Date: Sep 22, 2022</span>
+                    <img class="img-fluid" src="images/parcel-1.jpg" alt="">
+
+                  </div>
+                </div>
+                <div class="widget-footer">
+                  <div class="post-action">
+                    <ul>
+
+                      <li><a href="#">
+                          <i class="icon-message-square"></i>Message
+                        </a></li>
+                      <li><a href="#">
+                          <i class=" icon-share-2"></i>Share
+                        </a></li>
+                      <li><a href="#">
+                          <i class="icon-message-circle"></i>Comments
+                        </a></li>
+                      <li><a href="#">
+                          <i class="icon-alert"></i>Report
+                        </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="widget">
+                <div class="widget-head">
+                  <a href="#" class="user-avatar">
+                    <div class="mask">
+                      <img class="mask-img" src="images/women_avatar1.jpg" alt="" />
+                      <svg>
+                        <use xlink:href="#icon-mask"></use>
+                      </svg>
+                    </div>
+                    <div class="user-avatar-name">
+                      <h4>Nicole Engelbrecht</h4>
+                      <span>12:53 PM · Sep 22, 2022</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="widget-inner">
+                  <div class="post">
+                    <p>NEW for Autumn 2022! 🍁🍂🍁 With Toffee Apple Tea, Blackberry Preserve, Smoked Cheese Straws,
+                      Chocolate Leaves and more, Fortnum's Autumn Days Hamper is the perfect parcel to squirrel away
+                      with.</p>
+                    <span class="icon-time">Delivery Date: Sep 22, 2022</span>
+                    <img class="img-fluid" src="images/parcel-2.jpg" alt="">
+
+                  </div>
+                </div>
+                <div class="widget-footer">
+                  <div class="post-action">
+                    <ul>
+
+                      <li><a href="#">
+                          <i class="icon-message-square"></i>Message
+                        </a></li>
+                      <li><a href="#">
+                          <i class=" icon-share-2"></i>Share
+                        </a></li>
+                      <li><a href="#">
+                          <i class="icon-message-circle"></i>Comments
+                        </a></li>
+                      <li><a href="#">
+                          <i class="icon-alert"></i>Report
+                        </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="widget">
+                <div class="widget-head">
+                  <a href="#" class="user-avatar">
+                    <div class="mask">
+                      <img class="mask-img" src="images/man_avatar1.jpg" alt="" />
+                      <svg>
+                        <use xlink:href="#icon-mask"></use>
+                      </svg>
+                    </div>
+                    <div class="user-avatar-name">
+                      <h4>Nusa Penida</h4>
+                      <span>12:53 PM · Sep 22, 2022</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="widget-inner">
+                  <div class="post">
+                    <p>Finally, the focus on catalyzing payments innovation is part and parcel to the evolution of the
+                      financial services industry at large, and brings into focus the kind of impact it can have on
+                      financial inclusion especially for low and moderate income (LMI) communities. (8/9)</p>
+                    <span class="icon-time">Delivery Date: Sep 22, 2022</span>
+                    <img class="img-fluid" src="images/parcel-1.jpg" alt="">
+
+                  </div>
+                </div>
+                <div class="widget-footer">
+                  <div class="post-action">
+                    <ul>
+
+                      <li><a href="#">
+                          <i class="icon-message-square"></i>Message
+                        </a></li>
+                      <li><a href="#">
+                          <i class=" icon-share-2"></i>Share
+                        </a></li>
+                      <li><a href="#">
+                          <i class="icon-message-circle"></i>Comments
+                        </a></li>
+                      <li><a href="#">
+                          <i class="icon-alert"></i>Report
+                        </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4 twitter-sticky">
+            <blockquote class="twitter-tweet" style="margin-top: 10px;">
+              <p lang="en" dir="ltr">
+                I think it&#39;s entirely appropriate that the courier
+                delivery pin to receive my parcel from
+                <a href="https://twitter.com/CounterLove?ref_src=twsrc%5Etfw">@CounterLove</a>
+                was 911 because these limited edition Hertzoggie cookies are
+                criminally delicious!
+                <a href="https://t.co/1z52eA0Oor">pic.twitter.com/1z52eA0Oor</a>
+              </p>
+              &mdash; Nicole Engelbrecht (@the_pod_one)
+              <a href="https://twitter.com/the_pod_one/status/1572841559812411392?ref_src=twsrc%5Etfw">September 22,
+                2022</a>
+            </blockquote>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="modal" id="mymodal">
+    <div class="modal-inner text-center">
+      <span class="close" onclick="hideModal('mymodal')">
+        <img class="svg" src="images/close.svg" alt="close" />
+      </span>
+      <h3>Delete</h3>
+      <p>Are you sure you want to disble this item?</p>
+      <button type="submit" class="common-btn" name="button">Yes</button>
+      <button type="button" class="common-btn no" name="button" onclick="hideModal('mymodal')">
+        No
+      </button>
+    </div>
+  </div>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>
