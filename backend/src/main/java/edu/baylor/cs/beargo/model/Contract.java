@@ -8,24 +8,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-public class Product {
+public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private Double weight;
+    private LocalDate contractStartDate;
+
+    @Column(nullable = false)
+    private LocalDate contractEndDate;
 
     @OneToOne
     @JsonIdentityInfo(

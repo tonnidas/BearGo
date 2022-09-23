@@ -8,29 +8,37 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-public class Product {
+public class ProductPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private Double weight;
+    private String imageFilePath;
+
+    @Column(nullable = false)
+    private LocalDate expectedDeliveryDate;
 
     @OneToOne
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
     @JsonIdentityReference(alwaysAsId=true)
-    private ProductPost productPost;
+    private Product product;
+
+    @OneToOne
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIdentityReference(alwaysAsId=true)
+    private Contract contract;
 }
