@@ -28,6 +28,9 @@ public class Contract {
     @Column(nullable = false)
     private LocalDate contractEndDate;
 
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus deliveryStatus;
+
     @OneToOne
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
