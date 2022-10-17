@@ -22,7 +22,7 @@ public class ProductPost {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column
     private String imageFilePath;
 
     @Column(nullable = false)
