@@ -3,6 +3,7 @@ package edu.baylor.cs.beargo;
 import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.repository.ProductRepository;
 import edu.baylor.cs.beargo.service.MyService;
+import edu.baylor.cs.beargo.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,24 +18,25 @@ import java.util.List;
 @DataJpaTest
 public class ExampleTest {
     @Autowired
-    private ProductRepository repository; // @DataJpaTest will initialize a transactional repository
-    private MyService service; // do not mock, instead use the autowired repository
+    private ProductRepository productRepository;
+    private ProductService productService;
 
     @BeforeEach
     public void initService() {
-        service = new MyService(repository);
-        service.populate();
+        productService = new ProductService(productRepository);
+        MyService myService = new MyService(productRepository);
+        myService.populate();
     }
 
     @Test
     public void getProductsTest() {
-        List<Product> products = service.getProducts(null);
+        List<Product> products = productService.getProducts(null);
         assert (products.size() == 3);
     }
 
     @Test
     public void findByMinimumWeightTest() {
-        List<Product> products = repository.findByMinimumWeight(21);
+        List<Product> products = productRepository.findByMinimumWeight(21);
         assert (products.size() == 2);
     }
 }
