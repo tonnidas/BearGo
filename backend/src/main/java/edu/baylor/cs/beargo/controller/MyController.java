@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class MyController {
     MyService service;
 
     // TODO: remove this in production
-    @GetMapping("/populate")
+    @PostMapping("/populate")
+    @PreAuthorize("hasRole('ADMIN')")
     public HttpStatus populate() {
         service.populate();
         return HttpStatus.OK;
