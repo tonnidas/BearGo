@@ -27,4 +27,12 @@ public class AdminController {
         List<User> admins = adminService.getAdmins();
         return new ResponseEntity<>(admins, HttpStatus.OK);
     }
+
+    // Get all users
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<User>> users() {
+        List<User> users = adminService.getUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }
