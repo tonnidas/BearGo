@@ -32,10 +32,15 @@ public class AdminService {
 
     // Get admin by id
     public User getAdminById(Long id) {
-        Optional<User> admin = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
 
-        if (admin.isPresent()) {
-            return admin.get();
+        if (user.isPresent()) {
+            if (user.get().getIsAdmin()) {
+                return user.get();
+            }
+            else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Admin record exists for given admin id (However, user record exists)");
+            }
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Admin record exists for given admin id");
         }

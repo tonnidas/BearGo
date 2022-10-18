@@ -1,11 +1,8 @@
 package edu.baylor.cs.beargo.controller;
 
-import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,6 +34,7 @@ public class AdminController {
 
     // Get admin by id
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> getAdminById(@PathVariable("id") Long id) {
         User admin = adminService.getAdminById(id);
         return new ResponseEntity<>(admin, HttpStatus.OK);
