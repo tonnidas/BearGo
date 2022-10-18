@@ -35,4 +35,14 @@ public class Contract {
     @OneToOne(mappedBy = "contract") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
     private ProductPost productPost;
+
+    @ManyToOne // owning-side
+    @JoinColumn(name = "sender_id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private User sender;
+
+    @ManyToOne // owning-side
+    @JoinColumn(name = "traveler_id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private User traveler;
 }

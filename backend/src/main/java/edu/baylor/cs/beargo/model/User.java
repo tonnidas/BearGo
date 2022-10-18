@@ -2,6 +2,7 @@ package edu.baylor.cs.beargo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
@@ -13,10 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -47,6 +45,14 @@ public class User implements UserDetails {
     private String state;
     private String zip;
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "sender") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Contract> senderContracts = new HashSet<>();
+
+    @OneToMany(mappedBy = "traveler") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Contract> travelerContracts = new HashSet<>();
 
     public List<String> getRoles() {
         if (this.isAdmin) {
