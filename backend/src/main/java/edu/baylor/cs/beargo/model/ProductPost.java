@@ -28,6 +28,22 @@ public class ProductPost {
     @Column(nullable = false)
     private LocalDate expectedDeliveryDate;
 
+    @OneToOne // owning-side
+    @JoinColumn(name = "source_address_id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIdentityReference(alwaysAsId=true)
+    private Address source;
+
+    @OneToOne // owning-side
+    @JoinColumn(name = "destination_address_id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIdentityReference(alwaysAsId=true)
+    private Address destination;
+
     @OneToOne
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
