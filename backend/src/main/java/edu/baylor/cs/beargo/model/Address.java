@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,16 +35,10 @@ public class Address {
     private String country;
 
     @OneToOne(mappedBy = "source") // inverse-side
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private ProductPost sourceProductPost;
 
     @OneToOne(mappedBy = "destination") // inverse-side
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private ProductPost destinationProductPost;
 }

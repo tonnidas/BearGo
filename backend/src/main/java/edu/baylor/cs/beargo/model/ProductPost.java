@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProductPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,31 +31,21 @@ public class ProductPost {
 
     @OneToOne // owning-side
     @JoinColumn(name = "source_address_id")
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     private Address source;
 
     @OneToOne // owning-side
     @JoinColumn(name = "destination_address_id")
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId = true)
     private Address destination;
 
-    @OneToOne
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @OneToOne // owning-side
+    @JoinColumn(name = "product_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Product product;
 
-    @OneToOne
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @OneToOne // owning-side
+    @JoinColumn(name = "contract_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Contract contract;
 }

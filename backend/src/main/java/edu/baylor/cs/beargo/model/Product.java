@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +28,7 @@ public class Product {
     @Column(nullable = false)
     private Double weight;
 
-    @OneToOne
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @OneToOne(mappedBy = "product") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
     private ProductPost productPost;
 }
