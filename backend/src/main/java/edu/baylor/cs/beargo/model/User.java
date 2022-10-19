@@ -54,6 +54,14 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Contract> travelerContracts = new HashSet<>();
 
+    @OneToMany(mappedBy = "complainedBy") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ProductPostComplain> productPostComplains = new HashSet<>();
+
+    @OneToMany(mappedBy = "resolvedBy") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ProductPostComplain> reviewedComplains = new HashSet<>();
+
     public List<String> getRoles() {
         if (this.isAdmin) {
             return Arrays.asList("ROLE_ADMIN", "ROLE_USER");

@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -48,4 +50,8 @@ public class ProductPost {
     @JoinColumn(name = "contract_id")
     @JsonIdentityReference(alwaysAsId = true)
     private Contract contract;
+
+    @OneToMany(mappedBy = "productPost") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ProductPostComplain> productPostComplains = new HashSet<>();
 }
