@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ProductPostComplain {
+public class ProductPostComplaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,8 +29,11 @@ public class ProductPostComplain {
     @Column(nullable = false)
     private LocalDate complainDate;
 
+    @Column
+    private LocalDate resolveDate;
+
     @ManyToOne // owning-side
-    @JoinColumn(name = "productPost_id")
+    @JoinColumn(name = "product_post_id")
     @JsonIdentityReference(alwaysAsId = true)
     private ProductPost productPost;
 

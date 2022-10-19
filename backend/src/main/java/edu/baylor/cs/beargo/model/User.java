@@ -56,11 +56,11 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "complainedBy") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<ProductPostComplain> productPostComplains = new HashSet<>();
+    private Set<ProductPostComplaint> createdComplaints = new HashSet<>();
 
     @OneToMany(mappedBy = "resolvedBy") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<ProductPostComplain> reviewedComplains = new HashSet<>();
+    private Set<ProductPostComplaint> reviewedComplaints = new HashSet<>();
 
     public List<String> getRoles() {
         if (this.isAdmin) {
