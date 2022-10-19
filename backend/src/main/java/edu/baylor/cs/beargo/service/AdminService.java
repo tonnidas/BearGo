@@ -37,8 +37,7 @@ public class AdminService {
         if (user.isPresent()) {
             if (user.get().getIsAdmin()) {
                 return user.get();
-            }
-            else {
+            } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Admin record exists for given admin id (However, user record exists)");
             }
         } else {
@@ -47,7 +46,6 @@ public class AdminService {
     }
 
     // Promote user to admin
-
 
 
 }
