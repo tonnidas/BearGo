@@ -45,6 +45,8 @@ public class ProductPostComplaintService {
 
         return productPostComplaintRepository.save(complaint);
 
-        // TODO: check complaints count for the product post and send notification
+        // TODO: check complaints count for the product post and send notification - Tonni
     }
+
+    // TODO: Review a complain and send notification of reviewing to complainers - Tonni
 }

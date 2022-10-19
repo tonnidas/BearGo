@@ -23,7 +23,7 @@ public class Contract {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate contractStartDate;
 
     @Column(nullable = false)

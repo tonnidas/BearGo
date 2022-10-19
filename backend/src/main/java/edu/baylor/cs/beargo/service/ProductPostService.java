@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -53,7 +52,7 @@ public class ProductPostService {
         // create contract
         Contract contract = new Contract();
         contract.setDescription(user.getUsername() + " is looking for a traveler to deliver a product within " + productPost.getExpectedDeliveryDate() + ".");
-        contract.setContractStartDate(LocalDate.now()); // not sure
+        contract.setContractStartDate(null); // not sure: LocalDate.now()
         contract.setContractEndDate(productPost.getExpectedDeliveryDate());
         contract.setDeliveryStatus(DeliveryStatus.SEARCHING_TRAVELER);
         contract.setProductPost(productPost);
@@ -74,5 +73,5 @@ public class ProductPostService {
         }
     }
 
-    // TODO: update product post - Swapnil
+    // TODO: Update product post - Swapnil
 }
