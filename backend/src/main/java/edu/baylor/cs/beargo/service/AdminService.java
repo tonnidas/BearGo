@@ -20,17 +20,23 @@ public class AdminService {
     @Autowired
     UserRepository userRepository;
 
-    // Get all admins
+    /**
+     * @return A list of all admins
+     */
     public List<User> getAdmins() {
         return userRepository.findByIsAdminTrue();
     }
 
-    // Get all users
+    /**
+     * @return A list of all users
+     */
     public List<User> getUsers() {
         return userRepository.findByIsAdminFalse();
     }
 
-    // Get admin by id
+    /**
+     * @return An admin by id
+     */
     public User getAdminById(Long id) {
         Optional<User> user = userRepository.findById(id);
 
@@ -45,7 +51,8 @@ public class AdminService {
         }
     }
 
-    // Promote user to admin
-
-
+    /**
+     * TODO: Promote user to admin
+     * @return
+     */
 }
