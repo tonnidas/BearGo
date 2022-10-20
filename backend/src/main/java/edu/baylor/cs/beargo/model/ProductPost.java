@@ -54,4 +54,8 @@ public class ProductPost {
     @OneToMany(mappedBy = "productPost") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
     private Set<ProductPostComplaint> complaints = new HashSet<>();
+
+    @OneToMany(mappedBy = "commentedProductPost") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ProductPostComment> comments = new HashSet<>();
 }
