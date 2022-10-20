@@ -55,10 +55,28 @@ public class UserService implements UserDetailsService {
         return jwtTokenProvider.createToken(username, user.getRoles());
     }
 
-    // Register user
+    /**
+     * This method registers a user.
+     * It always sets isAdmin to false during registration.
+     * By default, one admin will be created during application startup.
+     * Later that admin can promote other user to admin.
+     *
+     * @param user the User object
+     * @return created User object
+     */
     public User register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setIsAdmin(false);
         return userRepository.save(user);
+    }
+
+    public User registerAdmin(String email, String password, String name) {
+        User adminUser = new User();
+        adminUser.setIsAdmin(true);
+        adminUser.setUsername(email);
+        adminUser.setPassword(passwordEncoder.encode(password));
+        adminUser.setFullname(name);
+        return userRepository.save(adminUser);
     }
 
     public User findUserById(Long id) {
