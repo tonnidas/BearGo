@@ -20,6 +20,12 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    /**
+     * Checks if the name parameter exists - if does not exist, returns all products, if exists, returns that product
+     *
+     * @param name the product name
+     * @return product
+     */
     public List<Product> getProducts(String name) {
         if (name == null) {
             return productRepository.findAll();
@@ -28,6 +34,12 @@ public class ProductService {
         }
     }
 
+    /**
+     * Checks if the product id is valid
+     *
+     * @param id the product id
+     * @return product
+     */
     public Product getProductById(Long id) {
         Optional<Product> product = productRepository.findById(id);
 
@@ -38,15 +50,30 @@ public class ProductService {
         }
     }
 
+    /**
+     * @param product the product instance
+     * @return the product
+     */
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 
+
+    // TODO: have to check constraints for product instance updating and deleting
+
+    /**
+     * @param id      the product id
+     * @param product the product instance
+     * @return product
+     */
     public Product updateProduct(Long id, Product product) {
         product.setId(id);
         return productRepository.save(product);
     }
 
+    /**
+     * @param id the product id
+     */
     public void deleteProduct(Long id) {
         Optional<Product> product = productRepository.findById(id);
 

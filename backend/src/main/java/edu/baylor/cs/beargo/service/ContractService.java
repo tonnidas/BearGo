@@ -31,12 +31,16 @@ public class ContractService {
     @Autowired
     ProductPostService productPostService;
 
-    // get all contracts
+    /**
+     * @return all contracts
+     */
     public List<Contract> getContracts() {
         return contractRepository.findAll();
     }
 
-    // get contracts by contract id
+    /**
+     * @return all contracts by contract id
+     */
     public Contract getContractById(Long id) {
         Optional<Contract> contract = contractRepository.findById(id);
 
@@ -47,12 +51,24 @@ public class ContractService {
         }
     }
 
-    // get all contracts by user id
+    /**
+     * @return all contracts as sender and all contracts as traveler
+     */
     public UserContracts getContractByUserId(Long id) {
         User user = userService.findUserById(id);
         return new UserContracts(user.getId(), user.getSenderContracts(), user.getTravelerContracts());
     }
 
+    /**
+     * Checks if the sender is the logged user
+     * Checks if the sender is not the traveler
+     * Adds traveler to the contract and sets the delivery status as INITIATED and sets the time
+     *
+     * @param user          the authenticated user
+     * @param productPostId the corresponding product post id
+     * @param travelerId    the traveler Id
+     * @return created contract
+     */
     public Contract confirmContract(User user, Long productPostId, Long travelerId) {
         ProductPost productPost = productPostService.findProductPostById(productPostId);
         Contract contract = productPost.getContract();

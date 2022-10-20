@@ -36,7 +36,20 @@ public class ProductPostService {
     @Autowired
     ProductPostRepository productPostRepository;
 
-    // create product post
+    /**
+     * Checks if the source and destination for the product is given
+     * Checks if the product instance is given
+     * Creates a product instance and a contract instance
+     * Sets contract start date null and contract end date as the product post expected delivery date
+     * Sets a description to contract
+     * Sets the product post to contract
+     * Sets the logged user as sender to contract
+     * Sets teh delivery status as "searching for traveler"
+     *
+     * @param user        the authenticated user
+     * @param productPost the product post instance
+     * @return created product post
+     */
     public ProductPost createProductPost(User user, ProductPost productPost) {
         if (productPost.getSource() == null || productPost.getDestination() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Source and destination cannot be empty");
@@ -64,6 +77,12 @@ public class ProductPostService {
         return productPostRepository.save(productPost);
     }
 
+    /**
+     * Checks if the product exists
+     *
+     * @param id the product id
+     * @return product
+     */
     public ProductPost findProductPostById(Long id) {
         Optional<ProductPost> optionalProductPost = productPostRepository.findById(id);
         if (optionalProductPost.isPresent()) {

@@ -24,6 +24,16 @@ public class ProductPostComplaintService {
     @Autowired
     ProductPostService productPostService;
 
+    /**
+     * Checks if the complained product post is valid
+     * Checks if the complainer is not complaining against own product post
+     * Adds logged user, product post, date to the complaint
+     * Sets resolving attributes null as complaint is not resolved during creation
+     *
+     * @param user      the authenticated user
+     * @param complaint the corresponding product post id
+     * @return created contract
+     */
     public ProductPostComplaint createComplaint(User user, ProductPostComplaint complaint) {
         if (complaint.getProductPost() == null || complaint.getProductPost().getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Complaint should have a ProductPost ID");

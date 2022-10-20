@@ -70,6 +70,9 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    /**
+     * @return created admin object
+     */
     public User registerAdmin(String email, String password, String name) {
         User adminUser = new User();
         adminUser.setIsAdmin(true);
@@ -79,6 +82,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(adminUser);
     }
 
+    /**
+     * @param id the user id
+     * @return the user
+     */
     public User findUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
 
