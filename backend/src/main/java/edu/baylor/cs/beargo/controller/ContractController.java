@@ -21,7 +21,7 @@ public class ContractController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Contract>> contracts() {
+    public ResponseEntity<List<Contract>> getContracts() {
         List<Contract> contracts = contractService.getContracts();
         return new ResponseEntity<>(contracts, HttpStatus.OK);
     }
@@ -42,6 +42,12 @@ public class ContractController {
     @PostMapping("/confirmContract")
     public ResponseEntity<Contract> confirmContract(@AuthenticationPrincipal User user, @RequestParam Long productPostId, @RequestParam Long travelerId) {
         Contract updatedContract = contractService.confirmContract(user, productPostId, travelerId);
+        return new ResponseEntity<>(updatedContract, HttpStatus.OK);
+    }
+
+    @PostMapping("/reviewAndRate")
+    public ResponseEntity<Contract> reviewAndRate(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam Integer rating, @RequestParam String review) {
+        Contract updatedContract = contractService.reviewAndRate(user, contractId, rating, review);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 }
