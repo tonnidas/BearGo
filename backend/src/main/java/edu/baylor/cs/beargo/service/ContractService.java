@@ -55,14 +55,14 @@ public class ContractService {
      * @return all contracts as sender and all contracts as traveler
      */
     public UserContracts getContractByUserId(Long id) {
-        User user = userService.findUserById(id);
+        User user = userService.getUserById(id);
         return new UserContracts(user.getId(), user.getSenderContracts(), user.getTravelerContracts());
     }
 
     /**
-     * Checks if the sender is the logged user
-     * Checks if the sender is not the traveler
-     * Adds traveler to the contract and sets the delivery status as INITIATED and sets the time
+     * Checks if the sender is the logged user.
+     * Checks if the sender is not the traveler.
+     * Adds traveler to the contract and sets the delivery status as INITIATED and sets the time.
      *
      * @param user          the authenticated user
      * @param productPostId the corresponding product post id
@@ -70,7 +70,7 @@ public class ContractService {
      * @return created contract
      */
     public Contract confirmContract(User user, Long productPostId, Long travelerId) {
-        ProductPost productPost = productPostService.findProductPostById(productPostId);
+        ProductPost productPost = productPostService.getProductPostById(productPostId);
         Contract contract = productPost.getContract();
 
         if (!user.getId().equals(contract.getSender().getId())) {
@@ -81,7 +81,7 @@ public class ContractService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sender and traveler cannot be same");
         }
 
-        User traveler = userService.findUserById(travelerId);
+        User traveler = userService.getUserById(travelerId);
 
         contract.setTraveler(traveler);
         contract.setDeliveryStatus(DeliveryStatus.INITIATED);

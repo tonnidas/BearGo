@@ -39,7 +39,7 @@ public class ProductPostComplaintService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Complaint should have a ProductPost ID");
         }
 
-        ProductPost productPost = productPostService.findProductPostById(complaint.getProductPost().getId());
+        ProductPost productPost = productPostService.getProductPostById(complaint.getProductPost().getId());
 
         if (productPost.getContract().getSender().getId().equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot complaint against own ProductPost, update or delete ProductPost instead");

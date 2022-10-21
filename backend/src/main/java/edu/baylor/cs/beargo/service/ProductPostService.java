@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +36,28 @@ public class ProductPostService {
 
     @Autowired
     ProductPostRepository productPostRepository;
+
+    /**
+     * @return all ProductPosts
+     */
+    public List<ProductPost> getProductPosts() {
+        return productPostRepository.findAll();
+    }
+
+    /**
+     * Checks if the product exists
+     *
+     * @param id the product id
+     * @return product
+     */
+    public ProductPost getProductPostById(Long id) {
+        Optional<ProductPost> optionalProductPost = productPostRepository.findById(id);
+        if (optionalProductPost.isPresent()) {
+            return optionalProductPost.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No product post record exist for given id");
+        }
+    }
 
     /**
      * Checks if the source and destination for the product is given
@@ -75,21 +98,6 @@ public class ProductPostService {
         // set contract to product post
         productPost.setContract(contract);
         return productPostRepository.save(productPost);
-    }
-
-    /**
-     * Checks if the product exists
-     *
-     * @param id the product id
-     * @return product
-     */
-    public ProductPost findProductPostById(Long id) {
-        Optional<ProductPost> optionalProductPost = productPostRepository.findById(id);
-        if (optionalProductPost.isPresent()) {
-            return optionalProductPost.get();
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No product post record exist for given id");
-        }
     }
 
     // TODO: Update product post - Swapnil

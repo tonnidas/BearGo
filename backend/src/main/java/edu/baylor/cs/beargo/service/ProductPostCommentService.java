@@ -39,7 +39,7 @@ public class ProductPostCommentService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Comment cannot be empty text");
         }
 
-        ProductPost productPost = productPostService.findProductPostById(productPostId);
+        ProductPost productPost = productPostService.getProductPostById(productPostId);
         productPostComment.setCommentedProductPost(productPost);
         productPostComment.setCommentTime(LocalDateTime.now());
         productPostComment.setCommentedBy(user);

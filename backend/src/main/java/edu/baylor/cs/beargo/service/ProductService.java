@@ -21,7 +21,7 @@ public class ProductService {
     ProductRepository productRepository;
 
     /**
-     * Checks if the name parameter exists - if does not exist, returns all products, if exists, returns that product
+     * Checks if the name parameter exists - if it does not exist, returns all products, if exists, returns that product
      *
      * @param name the product name
      * @return product

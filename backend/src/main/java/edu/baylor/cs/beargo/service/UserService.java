@@ -86,7 +86,7 @@ public class UserService implements UserDetailsService {
      * @param id the user id
      * @return the user
      */
-    public User findUserById(Long id) {
+    public User getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
 
         if (optionalUser.isPresent()) {
