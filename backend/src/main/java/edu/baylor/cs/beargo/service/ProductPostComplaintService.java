@@ -34,12 +34,14 @@ public class ProductPostComplaintService {
      * @param complaint the corresponding product post id
      * @return created contract
      */
-    public ProductPostComplaint createComplaint(User user, ProductPostComplaint complaint) {
-        if (complaint.getProductPost() == null || complaint.getProductPost().getId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Complaint should have a ProductPost ID");
+    public ProductPostComplaint createComplaint(User user, ProductPostComplaint complaint, Long productPostId) {
+        if (complaint == null || productPostId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Complaint or ProductPost ID cannot be null");
+        } else if (complaint.getReason() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reason cannot be empty text");
         }
 
-        ProductPost productPost = productPostService.getProductPostById(complaint.getProductPost().getId());
+        ProductPost productPost = productPostService.getProductPostById(productPostId);
 
         if (productPost.getContract().getSender().getId().equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot complaint against own ProductPost, update or delete ProductPost instead");

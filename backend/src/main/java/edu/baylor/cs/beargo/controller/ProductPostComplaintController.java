@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/complaints")
@@ -20,8 +17,8 @@ public class ProductPostComplaintController {
 
     // Create Product post complaint
     @PostMapping
-    public ResponseEntity<ProductPostComplaint> createComplain(@AuthenticationPrincipal User user, @RequestBody ProductPostComplaint productPostComplaint) {
-        ProductPostComplaint createdComplaint = productPostComplaintService.createComplaint(user, productPostComplaint);
+    public ResponseEntity<ProductPostComplaint> createComplain(@AuthenticationPrincipal User user, @RequestBody ProductPostComplaint productPostComplaint, @RequestParam Long productPostId) {
+        ProductPostComplaint createdComplaint = productPostComplaintService.createComplaint(user, productPostComplaint, productPostId);
         return new ResponseEntity<>(createdComplaint, HttpStatus.OK);
     }
 }
