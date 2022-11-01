@@ -145,7 +145,7 @@
               </li>
             </ul>
           </div>
-          <button class="common-btn global-add">
+          <button class="common-btn global-add" onclick="showModal('addRule')">
             <i class="icon-plus"></i> <span>New Post</span>
           </button>
         </div>
@@ -172,167 +172,67 @@
                 </div>
                 <div class="widget-inner">
                   <div class="post">
-                    <p>Finally, the focus on catalyzing payments innovation is part and parcel to the evolution of the
-                      financial services industry at large, and brings into focus the kind of impact it can have on
-                      financial inclusion especially for low and moderate income (LMI) communities. (8/9)</p>
-                    <span class="icon-time">Delivery Date: Sep 22, 2022</span>
-                    <img class="img-fluid" src="images/parcel-1.jpg" alt="">
-
-                  </div>
-                </div>
-                <div class="widget-footer">
-                  <div class="post-action">
-                    <ul>
-
-                      <li><a href="#">
-                          <i class="icon-message-square"></i>Message
-                        </a></li>
-                      <li><a href="#">
-                          <i class=" icon-share-2"></i>Share
-                        </a></li>
-                      <li><a data-toggle="collapse" href="#collapsecomments" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        <i class="icon-message-circle"></i>Comments
-                      </a></li>
-                      <li><a href="#">
-                          <i class="icon-alert"></i>Report
-                        </a></li>
-                    </ul>
-                  </div>
-                  <div class="collapse comments" id="collapsecomments">
-                    <ul>
-                      <li>
-                        <div class="comment-box">
-                          <div class="mask">
-                            <img class="mask-img" src="images/man_avatar1.jpg" alt="" />
-                            <svg>
-                              <use xlink:href="#icon-mask"></use>
-                            </svg>
+                    <form action="#">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="" class="form-control" rows="5"></textarea>
                           </div>
-                          <div class="comment-box-content">
-                            <div class="user-avatar-name">
-                              <h4>Nicole Engelbrecht</h4>
-                              <span>12:53 PM · Sep 22, 2022</span>
+                          <div class="form-group">
+                            <img class="img-fluid" src="images/parcel-1.jpg" alt="">
+                          </div>
+                          <div class="form-group">
+                            <label class="upload-btn"> <i class="icon-upload"></i> Upload Image
+                              <input type="file" multiple>
+                            </label>
+                           
+                          </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Start Date</label>
+                              <input class="form-control" type="date" name="" value="" />
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Metus, felis, sed fames vel odio
-                              risus.</p>
-                              <a href="#">Reply</a>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>End Date</label>
+                              <input class="form-control" type="date" name="" value="" />
+                            </div>
                           </div>
                         </div>
-                        <ul>
-                          <li>
-                            <div class="comment-box">
-                              <div class="mask">
-                                <img class="mask-img" src="images/women_avatar1.jpg" alt="" />
-                                <svg>
-                                  <use xlink:href="#icon-mask"></use>
-                                </svg>
-                              </div>
-                              <div class="comment-box-content">
-                                <div class="user-avatar-name">
-                                  <h4>Nicole Engelbrecht</h4>
-                                  <span>12:53 PM · Sep 22, 2022</span>
-                                </div>
-                                <textarea class="form-control" name="" rows="2"></textarea>
-                              </div>
-                            </div>
-          
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
+                        <div class="form-group">
+                          <label>Source Location</label>
+                          <div class="select-style">
+                            <select name="#">
+                              <option value="">New York</option>
+                              <option value="">Los Angeles</option>
+                              <option value="">Chicago</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Destination Location</label>
+                          <div class="select-style">
+                            <select name="#">
+                              <option value="">New York</option>
+                              <option value="">Los Angeles</option>
+                              <option value="">Chicago</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="checkbox">
+                            <input type="checkbox" name="isblog" value="">
+                            <span class="checkmark"></span>
+                            is travel blog
+                        </label>
+                        </div>
+                        <button class="common-btn">Post</button>
+                      </form>
                   </div>
                 </div>
               </div>
-              <div class="widget">
-                <div class="widget-head">
-                  <a href="#" class="user-avatar">
-                    <div class="mask">
-                      <img class="mask-img" src="images/women_avatar1.jpg" alt="" />
-                      <svg>
-                        <use xlink:href="#icon-mask"></use>
-                      </svg>
-                    </div>
-                    <div class="user-avatar-name">
-                      <h4>Nicole Engelbrecht</h4>
-                      <span>12:53 PM · Sep 22, 2022</span>
-                    </div>
-                  </a>
-                </div>
-                <div class="widget-inner">
-                  <div class="post">
-                    <p>NEW for Autumn 2022! 🍁🍂🍁 With Toffee Apple Tea, Blackberry Preserve, Smoked Cheese Straws,
-                      Chocolate Leaves and more, Fortnum's Autumn Days Hamper is the perfect parcel to squirrel away
-                      with.</p>
-                    <span class="icon-time">Delivery Date: Sep 22, 2022</span>
-                    <img class="img-fluid" src="images/parcel-2.jpg" alt="">
-
-                  </div>
-                </div>
-                <div class="widget-footer">
-                  <div class="post-action">
-                    <ul>
-
-                      <li><a href="#">
-                          <i class="icon-message-square"></i>Message
-                        </a></li>
-                      <li><a href="#">
-                          <i class=" icon-share-2"></i>Share
-                        </a></li>
-                      <li><a href="#">
-                          <i class="icon-message-circle"></i>Comments
-                        </a></li>
-                      <li><a href="#">
-                          <i class="icon-alert"></i>Report
-                        </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="widget">
-                <div class="widget-head">
-                  <a href="#" class="user-avatar">
-                    <div class="mask">
-                      <img class="mask-img" src="images/man_avatar1.jpg" alt="" />
-                      <svg>
-                        <use xlink:href="#icon-mask"></use>
-                      </svg>
-                    </div>
-                    <div class="user-avatar-name">
-                      <h4>Nusa Penida</h4>
-                      <span>12:53 PM · Sep 22, 2022</span>
-                    </div>
-                  </a>
-                </div>
-                <div class="widget-inner">
-                  <div class="post">
-                    <p>Finally, the focus on catalyzing payments innovation is part and parcel to the evolution of the
-                      financial services industry at large, and brings into focus the kind of impact it can have on
-                      financial inclusion especially for low and moderate income (LMI) communities. (8/9)</p>
-                    <span class="icon-time">Delivery Date: Sep 22, 2022</span>
-                    <img class="img-fluid" src="images/parcel-1.jpg" alt="">
-
-                  </div>
-                </div>
-                <div class="widget-footer">
-                  <div class="post-action">
-                    <ul>
-
-                      <li><a href="#">
-                          <i class="icon-message-square"></i>Message
-                        </a></li>
-                      <li><a href="#">
-                          <i class=" icon-share-2"></i>Share
-                        </a></li>
-                      <li><a href="#">
-                          <i class="icon-message-circle"></i>Comments
-                        </a></li>
-                      <li><a href="#">
-                          <i class="icon-alert"></i>Report
-                        </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            
 
             </div>
           </div>
