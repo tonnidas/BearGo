@@ -1,8 +1,9 @@
-import TopBar from "./topBar/TopBar";
+import FrontPage from "./FrontPage/FrontPage";
+import CreatePost from "./CreatePost/CreatePost";
 
 function App() {
   return (
-   <TopBar/>
+   <FrontPage/>
   );
 }
 

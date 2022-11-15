@@ -1,4 +1,5 @@
-import "./topBar.css"
+import "./FrontPage.css"
+
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -7,9 +8,11 @@ import image_woman from "../images/women_avatar1.jpg"
 import logo_white from "../images/logo-white.svg"
 import parcel_1 from "../images/parcel-1.jpg"
 import parcel_2 from "../images/parcel-2.jpg"
+import favicon from "../images/favicon.ico"
+import admin from "../images/admin.jpg"
 
 
-export default function TopBar() {
+export default function FrontPage() {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -24,8 +27,16 @@ export default function TopBar() {
   }, []);
   let url = ""
   return (
+    
     <div>
-
+      <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href={favicon} type="image/x-icon" rel="shortcut icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  {/* <!-- Bootstrap CSS --> */}
+  <link rel="stylesheet" href="./FrontPage.css" />
+  <title>Dashboard</title>
+  
       <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="col-md-3 sidebar-top">
           <a class="navbar-brand" href={url}><img src={logo_white} alt="" />
@@ -60,7 +71,7 @@ export default function TopBar() {
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href={url} id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <img src="../images/admin.jpg" alt="" />
+                <img src={admin} alt="" />
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <h3>Jhon Doe</h3>
@@ -275,6 +286,9 @@ export default function TopBar() {
           </main>
         </div>
       </div>
+      <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
     </div>
   )
 }
