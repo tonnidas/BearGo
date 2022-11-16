@@ -26,6 +26,9 @@ public class MessageService {
 
     public List<Message> getAllmsg(Long uid){
 
+        List<Message> msgList = msgRepo.findByfromUser(uid);
+        return msgList;
+
 
     }
 }
