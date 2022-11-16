@@ -71,6 +71,14 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Notification> notifieduser = new HashSet<>();
 
+    @OneToMany(mappedBy = "fromUser") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Message> msgFrom = new HashSet<>();
+
+    @OneToMany(mappedBy = "toUser") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Message> msgTo = new HashSet<>();
+
     public List<String> getRoles() {
         if (this.isAdmin) {
             return Arrays.asList("ROLE_ADMIN", "ROLE_USER");
