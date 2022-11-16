@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +18,14 @@ public class MessageService {
     MessageRepository msgRepo;
 
     public Message saveMsg(Message m){
-        
+
         Message savedMsg = msgRepo.save(m);
         return savedMsg;
+
+    }
+
+    public List<Message> getAllmsg(Long uid){
+
 
     }
 }
