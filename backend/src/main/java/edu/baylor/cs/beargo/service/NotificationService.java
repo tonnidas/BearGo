@@ -19,7 +19,6 @@ public class NotificationService {
     NotificationRepository repo;
 
     public List<Notification> getNotification(Long uid){
-
         List<Notification> notificationList = repo.findByNotifyuser(uid);
         return notificationList;
 
