@@ -2,8 +2,10 @@ package edu.baylor.cs.beargo;
 
 import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.repository.ProductRepository;
+import edu.baylor.cs.beargo.repository.UserRepository;
 import edu.baylor.cs.beargo.service.MyService;
 import edu.baylor.cs.beargo.service.ProductService;
+import edu.baylor.cs.beargo.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,12 +21,19 @@ import java.util.List;
 public class ExampleTest {
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     private ProductService productService;
+
+    private UserService userService;
 
     @BeforeEach
     public void initService() {
         productService = new ProductService(productRepository);
-        MyService myService = new MyService(productRepository);
+        userService = new UserService();
+        MyService myService = new MyService(productRepository, userRepository);
         myService.populate();
     }
 
