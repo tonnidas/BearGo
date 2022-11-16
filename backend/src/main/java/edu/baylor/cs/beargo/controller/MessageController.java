@@ -4,6 +4,7 @@ import edu.baylor.cs.beargo.model.Message;
 
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.MessageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/Message")
 public class MessageController {
@@ -25,6 +27,7 @@ public class MessageController {
     public ResponseEntity<List<Message>> getMsgList(@AuthenticationPrincipal User user) {
 
         Long uid = user.getId();
+        log.info("{}" + user);
         List<Message> msgList = msgService.getAllmsg(uid);
         return new ResponseEntity<>(msgList, HttpStatus.OK);
     }
@@ -32,6 +35,7 @@ public class MessageController {
     @GetMapping("/{uid}")
     public ResponseEntity<Message> saveMsg(@AuthenticationPrincipal User user, Message m) {
 
+        log.info("{}" + user);
         Message msg = msgService.saveMsg(m);
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
