@@ -96,5 +96,43 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    // user is current user
+    // user details represents updated fields
+    public User updateUser(User updatedUser, User user) {
+        // copy the fields that are allowed to update
+        // username/email and associations are not allowed to update
+        if (updatedUser.getFullname() != null) {
+            user.setFullname(updatedUser.getFullname());
+        }
+        if (updatedUser.getStreet() != null) {
+            user.setStreet(updatedUser.getStreet());
+        }
+        if (updatedUser.getCity() != null) {
+            user.setCity(updatedUser.getCity());
+        }
+        if (updatedUser.getState() != null) {
+            user.setState(updatedUser.getState());
+        }
+        if (updatedUser.getZip() != null) {
+            user.setZip(updatedUser.getZip());
+        }
+        if (updatedUser.getPhoneNumber() != null) {
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+        }
+
+
+        // TODO: update password more elegantly
+        if (updatedUser.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
+
+        user = userRepository.save(user);
+
+        // save the activity
+        // activityService.saveUpdatedProfileActivity(user);
+
+        return user;
+    }
+
     // TODO: Ban a user for 6 months or a year or forever from the system - Maisha
 }
