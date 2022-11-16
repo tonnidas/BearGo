@@ -5,6 +5,7 @@ import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.NotificationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/notification")
 public class NotificationController {
@@ -27,6 +29,8 @@ public class NotificationController {
     public ResponseEntity<List<Notification>> getNotification(@AuthenticationPrincipal User user) {
 
         Long uid = user.getId();
+
+        log.info("{}" + user);
         List<Notification> notificationList = notificationService.getNotification(uid);
         return new ResponseEntity<>(notificationList, HttpStatus.OK);
     }
