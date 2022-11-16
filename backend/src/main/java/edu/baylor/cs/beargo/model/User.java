@@ -79,6 +79,10 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Message> msgTo = new HashSet<>();
 
+    @OneToMany(mappedBy = "postedBy") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<BlogPost> blogPosts = new HashSet<>();
+
     public List<String> getRoles() {
         if (this.isAdmin) {
             return Arrays.asList("ROLE_ADMIN", "ROLE_USER");
