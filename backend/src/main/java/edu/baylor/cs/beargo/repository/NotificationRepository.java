@@ -1,2 +1,14 @@
-package edu.baylor.cs.beargo.repository;public interface NotificationRepository {
+package edu.baylor.cs.beargo.repository;
+
+
+import edu.baylor.cs.beargo.model.Notification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+
+    List<Notification> findByNotifyuser(Long id);
 }

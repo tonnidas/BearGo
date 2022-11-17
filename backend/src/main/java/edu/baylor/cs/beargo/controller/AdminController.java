@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,5 +42,13 @@ public class AdminController {
     public ResponseEntity<User> getAdminById(@PathVariable("id") Long id) {
         User admin = adminService.getAdminById(id);
         return new ResponseEntity<>(admin, HttpStatus.OK);
+    }
+
+    // Promote a user to be admin
+    @GetMapping("/promote/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<User> promote(@PathVariable("id") Long id) {
+        User promotedUser = adminService.promoteUser(id);
+        return new ResponseEntity<>(promotedUser, HttpStatus.OK);
     }
 }

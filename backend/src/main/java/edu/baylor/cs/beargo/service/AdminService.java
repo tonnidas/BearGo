@@ -52,7 +52,22 @@ public class AdminService {
     }
 
     /**
-     * TODO: Promote user to admin
+     * TODO: Promote user by id to be an admin
      * @return
      */
+    public User promoteUser(Long id) {
+        Optional<User> candidateUser = userRepository.findById(id);
+
+        if (candidateUser.isPresent()) {
+            if (candidateUser.get().getIsAdmin()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is already an Admin");
+            } else {
+                User promotedUser = candidateUser.get();
+                promotedUser.setIsAdmin(Boolean.TRUE);
+                return userRepository.save(promotedUser);
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No User record exists for given user id");
+        }
+    }
 }

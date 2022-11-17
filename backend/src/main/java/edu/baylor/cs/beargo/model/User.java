@@ -66,6 +66,27 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<ProductPostComment> createdComments = new HashSet<>();
 
+    // User mapped to notification entity
+    @OneToMany(mappedBy = "notifyuser") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Notification> notifieduser = new HashSet<>();
+
+    @OneToMany(mappedBy = "fromUser") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Message> msgFrom = new HashSet<>();
+
+    @OneToMany(mappedBy = "toUser") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Message> msgTo = new HashSet<>();
+
+    @OneToMany(mappedBy = "postedBy") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<BlogPost> blogPosts = new HashSet<>();
+
+    @ManyToMany(mappedBy = "reviewedBy") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ReviewAndRating> reviewAndRatings = new HashSet<>();
+
     public List<String> getRoles() {
         if (this.isAdmin) {
             return Arrays.asList("ROLE_ADMIN", "ROLE_USER");
