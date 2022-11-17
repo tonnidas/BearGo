@@ -83,6 +83,10 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<BlogPost> blogPosts = new HashSet<>();
 
+    @ManyToMany(mappedBy = "reviewedBy") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<ReviewAndRating> reviewAndRatings = new HashSet<>();
+
     public List<String> getRoles() {
         if (this.isAdmin) {
             return Arrays.asList("ROLE_ADMIN", "ROLE_USER");
