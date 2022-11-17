@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.service;
 
 import edu.baylor.cs.beargo.model.BlogPost;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.BlogPostRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -55,7 +56,7 @@ public class BlogPostService {
      * @param blogPost the user id
      * @return created blog post
      */
-    public BlogPost createBlogPost(BlogPost blogPost) {
+    public BlogPost createBlogPost(User user, BlogPost blogPost) {
 
         if(blogPost.getDescription() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost description cannot be empty");
@@ -66,6 +67,7 @@ public class BlogPostService {
 
         blogPost.setPostedTime(LocalDate.from(LocalDateTime.now()));
         blogPost.setLastEditedTime(blogPost.getPostedTime());
+        blogPost.setPostedBy(user);
 
         return blogPostRepository.save(blogPost);
     }
