@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,7 +107,7 @@ public class ProductPostService {
     public ProductPost updateProductPost(User user, ProductPost productPost) {
         return productPostRepository.save(productPost);
     }
-    public List<ProductPost> searchProductPost(String location)
+    public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate)
     {
         List<ProductPost> posts = new ArrayList<>();
         return posts;

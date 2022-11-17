@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,9 +31,13 @@ public class ProductPostController {
         return new ResponseEntity<>(updateProductPost, HttpStatus.OK);
     }
 
-    @GetMapping("/searchProductPost")
-    public ResponseEntity<ProductPost> searchProductPost(@AuthenticationPrincipal User user, String location) {
-        List<ProductPost> searchPosts = productPostService.searchProductPost(location);
+    @GetMapping("/searchProductPost/{source}/{destination}/{startDate}/{endDate}")
+    public ResponseEntity<ProductPost> searchProductPost(@AuthenticationPrincipal User user,
+                                                         @PathVariable("source") String source,
+                                                         @PathVariable("destination") String destination,
+                                                         @PathVariable("startDate") Date startDate,
+                                                         @PathVariable("endDate") Date endDate) {
+        List<ProductPost> searchPosts = productPostService.searchProductPost(source,destination,startDate,endDate);
         return new ResponseEntity(searchPosts, HttpStatus.OK);
     }
 }
