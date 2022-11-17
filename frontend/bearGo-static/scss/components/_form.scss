@@ -79,7 +79,10 @@
   @include shadow(0 0 0px 5px $brand-color inset);
 }
 .select-style {
-    background: $white url("#{$img-path}/search-dropdown.svg") no-repeat scroll 97% center;
+    background: url("#{$img-path}/search-dropdown.svg");
+    background-repeat: no-repeat;
+    background-color: $white;
+    background-position: calc(100% - 10px) center;
     margin: 0;
     overflow: hidden;
     padding:2px 0;

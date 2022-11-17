@@ -26,6 +26,9 @@ public class ProductPostComment {
     @Column(nullable = false)
     private LocalDateTime commentTime;
 
+    @Column(nullable = false)
+    private String tag;
+
     @ManyToOne // owning-side
     @JoinColumn(name = "product_post_id")
     @JsonIdentityReference(alwaysAsId = true)

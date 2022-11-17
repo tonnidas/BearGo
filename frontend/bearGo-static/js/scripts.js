@@ -4,8 +4,51 @@ $(document).ready(function(e) {
   $('.sidebar-toggler').on('click', function(){
      $('.sidebar').toggleClass('sidebar-collapse');
    });
+// chat
+   $('.chatapp-user-list ul li,.back').on('click', function () {
+    $('.chatapp-container').toggleClass('in');
+  });
+  $('.view-details,.close-details').on('click', function () {
+    $('.profile-details').toggleClass('in');
+  });
+  $('.message ul li').click(function (e) {
+    $('.message ul li').removeClass('open');
+    $(this).addClass('open');
+    e.stopPropagation();
+  });
+  $('.chatapp-conversation').on('click', function () {
+    $('.message ul li').removeClass('open');
+  });
+  $('.chatapp-user-list ul li').click(function () {
+    $('.chatapp-user-list ul li').removeClass('active');
+    $(this).addClass('active');
+  });
+  $('.message ul li:has(img,video,audio)').addClass('message-media');
 
-  
+  // package tooltip
+  $(".option-tooltip").on("click", function (e) {
+    $(".option-tooltip").removeClass("active");
+    $(this).addClass("active");
+    e.stopPropagation();
+  });
+
+  $("body").on("click", function (e) {
+    $('.option-tooltip').removeClass("active");
+    e.stopPropagation();
+  });
+
+  // msg option
+  $(".upload-option").on("click", function (e) {
+    $(".upload-option").removeClass("active");
+    $(this).addClass("active");
+    e.stopPropagation();
+  });
+
+  $("body").on("click", function (e) {
+    $('.upload-option').removeClass("active");
+    e.stopPropagation();
+  });
+
 });
 
 // Modal

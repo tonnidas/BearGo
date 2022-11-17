@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="icon-mask" viewBox="0 0 32 32">
+        <path
+          d="M0 0v32h32v-32h-32zM29.276 29.276c-2.249 2.292-5.924 2.292-13.276 2.292s-11.027 0-13.276-2.292-2.292-5.924-2.292-13.276c0-7.351 0-11.027 2.292-13.276s5.924-2.292 13.276-2.292 11.027 0 13.276 2.292 2.292 5.924 2.292 13.276c0 7.351 0 11.027-2.292 13.276z">
+        </path>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z"></path>
+      </symbol>
+      <symbol id="icon-plus-circle" viewBox="0 0 24 24">
+        <path
+          d="M17.016 12.984v-1.969h-4.031v-4.031h-1.969v4.031h-4.031v1.969h4.031v4.031h1.969v-4.031h4.031zM12 2.016q4.125 0 7.055 2.93t2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055 2.93-7.055 7.055-2.93z">
+        </path>
+      </symbol>
+      <symbol id="icon-plus-outline" viewBox="0 0 24 24">
+        <path
+          d="M12 20.016q3.281 0 5.648-2.367t2.367-5.648-2.367-5.648-5.648-2.367-5.648 2.367-2.367 5.648 2.367 5.648 5.648 2.367zM12 2.016q4.125 0 7.055 2.93t2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055 2.93-7.055 7.055-2.93zM12.984 6.984v4.031h4.031v1.969h-4.031v4.031h-1.969v-4.031h-4.031v-1.969h4.031v-4.031h1.969z">
+        </path>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path
+          d="M18.984 6.422l-5.578 5.578 5.578 5.578-1.406 1.406-5.578-5.578-5.578 5.578-1.406-1.406 5.578-5.578-5.578-5.578 1.406-1.406 5.578 5.578 5.578-5.578z">
+        </path>
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24">
+        <path
+          d="M20.719 7.031l-1.828 1.828-3.75-3.75 1.828-1.828q0.281-0.281 0.703-0.281t0.703 0.281l2.344 2.344q0.281 0.281 0.281 0.703t-0.281 0.703zM3 17.25l11.063-11.063 3.75 3.75-11.063 11.063h-3.75v-3.75z">
+        </path>
+      </symbol>
+      <symbol id="icon-minus" viewBox="0 0 24 24">
+        <path d="M18.984 12.984h-13.969v-1.969h13.969v1.969z"></path>
+      </symbol>
+      <symbol id="icon-time" viewBox="0 0 24 24">
+        <path
+          d="M12.516 6.984v5.25l4.5 2.672-0.75 1.266-5.25-3.188v-6h1.5zM12 20.016q3.281 0 5.648-2.367t2.367-5.648-2.367-5.648-5.648-2.367-5.648 2.367-2.367 5.648 2.367 5.648 5.648 2.367zM12 2.016q4.125 0 7.055 2.93t2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055 2.93-7.055 7.055-2.93z">
+        </path>
+      </symbol>
+      <symbol id="icon-left" viewBox="0 0 24 24">
+        <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"></path>
+      </symbol>
+      <symbol id="icon-right" viewBox="0 0 24 24">
+        <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z"></path>
+      </symbol>
+      <symbol id="icon-back" viewBox="0 0 24 24">
+        <path d="M21 11.016v1.969h-14.156l3.563 3.609-1.406 1.406-6-6 6-6 1.406 1.406-3.563 3.609h14.156z"></path>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M9 16.172l10.594-10.594 1.406 1.406-12 12-5.578-5.578 1.406-1.406z"></path>
+      </symbol>
+      <symbol id="icon-group" viewBox="0 0 24 24">
+        <path
+          d="M15.984 12.984q1.313 0 2.859 0.375t2.859 1.219 1.313 1.922v2.484h-6v-2.484q0-2.063-1.969-3.469 0.328-0.047 0.938-0.047zM8.016 12.984q1.313 0 2.859 0.375t2.836 1.219 1.289 1.922v2.484h-14.016v-2.484q0-1.078 1.313-1.922t2.859-1.219 2.859-0.375zM8.016 11.016q-1.219 0-2.109-0.891t-0.891-2.109 0.891-2.109 2.109-0.891 2.086 0.891 0.867 2.109-0.867 2.109-2.086 0.891zM15.984 11.016q-1.219 0-2.109-0.891t-0.891-2.109 0.891-2.109 2.109-0.891 2.109 0.891 0.891 2.109-0.891 2.109-2.109 0.891z">
+        </path>
+      </symbol>
+      <symbol id="icon-add-user" viewBox="0 0 24 24">
+        <path
+          d="M15 14.016q2.531 0 5.273 1.102t2.742 2.883v2.016h-16.031v-2.016q0-1.781 2.742-2.883t5.273-1.102zM6 9.984h3v2.016h-3v3h-2.016v-3h-3v-2.016h3v-3h2.016v3zM15 12q-1.641 0-2.813-1.172t-1.172-2.813 1.172-2.836 2.813-1.195 2.813 1.195 1.172 2.836-1.172 2.813-2.813 1.172z">
+        </path>
+      </symbol>
+      <symbol id="icon-contact" viewBox="0 0 24 24">
+        <path
+          d="M6 17.016v0.984h12v-0.984q0-1.359-2.063-2.227t-3.938-0.867-3.938 0.867-2.063 2.227zM15 9q0-1.219-0.891-2.109t-2.109-0.891-2.109 0.891-0.891 2.109 0.891 2.109 2.109 0.891 2.109-0.891 0.891-2.109zM3 5.016q0-0.844 0.586-1.43t1.43-0.586h13.969q0.797 0 1.406 0.609t0.609 1.406v13.969q0 0.797-0.609 1.406t-1.406 0.609h-13.969q-0.844 0-1.43-0.586t-0.586-1.43v-13.969z">
+        </path>
+      </symbol>
+      <symbol id="icon-delete" viewBox="0 0 24 24">
+        <path
+          d="M18.984 3.984v2.016h-13.969v-2.016h3.469l1.031-0.984h4.969l1.031 0.984h3.469zM6 18.984v-12h12v12q0 0.797-0.609 1.406t-1.406 0.609h-7.969q-0.797 0-1.406-0.609t-0.609-1.406z">
+        </path>
+      </symbol>
+      <symbol id="icon-seen" viewBox="0 0 24 24">
+        <path
+          d="M0.422 13.406l1.406-1.406 5.578 5.578-1.406 1.406zM22.219 5.578l1.453 1.406-12 12-5.625-5.578 1.453-1.406 4.172 4.172zM18 6.984l-6.328 6.375-1.406-1.406 6.328-6.375z">
+        </path>
+      </symbol>
+      <symbol id="icon-east" viewBox="0 0 24 24">
+        <path d="M15 5.016l-1.406 1.406 4.594 4.594h-16.172v1.969h16.172l-4.594 4.594 1.406 1.406 6.984-6.984z"></path>
+      </symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24">
+        <path
+          d="M11 8c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v9c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h9c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-9c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879zM11 10h9c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707v9c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-9c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-9c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293zM5 14h-1c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-9c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h9c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707v1c0 0.552 0.448 1 1 1s1-0.448 1-1v-1c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879h-9c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v9c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h1c0.552 0 1-0.448 1-1s-0.448-1-1-1z">
+        </path>
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path
+          d="M20 15v4c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-14c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-4c0-0.552-0.448-1-1-1s-1 0.448-1 1v4c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-4c0-0.552-0.448-1-1-1s-1 0.448-1 1zM13 12.586v-9.586c0-0.552-0.448-1-1-1s-1 0.448-1 1v9.586l-3.293-3.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5 5c0.092 0.092 0.202 0.166 0.324 0.217s0.253 0.076 0.383 0.076c0.256 0 0.512-0.098 0.707-0.293l5-5c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0z">
+        </path>
+      </symbol>
+      <symbol id="icon-file" viewBox="0 0 24 24">
+        <path
+          d="M17.586 7h-2.586v-2.586zM20.707 7.293l-6-6c-0.092-0.092-0.202-0.166-0.324-0.217s-0.253-0.076-0.383-0.076h-8c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v16c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h12c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-12c0-0.276-0.112-0.526-0.293-0.707zM13 3v5c0 0.552 0.448 1 1 1h5v11c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-12c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-16c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293zM9 16h2v2c0 0.552 0.448 1 1 1s1-0.448 1-1v-2h2c0.552 0 1-0.448 1-1s-0.448-1-1-1h-2v-2c0-0.552-0.448-1-1-1s-1 0.448-1 1v2h-2c-0.552 0-1 0.448-1 1s0.448 1 1 1z">
+        </path>
+      </symbol>
+      <symbol id="icon-image" viewBox="0 0 24 24">
+        <path
+          d="M5 2c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v14c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-14c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879zM11 8.5c0-0.69-0.281-1.316-0.732-1.768s-1.078-0.732-1.768-0.732-1.316 0.281-1.768 0.732-0.732 1.078-0.732 1.768 0.281 1.316 0.732 1.768 1.078 0.732 1.768 0.732 1.316-0.281 1.768-0.732 0.732-1.078 0.732-1.768zM9 8.5c0 0.138-0.055 0.262-0.146 0.354s-0.216 0.146-0.354 0.146-0.262-0.055-0.354-0.146-0.146-0.216-0.146-0.354 0.055-0.262 0.146-0.354 0.216-0.146 0.354-0.146 0.262 0.055 0.354 0.146 0.146 0.216 0.146 0.354zM7.414 20l8.586-8.586 4 4v3.586c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293zM20 12.586l-3.293-3.293c-0.391-0.391-1.024-0.391-1.414 0l-10.644 10.644c-0.135-0.050-0.255-0.129-0.356-0.23-0.182-0.182-0.293-0.431-0.293-0.707v-14c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h14c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707z">
+        </path>
+      </symbol>
+      <symbol id="icon-more" viewBox="0 0 24 24">
+        <path
+          d="M14 12c0-0.552-0.225-1.053-0.586-1.414s-0.862-0.586-1.414-0.586-1.053 0.225-1.414 0.586-0.586 0.862-0.586 1.414 0.225 1.053 0.586 1.414 0.862 0.586 1.414 0.586 1.053-0.225 1.414-0.586 0.586-0.862 0.586-1.414zM14 5c0-0.552-0.225-1.053-0.586-1.414s-0.862-0.586-1.414-0.586-1.053 0.225-1.414 0.586-0.586 0.862-0.586 1.414 0.225 1.053 0.586 1.414 0.862 0.586 1.414 0.586 1.053-0.225 1.414-0.586 0.586-0.862 0.586-1.414zM14 19c0-0.552-0.225-1.053-0.586-1.414s-0.862-0.586-1.414-0.586-1.053 0.225-1.414 0.586-0.586 0.862-0.586 1.414 0.225 1.053 0.586 1.414 0.862 0.586 1.414 0.586 1.053-0.225 1.414-0.586 0.586-0.862 0.586-1.414z">
+        </path>
+      </symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24">
+        <path
+          d="M22.963 2.269c0.043-0.151 0.050-0.314 0.015-0.476-0.024-0.113-0.068-0.224-0.131-0.325-0.064-0.102-0.145-0.19-0.238-0.262-0.117-0.090-0.249-0.15-0.386-0.181s-0.282-0.034-0.426-0.004c-0.042 0.009-0.085 0.021-0.126 0.035l-0.021 0.007-19.98 6.993c-0.252 0.088-0.467 0.276-0.584 0.538-0.224 0.505 0.003 1.096 0.508 1.32l8.649 3.844 3.844 8.649c0.108 0.243 0.313 0.443 0.583 0.538 0.521 0.182 1.092-0.092 1.274-0.614l6.993-19.979c0.010-0.027 0.019-0.054 0.027-0.082zM10.779 11.807l-6.068-2.696 13.483-4.72zM19.609 5.806l-4.72 13.483-2.696-6.068z">
+        </path>
+      </symbol>
+      <symbol id="icon-smile" viewBox="0 0 24 24">
+        <path
+          d="M23 12c0-3.037-1.232-5.789-3.222-7.778s-4.741-3.222-7.778-3.222-5.789 1.232-7.778 3.222-3.222 4.741-3.222 7.778 1.232 5.789 3.222 7.778 4.741 3.222 7.778 3.222 5.789-1.232 7.778-3.222 3.222-4.741 3.222-7.778zM21 12c0 2.486-1.006 4.734-2.636 6.364s-3.878 2.636-6.364 2.636-4.734-1.006-6.364-2.636-2.636-3.878-2.636-6.364 1.006-4.734 2.636-6.364 3.878-2.636 6.364-2.636 4.734 1.006 6.364 2.636 2.636 3.878 2.636 6.364zM7.2 14.6c0 0 0.131 0.173 0.331 0.383 0.145 0.153 0.338 0.341 0.577 0.54 0.337 0.281 0.772 0.59 1.297 0.853 0.705 0.352 1.579 0.624 2.595 0.624s1.89-0.272 2.595-0.624c0.525-0.263 0.96-0.572 1.297-0.853 0.239-0.199 0.432-0.387 0.577-0.54 0.2-0.21 0.331-0.383 0.331-0.383 0.331-0.442 0.242-1.069-0.2-1.4s-1.069-0.242-1.4 0.2c-0.041 0.050-0.181 0.206-0.181 0.206-0.1 0.105-0.237 0.239-0.408 0.382-0.243 0.203-0.549 0.419-0.91 0.6-0.48 0.239-1.050 0.412-1.701 0.412s-1.221-0.173-1.701-0.413c-0.36-0.18-0.667-0.397-0.91-0.6-0.171-0.143-0.308-0.277-0.408-0.382-0.14-0.155-0.181-0.205-0.181-0.205-0.331-0.442-0.958-0.531-1.4-0.2s-0.531 0.958-0.2 1.4zM9 10c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1zM15 10c0.552 0 1-0.448 1-1s-0.448-1-1-1-1 0.448-1 1 0.448 1 1 1z">
+        </path>
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path
+          d="M18 7v13c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-10c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-13zM17 5v-1c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879h-4c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v1h-4c-0.552 0-1 0.448-1 1s0.448 1 1 1h1v13c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h10c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-13h1c0.552 0 1-0.448 1-1s-0.448-1-1-1zM9 5v-1c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293h4c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707v1zM9 11v6c0 0.552 0.448 1 1 1s1-0.448 1-1v-6c0-0.552-0.448-1-1-1s-1 0.448-1 1zM13 11v6c0 0.552 0.448 1 1 1s1-0.448 1-1v-6c0-0.552-0.448-1-1-1s-1 0.448-1 1z">
+        </path>
+      </symbol>
+    </defs>
+  </svg>
+
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="col-md-3 sidebar-top">
+      <a class="navbar-brand" href="#"><img src="images/logo-white.svg" alt="" />
+      </a>
+    </div>
+    <span class="sidebar-toggler">
+      <i class="icon-more"></i>
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="icon-bold"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+
+      <ul class="navbar-nav">
+
+        <li class="nav-item dropdown search">
+          <a class="input-search dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"></a>
+          <div class="search-area dropdown-menu" aria-labelledby="navbarDropdown">
+            <form action="#">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <input class="form-control" type="date" name="" value="" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>End Date</label>
+                    <input class="form-control" type="date" name="" value="" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Source Location</label>
+                <div class="select-style">
+                  <select name="#">
+                    <option value="">New York</option>
+                    <option value="">Los Angeles</option>
+                    <option value="">Chicago</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Destination Location</label>
+                <div class="select-style">
+                  <select name="#">
+                    <option value="">New York</option>
+                    <option value="">Los Angeles</option>
+                    <option value="">Chicago</option>
+                  </select>
+                </div>
+              </div>
+              <button class="common-btn">Search</button>
+            </form>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown ml-auto">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="icon-notifications"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h3>Notifications</h3>
+            <div class="notifications">
+              <p class="unread">Your account has been restricted from advertising.</p>
+              <p>Your account has been restricted from advertising.</p>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="images/admin.jpg" alt="" />
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h3>Jhon Doe</h3>
+            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="#">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-3 d-md-block sidebar">
+        <div class="sidebar-sticky">
+
+          <div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="#"> <i class="icon-home"></i><span>Home </span> </a>
+              </li>
+              <li class="active">
+                <a href="#">
+                  <i class="icon-message-square"></i><span>message </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-settings"></i><span>Settings </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-phone"></i><span>My Contact </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-clipboard"></i><span>My blog </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button class="common-btn global-add" onclick="showModal('addRule')">
+            <i class="icon-plus"></i> <span>New Post</span>
+          </button>
+        </div>
+      </nav>
+
+      <main role="main" class="main col-md-12 ml-sm-auto col-lg-9">
+        <div class="row" style="position: relative;">
+          <div class="col-md-8">
+            <div class="main-inner">
+              <div class="widget">
+                <div class="chatapp-conversation">
+                  <div class="chatapp-header">
+                    <div class="back">
+                      <svg class="icon">
+                        <use xlink:href="#icon-back"></use>
+                      </svg>
+                    </div>
+                    <div class="avatar">
+                      <img src="images/women_avatar1.jpg" alt="avatar">
+                      <div class="user-status status-active">&nbsp;</div>
+                    </div>
+                    <div class="user-details">
+                      <h4>Nusa Penida</h4>
+                      <a class="view-details" href="javaScript:void(0);">View details <svg class="icon">
+                          <use xlink:href="#icon-right"></use>
+                        </svg></a>
+                    </div>
+                    <div class="option-tooltip">
+                      <div class="option-tooltip-btn">
+                        <svg class="icon">
+                          <use xlink:href="#icon-more"></use>
+                        </svg>
+                      </div>
+                      <div class="option-tooltip-inner">
+                        <div class="option-tooltip-close">
+                          <i class="icon-close"></i>
+                        </div>
+                        <ul>
+                          <li>Copy Message</li>
+                          <li>Select Messages</li>
+                          <li>Remove Messages</li>
+                          <li>Cancel</li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="chatapp-conversation-inner">
+                    <div class="message-load"><a href="#">Load more</a></div>
+                    <div class="message message-received">
+                      <div class="avatar">
+                        <img src="images/women_avatar1.jpg" alt="avatar">
+                        <div class="user-status status-active">&nbsp;</div>
+                      </div>
+                      <ul>
+                        <li> it can have on financial inclusion especially for low
+                          <div class="message-action"></div>
+                        </li>
+                        <li> financial inclusion
+                          <div class="message-action"></div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="message message-sent">
+                      <ul>
+                        <li>financial inclusion
+                          <div class="message-action"></div>
+                        </li>
+                        <li>Leap over obstacles and speed down
+                          <div class="message-action"></div>
+                        </li>
+                        <li>it can have on financial inclusion especially for low
+                          <div class="message-action"></div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="message-time"><span>Wednesday, Jun 23, 2021</span></div>
+                    <div class="message message-received">
+                      <div class="avatar">
+                        <img src="images/women_avatar1.jpg" alt="avatar">
+                        <div class="user-status status-active">&nbsp;</div>
+                      </div>
+                      <ul>
+                        <li>Jump too early, and you are sure to wipe out. Jump too late and, well, you get the point.
+                          <div class="message-action"></div>
+                        </li>
+                        <li>are sure to wipe out. Jump too late and
+                          <div class="message-action"></div>
+                        </li>
+                        <li class="attachment-file"> <img src="images/file.svg" alt=""> server_pull.php<a
+                            href="images/file.svg"><svg class="icon">
+                              <use xlink:href="#icon-download"></use>
+                            </svg></a></li>
+                      </ul>
+                    </div>
+                    <div class="message message-sent">
+                      <ul>
+                        <li>are sure to wipe out. Jump too late and
+                          <div class="message-action"></div>
+                        </li>
+                        <div class="message-seen"><img src="images/women_avatar1.jpg" alt=""><img
+                            src="images/women_avatar1.jpg" alt=""></div>
+                        <li>Jump too early, and you are sure to wipe out. Jump too late
+                          <div class="message-action"></div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="message message-sent">
+                      <ul>
+                        <li>are sure to wipe out. Jump too late and
+                          <div class="message-action"></div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="message message-sent">
+                      <ul>
+                        <li class="attachment-file"> <img src="images/file.svg" alt=""> server_pull.php<a
+                            href="images/file.svg"><svg class="icon">
+                              <use xlink:href="#icon-download"></use>
+                            </svg></a></li>
+                      </ul>
+                    </div>
+                    <div class="message message-received">
+                      <div class="avatar">
+                        <img src="images/women_avatar1.jpg" alt="avatar">
+                        <div class="user-status status-active">&nbsp;</div>
+                      </div>
+                      <ul>
+                        <li><a href="#">http://botservice.dotlines.com.sg</a></li>
+                      </ul>
+                    </div>
+                    <div class="message message-sent">
+                      <ul>
+                        <li><img src="images/man_avatar1.jpg" alt=""></li>
+                      </ul>
+                    </div>
+                    <div class="message message-received">
+                      <div class="avatar">
+                        <img src="images/women_avatar1.jpg" alt="avatar">
+                        <div class="user-status status-active">&nbsp;</div>
+                      </div>
+                      <ul>
+                        <li> <audio controls src="media/confirm_tony.mp3"></audio></li>
+                      </ul>
+                    </div>
+                    <div class="message message-sent">
+                      <ul>
+                        <li> <video controls>
+                            <source src="media/oceans.mp4" type="video/mp4">
+                          </video> </li>
+                      </ul>
+                    </div>
+                    <div class="message-seen"><img src="images/women_avatar1.jpg" alt=""></div>
+                    <div class="typing">
+                      <div>Zunaid Typing</div>
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                    </div>
+                    <a class="message-new">
+                      <svg class="icon">
+                        <use xlink:href="#icon-left"></use>
+                      </svg>
+                      <span>2</span>
+                    </a>
+                  </div>
+                  <div class="chatapp-footer">
+                    <form action="" method="GET">
+                      <div class="upload-option">
+                        <div class="upload-option-btn">
+                          <svg class="icon">
+                            <use xlink:href="#icon-plus-outline"></use>
+                          </svg>
+                        </div>
+                        <div class="upload-option-inner">
+                          <h3>Quick Action</h3>
+                          <ul>
+                            <li><label class="attachment">
+                                <input name="attachment" type="file">
+                                <div class="insert-file">
+                                  <svg class="icon">
+                                    <use xlink:href="#icon-file"></use>
+                                  </svg>
+                                </div>
+                                Insert File
+                              </label></li>
+                            <li><label class="attachment">
+                                <input name="attachment" type="file">
+                                <div class="send-photo">
+                                  <svg class="icon">
+                                    <use xlink:href="#icon-image"></use>
+                                  </svg>
+                                </div>
+                                Send Photo
+                              </label></li>
+                            <li>
+                              <div class="upload-option-close">
+                                Cancel
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
+                      </div>
+
+                      <textarea name="" rows="1" class="form-control pick-me" placeholder="Write a message"></textarea>
+
+                      <div class="send-button">
+                        <button class="btn btn-send"><svg class="icon">
+                            <use xlink:href="#icon-send"></use>
+                          </svg></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="twitter-feed">
+              <blockquote class="twitter-tweet" style="margin-bottom: 10px;">
+                <p lang="en" dir="ltr">
+                  I think it&#39;s entirely appropriate that the courier
+                  delivery pin to receive my parcel from
+                  <a href="https://twitter.com/CounterLove?ref_src=twsrc%5Etfw">@CounterLove</a>
+                  was 911 because these limited edition Hertzoggie cookies are
+                  criminally delicious!
+                  <a href="https://t.co/1z52eA0Oor">pic.twitter.com/1z52eA0Oor</a>
+                </p>
+                &mdash; Nicole Engelbrecht (@the_pod_one)
+                <a href="https://twitter.com/the_pod_one/status/1572841559812411392?ref_src=twsrc%5Etfw">September 22,
+                  2022</a>
+              </blockquote>
+              <blockquote class="twitter-tweet" style="margin-bottom: 10px;">
+                <p lang="en" dir="ltr">
+                  I think it&#39;s entirely appropriate that the courier
+                  delivery pin to receive my parcel from
+                  <a href="https://twitter.com/CounterLove?ref_src=twsrc%5Etfw">@CounterLove</a>
+                  was 911 because these limited edition Hertzoggie cookies are
+                  criminally delicious!
+                  <a href="https://t.co/1z52eA0Oor">pic.twitter.com/1z52eA0Oor</a>
+                </p>
+                &mdash; Nicole Engelbrecht (@the_pod_one)
+                <a href="https://twitter.com/the_pod_one/status/1572841559812411392?ref_src=twsrc%5Etfw">September 22,
+                  2022</a>
+              </blockquote>
+              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="modal" id="mymodal">
+    <div class="modal-inner text-center">
+      <span class="close" onclick="hideModal('mymodal')">
+        <img class="svg" src="images/close.svg" alt="close" />
+      </span>
+      <h3>Delete</h3>
+      <p>Are you sure you want to disble this item?</p>
+      <button type="submit" class="common-btn" name="button">Yes</button>
+      <button type="button" class="common-btn no" name="button" onclick="hideModal('mymodal')">
+        No
+      </button>
+    </div>
+  </div>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+
+</body>
+
+</html>

@@ -273,7 +273,7 @@ export default function FrontPage() {
                   </div>
                 </div>
               </div>
-              {/* <div className='col-md-4'>
+              <div className='col-md-4'>
                 <div className='twitter-feed'>
                   <blockquote
                     className='twitter-tweet'
@@ -323,7 +323,7 @@ export default function FrontPage() {
                     charSet='utf-8'
                   ></script>
                 </div>
-              </div> */}
+              </div>
             </div>
           </main>
         </div>
