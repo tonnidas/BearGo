@@ -31,4 +31,6 @@ public class ProductPostCommentController {
         ProductPostComment newComment = productPostCommentService.updateComment(user, commentId, updatedComment);
         return new ResponseEntity<>(newComment, HttpStatus.OK);
     }
+
+    // Get all comments of a specific productPost
 }
