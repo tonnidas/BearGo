@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/productPosts")
@@ -22,5 +19,11 @@ public class ProductPostController {
     public ResponseEntity<ProductPost> createProductPost(@AuthenticationPrincipal User user, @RequestBody ProductPost productPost) {
         ProductPost createdProductPost = productPostService.createProductPost(user, productPost);
         return new ResponseEntity<>(createdProductPost, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateProductPost")
+    public ResponseEntity<ProductPost> updateProductPost(@AuthenticationPrincipal User user, @RequestBody ProductPost productPost) {
+        ProductPost updateProductPost = productPostService.updateProductPost(user, productPost);
+        return new ResponseEntity<>(updateProductPost, HttpStatus.OK);
     }
 }

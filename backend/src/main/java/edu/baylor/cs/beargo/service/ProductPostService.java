@@ -101,4 +101,9 @@ public class ProductPostService {
     }
 
     // TODO: Update product post - Swapnil
+
+    public ProductPost updateProductPost(User user, ProductPost productPost) {
+        return productPostRepository.save(productPost);
+    }
+
 }
