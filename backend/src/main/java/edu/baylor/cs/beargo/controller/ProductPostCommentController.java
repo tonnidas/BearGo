@@ -24,4 +24,11 @@ public class ProductPostCommentController {
         ProductPostComment createdComment = productPostCommentService.createComment(user, productPostComment, productPostId);
         return new ResponseEntity<>(createdComment, HttpStatus.OK);
     }
+
+    // Create Product post comment
+    @PostMapping("/update")
+    public ResponseEntity<ProductPostComment> updateComment(@AuthenticationPrincipal User user, @RequestParam Long commentId, @RequestParam String updatedComment) {
+        ProductPostComment newComment = productPostCommentService.updateComment(user, commentId, updatedComment);
+        return new ResponseEntity<>(newComment, HttpStatus.OK);
+    }
 }

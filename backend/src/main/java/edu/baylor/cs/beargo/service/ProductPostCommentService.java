@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -45,5 +46,43 @@ public class ProductPostCommentService {
         productPostComment.setCommentedBy(user);
 
         return productPostCommentRepository.save(productPostComment);
+    }
+
+    /**
+     * Checks if there is a comment with the commentId
+     * Checks if the actual owner is trying to change the comment
+     * Checks if the new comment string is not null
+     * Updates the comment with the new string.
+     *
+     * @param user               the authenticated user
+     * @param commentId          the comment id
+     * @return created ProductPostComment
+     */
+    public ProductPostComment updateComment(User user, Long commentId, String updatedComment) {
+        ProductPostComment updatingComment = getCommentById(commentId);
+
+        if (updatedComment != null && updatingComment.getCommentedBy() == user) {
+            updatingComment.setComment(updatedComment);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Comment cannot be empty text or edited by other users");
+        }
+        updatingComment.setCommentTime(LocalDateTime.now());
+        updatingComment.setCommentedBy(user);
+
+        return productPostCommentRepository.save(updatingComment);
+    }
+
+    /**
+     * @param id     the comment id
+     * @return the comment
+     */
+    public ProductPostComment getCommentById(Long id) {
+        Optional<ProductPostComment> optionalComment = productPostCommentRepository.findById(id);
+
+        if (optionalComment.isPresent()) {
+            return optionalComment.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comment exists for given id");
+        }
     }
 }

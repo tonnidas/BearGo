@@ -60,5 +60,7 @@ public class AdminController {
         User promotedUser = adminService.promoteUser(id);
         return new ResponseEntity<>(promotedUser, HttpStatus.OK);
     }
+    
+    //ban user here
 
 }
