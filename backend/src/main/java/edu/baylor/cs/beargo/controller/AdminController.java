@@ -44,6 +44,7 @@ public class AdminController {
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
+
     // Promote a user to be admin
     @GetMapping("/promote/{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -51,4 +52,5 @@ public class AdminController {
         User promotedUser = adminService.promoteUser(id);
         return new ResponseEntity<>(promotedUser, HttpStatus.OK);
     }
+
 }

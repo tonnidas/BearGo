@@ -1,5 +1,7 @@
 import "./FrontPage.css"
 
+import { Route, NavLink, useNavigate, Routes } from "react-router-dom"
+
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -10,6 +12,7 @@ import parcel_1 from "../images/parcel-1.jpg"
 import parcel_2 from "../images/parcel-2.jpg"
 import favicon from "../images/favicon.ico"
 import admin from "../images/admin.jpg"
+import CreatePost from "../CreatePost/CreatePost"
 
 
 export default function FrontPage() {
@@ -26,6 +29,10 @@ export default function FrontPage() {
 
   }, []);
   let url = ""
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    navigate('/createPost');
+  }
   return (
     
     <div>
@@ -114,9 +121,10 @@ export default function FrontPage() {
                   </li>
                 </ul>
               </div>
-              <button class="common-btn global-add" onclick="showModal('addRule')">
+              <button class="common-btn global-add" onClick={handleClick}>
                 <i class="icon-plus"></i> <span>New Post</span>
               </button>
+              
             </div>
           </nav>
 
