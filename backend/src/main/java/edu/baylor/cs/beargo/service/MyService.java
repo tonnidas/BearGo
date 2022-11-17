@@ -30,10 +30,19 @@ public class MyService {
         }
         for (int i = 1; i <= 10; i++) {
             User user = new User();
-            user.setUsername("user"+i+"@beargo.com");
+            user.setUsername("user"+(i+10)+"@beargo.com");
             user.setPassword("password");
             user.setIsAdmin(false);
             userRepository.save(user);
         }
+        for (int i = 1; i <= 3; i++) {
+            User user = new User();
+            user.setUsername("admin"+(i+200)+"@beargo.com");
+            user.setPassword("password");
+            user.setIsAdmin(true);
+            userRepository.save(user);
+        }
+
+
     }
 }
