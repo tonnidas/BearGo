@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,6 +105,11 @@ public class ProductPostService {
 
     public ProductPost updateProductPost(User user, ProductPost productPost) {
         return productPostRepository.save(productPost);
+    }
+    public List<ProductPost> searchProductPost(String location)
+    {
+        List<ProductPost> posts = new ArrayList<>();
+        return posts;
     }
 
 }
