@@ -9,8 +9,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -31,8 +29,13 @@ public class ReviewAndRating {
     @Column(nullable = false)
     private LocalDate reviewTime;
 
-    @ManyToMany // owning-side
-    @JoinColumn(name = "userId")
+    @ManyToOne // owning-side
+    @JoinColumn(name = "reviewedBy")
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<User> reviewedBy = new HashSet<>();
+    private User reviewedBy;
+
+    @ManyToOne // owning-side
+    @JoinColumn(name = "reviewedTo")
+    @JsonIdentityReference(alwaysAsId = true)
+    private User reviewedTo;
 }
