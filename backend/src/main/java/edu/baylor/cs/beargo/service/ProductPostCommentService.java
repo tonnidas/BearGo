@@ -41,6 +41,7 @@ public class ProductPostCommentService {
         }
 
         ProductPost productPost = productPostService.getProductPostById(productPostId);
+        productPostComment.setTag("Created at");
         productPostComment.setCommentedProductPost(productPost);
         productPostComment.setCommentTime(LocalDateTime.now());
         productPostComment.setCommentedBy(user);
@@ -66,6 +67,7 @@ public class ProductPostCommentService {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Comment cannot be empty text or edited by other users");
         }
+        updatingComment.setTag("Updated at");
         updatingComment.setCommentTime(LocalDateTime.now());
         updatingComment.setCommentedBy(user);
 
