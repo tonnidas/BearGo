@@ -10,6 +10,7 @@ function App() {
       <Route path="/" element={<FrontPage />} />
       <Route path="/createPost" element={<CreatePost />} />
       <Route path="/contactSender" element={<ContactSender />} />
+      <Route path="/register" element={<Register />} /> 
         </Routes> 
         </BrowserRouter>
   //  <FrontPage/>
