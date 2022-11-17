@@ -20,7 +20,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    // Get all admins
+    // Get all admins (except general users)
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> admins() {
@@ -28,11 +28,19 @@ public class AdminController {
         return new ResponseEntity<>(admins, HttpStatus.OK);
     }
 
-    // Get all users
+    // Get only users (except admins)
     @GetMapping("/onlyUsers")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> users() {
         List<User> users = adminService.getUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    // Get all users (including admins)
+    @GetMapping("/allUsers")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<User>> allUsers() {
+        List<User> users = adminService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

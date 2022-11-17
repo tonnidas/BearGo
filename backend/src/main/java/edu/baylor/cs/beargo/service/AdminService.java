@@ -28,10 +28,17 @@ public class AdminService {
     }
 
     /**
-     * @return A list of all users
+     * @return A list of all users (excluding admins)
      */
     public List<User> getUsers() {
         return userRepository.findByIsAdminFalse();
+    }
+
+    /**
+     * @return A list of all users (including admins)
+     */
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     /**
