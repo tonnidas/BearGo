@@ -62,18 +62,22 @@ public class ProductPostCommentService {
      * Checks if the new comment string is not null
      * Updates the comment with the new string.
      *
-     * @param user               the authenticated user
-     * @param commentId          the comment id
+     * @param user      the authenticated user
+     * @param commentId the comment id
      * @return created ProductPostComment
      */
     public ProductPostComment updateComment(User user, Long commentId, String updatedComment) {
         ProductPostComment updatingComment = getCommentById(commentId);
 
-        if (updatedComment != null && updatingComment.getCommentedBy() == user) {
-            updatingComment.setComment(updatedComment);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Comment cannot be empty text or edited by other users");
+        if (updatedComment == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Comment cannot be empty text");
         }
+
+        if (!updatingComment.getCommentedBy().getId().equals(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Comment cannot be edited by other users");
+        }
+
+        updatingComment.setComment(updatedComment);
         updatingComment.setTag("Updated at");
         updatingComment.setCommentTime(LocalDateTime.now());
         updatingComment.setCommentedBy(user);
@@ -99,7 +103,7 @@ public class ProductPostCommentService {
 
 
     /**
-     * @param id     the comment id
+     * @param id the comment id
      * @return the comment
      */
     public ProductPostComment getCommentById(Long id) {
