@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @Getter
@@ -24,6 +26,8 @@ public class ReviewAndRating {
     private String review;
 
     @Column
+    @Min(value=0, message="Rating must be equal or greater than 0")
+    @Max(value=5, message="Rating must be equal or less than 5")
     private Integer rating;
 
     @Column(nullable = false)
