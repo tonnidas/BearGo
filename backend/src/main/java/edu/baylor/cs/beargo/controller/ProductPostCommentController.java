@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/comments")
 public class ProductPostCommentController {
@@ -33,4 +35,9 @@ public class ProductPostCommentController {
     }
 
     // Get all comments of a specific productPost
+    @GetMapping("/productPost/{id}")
+    public ResponseEntity<List<ProductPostComment>> getPostComments(@PathVariable("id") Long productPostId) {
+        List<ProductPostComment> comments = productPostCommentService.getPostCommentsAll(productPostId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
 }
