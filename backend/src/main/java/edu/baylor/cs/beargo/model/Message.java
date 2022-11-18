@@ -37,7 +37,7 @@ public class Message {
     private Status status;
 
 
-    public enum Status{
+    public enum Status {
         SENT, READ, SEEN
     }
 

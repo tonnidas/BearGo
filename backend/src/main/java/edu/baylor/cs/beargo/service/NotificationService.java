@@ -18,7 +18,7 @@ public class NotificationService {
     @Autowired
     NotificationRepository repo;
 
-    public List<Notification> getNotification(Long uid){
+    public List<Notification> getNotification(Long uid) {
         List<Notification> notificationList = repo.findByNotifyuser(uid);
         return notificationList;
 

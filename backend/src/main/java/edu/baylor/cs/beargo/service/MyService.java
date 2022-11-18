@@ -42,14 +42,14 @@ public class MyService {
         }
         for (int i = 1; i <= 10; i++) {
             User user = new User();
-            user.setUsername("user"+(i+10)+"@beargo.com");
+            user.setUsername("user" + (i + 10) + "@beargo.com");
             user.setPassword("password");
             user.setIsAdmin(false);
             userRepository.save(user);
         }
         for (int i = 1; i <= 3; i++) {
             User user = new User();
-            user.setUsername("admin"+(i+200)+"@beargo.com");
+            user.setUsername("admin" + (i + 200) + "@beargo.com");
             user.setPassword("password");
             user.setIsAdmin(true);
             userRepository.save(user);
@@ -60,7 +60,7 @@ public class MyService {
             blogPost.setPostedTime(LocalDate.now());
             blogPost.setLastEditedTime(blogPost.getPostedTime());
             // It depends on the user loop. There must be some user with this user name.
-            User user = userRepository.findByUsername("user"+((i % 2) + 11)+"@beargo.com").get();
+            User user = userRepository.findByUsername("user" + ((i % 2) + 11) + "@beargo.com").get();
             blogPost.setPostedBy(user);
             blogPostRepository.save(blogPost);
         }
@@ -71,8 +71,8 @@ public class MyService {
             reviewAndRating.setRating(5);
             reviewAndRating.setReviewTime(LocalDate.now());
             // It depends on the user loop. There must be some user with this user name.
-            User user1 = userRepository.findByUsername("user"+(i * 2 + 9)+"@beargo.com").get();
-            User user2 = userRepository.findByUsername("user"+(i * 2 + 10)+"@beargo.com").get();
+            User user1 = userRepository.findByUsername("user" + (i * 2 + 9) + "@beargo.com").get();
+            User user2 = userRepository.findByUsername("user" + (i * 2 + 10) + "@beargo.com").get();
             reviewAndRating.setReviewedBy(user1);
             reviewAndRating.setReviewedTo(user2);
             reviewAndRatingRepository.save(reviewAndRating);

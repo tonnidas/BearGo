@@ -2,10 +2,8 @@ package edu.baylor.cs.beargo.Config;
 
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
-
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
@@ -31,8 +29,7 @@ public class KafkaListenerConfig {
 
     // Default Listener config for string
     @Bean
-    public ConsumerFactory<String, String> consumerFactory()
-    {
+    public ConsumerFactory<String, String> consumerFactory() {
 
         // Creating a Map of string-object pairs
         Map<String, Object> config = new HashMap<>();
@@ -41,8 +38,8 @@ public class KafkaListenerConfig {
         //config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_string");
-        config.put( ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put( ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
@@ -50,8 +47,7 @@ public class KafkaListenerConfig {
     // Creating a Listener
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory  kafkaListenerContainerFactory()
-    {
+    public ConcurrentKafkaListenerContainerFactory kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
@@ -64,8 +60,7 @@ public class KafkaListenerConfig {
 
 
     @Bean
-    public ConsumerFactory<String, Notification> NotificationConsumerFactory()
-    {
+    public ConsumerFactory<String, Notification> NotificationConsumerFactory() {
 
         Map<String, Object> config = new HashMap<>();
 
@@ -73,8 +68,8 @@ public class KafkaListenerConfig {
         //config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_notification");
-        config.put( ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put( ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(config,
                 new StringDeserializer(),
@@ -83,8 +78,7 @@ public class KafkaListenerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String,Notification>  NotificationContainerFactory()
-    {
+    public ConcurrentKafkaListenerContainerFactory<String, Notification> NotificationContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Notification> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(NotificationConsumerFactory());
@@ -94,16 +88,15 @@ public class KafkaListenerConfig {
 
     // Kafka Listener Config for Message to be added
     @Bean
-    public ConsumerFactory<String, Message> MessageConsumerFactory()
-    {
+    public ConsumerFactory<String, Message> MessageConsumerFactory() {
 
         Map<String, Object> config = new HashMap<>();
 
         // Adding the Configuration
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_msg");
-        config.put( ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put( ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(config,
                 new StringDeserializer(),
@@ -112,14 +105,12 @@ public class KafkaListenerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String,Message>  MessageContainerFactory()
-    {
+    public ConcurrentKafkaListenerContainerFactory<String, Message> MessageContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Message> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(MessageConsumerFactory());
         return factory;
     }
-
 
 
 }

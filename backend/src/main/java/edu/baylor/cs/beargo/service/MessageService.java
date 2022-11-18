@@ -21,8 +21,7 @@ public class MessageService {
     @Autowired
     private KafkaTemplate<String, Message> kafkaTemplate;
 
-    public Message saveMsg(Message m){
-
+    public Message saveMsg(Message m) {
 
 
         Message savedMsg = msgRepo.save(m);
@@ -34,7 +33,7 @@ public class MessageService {
 
     }
 
-    public List<Message> getAllmsg(Long uid){
+    public List<Message> getAllmsg(Long uid) {
 
         List<Message> msgList = msgRepo.findByfromUser(uid);
         return msgList;

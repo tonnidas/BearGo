@@ -60,6 +60,7 @@ public class AdminService {
 
     /**
      * TODO: Promote user by id to be an admin
+     *
      * @return
      */
     public User promoteUser(Long id) {

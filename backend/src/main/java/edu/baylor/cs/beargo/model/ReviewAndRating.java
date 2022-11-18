@@ -26,8 +26,8 @@ public class ReviewAndRating {
     private String review;
 
     @Column
-    @Min(value=0, message="Rating must be equal or greater than 0")
-    @Max(value=5, message="Rating must be equal or less than 5")
+    @Min(value = 0, message = "Rating must be equal or greater than 0")
+    @Max(value = 5, message = "Rating must be equal or less than 5")
     private Integer rating;
 
     @Column(nullable = false)

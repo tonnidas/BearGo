@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -108,8 +107,7 @@ public class ProductPostService {
     public ProductPost updateProductPost(User user, ProductPost productPost) {
         Long id = productPost.getId();
         Optional<ProductPost> opt = productPostRepository.findById(id);
-        if(opt.isPresent())
-        {
+        if (opt.isPresent()) {
 //            Contract contract = productPost.getContract();
 //            System.out.println(contract.getId());
 //           // LocalDate startDate = contract.getContractStartDate();
@@ -127,16 +125,15 @@ public class ProductPostService {
             addressRepository.save(productPost.getDestination());
             productRepository.save(productPost.getProduct());
             productPostRepository.save(productPost);
-                //contractRepository.save(contract);
+            //contractRepository.save(contract);
         }
         return null;
     }
-    public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate)
-    {
+
+    public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate) {
         List<ProductPost> posts = new ArrayList<>();
         return posts;
     }
-
 
 
 }

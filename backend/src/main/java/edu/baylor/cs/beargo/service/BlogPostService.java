@@ -58,10 +58,10 @@ public class BlogPostService {
      */
     public BlogPost createBlogPost(User user, BlogPost blogPost) {
 
-        if(blogPost.getDescription() == null) {
+        if (blogPost.getDescription() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost description cannot be empty");
         }
-        if(blogPost.getPostedBy() == null) {
+        if (blogPost.getPostedBy() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost postedBy cannot be empty");
         }
 
