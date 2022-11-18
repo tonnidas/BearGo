@@ -1,11 +1,11 @@
 package edu.baylor.cs.beargo;
 
 import edu.baylor.cs.beargo.model.Product;
+import edu.baylor.cs.beargo.repository.BlogPostRepository;
 import edu.baylor.cs.beargo.repository.ProductRepository;
+import edu.baylor.cs.beargo.repository.ReviewAndRatingRepository;
 import edu.baylor.cs.beargo.repository.UserRepository;
-import edu.baylor.cs.beargo.service.MyService;
-import edu.baylor.cs.beargo.service.ProductService;
-import edu.baylor.cs.beargo.service.UserService;
+import edu.baylor.cs.beargo.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,15 +25,28 @@ public class ExampleTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BlogPostRepository blogPostRepository;
+
+    @Autowired
+    private ReviewAndRatingRepository reviewAndRatingRepository;
+
     private ProductService productService;
 
     private UserService userService;
+
+    private BlogPostService blogPostService;
+
+    private ReviewAndRatingService reviewAndRatingService;
+
 
     @BeforeEach
     public void initService() {
         productService = new ProductService(productRepository);
         userService = new UserService();
-        MyService myService = new MyService(productRepository, userRepository);
+        blogPostService = new BlogPostService();
+        reviewAndRatingService = new ReviewAndRatingService();
+        MyService myService = new MyService(productRepository, userRepository, blogPostRepository, reviewAndRatingRepository);
         myService.populate();
     }
 
