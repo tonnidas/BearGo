@@ -110,12 +110,24 @@ public class ProductPostService {
         Optional<ProductPost> opt = productPostRepository.findById(id);
         if(opt.isPresent())
         {
-            Contract contract = productPost.getContract();
-            LocalDate startDate = contract.getContractStartDate();
-            if(startDate.compareTo(LocalDate.now()) > 1 ) //need to add delivery status as well
-            {
-                return productPostRepository.save(productPost);
-            }
+//            Contract contract = productPost.getContract();
+//            System.out.println(contract.getId());
+//           // LocalDate startDate = contract.getContractStartDate();
+//            //if(startDate.compareTo(LocalDate.now()) > 1 ) //need to check date
+//            if(contract.getDeliveryStatus().equals("SEARCHING_TRAVELER"))
+//            {
+//                productPostRepository.save(productPost);
+//                addressRepository.save(productPost.getSource());
+//                addressRepository.save(productPost.getDestination());
+//                productRepository.save(productPost.getProduct());
+//                contractRepository.save(contract);
+//            }
+
+            addressRepository.save(productPost.getSource());
+            addressRepository.save(productPost.getDestination());
+            productRepository.save(productPost.getProduct());
+            productPostRepository.save(productPost);
+                //contractRepository.save(contract);
         }
         return null;
     }
@@ -126,9 +138,5 @@ public class ProductPostService {
     }
 
 
-    public ProductPost deleteProductPost( Long id) {
-        productPostRepository.deleteById(id);
-        return null;
-    }
 
 }

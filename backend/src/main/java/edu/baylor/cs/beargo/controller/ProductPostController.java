@@ -41,8 +41,4 @@ public class ProductPostController {
         return new ResponseEntity(searchPosts, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{productPostId}")
-    public ResponseEntity<ProductPost> deleteProductPost(@PathVariable("productPostId") Long id){
-        return new ResponseEntity(productPostService.deleteProductPost(id),HttpStatus.OK);
-    }
 }
