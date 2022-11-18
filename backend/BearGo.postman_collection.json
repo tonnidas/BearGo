@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ad00f650-5219-41a3-9581-6fb105c413db",
+		"_postman_id": "9a833894-a27b-4dd5-8458-d0ecb62e19d2",
 		"name": "BearGo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18044197"
+		"_exporter_id": "24320214"
 	},
 	"item": [
 		{
@@ -147,66 +147,6 @@
 						"api",
 						"admins",
 						"allUsers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "All blog posts",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{beargo-token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/blogPosts/getAllBlogPost",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"blogPosts",
-						"getAllBlogPost"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "All review and ratings",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{beargo-token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/reviewAndRating/getAllReviewAndRating",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"reviewAndRating",
-						"getAllReviewAndRating"
 					]
 				}
 			},
@@ -1101,6 +1041,43 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Update Product post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"product-post-update-4\",\r\n    \"expectedDeliveryDate\": \"2022-10-19\",\r\n    \"source\": {\r\n        \"street\": \"3rd street\",\r\n        \"city\": \"Waco\",\r\n        \"zip\": \"76706\",\r\n        \"state\": \"TX\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"destination\": {\r\n        \"street\": \"7th street\",\r\n        \"city\": \"Subaru\",\r\n        \"zip\": \"90876\",\r\n        \"state\": \"CA\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"product\": {\r\n        \"name\": \"product-4\",\r\n        \"description\": \"description-4\",\r\n        \"weight\": 43.0\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/updateProductPost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateProductPost"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1126,7 +1103,7 @@
 	"variable": [
 		{
 			"key": "beargo-token",
-			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDFAYmVhcmdvLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2Njg3NDQzNzUsImV4cCI6MTY2ODc2NTk3NX0.IWOsiLCNPg46OZTY92Ng6q2lqqY7tTnKvO0f2_H2xjI"
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBiZWFyZ28uY29tIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY2NTk5MjY1NCwiZXhwIjoxNjY2MDE0MjU0fQ.CTMh0m13NyZt0ejSfhbV93XAR__McznJEQriV8rilFY"
 		}
 	]
 }
