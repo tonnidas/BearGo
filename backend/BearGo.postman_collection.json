@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "23313b14-9ee3-4c87-aaad-6a567ea43a00",
+		"_postman_id": "ad00f650-5219-41a3-9581-6fb105c413db",
 		"name": "BearGo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23512021"
+		"_exporter_id": "18044197"
 	},
 	"item": [
 		{
@@ -147,6 +147,66 @@
 						"api",
 						"admins",
 						"allUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All blog posts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/blogPosts/getAllBlogPost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"blogPosts",
+						"getAllBlogPost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All review and ratings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/reviewAndRating/getAllReviewAndRating",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"reviewAndRating",
+						"getAllReviewAndRating"
 					]
 				}
 			},
@@ -1066,7 +1126,7 @@
 	"variable": [
 		{
 			"key": "beargo-token",
-			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBiZWFyZ28uY29tIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY2NTk5MjY1NCwiZXhwIjoxNjY2MDE0MjU0fQ.CTMh0m13NyZt0ejSfhbV93XAR__McznJEQriV8rilFY"
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDFAYmVhcmdvLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2Njg3NDQzNzUsImV4cCI6MTY2ODc2NTk3NX0.IWOsiLCNPg46OZTY92Ng6q2lqqY7tTnKvO0f2_H2xjI"
 		}
 	]
 }
