@@ -65,6 +65,224 @@
 			"response": []
 		},
 		{
+			"name": "All contracts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/contracts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contracts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All admins",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admins",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admins/allUsers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admins",
+						"allUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All users (non-admins)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admins/onlyUsers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admins",
+						"onlyUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Promote user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admins/promote/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admins",
+						"promote",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Current user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/users/current",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fullname\": \"BearGoUser01-new\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/users/updateProfile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"updateProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Products by name",
 			"request": {
 				"auth": {
@@ -124,6 +342,103 @@
 						"api",
 						"products",
 						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contracts by ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/contracts/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contracts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comments by postID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/comments/productPost/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"comments",
+						"productPost",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contracts by user ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/contracts/userContracts?userId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contracts",
+						"userContracts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -198,6 +513,222 @@
 			"response": []
 		},
 		{
+			"name": "Create productPost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"product-post-4\",\n    \"expectedDeliveryDate\": \"2022-10-19\",\n    \"source\": {\n        \"street\": \"3rd street\",\n        \"city\": \"Waco\",\n        \"zip\": \"76706\",\n        \"state\": \"TX\",\n        \"country\": \"USA\"\n    },\n    \"destination\": {\n        \"street\": \"7th street\",\n        \"city\": \"Subaru\",\n        \"zip\": \"90876\",\n        \"state\": \"CA\",\n        \"country\": \"USA\"\n    },\n    \"product\": {\n        \"name\": \"product-4\",\n        \"description\": \"description-4\",\n        \"weight\": 43.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productPosts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productPosts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create productPost (without source and destination)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"product-post-4\",\n    \"expectedDeliveryDate\": \"2022-10-30\",\n    \"product\": {\n        \"name\": \"product-4\",\n        \"description\": \"description-4\",\n        \"weight\": 43.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productPosts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productPosts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create productPost (without product)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"product-post-4\",\n    \"expectedDeliveryDate\": \"2022-10-30\",\n    \"source\": {\n        \"street\": \"3rd street\",\n        \"city\": \"Waco\",\n        \"zip\": \"76706\",\n        \"state\": \"TX\",\n        \"country\": \"USA\"\n    },\n    \"destination\": {\n        \"street\": \"7th street\",\n        \"city\": \"Subaru\",\n        \"zip\": \"90876\",\n        \"state\": \"CA\",\n        \"country\": \"USA\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productPosts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productPosts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm contract",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"product-post-4\",\n    \"expectedDeliveryDate\": \"2022-10-30\",\n    \"source\": {\n        \"street\": \"3rd street\",\n        \"city\": \"Waco\",\n        \"zip\": \"76706\",\n        \"state\": \"TX\",\n        \"country\": \"USA\"\n    },\n    \"destination\": {\n        \"street\": \"7th street\",\n        \"city\": \"Subaru\",\n        \"zip\": \"90876\",\n        \"state\": \"CA\",\n        \"country\": \"USA\"\n    },\n    \"product\": {\n        \"name\": \"product-4\",\n        \"description\": \"description-4\",\n        \"weight\": 43.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/contracts/confirmContract?productPostId=1&travelerId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contracts",
+						"confirmContract"
+					],
+					"query": [
+						{
+							"key": "productPostId",
+							"value": "1"
+						},
+						{
+							"key": "travelerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Review and rate contract",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"product-post-4\",\n    \"expectedDeliveryDate\": \"2022-10-30\",\n    \"source\": {\n        \"street\": \"3rd street\",\n        \"city\": \"Waco\",\n        \"zip\": \"76706\",\n        \"state\": \"TX\",\n        \"country\": \"USA\"\n    },\n    \"destination\": {\n        \"street\": \"7th street\",\n        \"city\": \"Subaru\",\n        \"zip\": \"90876\",\n        \"state\": \"CA\",\n        \"country\": \"USA\"\n    },\n    \"product\": {\n        \"name\": \"product-4\",\n        \"description\": \"description-4\",\n        \"weight\": 43.0\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/contracts/reviewAndRate?contractId=1&rating=4&review=Good communication",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contracts",
+						"reviewAndRate"
+					],
+					"query": [
+						{
+							"key": "contractId",
+							"value": "1"
+						},
+						{
+							"key": "rating",
+							"value": "4"
+						},
+						{
+							"key": "review",
+							"value": "Good communication"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update product",
 			"request": {
 				"auth": {
@@ -231,6 +762,143 @@
 						"api",
 						"products",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create complaint",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reason\": \"bad description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/complaints?productPostId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"complaints"
+					],
+					"query": [
+						{
+							"key": "productPostId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment\": \"nice \"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/comments?productPostId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "productPostId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment\": \"Nice picture\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/comments/update?commentId=2&updatedComment=\"Great....\"",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"comments",
+						"update"
+					],
+					"query": [
+						{
+							"key": "commentId",
+							"value": "2"
+						},
+						{
+							"key": "updatedComment",
+							"value": "\"Great....\""
+						}
 					]
 				}
 			},
@@ -272,7 +940,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"user01@beargo.com\",\n    \"password\": \"password\",\n    \"isAdmin\": false,\n    \"fullname\": \"BearGoUser01\"\n}",
+					"raw": "{\n    \"username\": \"user01@beargo.com\",\n    \"password\": \"password\",\n    \"fullname\": \"BearGoUser01\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -296,6 +964,17 @@
 		},
 		{
 			"name": "Login admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"beargo-token\", pm.response.text());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -325,6 +1004,17 @@
 		},
 		{
 			"name": "Login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"beargo-token\", pm.response.text());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
