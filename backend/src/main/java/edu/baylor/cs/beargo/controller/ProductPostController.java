@@ -40,4 +40,9 @@ public class ProductPostController {
         List<ProductPost> searchPosts = productPostService.searchProductPost(source,destination,startDate,endDate);
         return new ResponseEntity(searchPosts, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{productPostId}")
+    public ResponseEntity<ProductPost> deleteProductPost(@PathVariable("productPostId") Long id){
+        return new ResponseEntity(productPostService.deleteProductPost(id),HttpStatus.OK);
+    }
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -105,12 +106,29 @@ public class ProductPostService {
     // TODO: Update product post - Swapnil
 
     public ProductPost updateProductPost(User user, ProductPost productPost) {
-        return productPostRepository.save(productPost);
+        Long id = productPost.getId();
+        Optional<ProductPost> opt = productPostRepository.findById(id);
+        if(opt.isPresent())
+        {
+            Contract contract = productPost.getContract();
+            LocalDate startDate = contract.getContractStartDate();
+            if(startDate.compareTo(LocalDate.now()) > 1 ) //need to add delivery status as well
+            {
+                return productPostRepository.save(productPost);
+            }
+        }
+        return null;
     }
     public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate)
     {
         List<ProductPost> posts = new ArrayList<>();
         return posts;
+    }
+
+
+    public ProductPost deleteProductPost( Long id) {
+        productPostRepository.deleteById(id);
+        return null;
     }
 
 }
