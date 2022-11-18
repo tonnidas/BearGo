@@ -1,6 +1,9 @@
-import "./Register.css"
+
 
 import logo_white from '../images/logo-white.svg';
+
+import urlPaths from '../urlPaths';
+
 
 export default function Register() {
     let url = ""
@@ -41,6 +44,35 @@ export default function Register() {
             </div>
         </div>
     </div>
+
+
+    {/* <div className="modal" id="mymodal">
+        <div className="modal-inner">
+
+            <form className="">
+                <span className="close" onclick="hideModal('mymodal')">
+                    <i className="icon-close"></i>
+                </span>
+                <h3 className="common-heading">OTP Verification</h3>
+                <div className="form-group">
+                    <input type="hidden" name="_token" value=""/>
+                    <label className="form-label">Enter the six digit verification code</label>
+                    <input className="form-control" type="text" name="otp"/>
+                </div>
+                <p id="wrongcouponmsgareaV" style="display: none;" className="error-msg">The OTP you entered is not correct.
+                    Please try again with correct OTP</p>
+                <div className="btn-group">
+                    <a href="#" className="common-btn btn-back" id="resend-otp">Resend</a>
+                    <button type="submit" className="common-btn" id="resend-otp-next">Next</button>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div> */}
+
+
    
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

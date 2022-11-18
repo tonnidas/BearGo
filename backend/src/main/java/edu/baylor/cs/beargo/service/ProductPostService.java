@@ -113,4 +113,10 @@ public class ProductPostService {
         return posts;
     }
 
+
+    public ProductPost deleteProductPost( Long id) {
+        productPostRepository.deleteById(id);
+        return null;
+    }
+
 }
