@@ -5,6 +5,7 @@ import edu.baylor.cs.beargo.repository.MessageRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,18 @@ public class MessageService {
     @Autowired
     MessageRepository msgRepo;
 
+    @Autowired
+    private KafkaTemplate<String, Message> kafkaTemplate;
+
     public Message saveMsg(Message m){
 
+
+
         Message savedMsg = msgRepo.save(m);
+
+        String topicname = "/topic/msg/message";
+        kafkaTemplate.send(topicname, savedMsg);
+
         return savedMsg;
 
     }
