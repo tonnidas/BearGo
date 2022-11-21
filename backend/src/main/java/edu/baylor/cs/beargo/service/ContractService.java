@@ -109,7 +109,7 @@ public class ContractService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contract is not finalized yet");
         }
 
-        if (contract.getContractEndDate().isAfter(LocalDate.now())) {
+        if (! (contract.getContractEndDate().isAfter(LocalDate.now())) ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review and rating can be give only after contract end date");
         }
 
@@ -138,10 +138,37 @@ public class ContractService {
         return contractRepository.save(contract);
     }
 
+    /**
+     * Checks if the contract exists with the contract id.
+     * Checks if a traveler exists for the contract to be updated.
+     * Checks if contract end date has not passed current date.
+     * For status to be PICKED_UP,
+     * Checks if the user is either the sender or the traveler.
+     * For status to be IN_TRANSIT,
+     * Checks if the user is the traveler.
+     * For status to be DELIVERED,
+     * Checks if the user is the sender.
+     *
+     * @param user          the authenticated user
+     * @param contractId    the contract id
+     * @param newStatus     the new status
+     * @return updated contract
+     */
     public Contract updateContractStatus(User user, Long contractId, DeliveryStatus newStatus) {
         Contract contract = getContractById(contractId);
+        User traveler = contract.getTraveler();
 
-        if (contract.getTraveler().equals(null)) {
+        if (! (contract.getContractEndDate().isAfter(LocalDate.now())) ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contract status cannot be updated after contract end date");
+        } else {
+            contract.setDeliveryStatus(DeliveryStatus.UNSUCCESSFULL);
+        }
+
+        if (! (newStatus.equals(DeliveryStatus.PICKED_UP) || newStatus.equals(DeliveryStatus.IN_TRANSIT) || newStatus.equals(DeliveryStatus.DELIVERED)) ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "newStatus have to be picked-up or in-transit or delivered");
+        }
+
+        if (traveler.equals(null)) { // ask Dipta, why?
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Without a traveler, contract status cannot be updated");
         }
 
@@ -157,12 +184,16 @@ public class ContractService {
         }
 
         if (newStatus.equals(DeliveryStatus.IN_TRANSIT)) {
-
+            if (! (userId.equals(travelerId)) ) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler can update the contract status to in-transit");
+            }
             contract.setDeliveryStatus(newStatus);
         }
 
         if (newStatus.equals(DeliveryStatus.DELIVERED)) {
-
+            if (! (userId.equals(travelerId)) ) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler can update the contract status to in-transit");
+            }
             contract.setDeliveryStatus(newStatus);
         }
 

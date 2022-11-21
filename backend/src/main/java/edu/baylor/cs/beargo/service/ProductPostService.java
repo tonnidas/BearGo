@@ -102,7 +102,7 @@ public class ProductPostService {
         return productPostRepository.save(productPost);
     }
 
-    // TODO: Update product post - Swapnil
+    // TODO: Update product post - implement logic
 
     public ProductPost updateProductPost(User user, ProductPost productPost) {
         Long id = productPost.getId();
