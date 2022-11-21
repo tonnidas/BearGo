@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.model.Contract;
+import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ContractService;
 import edu.baylor.cs.beargo.util.UserContracts;
@@ -48,6 +49,12 @@ public class ContractController {
     @PostMapping("/reviewAndRate")
     public ResponseEntity<Contract> reviewAndRate(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam Integer rating, @RequestParam String review) {
         Contract updatedContract = contractService.reviewAndRate(user, contractId, rating, review);
+        return new ResponseEntity<>(updatedContract, HttpStatus.OK);
+    }
+
+    @PostMapping("/updateStatus")
+    public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam DeliveryStatus newStatus) {
+        Contract updatedContract = contractService.updateContractStatus(user, contractId, newStatus);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 }

@@ -137,4 +137,35 @@ public class ContractService {
 
         return contractRepository.save(contract);
     }
+
+    public Contract updateContractStatus(User user, Long contractId, DeliveryStatus newStatus) {
+        Contract contract = getContractById(contractId);
+
+        if (contract.getTraveler().equals(null)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Without a traveler, contract status cannot be updated");
+        }
+
+        Long userId = user.getId();
+        Long senderId = contract.getSender().getId();
+        Long travelerId = contract.getTraveler().getId();
+
+        if (newStatus.equals(DeliveryStatus.PICKED_UP)) {
+            if (! (userId.equals(travelerId) || userId.equals(senderId))) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler or sender can update the contract status to picked-up");
+            }
+            contract.setDeliveryStatus(newStatus);
+        }
+
+        if (newStatus.equals(DeliveryStatus.IN_TRANSIT)) {
+
+            contract.setDeliveryStatus(newStatus);
+        }
+
+        if (newStatus.equals(DeliveryStatus.DELIVERED)) {
+
+            contract.setDeliveryStatus(newStatus);
+        }
+
+        return contractRepository.save(contract);
+    }
 }
