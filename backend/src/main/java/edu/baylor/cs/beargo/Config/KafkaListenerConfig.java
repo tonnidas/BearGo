@@ -2,6 +2,7 @@ package edu.baylor.cs.beargo.Config;
 
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +15,15 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@EnableKafka
+
 @Configuration
-@EnableAutoConfiguration(exclude = KafkaAutoConfiguration.class)
+@Component
+@Slf4j
 public class KafkaListenerConfig {
 
 
@@ -93,7 +96,8 @@ public class KafkaListenerConfig {
         Map<String, Object> config = new HashMap<>();
 
         // Adding the Configuration
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        //config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_msg");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);

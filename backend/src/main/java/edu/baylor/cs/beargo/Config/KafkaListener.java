@@ -1,4 +1,4 @@
-/*
+
 package edu.baylor.cs.beargo.Config;
 
 import edu.baylor.cs.beargo.model.Message;
@@ -37,36 +37,38 @@ public class KafkaListener {
     @org.springframework.kafka.annotation.KafkaListener(topics = "/topic/notification/newnotification", groupId = "group_notification", containerFactory = "NotificationContainerFactory")
     public void listenNotification(Notification notifications) {
 
-        log.info("Listening {}" + notifications);
+        log.info("Listening {}" , notifications);
         Long uid = notifications.getId();
 
         String topic = "/topic/newNotification/" + uid.toString();
 
         // send new notification to that user
-        messagingTemplate.convertAndSend(topic, notifications);
+        //messagingTemplate.convertAndSend(topic, notifications);
 
 
     }
 
     // Listener for msg
 
-    @org.springframework.kafka.annotation.KafkaListener(topics = "/topic/msg/message", groupId = "group_msg", containerFactory = "NotificationContainerFactory")
-    public void listenNotification(Message message) {
+    @org.springframework.kafka.annotation.KafkaListener(topics = "/topic/msg/message", groupId = "group_msg", containerFactory = "MessageContainerFactory")
+    public void listenMessage(Message message) {
 
         log.info("Listening {}", message);
         Long uid = message.getId();
 
         String topic = "/topic/newmsg/" + uid.toString();
 
-        // send new notification to that user
+        // send new msg to that user
         messagingTemplate.convertAndSend(topic, message);
 
 
     }
 
 
+
+
     // More Listener to be added
 
 
 }
-*/
+
