@@ -1,9 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.DeliveryStatus;
-import edu.baylor.cs.beargo.model.ProductPost;
-import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.model.*;
 import edu.baylor.cs.beargo.repository.AddressRepository;
 import edu.baylor.cs.beargo.repository.ContractRepository;
 import edu.baylor.cs.beargo.repository.ProductPostRepository;
@@ -106,31 +103,24 @@ public class ProductPostService {
     }
 
     // TODO: Update product post - implement logic
-
+    // Date check and status check will be done in frontend. So no need to check here.
     public ProductPost updateProductPost(User user, ProductPost productPost) {
         Long id = productPost.getId();
         Optional<ProductPost> opt = productPostRepository.findById(id);
         if (opt.isPresent()) {
             ProductPost optProductpost = opt.get();
             Contract contract = optProductpost.getContract();
-            System.out.println(productPost.getProduct());
-            LocalDate startDate = contract.getContractStartDate();
-            System.out.println(startDate);
-            System.out.println(LocalDate.now());
-            if(startDate.compareTo(LocalDate.now()) > 1 ) //need to check date
-            if(contract.getDeliveryStatus().equals("SEARCHING_TRAVELER"))
-            {
-                addressRepository.save(productPost.getSource());
-                addressRepository.save(productPost.getDestination());
-                productRepository.save(productPost.getProduct());
-                productPostRepository.save(productPost);
-            }
+            Product product = productPost.getProduct();
 
-
-
-            //contractRepository.save(contract);
+            addressRepository.save(productPost.getSource());
+            addressRepository.save(productPost.getDestination());
+            product.setId(optProductpost.getProduct().getId());
+            productRepository.save(product);
+            contractRepository.save(contract);
+            productPost.setContract(contract);
+            productPostRepository.save(productPost);
         }
-        return null;
+        return productPost;
     }
 
     public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate) {
