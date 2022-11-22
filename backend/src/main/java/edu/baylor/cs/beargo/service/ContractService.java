@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -57,6 +59,37 @@ public class ContractService {
     public UserContracts getContractByUserId(Long id) {
         User user = userService.getUserById(id);
         return new UserContracts(user.getId(), user.getSenderContracts(), user.getTravelerContracts());
+    }
+
+    /**
+     * Checks if the user with the userId exists
+     *
+     * @param id             the user id
+     * @param lookBackMonths 0 means all
+     * @return all contracts as sender and all contracts as traveler for a given period (half-yearly, yearly, all)
+     */
+    public UserContracts getContractByUserIdByDate(Long id, int lookBackMonths) {
+        if (lookBackMonths == 0) {
+            return getContractByUserId(id);
+        }
+
+        User user = userService.getUserById(id);
+
+        Set<Contract> senderContracts = new HashSet<>();
+        for (Contract contract : user.getSenderContracts()) {
+            if (contract.getContractStartDate().isAfter(LocalDate.now().minusMonths(lookBackMonths))) {
+                senderContracts.add(contract);
+            }
+        }
+
+        Set<Contract> travelerContracts = new HashSet<>();
+        for (Contract contract : user.getTravelerContracts()) {
+            if (contract.getContractStartDate().isAfter(LocalDate.now().minusMonths(lookBackMonths))) {
+                travelerContracts.add(contract);
+            }
+        }
+
+        return new UserContracts(user.getId(), senderContracts, travelerContracts);
     }
 
     /**
@@ -109,7 +142,7 @@ public class ContractService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contract is not finalized yet");
         }
 
-        if (! (contract.getContractEndDate().isAfter(LocalDate.now())) ) {
+        if (!(contract.getContractEndDate().isAfter(LocalDate.now()))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review and rating can be give only after contract end date");
         }
 
@@ -149,26 +182,24 @@ public class ContractService {
      * For status to be DELIVERED,
      * Checks if the user is the sender.
      *
-     * @param user          the authenticated user
-     * @param contractId    the contract id
-     * @param newStatus     the new status
+     * @param user       the authenticated user
+     * @param contractId the contract id
+     * @param newStatus  the new status
      * @return updated contract
      */
-    public Contract updateContractStatus(User user, Long contractId, DeliveryStatus newStatus) {
+    public Contract updateContractStatus(User user, Long contractId, String newStatus) {
         Contract contract = getContractById(contractId);
         User traveler = contract.getTraveler();
 
-        if (! (contract.getContractEndDate().isAfter(LocalDate.now())) ) {
+        if (LocalDate.now().isAfter(contract.getContractEndDate())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contract status cannot be updated after contract end date");
-        } else {
-            contract.setDeliveryStatus(DeliveryStatus.UNSUCCESSFULL);
         }
 
-        if (! (newStatus.equals(DeliveryStatus.PICKED_UP) || newStatus.equals(DeliveryStatus.IN_TRANSIT) || newStatus.equals(DeliveryStatus.DELIVERED)) ) {
+        if (!(newStatus.equals("PICKED_UP") || newStatus.equals("IN_TRANSIT") || newStatus.equals("DELIVERED"))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "newStatus have to be picked-up or in-transit or delivered");
         }
 
-        if (traveler.equals(null)) { // ask Dipta, why?
+        if (traveler == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Without a traveler, contract status cannot be updated");
         }
 
@@ -176,25 +207,25 @@ public class ContractService {
         Long senderId = contract.getSender().getId();
         Long travelerId = contract.getTraveler().getId();
 
-        if (newStatus.equals(DeliveryStatus.PICKED_UP)) {
-            if (! (userId.equals(travelerId) || userId.equals(senderId))) {
+        if (newStatus.equals("PICKED_UP")) {
+            if (!(userId.equals(travelerId) || userId.equals(senderId))) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler or sender can update the contract status to picked-up");
             }
-            contract.setDeliveryStatus(newStatus);
+            contract.setDeliveryStatus(DeliveryStatus.PICKED_UP);
         }
 
-        if (newStatus.equals(DeliveryStatus.IN_TRANSIT)) {
-            if (! (userId.equals(travelerId)) ) {
+        if (newStatus.equals("IN_TRANSIT")) {
+            if (!(userId.equals(travelerId))) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler can update the contract status to in-transit");
             }
-            contract.setDeliveryStatus(newStatus);
+            contract.setDeliveryStatus(DeliveryStatus.IN_TRANSIT);
         }
 
-        if (newStatus.equals(DeliveryStatus.DELIVERED)) {
-            if (! (userId.equals(travelerId)) ) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler can update the contract status to in-transit");
+        if (newStatus.equals("DELIVERED")) {
+            if (!(userId.equals(travelerId) || userId.equals(senderId))) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only traveler or sender can update the contract status to picked-up");
             }
-            contract.setDeliveryStatus(newStatus);
+            contract.setDeliveryStatus(DeliveryStatus.DELIVERED);
         }
 
         return contractRepository.save(contract);

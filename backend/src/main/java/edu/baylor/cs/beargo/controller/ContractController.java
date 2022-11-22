@@ -1,7 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ContractService;
 import edu.baylor.cs.beargo.util.UserContracts;
@@ -34,9 +33,8 @@ public class ContractController {
     }
 
     @GetMapping("/userContracts")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserContracts> getContractByUserId(@RequestParam Long userId) {
-        UserContracts userContracts = contractService.getContractByUserId(userId);
+    public ResponseEntity<UserContracts> getContractByUserId(@RequestParam Long userId, @RequestParam int lookBackMonths) {
+        UserContracts userContracts = contractService.getContractByUserIdByDate(userId, lookBackMonths);
         return new ResponseEntity<>(userContracts, HttpStatus.OK);
     }
 
@@ -53,7 +51,7 @@ public class ContractController {
     }
 
     @PostMapping("/updateStatus")
-    public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam DeliveryStatus newStatus) {
+    public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam String newStatus) {
         Contract updatedContract = contractService.updateContractStatus(user, contractId, newStatus);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
