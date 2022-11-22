@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -79,6 +81,7 @@ public class ProductPostService {
         if (productPost.getSource() == null || productPost.getDestination() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Source and destination cannot be empty");
         }
+
         addressRepository.save(productPost.getSource());
         addressRepository.save(productPost.getDestination());
 
@@ -90,7 +93,7 @@ public class ProductPostService {
         // create contract
         Contract contract = new Contract();
         contract.setDescription(user.getUsername() + " is looking for a traveler to deliver a product within " + productPost.getExpectedDeliveryDate() + ".");
-        contract.setContractStartDate(null); // not sure: LocalDate.now()
+        contract.setContractStartDate(LocalDate.of(2022, Month.DECEMBER, 31)); // not sure: LocalDate.now()
         contract.setContractEndDate(productPost.getExpectedDeliveryDate());
         contract.setDeliveryStatus(DeliveryStatus.SEARCHING_TRAVELER);
         contract.setProductPost(productPost);
@@ -108,23 +111,23 @@ public class ProductPostService {
         Long id = productPost.getId();
         Optional<ProductPost> opt = productPostRepository.findById(id);
         if (opt.isPresent()) {
-//            Contract contract = productPost.getContract();
-//            System.out.println(contract.getId());
-//           // LocalDate startDate = contract.getContractStartDate();
-//            //if(startDate.compareTo(LocalDate.now()) > 1 ) //need to check date
-//            if(contract.getDeliveryStatus().equals("SEARCHING_TRAVELER"))
-//            {
-//                productPostRepository.save(productPost);
-//                addressRepository.save(productPost.getSource());
-//                addressRepository.save(productPost.getDestination());
-//                productRepository.save(productPost.getProduct());
-//                contractRepository.save(contract);
-//            }
+            ProductPost optProductpost = opt.get();
+            Contract contract = optProductpost.getContract();
+            System.out.println(productPost.getProduct());
+            LocalDate startDate = contract.getContractStartDate();
+            System.out.println(startDate);
+            System.out.println(LocalDate.now());
+            if(startDate.compareTo(LocalDate.now()) > 1 ) //need to check date
+            if(contract.getDeliveryStatus().equals("SEARCHING_TRAVELER"))
+            {
+                addressRepository.save(productPost.getSource());
+                addressRepository.save(productPost.getDestination());
+                productRepository.save(productPost.getProduct());
+                productPostRepository.save(productPost);
+            }
 
-            addressRepository.save(productPost.getSource());
-            addressRepository.save(productPost.getDestination());
-            productRepository.save(productPost.getProduct());
-            productPostRepository.save(productPost);
+
+
             //contractRepository.save(contract);
         }
         return null;
