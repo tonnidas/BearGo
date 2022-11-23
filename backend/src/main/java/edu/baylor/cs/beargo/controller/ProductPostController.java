@@ -40,4 +40,10 @@ public class ProductPostController {
         return new ResponseEntity(searchPosts, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllProductPost")
+    public ResponseEntity<ProductPost> getAllProductPost(@AuthenticationPrincipal User user) {
+        List<ProductPost> productPosts = productPostService.getProductPosts();
+        return new ResponseEntity(productPosts, HttpStatus.OK);
+    }
+
 }

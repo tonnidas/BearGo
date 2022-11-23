@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9a833894-a27b-4dd5-8458-d0ecb62e19d2",
+		"_postman_id": "17431b04-78c7-4091-a3d8-d2dff63dc32f",
 		"name": "BearGo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24320214"
@@ -1074,6 +1074,64 @@
 					"port": "8080",
 					"path": [
 						"updateProductPost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User complaint",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reason\": \"bad behaviour\",\r\n    \"complainedUserId\": \"4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/userComplaint",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"userComplaint"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Productpost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{beargo-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/productPosts/getAllProductPost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productPosts",
+						"getAllProductPost"
 					]
 				}
 			},
