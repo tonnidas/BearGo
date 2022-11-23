@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,10 +21,10 @@ public class BlogPost {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate postedTime;
+    private LocalDateTime postedDateTime;
 
     @Column(nullable = false)
-    private LocalDate lastEditedTime;
+    private LocalDateTime lastEditedDateTime;
 
     @Column
     private String imageFilePath;

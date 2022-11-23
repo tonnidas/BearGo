@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -58,15 +57,16 @@ public class BlogPostService {
      */
     public BlogPost createBlogPost(User user, BlogPost blogPost) {
 
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost must be postedBy someone.");
+        }
+
         if (blogPost.getDescription() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost description cannot be empty");
         }
-        if (blogPost.getPostedBy() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost postedBy cannot be empty");
-        }
 
-        blogPost.setPostedTime(LocalDate.from(LocalDateTime.now()));
-        blogPost.setLastEditedTime(blogPost.getPostedTime());
+        blogPost.setPostedDateTime(LocalDateTime.now());
+        blogPost.setLastEditedDateTime(blogPost.getPostedDateTime());
         blogPost.setPostedBy(user);
 
         return blogPostRepository.save(blogPost);

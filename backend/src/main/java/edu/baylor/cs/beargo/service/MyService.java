@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -58,8 +57,8 @@ public class MyService {
         for (int i = 1; i <= 5; i++) {
             BlogPost blogPost = new BlogPost();
             blogPost.setDescription("Blog Post Description " + i);
-            blogPost.setPostedTime(LocalDate.now());
-            blogPost.setLastEditedTime(blogPost.getPostedTime());
+            blogPost.setPostedDateTime(LocalDateTime.now());
+            blogPost.setLastEditedDateTime(blogPost.getPostedDateTime());
             // It depends on the user loop. There must be some user with this user name.
             User user = userRepository.findByUsername("user" + ((i % 2) + 11) + "@beargo.com").get();
             blogPost.setPostedBy(user);
