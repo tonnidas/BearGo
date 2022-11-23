@@ -100,6 +100,20 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    /**
+     * @param username the username
+     * @return the user
+     */
+    public User getUserByUsername(String username) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user exists for given id");
+        }
+    }
+
     // user is current user
     // user details represents updated fields
     public User updateUser(User updatedUser, User user) {
