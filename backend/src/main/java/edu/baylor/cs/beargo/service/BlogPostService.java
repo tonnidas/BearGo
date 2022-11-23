@@ -76,6 +76,8 @@ public class BlogPostService {
     }
 
     /**
+     * Checks if the given username is null or not
+     * Checks if the user exists with this username
      *
      * @param username the username
      * @return created blog post by that username
