@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -124,8 +125,20 @@ public class ProductPostService {
     }
 
     public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate) {
-        List<ProductPost> posts = new ArrayList<>();
-        return posts;
+        List<ProductPost> posts = productPostRepository.findAll();
+        List<ProductPost> searchPosts = new ArrayList<>();
+        for(ProductPost pr : posts)
+        {
+            if(startDate != null && endDate != null)
+            {
+                Date date = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                if(date.after(startDate) && date.before(endDate))
+                {
+                    searchPosts.add(pr);
+                }
+            }
+        }
+        return searchPosts;
     }
 
 
