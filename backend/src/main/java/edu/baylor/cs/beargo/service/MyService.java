@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -69,7 +70,7 @@ public class MyService {
             ReviewAndRating reviewAndRating = new ReviewAndRating();
             reviewAndRating.setReview("This person is good " + i);
             reviewAndRating.setRating(5);
-            reviewAndRating.setReviewTime(LocalDate.now());
+            reviewAndRating.setReviewDateTime(LocalDateTime.now());
             // It depends on the user loop. There must be some user with this user name.
             User user1 = userRepository.findByUsername("user" + (i * 2 + 9) + "@beargo.com").get();
             User user2 = userRepository.findByUsername("user" + (i * 2 + 10) + "@beargo.com").get();

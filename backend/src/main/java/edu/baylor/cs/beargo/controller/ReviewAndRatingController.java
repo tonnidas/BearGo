@@ -1,13 +1,13 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.model.ReviewAndRating;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ReviewAndRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +22,12 @@ public class ReviewAndRatingController {
     public ResponseEntity<List<ReviewAndRating>> getAllReviewAndRating() {
         List<ReviewAndRating> reviewAndRatings = reviewAndRatingService.getReviewAndRatings();
         return new ResponseEntity<>(reviewAndRatings, HttpStatus.OK);
+    }
+
+    @PostMapping("/reviewAndRate")
+    public ResponseEntity<ReviewAndRating> reviewAndRate(@AuthenticationPrincipal User user, @RequestParam Long contractId,
+                                                                 @RequestParam Integer rating, @RequestParam String review) {
+        ReviewAndRating reviewAndRating = reviewAndRatingService.reviewAndRate(user, contractId, rating, review);
+        return new ResponseEntity<>(reviewAndRating, HttpStatus.OK);
     }
 }

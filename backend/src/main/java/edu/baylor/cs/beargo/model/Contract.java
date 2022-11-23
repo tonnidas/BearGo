@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import java.time.LocalDate;
 
 @Getter
@@ -47,17 +46,11 @@ public class Contract {
     @JsonIdentityReference(alwaysAsId = true)
     private User traveler;
 
-    @Column
-    @Max(5)
-    private Integer ratingBySender; // The rating that the sender gave to the traveler
+    @OneToOne(mappedBy = "contractReviewedBySender") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private ReviewAndRating reviewAndRatingBySender;
 
-    @Column
-    @Max(5)
-    private Integer ratingByTraveler; // The rating that the traveler gave to the sender
-
-    @Column
-    private String reviewBySender; // The review that the sender gave to the traveler
-
-    @Column
-    private String reviewByTraveler; // The review that the traveler gave to the sender
+    @OneToOne(mappedBy = "contractReviewedByTraveler") // inverse-side
+    @JsonIdentityReference(alwaysAsId = true)
+    private ReviewAndRating reviewAndRatingByTraveler;
 }

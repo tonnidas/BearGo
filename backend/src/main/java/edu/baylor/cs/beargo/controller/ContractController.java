@@ -44,12 +44,6 @@ public class ContractController {
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 
-    @PostMapping("/reviewAndRate")
-    public ResponseEntity<Contract> reviewAndRate(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam Integer rating, @RequestParam String review) {
-        Contract updatedContract = contractService.reviewAndRate(user, contractId, rating, review);
-        return new ResponseEntity<>(updatedContract, HttpStatus.OK);
-    }
-
     @PostMapping("/updateStatus")
     public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam String newStatus) {
         Contract updatedContract = contractService.updateContractStatus(user, contractId, newStatus);

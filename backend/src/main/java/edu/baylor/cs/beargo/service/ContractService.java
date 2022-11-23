@@ -1,9 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.DeliveryStatus;
-import edu.baylor.cs.beargo.model.ProductPost;
-import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.model.*;
 import edu.baylor.cs.beargo.repository.ContractRepository;
 import edu.baylor.cs.beargo.util.UserContracts;
 import lombok.AllArgsConstructor;
@@ -120,53 +117,6 @@ public class ContractService {
         contract.setDeliveryStatus(DeliveryStatus.INITIATED);
         contract.setContractStartDate(LocalDate.now());
         contract.setDescription("Contract initiated");
-
-        return contractRepository.save(contract);
-    }
-
-    /**
-     * Checks if the logged user is either sender or traveler.
-     * Checks if the sender has not already rated or reviewed.
-     * Checks if the traveler has not already rated or reviewed.
-     *
-     * @param user       the authenticated user
-     * @param rating     the rating
-     * @param review     the review
-     * @param contractId the contract Id
-     * @return created contract
-     */
-    public Contract reviewAndRate(User user, Long contractId, Integer rating, String review) {
-        Contract contract = getContractById(contractId);
-
-        if (contract.getTraveler() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contract is not finalized yet");
-        }
-
-        if (!(contract.getContractEndDate().isAfter(LocalDate.now()))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review and rating can be give only after contract end date");
-        }
-
-        if (contract.getSender().getId().equals(user.getId())) {
-            if (contract.getRatingBySender() != null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sender cannot rate the traveler twice");
-            }
-            contract.setRatingBySender(rating);
-            if (contract.getReviewBySender() != null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sender cannot give review to the traveler twice");
-            }
-            contract.setReviewBySender(review);
-        } else if (contract.getTraveler().getId().equals(user.getId())) {
-            if (contract.getRatingByTraveler() != null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Traveler cannot rate the sender twice");
-            }
-            contract.setRatingByTraveler(rating);
-            if (contract.getReviewByTraveler() != null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Traveler cannot give review to the sender twice");
-            }
-            contract.setReviewByTraveler(review);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only sender or traveler can rate and review");
-        }
 
         return contractRepository.save(contract);
     }

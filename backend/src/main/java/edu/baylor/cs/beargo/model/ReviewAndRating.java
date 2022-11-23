@@ -10,7 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,12 +26,12 @@ public class ReviewAndRating {
     private String review;
 
     @Column
-    @Min(value = 0, message = "Rating must be equal or greater than 0")
+    @Min(value = 1, message = "Rating must be equal or greater than 1")
     @Max(value = 5, message = "Rating must be equal or less than 5")
     private Integer rating;
 
     @Column(nullable = false)
-    private LocalDate reviewTime;
+    private LocalDateTime reviewDateTime;
 
     @ManyToOne // owning-side
     @JoinColumn(name = "reviewedBy")
@@ -42,4 +42,14 @@ public class ReviewAndRating {
     @JoinColumn(name = "reviewedTo")
     @JsonIdentityReference(alwaysAsId = true)
     private User reviewedTo;
+
+    @OneToOne // owning-side
+    @JoinColumn(name = "contractReviewedBySender")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Contract contractReviewedBySender;
+
+    @OneToOne // owning-side
+    @JoinColumn(name = "contractReviewedByTraveler")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Contract contractReviewedByTraveler;
 }
