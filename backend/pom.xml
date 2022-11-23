@@ -97,6 +97,13 @@
             <artifactId>spring-social-twitter</artifactId>
             <version>1.1.2.RELEASE</version>
 
+<!--        Dependency for Logstash-->
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>6.6</version>
         </dependency>
     </dependencies>
 
