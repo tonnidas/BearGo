@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -60,5 +62,29 @@ public class ProductPostComplaintService {
         // TODO: check complaints count for the product post and send notification - Tonni
     }
 
+    /**
+     * Checks if
+     *
+     * @param user          the authenticated user
+     * @param productPostId the corresponding product post id
+     * @return created contract
+     */
     // TODO: Review a complain and send notification of reviewing to complainers - Tonni
+    public Set<ProductPostComplaint> confirmComplaintReview(User user, Long productPostId) {
+        ProductPost productPost = productPostService.getProductPostById(productPostId);
+        Set<ProductPostComplaint> complaints = productPost.getComplaints();
+
+        Set<User> users = new HashSet<>();
+
+        for (ProductPostComplaint c : complaints) {
+            c.setIsResolved(Boolean.TRUE);
+            c.setResolveDate(LocalDate.now());
+            c.setResolvedBy(user);
+            users.add(c.getComplainedBy());
+            productPostComplaintRepository.save(c);
+        }
+
+        return complaints;
+//        return productPostComplaintRepository.save(complaint);
+    }
 }
