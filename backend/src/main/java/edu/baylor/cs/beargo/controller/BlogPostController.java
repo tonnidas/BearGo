@@ -37,8 +37,8 @@ public class BlogPostController {
     }
 
     /*
-     * getBlogPostByUserName
-     * getBlogPostByUserId
+     * getBlogPostByUserName - Done
+     * getBlogPostByUserId - Done
      * updateBlogPost
      * getRecentPost - pagination (for the homepage refresh)
      * how many pages, which page you want
@@ -48,6 +48,12 @@ public class BlogPostController {
     @GetMapping("/getBlogPostByUsername")
     public ResponseEntity<List<BlogPost>> getBlogPostByUsername(@RequestParam(name = "username") String username) {
         List<BlogPost> blogPostList = blogPostService.getBlogPostByUsername(username);
+        return new ResponseEntity<>(blogPostList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getBlogPostByUserId")
+    public ResponseEntity<List<BlogPost>> getBlogPostByUserId(@RequestParam(name = "id") Long id) {
+        List<BlogPost> blogPostList = blogPostService.getBlogPostByUserId(id);
         return new ResponseEntity<>(blogPostList, HttpStatus.OK);
     }
 }

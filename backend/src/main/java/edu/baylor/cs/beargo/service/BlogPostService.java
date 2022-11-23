@@ -96,4 +96,26 @@ public class BlogPostService {
 
         return blogPostRepository.findAllByPostedBy(user);
     }
+
+    /**
+     * Checks if the given id is null or not
+     * Checks if the user exists with this id
+     *
+     * @param id the id of a user
+     * @return created blog post by that user
+     */
+    public List<BlogPost> getBlogPostByUserId(Long id) {
+
+        if (id == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id parameter can not be null.");
+        }
+
+        User user = userService.getUserById(id);
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user found with this id.");
+        }
+
+        return blogPostRepository.findAllByPostedBy(user);
+    }
 }
