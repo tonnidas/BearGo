@@ -38,10 +38,13 @@ public class UserComplaint {
     @JsonIdentityReference(alwaysAsId = true)
     private User complainedByUser;
 
-    @OneToMany  //
-    @JoinColumn(name = "user_id")
-    @JsonIdentityReference(alwaysAsId = true)
-    private List<User> complainedUser;
+//    @ManyToOne  //
+//    @JoinColumn(name = "user_id")
+//    @JsonIdentityReference(alwaysAsId = true)
+//    private User complainedUser;
+
+    @Column(name = "complainedUserId")
+    private Long complainedUserId;
 
     @ManyToOne // owning-side
     @JoinColumn(name = "admin_id")
