@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,8 +26,18 @@ public class NotificationController {
 
         Long uid = user.getId();
 
-        log.info("{}" + user);
-        List<Notification> notificationList = notificationService.getNotification(uid);
+        log.info("Retrieving Notification for user ID:" + user.getId().toString() );
+        List<Notification> notificationList = notificationService.getNotification(user);
         return new ResponseEntity<>(notificationList, HttpStatus.OK);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Notification> setNotification(@AuthenticationPrincipal User user, @RequestBody Notification notification) {
+
+        log.info("Saving Notification for User ID: "+ user.getId().toString());
+
+        Notification retVal = notificationService.saveNotification(user,notification);
+        return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 }

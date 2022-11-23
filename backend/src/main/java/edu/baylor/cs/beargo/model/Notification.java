@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 // This entity holds all the notification data
 @Getter
@@ -26,7 +27,7 @@ public class Notification {
 
     // Defines different notification type
     public enum NotificationType {
-        MSG, CONTRACT, DELIVERYTRACKING, CONTRACTSIGNED
+        MSG, CONTRACT, DELIVERYTRACKING, REPORTUSER, REPORTCOMMENT
     }
 
     @Column
@@ -34,6 +35,9 @@ public class Notification {
 
     @Column
     private String details;
+
+    @Column
+    private Date createdAt = new Date();
 
     @ManyToOne // owning-side
     @JoinColumn(name = "notification_to_id")

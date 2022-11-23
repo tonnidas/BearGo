@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,6 +23,9 @@ public class Message {
 
     @Column
     private String msg;
+
+    @Column
+    private Date createdAt = new Date();
 
     @ManyToOne // owning-side
     @JoinColumn(name = "fromUserId")
