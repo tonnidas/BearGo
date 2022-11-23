@@ -24,6 +24,9 @@ public class BlogPostService {
     @Autowired
     BlogPostRepository blogPostRepository;
 
+    @Autowired
+    UserService userService;
+
     /**
      * @return all BlogPosts
      */
@@ -70,5 +73,25 @@ public class BlogPostService {
         blogPost.setPostedBy(user);
 
         return blogPostRepository.save(blogPost);
+    }
+
+    /**
+     *
+     * @param username the username
+     * @return created blog post by that username
+     */
+    public List<BlogPost> getBlogPostByUsername(String username) {
+
+        if (username == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username parameter can not be null.");
+        }
+
+        User user = userService.getUserByUsername(username);
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user found with this user name.");
+        }
+
+        return blogPostRepository.findAllByPostedBy(user);
     }
 }

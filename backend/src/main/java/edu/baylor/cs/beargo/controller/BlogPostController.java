@@ -35,4 +35,19 @@ public class BlogPostController {
         BlogPost createdBlogPost = blogPostService.createBlogPost(user, blogPost);
         return new ResponseEntity<>(createdBlogPost, HttpStatus.OK);
     }
+
+    /*
+     * getBlogPostByUserName
+     * getBlogPostByUserId
+     * updateBlogPost
+     * getRecentPost - pagination (for the homepage refresh)
+     * how many pages, which page you want
+     *
+     */
+
+    @GetMapping("/getBlogPostByUsername")
+    public ResponseEntity<List<BlogPost>> getBlogPostByUsername(@RequestParam(name = "username") String username) {
+        List<BlogPost> blogPostList = blogPostService.getBlogPostByUsername(username);
+        return new ResponseEntity<>(blogPostList, HttpStatus.OK);
+    }
 }
