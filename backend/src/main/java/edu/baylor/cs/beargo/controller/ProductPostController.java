@@ -41,7 +41,7 @@ public class ProductPostController {
     }
 
     @GetMapping("/getAllProductPost")
-    public ResponseEntity<ProductPost> getAllProductPost(@AuthenticationPrincipal User user) {
+    public ResponseEntity<ProductPost> getAllProductPost() {
         List<ProductPost> productPosts = productPostService.getProductPosts();
         return new ResponseEntity(productPosts, HttpStatus.OK);
     }
