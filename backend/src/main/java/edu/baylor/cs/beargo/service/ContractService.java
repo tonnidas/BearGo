@@ -1,6 +1,9 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.*;
+import edu.baylor.cs.beargo.model.Contract;
+import edu.baylor.cs.beargo.model.DeliveryStatus;
+import edu.baylor.cs.beargo.model.ProductPost;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ContractRepository;
 import edu.baylor.cs.beargo.util.UserContracts;
 import lombok.AllArgsConstructor;

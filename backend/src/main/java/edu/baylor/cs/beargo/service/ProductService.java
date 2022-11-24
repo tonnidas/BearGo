@@ -58,9 +58,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-
-    // TODO: have to check constraints for product instance updating and deleting
-
     /**
      * @param id      the product id
      * @param product the product instance

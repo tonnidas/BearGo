@@ -130,7 +130,7 @@ public class BlogPostService {
      * Sets the current time with current time
      * Put the data in the repository
      *
-     * @param user the user who will update the blog post
+     * @param user     the user who will update the blog post
      * @param blogPost the blog post that should be updated
      * @return updated blog post
      */

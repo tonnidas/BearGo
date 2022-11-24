@@ -1,11 +1,8 @@
 package edu.baylor.cs.beargo.controller;
 
-import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.ProductPostComment;
-import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ProductPostCommentService;
-import edu.baylor.cs.beargo.service.ProductPostComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +34,7 @@ public class ProductPostCommentController {
     // Get all comments of a specific productPost
     @GetMapping("/productPost/{id}")
     public ResponseEntity<List<ProductPostComment>> getPostComments(@PathVariable("id") Long productPostId) {
-        List<ProductPostComment> comments = productPostCommentService.getPostCommentsAll(productPostId);
+        List<ProductPostComment> comments = productPostCommentService.getCommentsByProductPostId(productPostId);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 }

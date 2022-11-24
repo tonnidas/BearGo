@@ -20,28 +20,20 @@ public class TwitterService extends SocialConfigurerAdapter {
     private TwitterTemplate twitterTemplate;
 
     public void getTweets() {
-
         log.info("Tweets:", twitter.searchOperations().search("#Amazon"));
-
-
     }
 
-    public void tweet( String tweetText) {
-
-        Twitter t = new TwitterTemplate("1KHoEzRifBOlpOJvogBxMo39b","8pMQpULFLjE8ADhHqT5HTuDhc46iUqGOI733NB9M7F1h4AQJXS",
+    public void tweet(String tweetText) {
+        Twitter t = new TwitterTemplate("1KHoEzRifBOlpOJvogBxMo39b", "8pMQpULFLjE8ADhHqT5HTuDhc46iUqGOI733NB9M7F1h4AQJXS",
                 "1114229184-UL1GND9Z2ZchbVN9jOW1AbO1u6as5xBW7DqtFgI",
                 "kr15AoOC7khbOb5TuEuutqqc3Ma7hciIyTwiPg0spKmfO");
 
         try {
             TwitterProfile p = t.userOperations().getUserProfile();
-            SearchResults ts =  t.searchOperations().search("#Amazon");
-
-
+            SearchResults ts = t.searchOperations().search("#Amazon");
             log.info(ts.toString());
         } catch (RuntimeException ex) {
             log.error("Unable to tweet" + tweetText, ex);
         }
     }
-
-
 }

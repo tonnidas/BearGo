@@ -1,4 +1,3 @@
-
 package edu.baylor.cs.beargo.Config;
 
 import edu.baylor.cs.beargo.model.Message;
@@ -39,7 +38,7 @@ public class KafkaListener {
     @org.springframework.kafka.annotation.KafkaListener(topics = "/topic/notification/newnotification", groupId = "group_notification", containerFactory = "NotificationContainerFactory")
     public void listenNotification(Notification notifications) {
 
-        log.info("Listening {}" , notifications);
+        log.info("Listening {}", notifications);
         Long uid = notifications.getId();
 
         String topic = "/topic/newNotification/" + uid.toString();
@@ -65,8 +64,6 @@ public class KafkaListener {
 
 
     }
-
-
 
 
     // More Listener to be added

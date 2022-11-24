@@ -60,7 +60,7 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "complainedByUser") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
-    private List<UserComplaint> createdComplaintsofUser = new ArrayList<>();
+    private List<UserComplaint> createdComplaintsOfUser = new ArrayList<>();
 
     @OneToMany(mappedBy = "resolvedBy") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
@@ -71,9 +71,9 @@ public class User implements UserDetails {
     private Set<ProductPostComment> createdComments = new HashSet<>();
 
     // User mapped to notification entity
-    @OneToMany(mappedBy = "notifyuser") // inverse-side
+    @OneToMany(mappedBy = "notifyUser") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<Notification> notifieduser = new HashSet<>();
+    private Set<Notification> notifiedUser = new HashSet<>();
 
     @OneToMany(mappedBy = "fromUser") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
