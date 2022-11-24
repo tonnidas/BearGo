@@ -2,6 +2,7 @@ package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.model_wrapper.ProductPostDetails;
 import edu.baylor.cs.beargo.service.ProductPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,19 +32,21 @@ public class ProductPostController {
     }
 
     @GetMapping("/searchProductPost/{source}/{destination}/{startDate}/{endDate}")
-    public ResponseEntity<ProductPost> searchProductPost(@AuthenticationPrincipal User user,
-                                                         @PathVariable("source") String source,
-                                                         @PathVariable("destination") String destination,
-                                                         @PathVariable("startDate") Date startDate,
-                                                         @PathVariable("endDate") Date endDate) {
+    public ResponseEntity<List<ProductPostDetails>> searchProductPost(@AuthenticationPrincipal User user,
+                                                                      @PathVariable("source") String source,
+                                                                      @PathVariable("destination") String destination,
+                                                                      @PathVariable("startDate") Date startDate,
+                                                                      @PathVariable("endDate") Date endDate) {
+
         List<ProductPost> searchPosts = productPostService.searchProductPost(source, destination, startDate, endDate);
-        return new ResponseEntity(searchPosts, HttpStatus.OK);
+        List<ProductPostDetails> productPostDetails = ProductPostDetails.convertProductPostList(searchPosts);
+        return new ResponseEntity<>(productPostDetails, HttpStatus.OK);
     }
 
     @GetMapping("/getAllProductPost")
-    public ResponseEntity<ProductPost> getAllProductPost() {
+    public ResponseEntity<List<ProductPostDetails>> getAllProductPost() {
         List<ProductPost> productPosts = productPostService.getProductPosts();
-        return new ResponseEntity(productPosts, HttpStatus.OK);
+        List<ProductPostDetails> productPostDetails = ProductPostDetails.convertProductPostList(productPosts);
+        return new ResponseEntity<>(productPostDetails, HttpStatus.OK);
     }
-
 }

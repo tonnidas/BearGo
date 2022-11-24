@@ -5,7 +5,7 @@ import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ContractRepository;
-import edu.baylor.cs.beargo.util.UserContracts;
+import edu.baylor.cs.beargo.model_wrapper.UserContracts;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
