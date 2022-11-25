@@ -16,7 +16,7 @@ export default function Widget(props) {
             </svg>
           </div>
           <div className='user-avatar-name'>
-            <h4>{props.post.sender.fullname}</h4>
+            <h4>{props.post.contract.sender.fullname}</h4>
             <span>12:53 PM · {props.post.contract.contractStartDate}</span>
           </div>
         </a>
@@ -24,10 +24,10 @@ export default function Widget(props) {
       <div className='widget-inner'>
         <div className='post'>
           <p>
-            {props.post.productPost.description}
+            {props.post.description}
           </p>
           <span className='icon-time'>
-            Delivery Date: {props.post.productPost.expectedDeliveryDate}
+            Delivery Date: {props.post.expectedDeliveryDate}
           </span>
           <img className='img-fluid' src={parcel_1} alt='' />
         </div>

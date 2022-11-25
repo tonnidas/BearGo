@@ -49,7 +49,7 @@ export default function FrontPage() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {posts.map(post => <Widget post={post} key={post.productPost.id} />)}
+                  {posts.map(post => <Widget post={post} key={post.id} />)}
                 </div>
               </div>
 
