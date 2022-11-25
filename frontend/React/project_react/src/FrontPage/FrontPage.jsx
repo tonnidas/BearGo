@@ -6,12 +6,14 @@ import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
 import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
-import parcel_2 from '../images/parcel-2.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
+import { useNavigate } from "react-router-dom";
+import urlPaths from '../urlPaths';
 
 export default function FrontPage() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -20,11 +22,16 @@ export default function FrontPage() {
       .then((res) => {
         console.log(res.data);
         setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        if(err.response.status === 401) {
+          navigate(urlPaths.login);
+        }
       });
   }, []);
 
   const postWidgets = posts.map(post => {
-    console.log(post);
     return (
       <div className='widget'>
         <div className='widget-head'>
@@ -43,9 +50,9 @@ export default function FrontPage() {
         </div>
         <div className='widget-inner'>
           <div className='post'>
-              <p>
-                {post.productPost.description}
-              </p>
+            <p>
+              {post.productPost.description}
+            </p>
             <span className='icon-time'>
               Delivery Date: {post.productPost.expectedDeliveryDate}
             </span>
