@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.service;
 
 
+import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,13 +29,16 @@ public class NotificationService {
     @Autowired
     NotificationRepository repo;
 
+    @Autowired
+    private KafkaTemplate<String, Notification> notificationKafkaTemplate;
+
     public List<Notification> getNotification(User user) {
         //List<Notification> notificationList = repo.findByNotifyuser(user);
 
 
 
         log.info("Retrieving notifications for user");
-       
+
 
         //Pageable pageable = PageRequest.of(0,pageSize, Sort.by(Sort.Direction.DESC,"createdAt"));
         Pageable pageable = PageRequest.of(0, pageSize);
@@ -44,6 +49,13 @@ public class NotificationService {
     public Notification saveNotification(User user, Notification notification) {
 
         notification.setNotifyUser(user);
-        return repo.save(notification);
+
+        Notification savedNotification = repo.save(notification);
+        String topicName = "newnotification";
+
+        log.info("Sending notifications to kafka");
+
+        notificationKafkaTemplate.send(topicName, savedNotification);
+        return savedNotification;
     }
 }
