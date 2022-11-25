@@ -6,7 +6,8 @@ const urlPaths = {
   settings: '/settings',
   myBlog: '/myBlog',
   register: '/register',
-  login: '/login'
+  login: '/login',
+  profile: '/profile'
 };
 
 export default urlPaths;
