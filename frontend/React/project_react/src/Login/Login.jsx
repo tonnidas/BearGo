@@ -39,7 +39,7 @@ export default function Login() {
                                 <img src={logo_white} alt="" />
                             </div>
                             <div className="form-group">
-                                <label>Username</label>
+                                <label>Email / Username</label>
                                 <input type="text" className="form-control" placeholder="user@example.com" name='username' value={inputs.username || ""} onChange={handleChange} />
                             </div>
                             <div className="form-group">
