@@ -1,8 +1,6 @@
 package edu.baylor.cs.beargo.model_wrapper;
 
-import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.ProductPost;
-import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,12 +15,18 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductPostDetails {
     ProductPost productPost;
+    Product product;
+    Address source;
+    Address destination;
     Contract contract;
     User sender;
     User traveller;
 
     public ProductPostDetails(ProductPost productPost) {
         this.productPost = productPost;
+        this.product = productPost.getProduct();
+        this.source = productPost.getSource();
+        this.destination = productPost.getDestination();
         this.contract = productPost.getContract();
         this.sender = productPost.getContract().getSender();
         this.traveller = productPost.getContract().getTraveler();

@@ -1,10 +1,11 @@
-
 import { useState } from 'react';
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
-import axios from 'axios';
+import AuthService from '../Service/AuthService';
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {    
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
     const handleChange = (event) => {
@@ -13,22 +14,16 @@ export default function Login() {
         setInputs(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Username: " + inputs.username);
-
-        axios.post('/api/auth/login', {
-            username: inputs.username,
-            password: inputs.password
-        })
-        .then(function (response) {
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        const authenticated = await AuthService.login(inputs.username, inputs.password);
+        if(authenticated === true) {
+            navigate(urlPaths.home);
+        } else {
+            alert('Login failed! Please check your username and password');
+        }
     }
-
     
     return(
         <div>
@@ -41,7 +36,7 @@ export default function Login() {
                     </div>
                     <div className="form-group">
                         <label>Username</label>
-                        <input type="text" className="form-control" placeholder="Jhon" name='username' value={inputs.username || ""} onChange={handleChange} />
+                        <input type="text" className="form-control" placeholder="user@example.com" name='username' value={inputs.username || ""} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
