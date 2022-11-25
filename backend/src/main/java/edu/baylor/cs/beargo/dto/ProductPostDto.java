@@ -1,4 +1,4 @@
-package edu.baylor.cs.beargo.model_wrapper;
+package edu.baylor.cs.beargo.dto;
 
 import edu.baylor.cs.beargo.model.*;
 import lombok.AllArgsConstructor;

@@ -3,7 +3,7 @@ package edu.baylor.cs.beargo.controller;
 import edu.baylor.cs.beargo.model.Contract;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ContractService;
-import edu.baylor.cs.beargo.model_wrapper.UserContracts;
+import edu.baylor.cs.beargo.dto.UserContractsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +33,9 @@ public class ContractController {
     }
 
     @GetMapping("/userContracts")
-    public ResponseEntity<UserContracts> getContractByUserId(@RequestParam Long userId, @RequestParam int lookBackMonths) {
-        UserContracts userContracts = contractService.getContractByUserIdByDate(userId, lookBackMonths);
-        return new ResponseEntity<>(userContracts, HttpStatus.OK);
+    public ResponseEntity<UserContractsDto> getContractByUserId(@RequestParam Long userId, @RequestParam int lookBackMonths) {
+        UserContractsDto userContractsDto = contractService.getContractByUserIdByDate(userId, lookBackMonths);
+        return new ResponseEntity<>(userContractsDto, HttpStatus.OK);
     }
 
     @PostMapping("/confirmContract")

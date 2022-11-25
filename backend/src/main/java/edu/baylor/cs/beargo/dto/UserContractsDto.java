@@ -1,4 +1,4 @@
-package edu.baylor.cs.beargo.model_wrapper;
+package edu.baylor.cs.beargo.dto;
 
 import edu.baylor.cs.beargo.model.Contract;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserContracts {
+public class UserContractsDto {
     Long userId;
     Set<Contract> senderContracts;
     Set<Contract> travellerContracts;

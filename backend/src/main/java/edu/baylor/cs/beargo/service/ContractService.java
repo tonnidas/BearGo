@@ -5,7 +5,7 @@ import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ContractRepository;
-import edu.baylor.cs.beargo.model_wrapper.UserContracts;
+import edu.baylor.cs.beargo.dto.UserContractsDto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +56,9 @@ public class ContractService {
     /**
      * @return all contracts as sender and all contracts as traveler
      */
-    public UserContracts getContractByUserId(Long id) {
+    public UserContractsDto getContractByUserId(Long id) {
         User user = userService.getUserById(id);
-        return new UserContracts(user.getId(), user.getSenderContracts(), user.getTravelerContracts());
+        return new UserContractsDto(user.getId(), user.getSenderContracts(), user.getTravelerContracts());
     }
 
     /**
@@ -68,7 +68,7 @@ public class ContractService {
      * @param lookBackMonths 0 means all
      * @return all contracts as sender and all contracts as traveler for a given period (half-yearly, yearly, all)
      */
-    public UserContracts getContractByUserIdByDate(Long id, int lookBackMonths) {
+    public UserContractsDto getContractByUserIdByDate(Long id, int lookBackMonths) {
         if (lookBackMonths == 0) {
             return getContractByUserId(id);
         }
@@ -89,7 +89,7 @@ public class ContractService {
             }
         }
 
-        return new UserContracts(user.getId(), senderContracts, travelerContracts);
+        return new UserContractsDto(user.getId(), senderContracts, travelerContracts);
     }
 
     /**
