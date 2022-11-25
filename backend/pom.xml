@@ -82,37 +82,35 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.0</version>
+        </dependency>
 
-        <!--    dependency for kafka-->
-
+        <!--Dependency for kafka-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-
         </dependency>
-
-<!--        Dependency for twitter-->
+        <!--Dependency for twitter-->
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-twitter</artifactId>
             <version>1.1.2.RELEASE</version>
-
-<!--        Dependency for Logstash-->
         </dependency>
-
+        <!--Dependency for Logstash-->
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>6.6</version>
         </dependency>
-        <!--        Dependency for websocket-->
+        <!--Dependency for websocket-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
     </dependencies>
-
-
 
     <build>
         <plugins>
