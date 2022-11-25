@@ -18,10 +18,10 @@ public class KafkaListener {
     @Autowired
     NotificationRepository notificationRepository;
 
-    //@Autowired
-    //private SimpMessageSendingOperations messagingTemplate;
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
 
-    private static SimpMessageSendingOperations messagingTemplate;
+    //private static SimpMessageSendingOperations messagingTemplate;
 
 
     // Listener for String
@@ -46,7 +46,7 @@ public class KafkaListener {
         System.out.println("Received New Notification");
 
         // send new notification to that user
-       //messagingTemplate.convertAndSend(topic, notifications);
+       messagingTemplate.convertAndSend(topic, notifications);
 
 
     }
@@ -62,7 +62,7 @@ public class KafkaListener {
         String topic = "/topic/newmsg/" + uid.toString();
 
         // send new msg to that user
-        //messagingTemplate.convertAndSend(topic, message);
+        messagingTemplate.convertAndSend(topic, message);
 
 
     }
