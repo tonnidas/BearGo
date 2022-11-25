@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
-import axios from 'axios';
+import AuthService from '../Service/AuthService';
 
 export default function Login() {    
     const [inputs, setInputs] = useState({});
@@ -16,19 +16,8 @@ export default function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("Username: " + inputs.username);
-
-        axios.post('/api/auth/login', {
-            username: inputs.username,
-            password: inputs.password
-        })
-        .then(function (response) {
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        AuthService.login(inputs.username, inputs.password);
     }
-
     
     return(
         <div>
