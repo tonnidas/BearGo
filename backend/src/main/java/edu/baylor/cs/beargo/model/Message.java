@@ -3,6 +3,7 @@ package edu.baylor.cs.beargo.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,11 +31,13 @@ public class Message {
     @ManyToOne // owning-side
     @JoinColumn(name = "fromUserId")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private User fromUser;
 
     @ManyToOne // owning-side
     @JoinColumn(name = "toUserId")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private User toUser;
 
     @Enumerated

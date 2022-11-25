@@ -41,7 +41,7 @@ public class KafkaListener {
         log.info("Listening {}", notifications);
         Long uid = notifications.getId();
 
-        String topic = "/topic/newNotification/" + uid.toString();
+        String topic = "/topic/newNotification" + uid.toString();
 
         System.out.println("Received New Notification");
 
@@ -53,13 +53,13 @@ public class KafkaListener {
 
     // Listener for msg
 
-    @org.springframework.kafka.annotation.KafkaListener(topics = "topic/msg/message", groupId = "group_msg", containerFactory = "MessageContainerFactory")
+    @org.springframework.kafka.annotation.KafkaListener(topics = "newmessage", groupId = "group_msg", containerFactory = "MessageContainerFactory")
     public void listenMessage(Message message) {
 
         log.info("Listening {}", message);
         Long uid = message.getId();
 
-        String topic = "/topic/newmsg/" + uid.toString();
+        String topic = "/topic/newmsg" + uid.toString();
 
         // send new msg to that user
         messagingTemplate.convertAndSend(topic, message);
