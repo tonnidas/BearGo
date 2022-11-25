@@ -9,16 +9,14 @@ import urlPaths from './urlPaths';
 function App() {
   return (
     <BrowserRouter>
-     <Routes>
-     <Route path={urlPaths.home} element={<FrontPage />} />
-      <Route path={urlPaths.createPost} element={<CreatePost />} />
-      <Route path={urlPaths.contactSender} element={<ContactSender />} />
-      <Route path={urlPaths.register} element={<Register />} />
-      <Route path={urlPaths.login} element={<Login />} />
-        </Routes> 
-        </BrowserRouter>
-  //  <FrontPage/>
-   
+      <Routes>
+        <Route path={urlPaths.home} element={<FrontPage />} />
+        <Route path={urlPaths.createPost} element={<CreatePost />} />
+        <Route path={urlPaths.contactSender} element={<ContactSender />} />
+        <Route path={urlPaths.register} element={<Register />} />
+        <Route path={urlPaths.login} element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,10 +1,11 @@
-
 import { useState } from 'react';
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
 import AuthService from '../Service/AuthService';
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {    
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
     const handleChange = (event) => {
@@ -13,10 +14,15 @@ export default function Login() {
         setInputs(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Username: " + inputs.username);
-        AuthService.login(inputs.username, inputs.password);
+        const authenticated = await AuthService.login(inputs.username, inputs.password);
+        if(authenticated === true) {
+            navigate(urlPaths.home);
+        } else {
+            alert('Login failed! Please check your username and password');
+        }
     }
     
     return(
