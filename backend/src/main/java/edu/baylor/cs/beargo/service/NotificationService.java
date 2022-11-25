@@ -30,18 +30,15 @@ public class NotificationService {
     public List<Notification> getNotification(User user) {
         //List<Notification> notificationList = repo.findByNotifyuser(user);
 
-<<<<<<< HEAD
+
 
         log.info("Retrieving notifications for user");
-        Pageable pageable = PageRequest.of(0,pagesize);
-        List<Notification> notificationList = repo.findByNotifyuserOrderByCreatedAtDesc(user,pageable);
-        return notificationList;
+       
 
-=======
         //Pageable pageable = PageRequest.of(0,pageSize, Sort.by(Sort.Direction.DESC,"createdAt"));
         Pageable pageable = PageRequest.of(0, pageSize);
         return repo.findByNotifyUserOrderByCreatedAtDesc(user, pageable);
->>>>>>> 3cd642b4370a76a8f0f9fac5cc52aaee92db14de
+
     }
 
     public Notification saveNotification(User user, Notification notification) {
