@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
 
-import Widget from '../Components/Widget';
 import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
