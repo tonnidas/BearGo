@@ -19,9 +19,6 @@ export default function FrontPage() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
-
-
-
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
     axios.get("/api/productPosts/getAllProductPost")
@@ -32,7 +29,7 @@ export default function FrontPage() {
       })
       .catch((err) => {
         console.log(err);
-        if(err.response.status === 401) {
+        if (err.response.status === 401) {
           navigate(urlPaths.login);
         }
       });
@@ -50,8 +47,8 @@ export default function FrontPage() {
               </svg>
             </div>
             <div className='user-avatar-name'>
-              <h4>Nusa Penida</h4>
-              <span>12:53 PM · Sep 22, 2022</span>
+              <h4>{post.sender.fullname}</h4>
+              <span>12:53 PM · {post.contract.contractStartDate}</span>
             </div>
           </a>
         </div>
@@ -88,6 +85,11 @@ export default function FrontPage() {
                   aria-controls='collapseExample'
                 >
                   <i className='icon-message-circle'></i>Comments
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <i className='icon-check'></i>Interested
                 </a>
               </li>
               <li>
@@ -159,7 +161,6 @@ export default function FrontPage() {
     )
   })
 
-
   return (
     <div>
       <title>Dashboard</title>
@@ -174,11 +175,7 @@ export default function FrontPage() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {posts.map(post => <Widget post={post} key={post.id} />
-                  )}
-
                   {postWidgets}
-
                 </div>
               </div>
 
