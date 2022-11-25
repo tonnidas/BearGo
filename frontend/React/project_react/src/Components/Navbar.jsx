@@ -2,6 +2,7 @@ import React from 'react';
 
 import admin from '../images/admin.jpg';
 import logo_white from '../images/logo-white.svg';
+import urlPaths from '../urlPaths';
 
 export default function Navbar() {
 
@@ -132,7 +133,7 @@ export default function Navbar() {
                 <a className='dropdown-item' href='#'>
                   Profile
                 </a>
-                <a className='dropdown-item' href='#'>
+                <a className='dropdown-item' href={urlPaths.login}>
                   Logout
                 </a>
               </div>
