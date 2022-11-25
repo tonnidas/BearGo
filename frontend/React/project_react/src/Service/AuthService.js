@@ -9,6 +9,7 @@ class AuthService {
         .then(function (response) {
             localStorage.setItem("BearGoAccessToken", response.data);
             console.log(response.data);
+            alert('Login succeed');
         })
         .catch(function (error) {
             console.log(error);
