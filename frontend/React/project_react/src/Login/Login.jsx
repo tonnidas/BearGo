@@ -1,26 +1,46 @@
-
-
+import { useState } from 'react';
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
+import AuthService from '../Service/AuthService';
+import {useNavigate} from "react-router-dom";
 
-export default function Login() {
-    let url = ""
+export default function Login() {    
+    const navigate = useNavigate();
+    const [inputs, setInputs] = useState({});
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInputs(values => ({...values, [name]: value}))
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("Username: " + inputs.username);
+        const authenticated = await AuthService.login(inputs.username, inputs.password);
+        if(authenticated === true) {
+            navigate(urlPaths.home);
+        } else {
+            alert('Login failed! Please check your username and password');
+        }
+    }
+    
     return(
         <div>
             <div className="container">
         <div className="row justify-content-center">
             <div className="col-md-5">
-                <form className="user-form">
+                <form className="user-form" onSubmit={handleSubmit}>
                     <div className="text-center">
                         <img src={logo_white} alt="" />
                     </div>
                     <div className="form-group">
                         <label>Username</label>
-                        <input type="text" className="form-control" placeholder="Jhon" />
+                        <input type="text" className="form-control" placeholder="user@example.com" name='username' value={inputs.username || ""} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type="password" className="form-control" placeholder="*****" />
+                        <input type="password" className="form-control" placeholder="*****" name='password' value={inputs.password || ""} onChange={handleChange} />
                     </div>
 
                     <div className="form-group">

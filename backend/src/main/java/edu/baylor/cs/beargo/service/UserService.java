@@ -1,7 +1,5 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.UserRepository;
 import edu.baylor.cs.beargo.security.JwtTokenProvider;
@@ -17,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Slf4j

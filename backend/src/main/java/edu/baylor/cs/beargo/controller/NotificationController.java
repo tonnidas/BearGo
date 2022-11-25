@@ -26,7 +26,7 @@ public class NotificationController {
 
         Long uid = user.getId();
 
-        log.info("Retrieving Notification for user ID:" + user.getId().toString() );
+        log.info("Retrieving Notification for user ID:" + user.getId().toString());
         List<Notification> notificationList = notificationService.getNotification(user);
         return new ResponseEntity<>(notificationList, HttpStatus.OK);
     }
@@ -35,9 +35,9 @@ public class NotificationController {
     @PostMapping
     public ResponseEntity<Notification> setNotification(@AuthenticationPrincipal User user, @RequestBody Notification notification) {
 
-        log.info("Saving Notification for User ID: "+ user.getId().toString());
+        log.info("Saving Notification for User ID: " + user.getId().toString());
 
-        Notification retVal = notificationService.saveNotification(user,notification);
+        Notification retVal = notificationService.saveNotification(user, notification);
         return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 }

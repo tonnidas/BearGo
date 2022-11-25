@@ -109,13 +109,13 @@ public class ProductPostService {
         Long id = productPost.getId();
         Optional<ProductPost> opt = productPostRepository.findById(id);
         if (opt.isPresent()) {
-            ProductPost optProductpost = opt.get();
-            Contract contract = optProductpost.getContract();
+            ProductPost optProductPost = opt.get();
+            Contract contract = optProductPost.getContract();
             Product product = productPost.getProduct();
 
             addressRepository.save(productPost.getSource());
             addressRepository.save(productPost.getDestination());
-            product.setId(optProductpost.getProduct().getId());
+            product.setId(optProductPost.getProduct().getId());
             productRepository.save(product);
             contractRepository.save(contract);
             productPost.setContract(contract);
@@ -127,19 +127,14 @@ public class ProductPostService {
     public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate) {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> searchPosts = new ArrayList<>();
-        for(ProductPost pr : posts)
-        {
-            if(startDate != null && endDate != null)
-            {
+        for (ProductPost pr : posts) {
+            if (startDate != null && endDate != null) {
                 Date date = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                if(date.after(startDate) && date.before(endDate))
-                {
+                if (date.after(startDate) && date.before(endDate)) {
                     searchPosts.add(pr);
                 }
             }
         }
         return searchPosts;
     }
-
-
 }

@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -38,7 +37,7 @@ public class UserComplaint {
     @JsonIdentityReference(alwaysAsId = true)
     private User complainedByUser;
 
-//    @ManyToOne  //
+//    @ManyToOne
 //    @JoinColumn(name = "user_id")
 //    @JsonIdentityReference(alwaysAsId = true)
 //    private User complainedUser;

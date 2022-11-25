@@ -1,4 +1,4 @@
-package edu.baylor.cs.beargo.util;
+package edu.baylor.cs.beargo.model_wrapper;
 
 import edu.baylor.cs.beargo.model.Contract;
 import lombok.AllArgsConstructor;

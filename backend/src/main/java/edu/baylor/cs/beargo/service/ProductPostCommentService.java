@@ -1,6 +1,5 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.ProductPostComment;
 import edu.baylor.cs.beargo.model.User;
@@ -31,6 +30,33 @@ public class ProductPostCommentService {
 
     @Autowired
     ProductPostService productPostService;
+
+    /**
+     * @param id the comment id
+     * @return the comment
+     */
+    public ProductPostComment getCommentById(Long id) {
+        Optional<ProductPostComment> optionalComment = productPostCommentRepository.findById(id);
+
+        if (optionalComment.isPresent()) {
+            return optionalComment.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comment exists for given id");
+        }
+    }
+
+    /**
+     * @return An admin by id
+     */
+    public List<ProductPostComment> getCommentsByProductPostId(Long productPostId) {
+        Optional<ProductPost> productPost = productPostRepository.findById(productPostId);
+
+        if (productPost.isPresent()) {
+            return new ArrayList<>(productPost.get().getComments());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No product post record exists for given product post id");
+        }
+    }
 
     /**
      * Checks if the input comment instance is null and product post id is null.
@@ -83,36 +109,5 @@ public class ProductPostCommentService {
         updatingComment.setCommentedBy(user);
 
         return productPostCommentRepository.save(updatingComment);
-    }
-
-
-    /**
-     * @return An admin by id
-     */
-    public List<ProductPostComment> getPostCommentsAll(Long productPostId) {
-        Optional<ProductPost> productPost = productPostRepository.findById(productPostId);
-
-        if (productPost.isPresent()) {
-
-            List<ProductPostComment> comments = new ArrayList<>(productPost.get().getComments());
-            return comments;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No product post record exists for given product post id");
-        }
-    }
-
-
-    /**
-     * @param id the comment id
-     * @return the comment
-     */
-    public ProductPostComment getCommentById(Long id) {
-        Optional<ProductPostComment> optionalComment = productPostCommentRepository.findById(id);
-
-        if (optionalComment.isPresent()) {
-            return optionalComment.get();
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comment exists for given id");
-        }
     }
 }

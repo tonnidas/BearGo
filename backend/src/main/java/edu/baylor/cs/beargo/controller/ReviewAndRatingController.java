@@ -26,8 +26,8 @@ public class ReviewAndRatingController {
 
     @PostMapping("/reviewAndRate")
     public ResponseEntity<ReviewAndRating> reviewAndRate(@AuthenticationPrincipal User user, @RequestParam Long contractId,
-                                                                 @RequestParam Integer rating, @RequestParam String review) {
-        ReviewAndRating reviewAndRating = reviewAndRatingService.reviewAndRate(user, contractId, rating, review);
+                                                         @RequestParam Integer rating, @RequestParam String review) {
+        ReviewAndRating reviewAndRating = reviewAndRatingService.createReviewAndRating(user, contractId, rating, review);
         return new ResponseEntity<>(reviewAndRating, HttpStatus.OK);
     }
 }

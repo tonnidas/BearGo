@@ -18,7 +18,6 @@ function App() {
         <Route path={urlPaths.login} element={<Login />} />
       </Routes>
     </BrowserRouter>
-    //  <FrontPage/>
 
   );
 }

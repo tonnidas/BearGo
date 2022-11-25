@@ -22,22 +22,15 @@ public class MessageService {
     private KafkaTemplate<String, Message> kafkaTemplate;
 
     public Message saveMsg(Message m) {
-
-
         Message savedMsg = msgRepo.save(m);
 
-        String topicname = "/topic/msg/message";
-        kafkaTemplate.send(topicname, savedMsg);
+        String topicName = "/topic/msg/message";
+        kafkaTemplate.send(topicName, savedMsg);
 
         return savedMsg;
-
     }
 
     public List<Message> getAllmsg(Long uid) {
-
-        List<Message> msgList = msgRepo.findByfromUser(uid);
-        return msgList;
-
-
+        return msgRepo.findByfromUser(uid);
     }
 }
