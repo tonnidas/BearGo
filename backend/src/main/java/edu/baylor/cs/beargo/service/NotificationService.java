@@ -6,6 +6,7 @@ import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,7 +33,7 @@ public class NotificationService {
         //List<Notification> notificationList = repo.findByNotifyuser(user);
 
 
-        //Pageable pageable = PageRequest.of(0,pagesize, Sort.by(Sort.Direction.DESC,"createdAt"));
+        log.info("Retrieving notifications for user");
         Pageable pageable = PageRequest.of(0,pagesize);
         List<Notification> notificationList = repo.findByNotifyuserOrderByCreatedAtDesc(user,pageable);
         return notificationList;
