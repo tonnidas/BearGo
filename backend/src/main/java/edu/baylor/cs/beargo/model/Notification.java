@@ -27,11 +27,11 @@ public class Notification {
 
     // Defines different notification type
     public enum NotificationType {
-        MSG, CONTRACT, DELIVERYTRACKING, REPORTUSER, REPORTCOMMENT
+        MSG, CONTRACT, DELIVERY_TRACKING, REPORT_USER, REPORT_COMMENT
     }
 
     @Column
-    private String notficationMsg;
+    private String notificationMsg;
 
     @Column
     private String details;
@@ -42,7 +42,5 @@ public class Notification {
     @ManyToOne // owning-side
     @JoinColumn(name = "notification_to_id")
     @JsonIdentityReference(alwaysAsId = true)
-    private User notifyuser;
-
-
+    private User notifyUser;
 }

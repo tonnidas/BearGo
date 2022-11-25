@@ -8,13 +8,22 @@ import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
 import parcel_2 from '../images/parcel-2.jpg';
 import image_woman from '../images/women_avatar1.jpg';
+import axios from 'axios';
 
 export default function FrontPage() {
   const [posts, setPosts] = useState([]);
 
+  var _headers = {
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDFAYmVhcmdvLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2NjkyNjA3NzgsImV4cCI6MTY2OTI4MjM3OH0.o6Xsf-DitbS7BTw70IYPvIhZKJJfCBeRaWLqZtSTm8E'
+    }
+};
+
   useEffect(() => {
     // axios.get("http://localhost:8080/allContest")
-    fetch('allContest')
+    fetch('api/productPosts/getAllProductPost',_headers)
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
@@ -53,14 +62,12 @@ export default function FrontPage() {
                     </div>
                     <div className='widget-inner'>
                       <div className='post'>
+                      {posts.map(post =>
                         <p>
-                          Finally, the focus on catalyzing payments innovation
-                          is part and parcel to the evolution of the financial
-                          services industry at large, and brings into focus the
-                          kind of impact it can have on financial inclusion
-                          especially for low and moderate income (LMI)
-                          communities. (8/9)
+                          
+                        {post.description}
                         </p>
+                        )}
                         <span className='icon-time'>
                           Delivery Date: Sep 22, 2022
                         </span>

@@ -31,15 +31,15 @@ public class BlogPostController {
     }
 
     @PostMapping("/createBlogPost")
-    public ResponseEntity<BlogPost> createBlogPost(@AuthenticationPrincipal User user, BlogPost blogPost) {
+    public ResponseEntity<BlogPost> createBlogPost(@AuthenticationPrincipal User user, @RequestBody BlogPost blogPost) {
         BlogPost createdBlogPost = blogPostService.createBlogPost(user, blogPost);
         return new ResponseEntity<>(createdBlogPost, HttpStatus.OK);
     }
 
     /*
-     * getBlogPostByUserName
-     * getBlogPostByUserId
-     * updateBlogPost
+     * getBlogPostByUserName - Done
+     * getBlogPostByUserId - Done
+     * updateBlogPost - Done
      * getRecentPost - pagination (for the homepage refresh)
      * how many pages, which page you want
      *
@@ -49,5 +49,17 @@ public class BlogPostController {
     public ResponseEntity<List<BlogPost>> getBlogPostByUsername(@RequestParam(name = "username") String username) {
         List<BlogPost> blogPostList = blogPostService.getBlogPostByUsername(username);
         return new ResponseEntity<>(blogPostList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getBlogPostByUserId")
+    public ResponseEntity<List<BlogPost>> getBlogPostByUserId(@RequestParam(name = "id") Long id) {
+        List<BlogPost> blogPostList = blogPostService.getBlogPostByUserId(id);
+        return new ResponseEntity<>(blogPostList, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateBlogPost")
+    public ResponseEntity<BlogPost> updateBlogPost(@AuthenticationPrincipal User user, @RequestBody BlogPost blogPost) {
+        BlogPost updateBlogPost = blogPostService.updateBlogPost(user, blogPost);
+        return new ResponseEntity<>(updateBlogPost, HttpStatus.OK);
     }
 }

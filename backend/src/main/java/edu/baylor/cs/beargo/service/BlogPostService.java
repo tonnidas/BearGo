@@ -76,6 +76,8 @@ public class BlogPostService {
     }
 
     /**
+     * Checks if the given username is null or not
+     * Checks if the user exists with this username
      *
      * @param username the username
      * @return created blog post by that username
@@ -93,5 +95,75 @@ public class BlogPostService {
         }
 
         return blogPostRepository.findAllByPostedBy(user);
+    }
+
+    /**
+     * Checks if the given id is null or not
+     * Checks if the user exists with this id
+     *
+     * @param id the id of a user
+     * @return created blog post by that user
+     */
+    public List<BlogPost> getBlogPostByUserId(Long id) {
+
+        if (id == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id parameter can not be null.");
+        }
+
+        User user = userService.getUserById(id);
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user found with this id.");
+        }
+
+        return blogPostRepository.findAllByPostedBy(user);
+    }
+
+    /**
+     * Checks if the user is null or not
+     * Checks if the blog post is null or not
+     * Checks if the blog post id is null or not
+     * Fetch the blog post from the database with the id
+     * Checks if the user id and blog posted by user id is same or not
+     * Sets the new description if not null
+     * Sets the new image path if not null
+     * Sets the current time with current time
+     * Put the data in the repository
+     *
+     * @param user     the user who will update the blog post
+     * @param blogPost the blog post that should be updated
+     * @return updated blog post
+     */
+    public BlogPost updateBlogPost(User user, BlogPost blogPost) {
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User parameter can not be null.");
+        }
+
+        if (blogPost == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost parameter can not be null.");
+        }
+
+        if (blogPost.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "BlogPost Id can not be null.");
+        }
+
+        BlogPost dbBlogPost = getBlogPostById(blogPost.getId());
+
+        if (!user.getId().equals(dbBlogPost.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User Id and Blog Posted by User Id is not same.");
+        }
+
+        if (blogPost.getDescription() != null) {
+            dbBlogPost.setDescription(blogPost.getDescription());
+        }
+
+        if (blogPost.getImageFilePath() != null) {
+            dbBlogPost.setImageFilePath(blogPost.getImageFilePath());
+        }
+
+        dbBlogPost.setLastEditedDateTime(LocalDateTime.now());
+
+        return blogPostRepository.save(dbBlogPost);
     }
 }

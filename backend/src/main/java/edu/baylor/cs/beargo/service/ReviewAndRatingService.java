@@ -1,6 +1,8 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.*;
+import edu.baylor.cs.beargo.model.Contract;
+import edu.baylor.cs.beargo.model.ReviewAndRating;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ReviewAndRatingRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -49,7 +51,6 @@ public class ReviewAndRatingService {
         }
     }
 
-
     /**
      * Checks if the logged user is either sender or traveler.
      * Checks if the sender has not already rated or reviewed.
@@ -61,7 +62,7 @@ public class ReviewAndRatingService {
      * @param contractId the contract Id
      * @return created review and rating
      */
-    public ReviewAndRating reviewAndRate(User user, Long contractId, Integer rating, String review) {
+    public ReviewAndRating createReviewAndRating(User user, Long contractId, Integer rating, String review) {
         Contract contract = contractService.getContractById(contractId);
 
         if (contract.getTraveler() == null) {
@@ -73,8 +74,7 @@ public class ReviewAndRatingService {
         }
 
         if (!contract.getSender().getId().equals(user.getId())
-                && !contract.getTraveler().getId().equals(user.getId()))
-        {
+                && !contract.getTraveler().getId().equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only sender or traveler can rate and review");
         }
 
@@ -84,7 +84,7 @@ public class ReviewAndRatingService {
         }
 
         if (contract.getTraveler().getId().equals(user.getId())
-            && contract.getReviewAndRatingByTraveler() != null) {
+                && contract.getReviewAndRatingByTraveler() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Traveler cannot review and rate the traveler twice");
         }
 
@@ -101,7 +101,7 @@ public class ReviewAndRatingService {
         reviewAndRating.setReview(review);
         reviewAndRating.setReviewDateTime(LocalDateTime.now());
 
-        if(contract.getSender().getId().equals(user.getId())) {
+        if (contract.getSender().getId().equals(user.getId())) {
             reviewAndRating.setContractReviewedBySender(contract);
             reviewAndRating.setReviewedBy(contract.getSender());
             reviewAndRating.setReviewedTo(contract.getTraveler());

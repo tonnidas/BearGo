@@ -3,7 +3,7 @@ package edu.baylor.cs.beargo.controller;
 import edu.baylor.cs.beargo.model.Contract;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ContractService;
-import edu.baylor.cs.beargo.util.UserContracts;
+import edu.baylor.cs.beargo.model_wrapper.UserContracts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

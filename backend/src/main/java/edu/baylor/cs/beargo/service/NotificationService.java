@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ import java.util.List;
 public class NotificationService {
 
     @Value("${beargo.notification.pagesize}")
-    private int pagesize;
+    private int pageSize;
 
     @Autowired
     NotificationRepository repo;
@@ -32,19 +30,23 @@ public class NotificationService {
     public List<Notification> getNotification(User user) {
         //List<Notification> notificationList = repo.findByNotifyuser(user);
 
+<<<<<<< HEAD
 
         log.info("Retrieving notifications for user");
         Pageable pageable = PageRequest.of(0,pagesize);
         List<Notification> notificationList = repo.findByNotifyuserOrderByCreatedAtDesc(user,pageable);
         return notificationList;
 
+=======
+        //Pageable pageable = PageRequest.of(0,pageSize, Sort.by(Sort.Direction.DESC,"createdAt"));
+        Pageable pageable = PageRequest.of(0, pageSize);
+        return repo.findByNotifyUserOrderByCreatedAtDesc(user, pageable);
+>>>>>>> 3cd642b4370a76a8f0f9fac5cc52aaee92db14de
     }
 
-    public Notification saveNotification(User user,Notification notification){
+    public Notification saveNotification(User user, Notification notification) {
 
-        notification.setNotifyuser(user);
-        Notification savedNotification = repo.save(notification);
-        return savedNotification;
-
+        notification.setNotifyUser(user);
+        return repo.save(notification);
     }
 }

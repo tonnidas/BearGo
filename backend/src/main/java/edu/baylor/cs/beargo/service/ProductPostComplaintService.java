@@ -57,9 +57,9 @@ public class ProductPostComplaintService {
         complaint.setResolvedBy(null);
         complaint.setResolveDate(null);
 
-        return productPostComplaintRepository.save(complaint);
-
         // TODO: check complaints count for the product post and send notification - Tonni
+
+        return productPostComplaintRepository.save(complaint);
     }
 
     /**
@@ -69,7 +69,6 @@ public class ProductPostComplaintService {
      * @param productPostId the corresponding product post id
      * @return created contract
      */
-    // TODO: Review a complain and send notification of reviewing to complainers - Tonni
     public Set<ProductPostComplaint> confirmComplaintReview(User user, Long productPostId) {
         ProductPost productPost = productPostService.getProductPostById(productPostId);
         Set<ProductPostComplaint> complaints = productPost.getComplaints();
@@ -84,7 +83,8 @@ public class ProductPostComplaintService {
             productPostComplaintRepository.save(c);
         }
 
+        // TODO: send notification to users
+
         return complaints;
-//        return productPostComplaintRepository.save(complaint);
     }
 }
