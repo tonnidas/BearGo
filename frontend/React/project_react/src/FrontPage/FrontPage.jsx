@@ -17,15 +17,137 @@ export default function FrontPage() {
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
     axios.get("/api/productPosts/getAllProductPost")
-    .then((res) => {
-        console.log(res);
-        setPosts(res);
-    });
+      .then((res) => {
+        console.log(res.data);
+        setPosts(res.data);
+      });
   }, []);
+
+  const postWidgets = posts.map(post => {
+    console.log(post);
+    return (
+      <div className='widget'>
+        <div className='widget-head'>
+          <a href='#' className='user-avatar'>
+            <div className='mask'>
+              <img className='mask-img' src={image_man} alt='' />
+              <svg>
+                <use href='#icon-mask'></use>
+              </svg>
+            </div>
+            <div className='user-avatar-name'>
+              <h4>Nusa Penida</h4>
+              <span>12:53 PM · Sep 22, 2022</span>
+            </div>
+          </a>
+        </div>
+        <div className='widget-inner'>
+          <div className='post'>
+              <p>
+                {post.productPost.description}
+              </p>
+            <span className='icon-time'>
+              Delivery Date: {post.productPost.expectedDeliveryDate}
+            </span>
+            <img className='img-fluid' src={parcel_1} alt='' />
+          </div>
+        </div>
+        <div className='widget-footer'>
+          <div className='post-action'>
+            <ul>
+              <li>
+                <a href='#'>
+                  <i className='icon-message-square'></i>Message
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <i className=' icon-share-2'></i>Share
+                </a>
+              </li>
+              <li>
+                <a
+                  data-toggle='collapse'
+                  href='#collapsecomments'
+                  role='button'
+                  aria-expanded='false'
+                  aria-controls='collapseExample'
+                >
+                  <i className='icon-message-circle'></i>Comments
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <i className='icon-alert'></i>Report
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className='collapse comments' id='collapsecomments'>
+            <ul>
+              <li>
+                <div className='comment-box'>
+                  <div className='mask'>
+                    <img
+                      className='mask-img'
+                      src={image_man}
+                      alt=''
+                    />
+                    <svg>
+                      <use href='#icon-mask'></use>
+                    </svg>
+                  </div>
+                  <div className='comment-box-content'>
+                    <div className='user-avatar-name'>
+                      <h4>Nicole Engelbrecht</h4>
+                      <span>12:53 PM · Sep 22, 2022</span>
+                    </div>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit. Metus, felis, sed fames vel
+                      odio risus.
+                    </p>
+                    <a href='#'>Reply</a>
+                  </div>
+                </div>
+                <ul>
+                  <li>
+                    <div className='comment-box'>
+                      <div className='mask'>
+                        <img
+                          className='mask-img'
+                          src={image_woman}
+                          alt=''
+                        />
+                        <svg>
+                          <use href='#icon-mask'></use>
+                        </svg>
+                      </div>
+                      <div className='comment-box-content'>
+                        <div className='user-avatar-name'>
+                          <h4>Nicole Engelbrecht</h4>
+                          <span>12:53 PM · Sep 22, 2022</span>
+                        </div>
+                        <textarea
+                          className='form-control'
+                          name=''
+                          rows='2'
+                        ></textarea>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  })
+
 
   return (
     <div>
-      {/* <!-- Bootstrap CSS --> */}
       <title>Dashboard</title>
 
       <Navbar />
@@ -38,241 +160,10 @@ export default function FrontPage() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  <div className='widget'>
-                    <div className='widget-head'>
-                      <a href='#' className='user-avatar'>
-                        <div className='mask'>
-                          <img className='mask-img' src={image_man} alt='' />
-                          <svg>
-                            <use href='#icon-mask'></use>
-                          </svg>
-                        </div>
-                        <div className='user-avatar-name'>
-                          <h4>Nusa Penida</h4>
-                          <span>12:53 PM · Sep 22, 2022</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div className='widget-inner'>
-                      <div className='post'>
-                      {posts.map(post =>
-                        <p>
-                          
-                        {post.description}
-                        </p>
-                        )}
-                        <span className='icon-time'>
-                          Delivery Date: Sep 22, 2022
-                        </span>
-                        <img className='img-fluid' src={parcel_1} alt='' />
-                      </div>
-                    </div>
-                    <div className='widget-footer'>
-                      <div className='post-action'>
-                        <ul>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-message-square'></i>Message
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className=' icon-share-2'></i>Share
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              data-toggle='collapse'
-                              href='#collapsecomments'
-                              role='button'
-                              aria-expanded='false'
-                              aria-controls='collapseExample'
-                            >
-                              <i className='icon-message-circle'></i>Comments
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-alert'></i>Report
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className='collapse comments' id='collapsecomments'>
-                        <ul>
-                          <li>
-                            <div className='comment-box'>
-                              <div className='mask'>
-                                <img
-                                  className='mask-img'
-                                  src={image_man}
-                                  alt=''
-                                />
-                                <svg>
-                                  <use href='#icon-mask'></use>
-                                </svg>
-                              </div>
-                              <div className='comment-box-content'>
-                                <div className='user-avatar-name'>
-                                  <h4>Nicole Engelbrecht</h4>
-                                  <span>12:53 PM · Sep 22, 2022</span>
-                                </div>
-                                <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipiscing elit. Metus, felis, sed fames vel
-                                  odio risus.
-                                </p>
-                                <a href='#'>Reply</a>
-                              </div>
-                            </div>
-                            <ul>
-                              <li>
-                                <div className='comment-box'>
-                                  <div className='mask'>
-                                    <img
-                                      className='mask-img'
-                                      src={image_woman}
-                                      alt=''
-                                    />
-                                    <svg>
-                                      <use href='#icon-mask'></use>
-                                    </svg>
-                                  </div>
-                                  <div className='comment-box-content'>
-                                    <div className='user-avatar-name'>
-                                      <h4>Nicole Engelbrecht</h4>
-                                      <span>12:53 PM · Sep 22, 2022</span>
-                                    </div>
-                                    <textarea
-                                      className='form-control'
-                                      name=''
-                                      rows='2'
-                                    ></textarea>
-                                  </div>
-                                </div>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='widget'>
-                    <div className='widget-head'>
-                      <a href='#' className='user-avatar'>
-                        <div className='mask'>
-                          <img className='mask-img' src={image_woman} alt='' />
-                          <svg>
-                            <use href='#icon-mask'></use>
-                          </svg>
-                        </div>
-                        <div className='user-avatar-name'>
-                          <h4>Nicole Engelbrecht</h4>
-                          <span>12:53 PM · Sep 22, 2022</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div className='widget-inner'>
-                      <div className='post'>
-                        <p>
-                          NEW for Autumn 2022! 🍁🍂🍁 With Toffee Apple Tea,
-                          Blackberry Preserve, Smoked Cheese Straws, Chocolate
-                          Leaves and more, Fortnum's Autumn Days Hamper is the
-                          perfect parcel to squirrel away with.
-                        </p>
-                        <span className='icon-time'>
-                          Delivery Date: Sep 22, 2022
-                        </span>
-                        <img className='img-fluid' src={parcel_2} alt='' />
-                      </div>
-                    </div>
-                    <div className='widget-footer'>
-                      <div className='post-action'>
-                        <ul>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-message-square'></i>Message
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className=' icon-share-2'></i>Share
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-message-circle'></i>Comments
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-alert'></i>Report
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='widget'>
-                    <div className='widget-head'>
-                      <a href='#' className='user-avatar'>
-                        <div className='mask'>
-                          <img className='mask-img' src={image_man} alt='' />
-                          <svg>
-                            <use href='#icon-mask'></use>
-                          </svg>
-                        </div>
-                        <div className='user-avatar-name'>
-                          <h4>Nusa Penida</h4>
-                          <span>12:53 PM · Sep 22, 2022</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div className='widget-inner'>
-                      <div className='post'>
-                        <p>
-                          Finally, the focus on catalyzing payments innovation
-                          is part and parcel to the evolution of the financial
-                          services industry at large, and brings into focus the
-                          kind of impact it can have on financial inclusion
-                          especially for low and moderate income (LMI)
-                          communities. (8/9)
-                        </p>
-                        <span className='icon-time'>
-                          Delivery Date: Sep 22, 2022
-                        </span>
-                        <img className='img-fluid' src={parcel_1} alt='' />
-                      </div>
-                    </div>
-                    <div className='widget-footer'>
-                      <div className='post-action'>
-                        <ul>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-message-square'></i>Message
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className=' icon-share-2'></i>Share
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-message-circle'></i>Comments
-                            </a>
-                          </li>
-                          <li>
-                            <a href='#'>
-                              <i className='icon-alert'></i>Report
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                  {postWidgets}
                 </div>
               </div>
+
               <div className='col-md-4'>
                 <div className='twitter-feed'>
                   <blockquote
