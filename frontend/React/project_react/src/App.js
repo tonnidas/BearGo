@@ -1,24 +1,25 @@
-import FrontPage from "./FrontPage/FrontPage";
-import CreatePost from "./CreatePost/CreatePost";
-import ContactSender from "./ContactSender/ContactSender";
-import Register from "./Register/Register";
-import Login from "./Login/Login";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import ContactSender from './ContactSender/ContactSender';
+import CreatePost from './CreatePost/CreatePost';
+import FrontPage from './FrontPage/FrontPage';
+import Login from './Login/Login';
+import Register from './Register/Register';
 import urlPaths from './urlPaths';
 
 function App() {
   return (
     <BrowserRouter>
-     <Routes>
-     <Route path={urlPaths.home} element={<FrontPage />} />
-      <Route path={urlPaths.createPost} element={<CreatePost />} />
-      <Route path={urlPaths.contactSender} element={<ContactSender />} />
-      <Route path={urlPaths.register} element={<Register />} />
-      <Route path={urlPaths.login} element={<Login />} />
-        </Routes> 
-        </BrowserRouter>
-  //  <FrontPage/>
-   
+      <Routes>
+        <Route path={urlPaths.home} element={<FrontPage />} />
+        <Route path={urlPaths.createPost} element={<CreatePost />} />
+        <Route path={urlPaths.contactSender} element={<ContactSender />} />
+        <Route path={urlPaths.register} element={<Register />} />
+        <Route path={urlPaths.login} element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+    //  <FrontPage/>
+
   );
 }
 
