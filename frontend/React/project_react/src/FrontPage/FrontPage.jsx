@@ -12,6 +12,7 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
+import Widget from '../Components/Widget';
 
 
 export default function FrontPage() {
@@ -34,132 +35,6 @@ export default function FrontPage() {
       });
   }, []);
 
-  const postWidgets = posts.map(post => {
-    return (
-      <div className='widget'>
-        <div className='widget-head'>
-          <a href='#' className='user-avatar'>
-            <div className='mask'>
-              <img className='mask-img' src={image_man} alt='' />
-              <svg>
-                <use href='#icon-mask'></use>
-              </svg>
-            </div>
-            <div className='user-avatar-name'>
-              <h4>{post.sender.fullname}</h4>
-              <span>12:53 PM · {post.contract.contractStartDate}</span>
-            </div>
-          </a>
-        </div>
-        <div className='widget-inner'>
-          <div className='post'>
-            <p>
-              {post.productPost.description}
-            </p>
-            <span className='icon-time'>
-              Delivery Date: {post.productPost.expectedDeliveryDate}
-            </span>
-            <img className='img-fluid' src={parcel_1} alt='' />
-          </div>
-        </div>
-        <div className='widget-footer'>
-          <div className='post-action'>
-            <ul>
-              <li>
-                <a href='#'>
-                  <i className='icon-message-square'></i>Message
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i className=' icon-share-2'></i>Share
-                </a>
-              </li>
-              <li>
-                <a
-                  data-toggle='collapse'
-                  href='#collapsecomments'
-                  role='button'
-                  aria-expanded='false'
-                  aria-controls='collapseExample'
-                >
-                  <i className='icon-message-circle'></i>Comments
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i className='icon-check'></i>Interested
-                </a>
-              </li>
-              <li>
-                <a href='#'>
-                  <i className='icon-alert'></i>Report
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className='collapse comments' id='collapsecomments'>
-            <ul>
-              <li>
-                <div className='comment-box'>
-                  <div className='mask'>
-                    <img
-                      className='mask-img'
-                      src={image_man}
-                      alt=''
-                    />
-                    <svg>
-                      <use href='#icon-mask'></use>
-                    </svg>
-                  </div>
-                  <div className='comment-box-content'>
-                    <div className='user-avatar-name'>
-                      <h4>Nicole Engelbrecht</h4>
-                      <span>12:53 PM · Sep 22, 2022</span>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Metus, felis, sed fames vel
-                      odio risus.
-                    </p>
-                    <a href='#'>Reply</a>
-                  </div>
-                </div>
-                <ul>
-                  <li>
-                    <div className='comment-box'>
-                      <div className='mask'>
-                        <img
-                          className='mask-img'
-                          src={image_woman}
-                          alt=''
-                        />
-                        <svg>
-                          <use href='#icon-mask'></use>
-                        </svg>
-                      </div>
-                      <div className='comment-box-content'>
-                        <div className='user-avatar-name'>
-                          <h4>Nicole Engelbrecht</h4>
-                          <span>12:53 PM · Sep 22, 2022</span>
-                        </div>
-                        <textarea
-                          className='form-control'
-                          name=''
-                          rows='2'
-                        ></textarea>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    )
-  })
-
   return (
     <div>
       <title>Dashboard</title>
@@ -174,7 +49,7 @@ export default function FrontPage() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {postWidgets}
+                  {posts.map(post => <Widget post={post} key={post.productPost.id} />)}
                 </div>
               </div>
 

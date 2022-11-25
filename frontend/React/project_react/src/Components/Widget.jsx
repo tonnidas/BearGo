@@ -16,20 +16,19 @@ export default function Widget(props) {
             </svg>
           </div>
           <div className='user-avatar-name'>
-            <h4>{props.post.name || 'Name'}</h4>
-            <span>{Date().toString()}</span>
+            <h4>{props.post.sender.fullname}</h4>
+            <span>12:53 PM · {props.post.contract.contractStartDate}</span>
           </div>
         </a>
       </div>
       <div className='widget-inner'>
         <div className='post'>
           <p>
-            {props.post.description}
+            {props.post.productPost.description}
           </p>
           <span className='icon-time'>
-            {props.post.expectedDeliveryDate}
+            Delivery Date: {props.post.productPost.expectedDeliveryDate}
           </span>
-
           <img className='img-fluid' src={parcel_1} alt='' />
         </div>
       </div>
@@ -55,6 +54,11 @@ export default function Widget(props) {
                 aria-controls='collapseExample'
               >
                 <i className='icon-message-circle'></i>Comments
+              </a>
+            </li>
+            <li>
+              <a href='#'>
+                <i className='icon-check'></i>Interested
               </a>
             </li>
             <li>
