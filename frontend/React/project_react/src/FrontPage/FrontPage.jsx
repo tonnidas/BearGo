@@ -9,27 +9,20 @@ import parcel_1 from '../images/parcel-1.jpg';
 import parcel_2 from '../images/parcel-2.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import axios from 'axios';
+import AuthService from '../Service/AuthService';
 
 export default function FrontPage() {
   const [posts, setPosts] = useState([]);
 
-  var _headers = {
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDFAYmVhcmdvLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2NjkyNjA3NzgsImV4cCI6MTY2OTI4MjM3OH0.o6Xsf-DitbS7BTw70IYPvIhZKJJfCBeRaWLqZtSTm8E'
-    }
-};
-
   useEffect(() => {
-    // axios.get("http://localhost:8080/allContest")
-    fetch('api/productPosts/getAllProductPost',_headers)
-      .then((res) => res.json())
-      .then((res) => {
+    AuthService.setAxiosAuthHeader();
+    axios.get("/api/productPosts/getAllProductPost")
+    .then((res) => {
         console.log(res);
         setPosts(res);
-      });
+    });
   }, []);
+
   return (
     <div>
       {/* <!-- Bootstrap CSS --> */}

@@ -30,7 +30,7 @@ export default function Login() {
                     </div>
                     <div className="form-group">
                         <label>Username</label>
-                        <input type="text" className="form-control" placeholder="Jhon" name='username' value={inputs.username || ""} onChange={handleChange} />
+                        <input type="text" className="form-control" placeholder="user@example.com" name='username' value={inputs.username || ""} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
