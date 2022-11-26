@@ -17,3 +17,10 @@ $ mvn spring-boot:run
 ## Swagger UI
 
 http://localhost:8080/swagger-ui.html
+
+
+
+
+##modules
+npm install react-rounded-image --legacy-peer-deps
+
