@@ -24,3 +24,5 @@ http://localhost:8080/swagger-ui.html
 ##modules
 npm install react-rounded-image --legacy-peer-deps
 
+ npm install react-stomp-client --legacy-peer-deps
+
