@@ -1,6 +1,8 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.dto.ProductPostDto;
+import edu.baylor.cs.beargo.dto.UserContractsDto;
+import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ProductPostService;
@@ -47,6 +49,16 @@ public class ProductPostController {
     public ResponseEntity<List<ProductPostDto>> getAllProductPost() {
         List<ProductPost> productPosts = productPostService.getProductPosts();
         List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(productPosts);
+        return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getProductPostByCriteria/{userType}/{delStatus}")
+    public ResponseEntity<List<ProductPostDto>> getProductPostByCriteria(@AuthenticationPrincipal User user,
+                                                                         @PathVariable("userType") String userType,
+                                                                         @PathVariable("delStatus") DeliveryStatus delStatus) {
+        List<ProductPost> productPosts = productPostService.getProductPosts();
+        List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(productPosts);
+        List<UserContractsDto> userContractsDtos = UserContractsDto.getUserContractDtoList(productPosts, user, userType, delStatus);
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
     }
 }
