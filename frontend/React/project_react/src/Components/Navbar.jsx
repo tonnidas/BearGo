@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Notification from '../Components/Notification';
+
 import admin from '../images/admin.jpg';
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
@@ -94,28 +96,9 @@ export default function Navbar() {
               </div>
             </li>
 
-            <li className='nav-item dropdown ml-auto'>
-              <a
-                className='nav-link dropdown-toggle'
-                href='#'
-                id='navbarDropdown'
-                role='button'
-                data-toggle='dropdown'
-                aria-haspopup='true'
-                aria-expanded='false'
-              >
-                <i className='icon-notifications'></i>
-              </a>
-              <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
-                <h3>Notifications</h3>
-                <div className='notifications'>
-                  <p className='unread'>
-                    Your account has been restricted from advertising.
-                  </p>
-                  <p>Your account has been restricted from advertising.</p>
-                </div>
-              </div>
-            </li>
+           <li className='nav-item dropdown ml-auto'>
+            <Notification />
+           </li>
             <li className='nav-item dropdown'>
               <a
                 className='nav-link dropdown-toggle'
