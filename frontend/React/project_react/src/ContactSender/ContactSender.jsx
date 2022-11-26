@@ -5,15 +5,44 @@ import Sidebar from '../Components/Sidebar';
 import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
 
+import urlPaths from '../urlPaths';
+
 export default function ContactSender() {
+
+  const handleClick = (e) => {
+    
+  };
   return (
     <>
       <Navbar />
+    
       <div className='container-fluid'>
         <div className='row'>
           <Sidebar />
 
           <main role='main' className='main col-md-12 ml-sm-auto col-lg-9'>
+          <div className='topnav'>
+          <button className='common-btn global' onClick={handleClick}>
+            <i className='icon'></i> <span>My Post</span>
+          </button>
+
+          <button className='common-btn global' onClick={handleClick}>
+            <i className='icon'></i> <span>In-transit</span>
+          </button>
+
+          <button className='common-btn global' onClick={handleClick}>
+            <i className='icon'></i> <span>Completed</span>
+          </button>
+
+          <button className='common-btn global' onClick={handleClick}>
+            <i className='icon'></i> <span>Interested People</span>
+          </button>
+
+        {/* <a class="active" href="#posts" >My Posts</a>
+        <a href="#interested">Interested Travellers</a>
+        <a href="#completed">Completed</a>
+        <a href="#intransit">In-Transit</a> */}
+      </div>
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>

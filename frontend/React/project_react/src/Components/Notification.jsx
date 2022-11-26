@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 
 import admin from '../images/admin.jpg';
 import logo_white from '../images/logo-white.svg';
@@ -7,6 +7,7 @@ import urlPaths from '../urlPaths';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
+import StompClient from "react-stomp-client";
 
 export default function Notification() {
     const navigate = useNavigate();

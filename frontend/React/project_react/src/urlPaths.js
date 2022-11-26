@@ -1,6 +1,7 @@
 const urlPaths = {
   home: '/',
   contactSender: '/contactSender',
+  contractTraveller: '/contractTraveller',
   createPost: '/createPost',
   message: '/message',
   settings: '/settings',
