@@ -26,6 +26,7 @@ public class ProductPostDto {
     private LocalDateTime createdAt;
     private String description;
     private Long imageId;
+    private LocalDate expectedPickupDate;
     private LocalDate expectedDeliveryDate;
     private Address source;
     private Address destination;

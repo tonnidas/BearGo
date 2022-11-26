@@ -33,6 +33,9 @@ public class ProductPost {
     private Long imageId;
 
     @Column(nullable = false)
+    private LocalDate expectedPickupDate;
+
+    @Column(nullable = false)
     private LocalDate expectedDeliveryDate;
 
     @OneToOne // owning-side

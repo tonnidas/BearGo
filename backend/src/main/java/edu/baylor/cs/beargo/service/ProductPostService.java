@@ -94,7 +94,7 @@ public class ProductPostService {
         // create contract
         Contract contract = new Contract();
         contract.setDescription(user.getUsername() + " is looking for a traveler to deliver a product within " + productPost.getExpectedDeliveryDate() + ".");
-        contract.setContractStartDate(LocalDate.of(2022, Month.DECEMBER, 31)); // not sure: LocalDate.now()
+        contract.setContractStartDate(productPost.getExpectedPickupDate());
         contract.setContractEndDate(productPost.getExpectedDeliveryDate());
         contract.setDeliveryStatus(DeliveryStatus.SEARCHING_TRAVELER);
         contract.setProductPost(productPost);
