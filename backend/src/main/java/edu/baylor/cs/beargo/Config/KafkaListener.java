@@ -4,10 +4,15 @@ import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.header.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.StreamSupport;
 
 @Component
 @Slf4j
@@ -53,6 +58,7 @@ public class KafkaListener {
 
     // Listener for msg
 
+
     @org.springframework.kafka.annotation.KafkaListener(topics = "newmessage", groupId = "group_msg", containerFactory = "MessageContainerFactory")
     public void listenMessage(Message message) {
 
@@ -66,6 +72,8 @@ public class KafkaListener {
 
 
     }
+
+
 
 
     // More Listener to be added

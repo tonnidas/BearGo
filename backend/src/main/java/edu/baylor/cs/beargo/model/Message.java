@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -17,7 +19,23 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Message {
+
+@NamedQuery(name = "Message.findMyMsg", query = "SELECT a FROM Message a WHERE (a.fromUser = :aUser AND a.toUser = :bUser) OR (a.fromUser = :bUser AND a.toUser = :aUser) order by createdAt")
+
+// Query to get latest distinct message List
+@NamedQuery(name = "Message.findMyMsgList", query = "SELECT m FROM Message m LEFT JOIN Message m1 ON ("+
+        " ("+
+        "(m.fromUser  = m1.fromUser  AND m.toUser   = m1.toUser  ) "+
+        "OR"+
+        " (m.fromUser  = m1.toUser   AND m.toUser  = m1.fromUser  )"+
+        " )"+
+        " AND m.createdAt  < m1.createdAt "+
+        " )"+
+        " WHERE m1.id IS NULL AND (m.fromUser = :aUser OR m.toUser =:aUser)"+
+        " ORDER BY m.createdAt ")
+
+
+public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,16 +46,16 @@ public class Message {
     @Column
     private Date createdAt = new Date();
 
-    @ManyToOne // owning-side
+    @ManyToOne(fetch = FetchType.EAGER) // owning-side
     @JoinColumn(name = "fromUserId")
     @JsonIdentityReference(alwaysAsId = true)
-    @JsonIgnore
+    //@JsonIgnore
     private User fromUser;
 
-    @ManyToOne // owning-side
+    @ManyToOne(fetch = FetchType.EAGER) // owning-side
     @JoinColumn(name = "toUserId")
     @JsonIdentityReference(alwaysAsId = true)
-    @JsonIgnore
+    //@JsonIgnore
     private User toUser;
 
     @Enumerated

@@ -1,7 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
 
-import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
