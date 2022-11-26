@@ -52,7 +52,7 @@ public class ExampleTest {
 
     @Test
     public void getProductsTest() {
-        List<Product> products = productService.getProducts(null);
+        List<Product> products = productService.getAllProducts();
         assert (products.size() == 3);
     }
 

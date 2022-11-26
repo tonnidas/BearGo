@@ -20,9 +20,6 @@ public class Product {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)

@@ -35,7 +35,6 @@ public class MyService {
     public void populate() {
         for (int i = 1; i <= 3; i++) {
             Product product = new Product();
-            product.setName("product-" + i);
             product.setDescription("description-" + i);
             product.setWeight(20.0 + i);
             productRepository.save(product);

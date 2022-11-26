@@ -21,17 +21,12 @@ public class ProductService {
     ProductRepository productRepository;
 
     /**
-     * Checks if the name parameter exists - if it does not exist, returns all products, if exists, returns that product
+     * Returns all products
      *
-     * @param name the product name
-     * @return product
+     * @return list of products
      */
-    public List<Product> getProducts(String name) {
-        if (name == null) {
-            return productRepository.findAll();
-        } else {
-            return productRepository.findByName(name);
-        }
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
     /**
