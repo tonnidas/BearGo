@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class ProductPostDto {
     private Long id;
+    private LocalDateTime createdAt;
     private String description;
     private String imageFilePath;
     private LocalDate expectedDeliveryDate;

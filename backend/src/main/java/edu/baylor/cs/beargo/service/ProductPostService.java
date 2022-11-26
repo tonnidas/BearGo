@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -82,6 +83,8 @@ public class ProductPostService {
 
         addressRepository.save(productPost.getSource());
         addressRepository.save(productPost.getDestination());
+
+        productPost.setCreatedAt(LocalDateTime.now());
 
         if (productPost.getProduct() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product cannot be empty");

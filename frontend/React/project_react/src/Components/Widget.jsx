@@ -3,6 +3,7 @@ import React from 'react';
 import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
+import Moment from 'react-moment';
 
 export default function Widget(props) {
   return (
@@ -17,7 +18,7 @@ export default function Widget(props) {
           </div>
           <div className='user-avatar-name'>
             <h4>{props.post.contract.sender.fullname}</h4>
-            <span>12:53 PM · {props.post.contract.contractStartDate}</span>
+            <span><Moment format="LLL">{props.post.createdAt}</Moment></span>
           </div>
         </a>
       </div>
@@ -27,7 +28,7 @@ export default function Widget(props) {
             {props.post.description}
           </p>
           <span className='icon-time'>
-            Delivery Date: {props.post.expectedDeliveryDate}
+            Delivery Date:&nbsp; <Moment format="LL">{props.post.expectedDeliveryDate}</Moment>
           </span>
           <img className='img-fluid' src={parcel_1} alt='' />
         </div>
