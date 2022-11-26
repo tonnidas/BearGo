@@ -19,10 +19,8 @@ $ mvn spring-boot:run
 http://localhost:8080/swagger-ui.html
 
 
+## NPM Modules
 
-
-##modules
-npm install react-rounded-image --legacy-peer-deps
-
- npm install react-stomp-client --legacy-peer-deps
-
+- npm install react-rounded-image --legacy-peer-deps
+- npm install react-stomp-client --legacy-peer-deps
+- npm install moment react-moment
