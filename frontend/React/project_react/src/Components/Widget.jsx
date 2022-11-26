@@ -1,7 +1,6 @@
 import React from 'react';
 
 import image_man from '../images/man_avatar1.jpg';
-import parcel_1 from '../images/parcel-1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import Moment from 'react-moment';
 
@@ -30,7 +29,7 @@ export default function Widget(props) {
           <span className='icon-time'>
             Delivery Date:&nbsp; <Moment format="LL">{props.post.expectedDeliveryDate}</Moment>
           </span>
-          <img className='img-fluid' src={parcel_1} alt='' />
+          <img className='img-fluid' src={"/api/images/download/" + props.post.imageId} alt='product' />
         </div>
       </div>
       <div className='widget-footer'>

@@ -5,9 +5,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
 
-import image_man from '../images/man_avatar1.jpg';
-import parcel_1 from '../images/parcel-1.jpg';
-import image_woman from '../images/women_avatar1.jpg';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
@@ -22,7 +19,6 @@ export default function FrontPage() {
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
     axios.get("/api/productPosts/getAllProductPost")
-
       .then((res) => {
         console.log(res.data);
         setPosts(res.data);

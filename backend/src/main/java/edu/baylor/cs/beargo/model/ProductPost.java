@@ -30,7 +30,7 @@ public class ProductPost {
     private String description;
 
     @Column
-    private String imageFilePath;
+    private Long imageId;
 
     @Column(nullable = false)
     private LocalDate expectedDeliveryDate;
