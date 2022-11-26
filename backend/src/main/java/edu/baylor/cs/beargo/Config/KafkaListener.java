@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.Config;
 
+import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
@@ -59,8 +60,8 @@ public class KafkaListener {
     // Listener for msg
 
 
-    @org.springframework.kafka.annotation.KafkaListener(topics = "newmessage", groupId = "group_msg", containerFactory = "MessageContainerFactory")
-    public void listenMessage(Message message) {
+    @org.springframework.kafka.annotation.KafkaListener(topics = "newmessage", groupId = "group_msgdto", containerFactory = "MessageDtoContainerFactory")
+    public void listenMessage(MessageDto message) {
 
         log.info("Listening {}", message);
         Long uid = message.getId();

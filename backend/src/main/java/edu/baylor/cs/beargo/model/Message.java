@@ -1,10 +1,7 @@
 package edu.baylor.cs.beargo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -52,7 +49,7 @@ public class Message implements Serializable {
     //@JsonIgnore
     private User fromUser;
 
-    @ManyToOne(fetch = FetchType.EAGER) // owning-side
+    @ManyToOne // owning-side
     @JoinColumn(name = "toUserId")
     @JsonIdentityReference(alwaysAsId = true)
     //@JsonIgnore
@@ -65,6 +62,9 @@ public class Message implements Serializable {
     public enum Status {
         SENT, READ, SEEN
     }
+
+
+
 
 
 }

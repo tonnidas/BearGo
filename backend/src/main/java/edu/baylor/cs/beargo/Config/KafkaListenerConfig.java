@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.Config;
 
+import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import lombok.extern.slf4j.Slf4j;
@@ -87,7 +88,7 @@ public class KafkaListenerConfig {
         return factory;
     }
 
-
+/*
     // Kafka Listener Config for Message to be added
     @Bean
     public ConsumerFactory<String, Message> MessageConsumerFactory() {
@@ -112,6 +113,33 @@ public class KafkaListenerConfig {
         ConcurrentKafkaListenerContainerFactory<String, Message> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(MessageConsumerFactory());
+        return factory;
+    }
+*/
+    // Kafka Listener Config for Message dto
+    @Bean
+    public ConsumerFactory<String, MessageDto> MessageDtoConsumerFactory() {
+
+        Map<String, Object> config = new HashMap<>();
+
+        // Adding the Configuration
+        //config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_msgdto");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+
+        return new DefaultKafkaConsumerFactory<>(config,
+                new StringDeserializer(),
+                new JsonDeserializer<>(MessageDto.class));
+
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, MessageDto> MessageDtoContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, MessageDto> factory
+                = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(MessageDtoConsumerFactory());
         return factory;
     }
 

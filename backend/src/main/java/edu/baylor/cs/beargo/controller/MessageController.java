@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 
 import edu.baylor.cs.beargo.model.User;
@@ -39,12 +40,13 @@ public class MessageController {
     }
 
     @GetMapping(path = "/msngrList")
-    public ResponseEntity<List<Message>> getAllmsngrList(@AuthenticationPrincipal User user) {
+    public ResponseEntity<List<MessageDto>> getAllmsngrList(@AuthenticationPrincipal User user) {
 
         //Long uid = user.getId();
         log.info("Retrieving latest Message List");
         List<Message> msgList = msgService.getAllmsngrList(user);
-        return new ResponseEntity<>(msgList, HttpStatus.OK);
+        List<MessageDto> msgListdto = MessageDto.getMessageDto(msgList);
+        return new ResponseEntity<>(msgListdto, HttpStatus.OK);
     }
 
     @PostMapping(value = "/{toId}")

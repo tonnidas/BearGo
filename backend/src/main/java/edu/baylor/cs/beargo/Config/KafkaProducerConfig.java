@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.Config;
 
+import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class KafkaProducerConfig {
 
     // Producer Config for Message
     @Bean
-    public ProducerFactory<String, Message> MessageProducerFactory() {
+    public ProducerFactory<String, MessageDto> MessageProducerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         //configProps.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configProps.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
@@ -55,7 +56,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, Message> MessagekafkaTemplate() {
+    public KafkaTemplate<String, MessageDto> MessagekafkaTemplate() {
         return new KafkaTemplate<>(MessageProducerFactory());
     }
 

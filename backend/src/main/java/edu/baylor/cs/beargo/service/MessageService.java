@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.MessageRepository;
@@ -33,7 +34,7 @@ public class MessageService {
 
 
     @Autowired
-    private KafkaTemplate<String, Message> kafkaTemplate;
+    private KafkaTemplate<String, MessageDto> kafkaTemplate;
 
     public Message saveMsg(Message m, User fromUser, Long toId) {
 
@@ -46,15 +47,15 @@ public class MessageService {
         System.out.println(m.getMsg());
 
 
-        /*
+        MessageDto saveddto = MessageDto.getMessageDtodata(savedMsg);
         String topicName = "newmessage";
-        kafkaTemplate.send(topicName, savedMsg);
-        */
+        kafkaTemplate.send(topicName, saveddto);
+
 
 
         // Sent to websocket
-        String topic = "/topic/newmsg" + savedMsg.getId().toString();
-        messagingTemplate.convertAndSend(topic, savedMsg);
+        //String topic = "/topic/newmsg" + savedMsg.getId().toString();
+        //messagingTemplate.convertAndSend(topic, savedMsg);
 
         return savedMsg;
     }
