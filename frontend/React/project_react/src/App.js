@@ -7,6 +7,7 @@ import FrontPage from './FrontPage/FrontPage';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import Profile from './Profile/Profile';
+import Message from './Message/Message';
 import urlPaths from './urlPaths';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path={urlPaths.register} element={<Register />} />
         <Route path={urlPaths.login} element={<Login />} />
         <Route path={urlPaths.profile} element={<Profile />} />
+        <Route path={urlPaths.message} element={<Message />} />
       </Routes>
     </BrowserRouter>
 

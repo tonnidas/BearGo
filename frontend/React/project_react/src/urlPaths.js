@@ -8,7 +8,8 @@ const urlPaths = {
   myBlog: '/myBlog',
   register: '/register',
   login: '/login',
-  profile: '/profile'
+  profile: '/profile',
+  message: '/message'
 };
 
 export default urlPaths;

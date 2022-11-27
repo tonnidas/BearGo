@@ -23,7 +23,7 @@ export default function Sidebar(props) {
                 </a>
               </li>
               <li className={url === urlPaths.message ? 'active' : ''}>
-                <a href={urlPaths.home}>
+                <a href={urlPaths.message}>
                   <i className='icon-message-square'></i>
                   <span>message </span>
                 </a>
