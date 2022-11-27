@@ -18,7 +18,7 @@ export default function FrontPage() {
 
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
-    axios.get("/api/productPosts/getAllProductPost")
+    axios.get("/api/productPosts/getAllProductPost/searchingTraveler")
       .then((res) => {
         console.log(res.data);
         setPosts(res.data);

@@ -47,6 +47,23 @@ public class ProductPostService {
         return productPostRepository.findAll();
     }
 
+
+    /**
+     * Checks if the status of the post is searching_traveler
+     *
+     * @return a list of ProductPosts
+     */
+    public List<ProductPost> getSearchingTravelerPosts() {
+        List<ProductPost> allPosts = productPostRepository.findAll();
+        List<ProductPost> searchPosts = new ArrayList<>();
+        for (ProductPost pr : allPosts) {
+            if (pr.getContract().getDeliveryStatus().equals(DeliveryStatus.SEARCHING_TRAVELER)) {
+                searchPosts.add(pr);
+            }
+        }
+        return searchPosts;
+    }
+
     /**
      * Checks if the product exists
      *
@@ -90,6 +107,14 @@ public class ProductPostService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product cannot be empty");
         }
         productRepository.save(productPost.getProduct());
+
+        if(productPost.getExpectedPickupDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pick up date cannot be before today");
+        }
+
+        if(productPost.getExpectedPickupDate().isAfter(productPost.getExpectedDeliveryDate())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Delivery date cannot be before pick up date");
+        }
 
         // create contract
         Contract contract = new Contract();

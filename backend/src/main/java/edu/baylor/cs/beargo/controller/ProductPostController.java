@@ -52,6 +52,13 @@ public class ProductPostController {
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllProductPost/searchingTraveler")
+    public ResponseEntity<List<ProductPostDto>> getSearchingTravelerPost() {
+        List<ProductPost> productPosts = productPostService.getSearchingTravelerPosts();
+        List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(productPosts);
+        return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
+    }
+
     @GetMapping("/getProductPostByCriteria/{userType}/{delStatus}")
     public ResponseEntity<List<ProductPostDto>> getProductPostByCriteria(@AuthenticationPrincipal User user,
                                                                          @PathVariable("userType") String userType,
