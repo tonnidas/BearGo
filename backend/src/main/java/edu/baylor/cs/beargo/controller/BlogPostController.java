@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.BlogPostDto;
 import edu.baylor.cs.beargo.model.BlogPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.BlogPostService;
@@ -19,9 +20,10 @@ public class BlogPostController {
     BlogPostService blogPostService;
 
     @GetMapping("/getAllBlogPost")
-    public ResponseEntity<List<BlogPost>> getAllBlogPost() {
+    public ResponseEntity<List<BlogPostDto>> getAllBlogPost() {
         List<BlogPost> blogPosts = blogPostService.getBlogPosts();
-        return new ResponseEntity<>(blogPosts, HttpStatus.OK);
+        List<BlogPostDto> blogPostDtoList = BlogPostDto.getBlogPostDtoList(blogPosts);
+        return new ResponseEntity<>(blogPostDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/getBlogPostById")

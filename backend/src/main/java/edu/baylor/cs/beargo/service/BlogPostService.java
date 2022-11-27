@@ -31,7 +31,7 @@ public class BlogPostService {
      * @return all BlogPosts
      */
     public List<BlogPost> getBlogPosts() {
-        return blogPostRepository.findAll();
+        return blogPostRepository.findAllByOrderByPostedDateTimeDesc();
     }
 
     /**
