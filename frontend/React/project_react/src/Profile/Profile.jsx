@@ -10,6 +10,7 @@ import * as ReactDOMClient from 'react-dom/client';
 
 import Sidebar from '../Components/Sidebar';
 import ProfileNavbar from './ProfileNavbar';
+import ReviewAndRatingPage from './ReviewAndRatingPage';
 
 import RoundedProfilePic from './RoundedProfilePic';
 
@@ -78,6 +79,7 @@ export default function Profile() {
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
                             <RoundedProfilePic username={inputs.username} />
+                            <ReviewAndRatingPage username={"review"}/>
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
                             </div>
