@@ -70,9 +70,8 @@ public class ProductPostController {
     public ResponseEntity<List<ProductPostDto>> getProductPostByCriteria(@AuthenticationPrincipal User user,
                                                                          @PathVariable("userType") String userType,
                                                                          @PathVariable("delStatus") DeliveryStatus delStatus) {
-        List<ProductPost> productPosts = productPostService.getProductPosts();
+        List<ProductPost> productPosts = productPostService.getProductPostByCriteria(user, userType, delStatus);
         List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(productPosts);
-        List<UserContractsDto> userContractsDtos = UserContractsDto.getUserContractDtoList(productPosts, user, userType, delStatus);
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
     }
 }

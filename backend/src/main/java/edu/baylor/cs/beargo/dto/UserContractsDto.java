@@ -23,18 +23,6 @@ public class UserContractsDto {
     Set<Contract> senderContracts;
     Set<Contract> travellerContracts;
    // DeliveryStatus deliveryStatus;
-    public static List<UserContractsDto> getUserContractDtoList(List<ProductPost> productPosts, User user, String usertype,
-                                                                DeliveryStatus deliveryStatus)
-    {
-        ModelMapper modelMapper = new ModelMapper();
-        List<UserContractsDto> userContractsDtos = new ArrayList<>();
 
-        for (ProductPost productPost : productPosts) {
-            UserContractsDto userContractsDto = modelMapper.map(productPost, UserContractsDto.class);
-            userContractsDtos.add(userContractsDto);
-        }
-
-        return userContractsDtos;
-    }
 
 }
