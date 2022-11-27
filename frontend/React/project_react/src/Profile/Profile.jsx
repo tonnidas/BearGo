@@ -10,100 +10,7 @@ import * as ReactDOMClient from 'react-dom/client';
 
 import RoundedProfilePic from './RoundedProfilePic';
 
-const styles = {
-    input_field: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'left',
-        margin: "0px 0px 15px 10px", // bottom, right, top, left
-    }
-}
-
 export default function Profile() {
-
-    // const navigate = useNavigate();
-    // const [states, setStates] = useState([])
-
-    // const [inputs, setInputs] = React.useState({});
-
-    // const handleCountryChange = (event) => {
-    //     const name = event.target.name;
-
-    // }
-
-    // useEffect(() => {
-    //     // AuthService.setAxiosAuthHeader();
-    //     axios.get("/api/state/findAllState")
-    //         .then((res) => {
-    //             // console.log(res.data);
-    //             setStates(res.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //             if (err.response.status === 401) {
-    //                 navigate(urlPaths.login);
-    //             }
-    //         });
-    // }, [])
-
-    // // console.log(City.getCitiesOfState("US", "TX"));
-
-    // return (
-    //     <>
-    //         <div>
-    //             <RoundedProfilePic />
-    //             <div style={styles.input_field}
-    //                 className='row'>
-    //                 <div
-    //                     className='col-md-4'>
-    //                     <div>
-    //                         <label>Name:</label>
-    //                         <input
-    //                             className='form-control'
-    //                             type='text'
-    //                             name='name'
-    //                             maxLength={30} />
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             <div style={styles.input_field}
-    //                 className='row'>
-    //                 <div
-    //                     className='col-md-4'>
-    //                     <div>
-    //                         <label>State:</label>
-    //                         <div className='select-style'>
-    //                             <select name='destCountry' value={inputs.destCountry} onChange={handleStateChange}>
-    //                                 {
-    //                                     State.getStatesOfCountry("US").map((option) => (<option>{option.name}</option>))
-    //                                 }
-    //                             </select>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             <div style={styles.input_field}
-    //                 className='row'>
-    //                 <div
-    //                     className='col-md-4'>
-    //                     <div>
-    //                         <label>City:</label>
-    //                         <div className='select-style'>
-    //                             <select name='destCountry' value={inputs.destCountry} onChange={handleCountryChange}>
-    //                                 {
-    //                                     City.getCitiesOfState("US", "TX").map((option) => (<option>{option.name}</option>))
-    //                                 }
-    //                             </select>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //         </div>
-    //     </>
-    // );
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
@@ -111,6 +18,7 @@ export default function Profile() {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        console.log(name + " " + value);
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -123,7 +31,11 @@ export default function Profile() {
                 username: inputs.username,
                 fullname: inputs.fullname,
                 password: inputs.password,
-                phoneNumber: inputs.phoneNumber
+                phoneNumber: inputs.phoneNumber,
+                state: inputs.state,
+                city: inputs.city,
+                street: inputs.street,
+                zip: inputs.zip
             });
             console.log(resp.data);
             alert('Profile Updated!');
@@ -174,10 +86,57 @@ export default function Profile() {
                                 <input type="text"
                                     className="form-control"
                                     placeholder="(XXX)-XXX-XXXX"
-                                    name='phoneNumber' 
+                                    name='phoneNumber'
+                                    pattern='^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$'
                                     value={inputs.phoneNumber || ""}
                                     onChange={handleChange} />
                             </div>
+
+                            <div className="form-group">
+                                <label>State</label>
+                                <div className='select-style'>
+                                    <select name='state' 
+                                        value={inputs.state || ""} 
+                                        onChange={handleChange}>
+                                        {
+                                            State.getStatesOfCountry("US").map((option) => (<option value={option.isoCode}>{option.name}</option>))
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>City</label>
+                                <div className='select-style'>
+                                    <select name='city' value={inputs.city || ""} onChange={handleChange}>
+                                        {
+                                            City.getCitiesOfState("US", inputs.state).map((option) => (<option value={option.isoCode}>{option.name}</option>))
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Street</label>
+                                <input type="text"
+                                    className="form-control"
+                                    placeholder="Street, Apt, Building"
+                                    name='street'
+                                    value={inputs.street || ""}
+                                    onChange={handleChange} />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Zip</label>
+                                <input type="text"
+                                    pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)"
+                                    className="form-control"
+                                    placeholder="XXXXX"
+                                    name='zip'
+                                    value={inputs.zip || ""}
+                                    onChange={handleChange} />
+                            </div>
+                               
                             <div className="form-group">
                                 <label>Password</label>
                                 <input type="password"
