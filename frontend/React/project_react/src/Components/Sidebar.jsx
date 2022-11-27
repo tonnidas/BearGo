@@ -49,6 +49,13 @@ export default function Sidebar(props) {
                   <span>My Contact </span>
                 </a>
               </li>
+              <li className={url === urlPaths.blog ? 'active' : ''}>
+                <a href={urlPaths.blog}>
+                  {' '}
+                  <i className='icon-home'></i>
+                  <span>Blogs </span>{' '}
+                </a>
+              </li>
               <li className={url === urlPaths.myBlog ? 'active' : ''}>
                 <a href={urlPaths.home}>
                   <i className='icon-clipboard'></i>

@@ -75,11 +75,11 @@ export default function CreateBlog() {
       const resp = await axios.post('/api/blogPosts/createBlogPost', data);
       console.log(resp.data);
       alert('Blog post created');
-      navigate(urlPaths.home);
+      navigate(urlPaths.blog);
 
     } catch (error) {
       console.log(error);
-      alert('Failed to create blog post');
+      alert('Failed to create blog post, reason: ' + error.response.data.message);
     }
   }
 

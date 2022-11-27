@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import MyPosts from './MyPosts/MyPosts';
+import BlogPosts from './BlogPosts/BlogPosts';
 import ContactSender from './ContactSender/ContactSender';
 import ContractTraveller from './ContractTraveller/ContractTraveller';
 import CreatePost from './CreatePost/CreatePost';
@@ -18,6 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={urlPaths.home} element={<FrontPage />} />
+        <Route path={urlPaths.blog} element={<BlogPosts />} />
         <Route path={urlPaths.senderPosts} element={<MyPosts />} />
         <Route path={urlPaths.createPost} element={<CreatePost />} />
         <Route path={urlPaths.createBlog} element={<CreateBlog />} />
