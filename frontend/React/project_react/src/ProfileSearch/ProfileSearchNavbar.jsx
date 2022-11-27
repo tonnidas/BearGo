@@ -10,10 +10,23 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 
-export default function ProfileSearchNavbar() {
+export default function ProfileSearchNavbar({handleUserFullname}) {
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        console.log(name + " " + value);
+        setInputs(values => ({ ...values, [name]: value }))
+    }
+
+    const handleSearchNameSubmit = () => {
+        console.log("ProfileSearchNavbar => Search Name: " + inputs.searchName);
+        handleUserFullname(inputs.searchName);
+        setInputs(values => ({ ...values, ['searchName']: ""}))
+    }
 
     useEffect(() => {
         AuthService.setAxiosAuthHeader();
@@ -68,53 +81,22 @@ export default function ProfileSearchNavbar() {
                                 className='search-area dropdown-menu'
                                 aria-labelledby='navbarDropdown'
                             >
-                                <form action='#'>
-                                    <div className='row'>
-                                        <div className='col-md-6'>
-                                            <div className='form-group'>
-                                                <label>Start Date</label>
-                                                <input
-                                                    className='form-control'
-                                                    type='date'
-                                                    name=''
-                                                    value=''
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className='col-md-6'>
-                                            <div className='form-group'>
-                                                <label>End Date</label>
-                                                <input
-                                                    className='form-control'
-                                                    type='date'
-                                                    name=''
-                                                    value=''
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="user-form">
                                     <div className='form-group'>
-                                        <label>Source Location</label>
+                                        <label>Search with fullname</label>
                                         <div className='select-style'>
-                                            <select name='#'>
-                                                <option value=''>New York</option>
-                                                <option value=''>Los Angeles</option>
-                                                <option value=''>Chicago</option>
-                                            </select>
+                                            <input type="text"
+                                                className="form-control"
+                                                placeholder="Jhon Doe"
+                                                name='searchName'
+                                                value={inputs.searchName || ""}
+                                                onChange={handleChange}
+                                            />
                                         </div>
                                     </div>
-                                    <div className='form-group'>
-                                        <label>Destination Location</label>
-                                        <div className='select-style'>
-                                            <select name='#'>
-                                                <option value=''>New York</option>
-                                                <option value=''>Los Angeles</option>
-                                                <option value=''>Chicago</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button className='common-btn'>Search</button>
-                                </form>
+                                    <button className='common-btn'
+                                            onClick={handleSearchNameSubmit}>Search</button>
+                                </div>
                             </div>
                         </li>
 
