@@ -11,6 +11,7 @@ import Register from './Register/Register';
 import Profile from './Profile/Profile';
 import Message from './Message/Message';
 import urlPaths from './urlPaths';
+import ProfileSearch from './ProfileSearch/ProfileSearch';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path={urlPaths.register} element={<Register />} />
         <Route path={urlPaths.login} element={<Login />} />
         <Route path={urlPaths.profile} element={<Profile />} />
+        <Route path={urlPaths.profileSearch} element={<ProfileSearch />} />
         <Route path={urlPaths.message} element={<Message />} />
       </Routes>
     </BrowserRouter>

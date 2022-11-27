@@ -11,6 +11,7 @@ const urlPaths = {
   register: '/register',
   login: '/login',
   profile: '/profile',
+  profileSearch: '/profileSearch',
   message: '/message'
 };
 
