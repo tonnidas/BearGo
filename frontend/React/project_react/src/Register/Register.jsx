@@ -19,7 +19,7 @@ export default function Register() {
         event.preventDefault();
         console.log("Username: " + inputs.username);
 
-        if (inputs.password != inputs.confirmPassword) {
+        if (inputs.password !== inputs.confirmPassword) {
             alert('Password did not matched');
             return;
         }
