@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class BlogPost {
     private LocalDateTime lastEditedDateTime;
 
     @Column
-    private String imageFilePath;
+    private Long imageId;
 
     @Column(nullable = false)
     private String description;

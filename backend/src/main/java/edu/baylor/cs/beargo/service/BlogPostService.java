@@ -158,8 +158,8 @@ public class BlogPostService {
             dbBlogPost.setDescription(blogPost.getDescription());
         }
 
-        if (blogPost.getImageFilePath() != null) {
-            dbBlogPost.setImageFilePath(blogPost.getImageFilePath());
+        if (blogPost.getImageId() != null) {
+            dbBlogPost.setId(blogPost.getId());
         }
 
         dbBlogPost.setLastEditedDateTime(LocalDateTime.now());
