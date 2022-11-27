@@ -10,12 +10,28 @@ import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
 import { Country, State, City } from "country-state-city";
 import axios from 'axios';
+import Moment from 'react-moment';
 
 export default function CreatePost() {
 
   const navigate = useNavigate();
   const FormData = require('form-data');
   const [inputs, setInputs] = React.useState({});
+
+  React.useEffect(() => {
+    AuthService.setAxiosAuthHeader();
+    axios.get("/api/users/current")
+      .then(res => {
+        console.log(res.data.fullname);
+        setInputs(values => ({ ...values, ['user']: res.data.fullname }));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          navigate(urlPaths.login);
+        }
+      });
+  }, []);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -36,7 +52,7 @@ export default function CreatePost() {
     event.preventDefault();
     // console.log(inputs);
 
-    if(!inputs.imageUploadFile) {
+    if (!inputs.imageUploadFile) {
       alert('Please select an image');
       return;
     }
@@ -108,8 +124,8 @@ export default function CreatePost() {
                           </svg>
                         </div>
                         <div className='user-avatar-name'>
-                          <h4>Nusa Penida</h4>
-                          <span>12:53 PM · Sep 22, 2022</span>
+                          <h4>{inputs.user || "John Doe"}</h4>
+                          <span><Moment format="LLL">{Date.now()}</Moment></span>
                         </div>
                       </a>
                     </div>
