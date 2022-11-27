@@ -6,46 +6,43 @@ const styles = {
     profile_pic: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'left',
+        justifyContent: 'center',
         height: '20vh',
-        margin: '0px 0px 0px 20px'
+        margin: '25px 0px 0px 0px',
     },
     profile_pic_name: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'left',
-        height: '10vh',
-        margin: '0px 0px 0px 15px'
+        justifyContent: 'center',
+        height: '5vh',
+        margin: '25px 0px 0px 0px'
     },
     profile_pic_name_style: {
         fontFamily: 'consolas',
         fontSize: 30,
-        margin: '0px 0px 0px 10px'
+        margin: '0px 0px 0px 0px'
+    },
+    div_background: {
+        // backgroundColor: 'blue'
     }
 }
 
-export default function ImageAvatars() {
+export default function RoundedProfilePic({username}) {
     return (
     <>  
-        <div style={styles.profile_pic}>
-            <ReactRoundedImage
-                image={MyPhoto}
-                roundedColor="#321124"
-                imageWidth="150"
-                imageHeight="150"
-                roundedSize="10"
-                hoverColor="#DD1144" />
-        </div>
-        <div style={styles.profile_pic_name}>
-            <span style={styles.profile_pic_name_style}>swapnilsaha.me</span>
-        </div>
-        <div style={styles.profile_pic_name}
-            className='form-group'>
-            <label className='upload-btn'>
-            {' '}
-            <i className='icon-upload'></i> Upload Image
-            <input type='file' multiple />
-            </label>
+        <div style={styles.div_background}>
+            <div style={styles.profile_pic}>
+                <ReactRoundedImage
+                    image={MyPhoto}
+                    roundedColor="#321124"
+                    imageWidth="150"
+                    imageHeight="150"
+                    roundedSize="10"
+                    hoverColor="#DD1144" />
+            </div>
+            <div style={styles.profile_pic_name}>
+                <span style={styles.profile_pic_name_style}>{username}</span>
+            </div>
         </div>
     </>
   );
