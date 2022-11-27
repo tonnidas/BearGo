@@ -4,6 +4,7 @@ import MyPosts from './MyPosts/MyPosts';
 import ContactSender from './ContactSender/ContactSender';
 import ContractTraveller from './ContractTraveller/ContractTraveller';
 import CreatePost from './CreatePost/CreatePost';
+import CreateBlog from './CreateBlog/CreateBlog';
 import FrontPage from './FrontPage/FrontPage';
 import Login from './Login/Login';
 import Register from './Register/Register';
@@ -18,6 +19,7 @@ function App() {
         <Route path={urlPaths.home} element={<FrontPage />} />
         <Route path={urlPaths.senderPosts} element={<MyPosts />} />
         <Route path={urlPaths.createPost} element={<CreatePost />} />
+        <Route path={urlPaths.createBlog} element={<CreateBlog />} />
         <Route path={urlPaths.contactSender} element={<ContactSender />} />
         <Route path={urlPaths.contractTraveller} element={<ContractTraveller />} />
         <Route path={urlPaths.register} element={<Register />} />

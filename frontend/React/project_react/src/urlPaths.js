@@ -4,6 +4,7 @@ const urlPaths = {
   contactSender: '/contactSender',
   contractTraveller: '/contractTraveller',
   createPost: '/createPost',
+  createBlog: '/createBlog',
   message: '/message',
   settings: '/settings',
   myBlog: '/myBlog',

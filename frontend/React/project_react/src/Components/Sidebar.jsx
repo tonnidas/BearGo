@@ -6,8 +6,11 @@ export default function Sidebar(props) {
   const url = window.location.pathname;
 
   const navigate = useNavigate();
-  const handleClick = (e) => {
+  const handleClickCreateProductPost = (e) => {
     navigate(urlPaths.createPost);
+  };
+  const handleClickCreateBlogPost = (e) => {
+    navigate(urlPaths.createBlog);
   };
   return (
     <>
@@ -60,8 +63,11 @@ export default function Sidebar(props) {
               </li>
             </ul>
           </div>
-          <button className='common-btn global-add' onClick={handleClick}>
-            <i className='icon-plus'></i> <span>New Post</span>
+          <button className='common-btn global-add' onClick={handleClickCreateProductPost}>
+            <i className='icon-plus'></i> <span>Product Post</span>
+          </button>
+          <button className='common-btn global-add' onClick={handleClickCreateBlogPost}>
+            <i className='icon-plus'></i> <span>Blog Post</span>
           </button>
         </div>
       </nav>
