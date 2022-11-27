@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import MyPosts from './MyPosts/MyPosts';
 import ContactSender from './ContactSender/ContactSender';
 import ContractTraveller from './ContractTraveller/ContractTraveller';
 import CreatePost from './CreatePost/CreatePost';
