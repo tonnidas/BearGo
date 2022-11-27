@@ -3,7 +3,6 @@ package edu.baylor.cs.beargo.dto;
 import edu.baylor.cs.beargo.model.Address;
 import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.model.ProductPost;
-import edu.baylor.cs.beargo.model.ProductPostComment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,7 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -34,7 +31,7 @@ public class ProductPostDto {
     private Product product;
     private ContractDto contract;
 
-    private Set<ProductPostCommentDto> comments = new HashSet<>();
+    private List<ProductPostCommentDto> comments = new ArrayList<>();
 
     public static List<ProductPostDto> getProductPostDtoList(List<ProductPost> productPosts) {
         ModelMapper modelMapper = new ModelMapper();

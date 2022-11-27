@@ -99,7 +99,7 @@ export default function CreatePost() {
 
     } catch (error) {
       console.log(error);
-      alert('failed to create product post');
+      alert('Failed to create product post, reason: ' + error.response.data.message);
     }
   }
 

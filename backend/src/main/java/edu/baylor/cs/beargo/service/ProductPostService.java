@@ -54,7 +54,7 @@ public class ProductPostService {
      * @return a list of ProductPosts
      */
     public List<ProductPost> getSearchingTravelerPosts() {
-        List<ProductPost> allPosts = productPostRepository.findAll();
+        List<ProductPost> allPosts = productPostRepository.findAllByOrderByCreatedAtDesc();
         List<ProductPost> searchPosts = new ArrayList<>();
         for (ProductPost pr : allPosts) {
             if (pr.getContract().getDeliveryStatus().equals(DeliveryStatus.SEARCHING_TRAVELER)) {
@@ -71,7 +71,7 @@ public class ProductPostService {
      * @return a list of product posts
      */
     public List<ProductPost> getProductPostsByUser(User user) {
-        List<ProductPost> allPosts = productPostRepository.findAll();
+        List<ProductPost> allPosts = productPostRepository.findAllByOrderByCreatedAtDesc();
         List<ProductPost> searchPosts = new ArrayList<>();
         for (ProductPost pr : allPosts) {
             if (pr.getContract().getSender().getId().equals(user.getId())) {

@@ -10,7 +10,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -64,6 +66,6 @@ public class ProductPost {
 
     @OneToMany(mappedBy = "commentedProductPost") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<ProductPostComment> comments = new HashSet<>();
+    private List<ProductPostComment> comments = new ArrayList<>();
 
 }
