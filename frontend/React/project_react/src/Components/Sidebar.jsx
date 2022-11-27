@@ -52,6 +52,12 @@ export default function Sidebar(props) {
                   <span>My blog </span>
                 </a>
               </li>
+              <li className={url === urlPaths.profile ? 'active' : ''}>
+                <a href={urlPaths.profile}>
+                  <i className='icon-search'></i>
+                  <span>Profile Search </span>
+                </a>
+              </li>
             </ul>
           </div>
           <button className='common-btn global-add' onClick={handleClick}>
