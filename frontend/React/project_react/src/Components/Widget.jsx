@@ -57,7 +57,7 @@ export default function Widget(props) {
             <li>
               <a
                 data-toggle='collapse'
-                href='#collapsecomments'
+                href={'#collapsecomments_' + props.post.id}
                 role='button'
                 aria-expanded='false'
                 aria-controls='collapseExample'
@@ -78,7 +78,7 @@ export default function Widget(props) {
           </ul>
         </div>
 
-        <div className='collapse comments' id='collapsecomments'>
+        <div className='collapse comments' id={'collapsecomments_' + props.post.id}>
           <ul>
 
             {
