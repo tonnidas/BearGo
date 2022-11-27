@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+import Navbar from '../Components/Navbar';
+import Sidebar from '../Components/Sidebar';
+
+import axios from 'axios';
+import AuthService from '../Service/AuthService';
+import { useNavigate } from "react-router-dom";
+import urlPaths from '../urlPaths';
 import image_man from '../images/man_avatar1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import Moment from 'react-moment';
+import CommentWidget from '../Components/CommentWidget';
 
 export default function Widget(props) {
+
   return (
     <div className='widget'>
       <div className='widget-head'>
@@ -21,17 +30,22 @@ export default function Widget(props) {
           </div>
         </a>
       </div>
+
       <div className='widget-inner'>
         <div className='post'>
           <p>
             {props.post.description}
           </p>
           <span className='icon-time'>
-            Delivery Date:&nbsp; <Moment format="LL">{props.post.expectedDeliveryDate}</Moment>
+            Pickup from:&nbsp; <Moment format="LL">{props.post.expectedPickupDate}</Moment>
+          </span>
+          <span className='icon-time' style={{ marginLeft: '50px' }}>
+            Delivery within:&nbsp; <Moment format="LL">{props.post.expectedDeliveryDate}</Moment>
           </span>
           <img className='img-fluid' src={"/api/images/download/" + props.post.imageId} alt='product' />
         </div>
       </div>
+
       <div className='widget-footer'>
         <div className='post-action'>
           <ul>
@@ -41,14 +55,9 @@ export default function Widget(props) {
               </a>
             </li>
             <li>
-              <a href='#'>
-                <i className=' icon-share-2'></i>Share
-              </a>
-            </li>
-            <li>
               <a
                 data-toggle='collapse'
-                href='#collapsecomments'
+                href={'#collapsecomments_' + props.post.id}
                 role='button'
                 aria-expanded='false'
                 aria-controls='collapseExample'
@@ -68,14 +77,21 @@ export default function Widget(props) {
             </li>
           </ul>
         </div>
-        <div className='collapse comments' id='collapsecomments'>
+
+        <div className='collapse comments' id={'collapsecomments_' + props.post.id}>
           <ul>
+
+            {
+              props.post.comments.map(comment => <CommentWidget comment={comment} key={comment.id} />)
+            }
+
+            {/* new comment */}
             <li>
               <div className='comment-box'>
                 <div className='mask'>
                   <img
                     className='mask-img'
-                    src={image_man}
+                    src={image_woman}
                     alt=''
                   />
                   <svg>
@@ -87,41 +103,16 @@ export default function Widget(props) {
                     <h4>Nicole Engelbrecht</h4>
                     <span>12:53 PM · Sep 22, 2022</span>
                   </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Metus, felis, sed fames vel
-                    odio risus.
-                  </p>
-                  <a href='#'>Reply</a>
+                  <textarea
+                    className='form-control'
+                    name=''
+                    rows='2'
+                    placeholder="Write comment"
+                  ></textarea>
+                  {/* <a href='#'>Comment</a> */}
+                  <button type="submit" className='common-btn'>Post</button>
                 </div>
               </div>
-              <ul>
-                <li>
-                  <div className='comment-box'>
-                    <div className='mask'>
-                      <img
-                        className='mask-img'
-                        src={image_woman}
-                        alt=''
-                      />
-                      <svg>
-                        <use href='#icon-mask'></use>
-                      </svg>
-                    </div>
-                    <div className='comment-box-content'>
-                      <div className='user-avatar-name'>
-                        <h4>Nicole Engelbrecht</h4>
-                        <span>12:53 PM · Sep 22, 2022</span>
-                      </div>
-                      <textarea
-                        className='form-control'
-                        name=''
-                        rows='2'
-                      ></textarea>
-                    </div>
-                  </div>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>

@@ -34,7 +34,7 @@ public class ProductPostDto {
     private Product product;
     private ContractDto contract;
 
-    private Set<ProductPostComment> comments = new HashSet<>();
+    private Set<ProductPostCommentDto> comments = new HashSet<>();
 
     public static List<ProductPostDto> getProductPostDtoList(List<ProductPost> productPosts) {
         ModelMapper modelMapper = new ModelMapper();
