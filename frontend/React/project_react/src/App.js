@@ -15,6 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={urlPaths.home} element={<FrontPage />} />
+        <Route path={urlPaths.senderPosts} element={<MyPosts />} />
         <Route path={urlPaths.createPost} element={<CreatePost />} />
         <Route path={urlPaths.contactSender} element={<ContactSender />} />
         <Route path={urlPaths.contractTraveller} element={<ContractTraveller />} />
