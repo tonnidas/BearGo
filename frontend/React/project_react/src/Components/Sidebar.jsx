@@ -34,6 +34,12 @@ export default function Sidebar(props) {
                   <span>Settings </span>
                 </a>
               </li>
+              <li className={url === urlPaths.senderPosts ? 'active' : ''}>
+                <a href={urlPaths.senderPosts}>
+                  <i className='icon-phone'></i>
+                  <span>My Product Post </span>
+                </a>
+              </li>
               <li className={url === urlPaths.contactSender ? 'active' : ''}>
                 <a href={urlPaths.contactSender}>
                   <i className='icon-phone'></i>
@@ -44,6 +50,12 @@ export default function Sidebar(props) {
                 <a href={urlPaths.home}>
                   <i className='icon-clipboard'></i>
                   <span>My blog </span>
+                </a>
+              </li>
+              <li className={url === urlPaths.profile ? 'active' : ''}>
+                <a href={urlPaths.profile}>
+                  <i className='icon-search'></i>
+                  <span>Profile Search </span>
                 </a>
               </li>
             </ul>

@@ -13,6 +13,31 @@ import Moment from 'react-moment';
 import CommentWidget from '../Components/CommentWidget';
 
 export default function Widget(props) {
+  const navigate = useNavigate();
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    setComments(props.post.comments);
+  }, []);
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+
+    const commentData = event.target[0].value
+
+    AuthService.setAxiosAuthHeader();
+
+    try {
+      const resp = await axios.post('/api/comments?productPostId=' + props.post.id, {
+        comment: commentData
+      });
+      setComments([...comments, {comment: resp.data.comment, commentTime: resp.data.commentTime, commentedBy: {fullname: props.user}}]);
+      event.target[0].value = "";
+    } catch (error) {
+      console.log(error);
+      alert('Failed to post comment! Please try again');
+    }
+  }
 
   return (
     <div className='widget'>
@@ -82,7 +107,7 @@ export default function Widget(props) {
           <ul>
 
             {
-              props.post.comments.map(comment => <CommentWidget comment={comment} key={comment.id} />)
+              comments.map(comment => <CommentWidget comment={comment} key={comment.id} />)
             }
 
             {/* new comment */}
@@ -100,17 +125,13 @@ export default function Widget(props) {
                 </div>
                 <div className='comment-box-content'>
                   <div className='user-avatar-name'>
-                    <h4>Nicole Engelbrecht</h4>
-                    <span>12:53 PM · Sep 22, 2022</span>
+                    <h4>{props.user}</h4>
+                    <span><Moment format="LLL">{Date.now()}</Moment></span>
                   </div>
-                  <textarea
-                    className='form-control'
-                    name=''
-                    rows='2'
-                    placeholder="Write comment"
-                  ></textarea>
-                  {/* <a href='#'>Comment</a> */}
-                  <button type="submit" className='common-btn'>Post</button>
+                  <form onSubmit={handleCommentSubmit}>
+                    <textarea className='form-control' rows='2' placeholder="Write comment"></textarea>
+                    <p><button type="submit" className='common-btn'>Post</button></p>
+                  </form>
                 </div>
               </div>
             </li>

@@ -1,4 +1,4 @@
-import './FrontPage.css';
+import './MyPosts.css';
 
 import React, { useEffect, useState } from 'react';
 
@@ -12,27 +12,13 @@ import urlPaths from '../urlPaths';
 import Widget from '../Components/Widget';
 
 
-export default function FrontPage() {
+export default function MyPosts() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
-
-    axios.get("/api/users/current")
-      .then(res => {
-        console.log(res.data.fullname);
-        setUser(res.data.fullname);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 401) {
-          navigate(urlPaths.login);
-        }
-      });
-
-    axios.get("/api/productPosts/getAllProductPost/searchingTraveler")
+    axios.get("/api/productPosts/getProductPostByUser")
       .then((res) => {
         console.log(res.data);
         setPosts(res.data);
@@ -59,7 +45,7 @@ export default function FrontPage() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {posts.map(post => <Widget post={post} user={user} key={post.id} />)}
+                  {posts.map(post => <Widget post={post} key={post.id} />)}
                 </div>
               </div>
 

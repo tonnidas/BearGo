@@ -65,6 +65,23 @@ public class ProductPostService {
     }
 
     /**
+     * Checks if the logged user is the sender of the product post
+     *
+     * @param user the user
+     * @return a list of product posts
+     */
+    public List<ProductPost> getProductPostsByUser(User user) {
+        List<ProductPost> allPosts = productPostRepository.findAll();
+        List<ProductPost> searchPosts = new ArrayList<>();
+        for (ProductPost pr : allPosts) {
+            if (pr.getContract().getSender().getId().equals(user.getId())) {
+                searchPosts.add(pr);
+            }
+        }
+        return searchPosts;
+    }
+
+    /**
      * Checks if the product exists
      *
      * @param id the product id

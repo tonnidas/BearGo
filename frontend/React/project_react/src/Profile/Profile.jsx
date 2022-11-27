@@ -8,6 +8,10 @@ import urlPaths from '../urlPaths';
 import { Country, State, City } from "country-state-city";
 import * as ReactDOMClient from 'react-dom/client';
 
+import Sidebar from '../Components/Sidebar';
+import ProfileNavbar from './ProfileNavbar';
+import ReviewAndRatingPage from './ReviewAndRatingPage';
+
 import RoundedProfilePic from './RoundedProfilePic';
 
 export default function Profile() {
@@ -67,11 +71,15 @@ export default function Profile() {
 
     return (
         <div>
+            <ProfileNavbar />
+            <Sidebar/>
+            <br/>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
                             <RoundedProfilePic username={inputs.username} />
+                            <ReviewAndRatingPage username={"review"}/>
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
                             </div>

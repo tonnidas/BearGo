@@ -59,6 +59,13 @@ public class ProductPostController {
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/getProductPostByUser")
+    public ResponseEntity<List<ProductPostDto>> getProductPostByUser(@AuthenticationPrincipal User user) {
+        List<ProductPost> productPosts = productPostService.getProductPostsByUser(user);
+        List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(productPosts);
+        return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
+    }
+
     @GetMapping("/getProductPostByCriteria/{userType}/{delStatus}")
     public ResponseEntity<List<ProductPostDto>> getProductPostByCriteria(@AuthenticationPrincipal User user,
                                                                          @PathVariable("userType") String userType,
