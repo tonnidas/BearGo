@@ -9,8 +9,8 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
-import Widget from '../Components/Widget';
 import TwitterWidget from '../Components/TwitterWidget';
+import MyPostWidget from '../Components/MyPostWidget';
 
 
 export default function MyPosts() {
@@ -46,7 +46,7 @@ export default function MyPosts() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {posts.map(post => <Widget post={post} key={post.id} />)}
+                  {posts.map(post => <MyPostWidget post={post} key={post.id} />)}
                 </div>
               </div>
 

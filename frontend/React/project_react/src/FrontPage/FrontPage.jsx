@@ -9,7 +9,7 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
-import Widget from '../Components/Widget';
+import PostWidget from '../Components/PostWidget';
 import TwitterWidget from '../Components/TwitterWidget';
 
 
@@ -60,7 +60,7 @@ export default function FrontPage() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {posts.map(post => <Widget post={post} user={user} key={post.id} />)}
+                  {posts.map(post => <PostWidget post={post} user={user} key={post.id} />)}
                 </div>
               </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import Navbar from '../Components/Navbar';
-import Sidebar from '../Components/Sidebar';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
@@ -10,9 +10,9 @@ import urlPaths from '../urlPaths';
 import image_man from '../images/man_avatar1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import Moment from 'react-moment';
-import CommentWidget from '../Components/CommentWidget';
+import CommentWidget from './CommentWidget';
 
-export default function Widget(props) {
+export default function MyPostWidget(props) {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
 
@@ -75,11 +75,6 @@ export default function Widget(props) {
         <div className='post-action'>
           <ul>
             <li>
-              <a href='#'>
-                <i className='icon-message-square'></i>Message
-              </a>
-            </li>
-            <li>
               <a
                 data-toggle='collapse'
                 href={'#collapsecomments_' + props.post.id}
@@ -92,12 +87,7 @@ export default function Widget(props) {
             </li>
             <li>
               <a href='#'>
-                <i className='icon-check'></i>Interested
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                <i className='icon-alert'></i>Report
+                <i className='icon-edit'></i>Edit
               </a>
             </li>
           </ul>
