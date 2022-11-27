@@ -135,7 +135,7 @@ export default function Navbar() {
                             </a>
                             <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
                                 <h3>{inputs.fullname}</h3>
-                                <a className='dropdown-item' href='#'>
+                                <a className='dropdown-item' href={urlPaths.profile}>
                                     Profile
                                 </a>
                                 <a className='dropdown-item' href={urlPaths.login}>

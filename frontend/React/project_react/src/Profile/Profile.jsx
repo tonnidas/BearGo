@@ -62,6 +62,9 @@ export default function Profile() {
             });
     }, []);
 
+    // console.log(State.getStatesOfCountry("US"));
+    // console.log(City.getCitiesOfState("US", "TX"));
+
     return (
         <div>
             <div className="container">
