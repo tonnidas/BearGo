@@ -182,19 +182,30 @@ public class ProductPostService {
         }
         return searchPosts;
     }
-    public List<ProductPost> getProductPostByCriteria(User user, String userType, DeliveryStatus deliveryStatus) {
+    public List<ProductPost> getProductPostByCriteria(User user, String userType, String deliveryStatus) {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> senderPosts = new ArrayList<>();
         Long id = user.getId();
+        System.out.println("del status " + deliveryStatus);
         for(ProductPost p : posts)
         {
             Contract c = p.getContract();
             if(userType.equals("sender"))
             {
+
                 User u = c.getSender();
                 Long uid = u.getId();
+                String status = c.getDeliveryStatus().toString();
                 if(id == uid)
-                    senderPosts.add(p);
+                {
+                    if(deliveryStatus!=null && deliveryStatus.equals(status))
+                        senderPosts.add(p);
+                    else if (deliveryStatus.equals("NONE"))
+                    {
+                        senderPosts.add(p);
+                    }
+                }
+
             }
             else if(userType.equals("traveller"))
             {
@@ -203,6 +214,7 @@ public class ProductPostService {
                 if(id == uid)
                     senderPosts.add(p);
             }
+
         }
         return senderPosts;
     }
