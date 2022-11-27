@@ -39,7 +39,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean isAdmin = false;
 
+    @Column(nullable = false)
     private String fullname;
+
     private String street;
     private String city;
     private String state;
