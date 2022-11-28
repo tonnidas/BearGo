@@ -31,6 +31,11 @@ public class UserController {
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
+    @GetMapping("/getUserById")
+    public ResponseEntity<User> getUserById(@RequestParam(value = "id") Long id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
     // update current user
     @PostMapping("/updateProfile")
     public User updateCurrentUser(@RequestBody User updatedUser, @AuthenticationPrincipal User user) {
