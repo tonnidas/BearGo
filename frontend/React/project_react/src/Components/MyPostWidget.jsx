@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
 
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
-import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
 import image_man from '../images/man_avatar1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
@@ -13,7 +10,6 @@ import Moment from 'react-moment';
 import CommentWidget from './CommentWidget';
 
 export default function MyPostWidget(props) {
-  const navigate = useNavigate();
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -38,6 +34,7 @@ export default function MyPostWidget(props) {
       alert('Failed to post comment! Please try again');
     }
   }
+
 
   return (
     <div className='widget'>
@@ -100,7 +97,7 @@ export default function MyPostWidget(props) {
               </a>
             </li>
             <li>
-              <a href='#'>
+              <a href={urlPaths.updatePost + "?id=" + props.post.id}>
                 <i className='icon-edit'></i>Edit
               </a>
             </li>

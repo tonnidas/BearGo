@@ -13,6 +13,7 @@ import Profile from './Profile/Profile';
 import Message from './Message/Message';
 import urlPaths from './urlPaths';
 import ProfileSearch from './ProfileSearch/ProfileSearch';
+import UpdatePost from './UpdatePost/UpdatePost';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       <Routes>
         <Route path={urlPaths.home} element={<FrontPage />} />
         <Route path={urlPaths.blog} element={<BlogPosts />} />
-        <Route path={urlPaths.senderPosts} element={<MyPosts />} />
+        <Route path={urlPaths.myPosts} element={<MyPosts />} />
         <Route path={urlPaths.createPost} element={<CreatePost />} />
         <Route path={urlPaths.createBlog} element={<CreateBlog />} />
         <Route path={urlPaths.contactSender} element={<ContactSender />} />
@@ -30,6 +31,7 @@ function App() {
         <Route path={urlPaths.profile} element={<Profile />} />
         <Route path={urlPaths.profileSearch} element={<ProfileSearch />} />
         <Route path={urlPaths.message} element={<Message />} />
+        <Route path={urlPaths.updatePost} element={<UpdatePost />} />
       </Routes>
     </BrowserRouter>
 

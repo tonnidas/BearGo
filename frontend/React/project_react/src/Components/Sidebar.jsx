@@ -37,8 +37,8 @@ export default function Sidebar(props) {
                   <span>Settings </span>
                 </a>
               </li>
-              <li className={url === urlPaths.senderPosts ? 'active' : ''}>
-                <a href={urlPaths.senderPosts}>
+              <li className={url === urlPaths.myPosts ? 'active' : ''}>
+                <a href={urlPaths.myPosts}>
                   <i className='icon-phone'></i>
                   <span>My Product Post </span>
                 </a>

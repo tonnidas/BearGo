@@ -1,6 +1,6 @@
 const urlPaths = {
   home: '/',
-  senderPosts: '/senderPosts',
+  myPosts: '/myPosts',
   blog: '/blogPosts',
   contactSender: '/contactSender',
   contractTraveller: '/contractTraveller',
@@ -12,7 +12,8 @@ const urlPaths = {
   login: '/login',
   profile: '/profile',
   profileSearch: '/profileSearch',
-  message: '/message'
+  message: '/message',
+  updatePost: '/updatePost'
 };
 
 export default urlPaths;
