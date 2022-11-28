@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Records from './Records';
 import Pagination from './Pagination';
 
+import axios from 'axios';
+import AuthService from '../Service/AuthService';
+import urlPaths from '../urlPaths';
+
+import { useNavigate } from "react-router-dom";
+
 const styles = {
     center_align: {
         display: 'flex',
@@ -10,86 +16,7 @@ const styles = {
 }
 
 export default function UserList({ name }) {
-    let users = [{ 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
-    { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
-    { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
-    { 'id': 4, 'first_name': 'A4', 'last_name': 'S4', 'city': 'Dhaka' },
-    { 'id': 5, 'first_name': 'A5', 'last_name': 'S5', 'city': 'Dhaka' },
-    { 'id': 6, 'first_name': 'A6', 'last_name': 'S6', 'city': 'Dhaka' },
-    { 'id': 7, 'first_name': 'A7', 'last_name': 'S7', 'city': 'Dhaka' },
-    { 'id': 8, 'first_name': 'A8', 'last_name': 'S8', 'city': 'Dhaka' },
-    { 'id': 9, 'first_name': 'A9', 'last_name': 'S9', 'city': 'Dhaka' },
-    { 'id': 10, 'first_name': 'A10', 'last_name': 'S10', 'city': 'Dhaka' },
-    { 'id': 11, 'first_name': 'A11', 'last_name': 'S11', 'city': 'Dhaka' },
-    { 'id': 12, 'first_name': 'A12', 'last_name': 'S12', 'city': 'Dhaka' },
-    { 'id': 13, 'first_name': 'A13', 'last_name': 'S13', 'city': 'Dhaka' },
-    { 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
-    { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
-    { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
-    { 'id': 4, 'first_name': 'A4', 'last_name': 'S4', 'city': 'Dhaka' },
-    { 'id': 5, 'first_name': 'A5', 'last_name': 'S5', 'city': 'Dhaka' },
-    { 'id': 6, 'first_name': 'A6', 'last_name': 'S6', 'city': 'Dhaka' },
-    { 'id': 7, 'first_name': 'A7', 'last_name': 'S7', 'city': 'Dhaka' },
-    { 'id': 8, 'first_name': 'A8', 'last_name': 'S8', 'city': 'Dhaka' },
-    { 'id': 9, 'first_name': 'A9', 'last_name': 'S9', 'city': 'Dhaka' },
-    { 'id': 10, 'first_name': 'A10', 'last_name': 'S10', 'city': 'Dhaka' },
-    { 'id': 11, 'first_name': 'A11', 'last_name': 'S11', 'city': 'Dhaka' },
-    { 'id': 12, 'first_name': 'A12', 'last_name': 'S12', 'city': 'Dhaka' },
-    { 'id': 13, 'first_name': 'A13', 'last_name': 'S13', 'city': 'Dhaka' },
-    { 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
-    { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
-    { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
-    { 'id': 4, 'first_name': 'A4', 'last_name': 'S4', 'city': 'Dhaka' },
-    { 'id': 5, 'first_name': 'A5', 'last_name': 'S5', 'city': 'Dhaka' },
-    { 'id': 6, 'first_name': 'A6', 'last_name': 'S6', 'city': 'Dhaka' },
-    { 'id': 7, 'first_name': 'A7', 'last_name': 'S7', 'city': 'Dhaka' },
-    { 'id': 8, 'first_name': 'A8', 'last_name': 'S8', 'city': 'Dhaka' },
-    { 'id': 9, 'first_name': 'A9', 'last_name': 'S9', 'city': 'Dhaka' },
-    { 'id': 10, 'first_name': 'A10', 'last_name': 'S10', 'city': 'Dhaka' },
-    { 'id': 11, 'first_name': 'A11', 'last_name': 'S11', 'city': 'Dhaka' },
-    { 'id': 12, 'first_name': 'A12', 'last_name': 'S12', 'city': 'Dhaka' },
-    { 'id': 13, 'first_name': 'A13', 'last_name': 'S13', 'city': 'Dhaka' },
-    { 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
-    { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
-    { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
-    { 'id': 4, 'first_name': 'A4', 'last_name': 'S4', 'city': 'Dhaka' },
-    { 'id': 5, 'first_name': 'A5', 'last_name': 'S5', 'city': 'Dhaka' },
-    { 'id': 6, 'first_name': 'A6', 'last_name': 'S6', 'city': 'Dhaka' },
-    { 'id': 7, 'first_name': 'A7', 'last_name': 'S7', 'city': 'Dhaka' },
-    { 'id': 8, 'first_name': 'A8', 'last_name': 'S8', 'city': 'Dhaka' },
-    { 'id': 9, 'first_name': 'A9', 'last_name': 'S9', 'city': 'Dhaka' },
-    { 'id': 10, 'first_name': 'A10', 'last_name': 'S10', 'city': 'Dhaka' },
-    { 'id': 11, 'first_name': 'A11', 'last_name': 'S11', 'city': 'Dhaka' },
-    { 'id': 12, 'first_name': 'A12', 'last_name': 'S12', 'city': 'Dhaka' },
-    { 'id': 13, 'first_name': 'A13', 'last_name': 'S13', 'city': 'Dhaka' },
-    { 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
-    { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
-    { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
-    { 'id': 4, 'first_name': 'A4', 'last_name': 'S4', 'city': 'Dhaka' },
-    { 'id': 5, 'first_name': 'A5', 'last_name': 'S5', 'city': 'Dhaka' },
-    { 'id': 6, 'first_name': 'A6', 'last_name': 'S6', 'city': 'Dhaka' },
-    { 'id': 7, 'first_name': 'A7', 'last_name': 'S7', 'city': 'Dhaka' },
-    { 'id': 8, 'first_name': 'A8', 'last_name': 'S8', 'city': 'Dhaka' },
-    { 'id': 9, 'first_name': 'A9', 'last_name': 'S9', 'city': 'Dhaka' },
-    { 'id': 10, 'first_name': 'A10', 'last_name': 'S10', 'city': 'Dhaka' },
-    { 'id': 11, 'first_name': 'A11', 'last_name': 'S11', 'city': 'Dhaka' },
-    { 'id': 12, 'first_name': 'A12', 'last_name': 'S12', 'city': 'Dhaka' },
-    { 'id': 13, 'first_name': 'A13', 'last_name': 'S13', 'city': 'Dhaka' },
-    { 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
-    { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
-    { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
-    { 'id': 4, 'first_name': 'A4', 'last_name': 'S4', 'city': 'Dhaka' },
-    { 'id': 5, 'first_name': 'A5', 'last_name': 'S5', 'city': 'Dhaka' },
-    { 'id': 6, 'first_name': 'A6', 'last_name': 'S6', 'city': 'Dhaka' },
-    { 'id': 7, 'first_name': 'A7', 'last_name': 'S7', 'city': 'Dhaka' },
-    { 'id': 8, 'first_name': 'A8', 'last_name': 'S8', 'city': 'Dhaka' },
-    { 'id': 9, 'first_name': 'A9', 'last_name': 'S9', 'city': 'Dhaka' },
-    { 'id': 10, 'first_name': 'A10', 'last_name': 'S10', 'city': 'Dhaka' },
-    { 'id': 11, 'first_name': 'A11', 'last_name': 'S11', 'city': 'Dhaka' },
-    { 'id': 12, 'first_name': 'A12', 'last_name': 'S12', 'city': 'Dhaka' },
-    { 'id': 13, 'first_name': 'A13', 'last_name': 'S13', 'city': 'Dhaka' },
-    ];
-
+    const navigate = useNavigate();
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
 
@@ -97,17 +24,25 @@ export default function UserList({ name }) {
     const [recordsPerPage] = useState(3);
 
     useEffect(() => {
-        // axios.get('MOCK_DATA.json')
-        //     .then(res => {
-        //             setData(res.data);
-        //             setLoading(false);
-        //         })
-        //         .catch(() => {
-        //             alert('There was an error while retrieving the data')
-        //         })
-        setData(users);
-        setLoading(false);
-    }, [])
+        AuthService.setAxiosAuthHeader();
+        // localhost:8080/api/users/findByFullname?name=Go
+        axios.get("/api/users/findByFullname", {
+                params: {
+                    name: String(name)
+                }
+            })
+            .then(res => {
+                setData(res.data);
+                setLoading(false);
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                }
+            })
+    }, [name]);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -120,7 +55,7 @@ export default function UserList({ name }) {
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <div className='container mt-5'>
-                            <h4 style={styles.center_align}> All users with fullname - {name} </h4>
+                            <h4 style={styles.center_align}> User's name with - {name} </h4>
                             <br />
                             <Records data={currentRecords} />
                             <Pagination

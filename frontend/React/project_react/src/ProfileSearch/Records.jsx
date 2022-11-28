@@ -45,7 +45,7 @@ const Records = ({ data }) => {
         <>
             {data.map(item => (
                 <>
-                    <div style={styles.div_background}>
+                    <div style={styles.div_background} key={item.id}>
                         <div style={styles.profile_pic}>
                             <ReactRoundedImage
                                 image={MyPhoto}
@@ -55,7 +55,7 @@ const Records = ({ data }) => {
                                 roundedSize="10"
                                 hoverColor="#DD1144" />
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                            <text style={styles.profile_pic_name_style}>{item.first_name}</text>
+                            <span style={styles.profile_pic_name_style}>{item.fullname}</span>
                         </div>
                         <div style={styles.button_align}>
                             <button style={styles.button}>
