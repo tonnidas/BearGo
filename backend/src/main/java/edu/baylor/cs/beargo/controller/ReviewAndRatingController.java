@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.RatingDto;
 import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ReviewAndRatingService;
@@ -31,13 +32,8 @@ public class ReviewAndRatingController {
         return new ResponseEntity<>(reviewAndRating, HttpStatus.OK);
     }
 
-    @GetMapping("/getRatingAsSender")
-    public ResponseEntity<Double> getRatingAsSender(@RequestParam(value = "userId") Long userId) {
-        return new ResponseEntity<>(reviewAndRatingService.getRatingAsSender(userId), HttpStatus.OK);
-    }
-
-    @GetMapping("/getRatingAsTraveler")
-    public ResponseEntity<Double> getRatingAsTraveler(@RequestParam(value = "userId") Long userId) {
-        return new ResponseEntity<>(reviewAndRatingService.getRatingAsTraveler(userId), HttpStatus.OK);
+    @GetMapping("/getRatingByUserId")
+    public ResponseEntity<RatingDto> getRatingByUserId(@RequestParam(value = "userId") Long userId) {
+        return new ResponseEntity<>(reviewAndRatingService.getRatingByUserId(userId), HttpStatus.OK);
     }
 }

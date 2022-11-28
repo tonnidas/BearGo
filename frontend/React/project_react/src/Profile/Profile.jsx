@@ -54,7 +54,7 @@ export default function Profile() {
         axios.get("/api/users/current")
             .then(res => {
                 // res.data.map((key, value) => console.log(key + " " + value));
-                // console.log(res.data);
+                console.log(res.data);
                 setInputs(res.data);
                 console.log(inputs);
             })
@@ -79,7 +79,7 @@ export default function Profile() {
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
                             <RoundedProfilePic username={inputs.username} />
-                            <ReviewAndRatingPage username={"review"}/>
+                            <ReviewAndRatingPage userId={inputs.id}/>
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
                             </div>

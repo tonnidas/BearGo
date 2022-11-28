@@ -5,8 +5,6 @@ import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
-import { Country, State, City } from "country-state-city";
-import * as ReactDOMClient from 'react-dom/client';
 
 
 import ReviewAndRatingPage from '../Profile/ReviewAndRatingPage';
