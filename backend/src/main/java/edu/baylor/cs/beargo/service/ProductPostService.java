@@ -147,25 +147,67 @@ public class ProductPostService {
         return productPostRepository.save(productPost);
     }
 
-    // TODO: Update product post - implement logic
-    // Date check and status check will be done in frontend. So no need to check here.
-    public ProductPost updateProductPost(User user, ProductPost productPost) {
-        Long id = productPost.getId();
-        Optional<ProductPost> opt = productPostRepository.findById(id);
-        if (opt.isPresent()) {
-            ProductPost optProductPost = opt.get();
-            Contract contract = optProductPost.getContract();
-            Product product = productPost.getProduct();
-
-            addressRepository.save(productPost.getSource());
-            addressRepository.save(productPost.getDestination());
-            product.setId(optProductPost.getProduct().getId());
-            productRepository.save(product);
-            contractRepository.save(contract);
-            productPost.setContract(contract);
-            productPostRepository.save(productPost);
+    public ProductPost updateProductPost(User user, ProductPost newProductPost) {
+        Optional<ProductPost> opt = productPostRepository.findById(newProductPost.getId());
+        if (!opt.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No product post record exist for given id");
         }
-        return productPost;
+
+        ProductPost oldProductPost = opt.get();
+
+        if (!oldProductPost.getContract().getSender().getId().equals(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Only sender can update the product post");
+        }
+
+        if (newProductPost.getExpectedPickupDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pick up date cannot be before today");
+        }
+
+        if (newProductPost.getExpectedPickupDate().isAfter(newProductPost.getExpectedDeliveryDate())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Delivery date cannot be before pick up date");
+        }
+
+        Contract oldContract = oldProductPost.getContract();
+        Product oldProduct = oldProductPost.getProduct();
+        Address oldSourceAddress = oldProductPost.getSource();
+        Address oldDestinationAddress = oldProductPost.getDestination();
+
+        // update from new product post
+
+        // contract
+        oldContract.setContractStartDate(newProductPost.getExpectedPickupDate());
+        oldContract.setContractEndDate(newProductPost.getExpectedDeliveryDate());
+
+        // product
+        oldProduct.setDescription(newProductPost.getProduct().getDescription());
+        oldProduct.setWeight(newProductPost.getProduct().getWeight());
+
+        // source
+        oldSourceAddress.setStreet(newProductPost.getSource().getStreet());
+        oldSourceAddress.setCity(newProductPost.getSource().getCity());
+        oldSourceAddress.setState(newProductPost.getSource().getState());
+        oldSourceAddress.setZip(newProductPost.getSource().getZip());
+        oldSourceAddress.setCountry(newProductPost.getSource().getCountry());
+
+        // destination
+        oldDestinationAddress.setStreet(newProductPost.getDestination().getStreet());
+        oldDestinationAddress.setCity(newProductPost.getDestination().getCity());
+        oldDestinationAddress.setState(newProductPost.getDestination().getState());
+        oldDestinationAddress.setZip(newProductPost.getDestination().getZip());
+        oldDestinationAddress.setCountry(newProductPost.getDestination().getCountry());
+
+        // product post
+        oldProductPost.setCreatedAt(LocalDateTime.now());
+        oldProductPost.setDescription(newProductPost.getDescription());
+        oldProductPost.setExpectedPickupDate(newProductPost.getExpectedPickupDate());
+        oldProductPost.setExpectedDeliveryDate(newProductPost.getExpectedDeliveryDate());
+
+        contractRepository.save(oldContract);
+        productRepository.save(oldProduct);
+        addressRepository.save(oldSourceAddress);
+        addressRepository.save(oldDestinationAddress);
+
+        return productPostRepository.save(oldProductPost);
     }
 
     public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate) {

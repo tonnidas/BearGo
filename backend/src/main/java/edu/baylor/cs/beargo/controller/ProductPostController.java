@@ -1,7 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.dto.ProductPostDto;
-import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ProductPostService;
@@ -30,6 +29,12 @@ public class ProductPostController {
     public ResponseEntity<ProductPost> updateProductPost(@AuthenticationPrincipal User user, @RequestBody ProductPost productPost) {
         ProductPost updateProductPost = productPostService.updateProductPost(user, productPost);
         return new ResponseEntity<>(updateProductPost, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ProductPostDto getProductPostById(@PathVariable Long id) {
+        ProductPost productPost = productPostService.getProductPostById(id);
+        return ProductPostDto.getProductPostDto(productPost);
     }
 
     @GetMapping("/searchProductPost/{source}/{destination}/{startDate}/{endDate}")

@@ -36,6 +36,11 @@ public class ProductPostDto {
     private List<ProductPostCommentDto> comments = new ArrayList<>();
     private Set<UserDto> interestedPeoples = new HashSet<>();
 
+    public static ProductPostDto getProductPostDto(ProductPost productPost) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(productPost, ProductPostDto.class);
+    }
+
     public static List<ProductPostDto> getProductPostDtoList(List<ProductPost> productPosts) {
         ModelMapper modelMapper = new ModelMapper();
         List<ProductPostDto> productPostDtoList = new ArrayList<>();
