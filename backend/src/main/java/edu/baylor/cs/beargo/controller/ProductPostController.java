@@ -1,7 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.dto.ProductPostDto;
-import edu.baylor.cs.beargo.dto.UserContractsDto;
 import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
@@ -73,5 +72,12 @@ public class ProductPostController {
         List<ProductPost> productPosts = productPostService.getProductPostByCriteria(user, userType, delStatus);
         List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(productPosts);
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
+    }
+
+    // set and update interested people list
+    @PostMapping("/setInterestedPeople")
+    public ResponseEntity<ProductPost> setInterestedPeople(@AuthenticationPrincipal User user, @RequestParam Long productPostId) {
+        ProductPost productPost = productPostService.updateInterestedPeople(user, productPostId);
+        return new ResponseEntity<>(productPost, HttpStatus.OK);
     }
 }

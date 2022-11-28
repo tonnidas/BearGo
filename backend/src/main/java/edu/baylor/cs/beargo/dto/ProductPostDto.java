@@ -12,7 +12,9 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,6 +34,7 @@ public class ProductPostDto {
     private ContractDto contract;
 
     private List<ProductPostCommentDto> comments = new ArrayList<>();
+    private Set<UserDto> interestedPeoples = new HashSet<>();
 
     public static List<ProductPostDto> getProductPostDtoList(List<ProductPost> productPosts) {
         ModelMapper modelMapper = new ModelMapper();

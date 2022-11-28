@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,11 +124,11 @@ public class ProductPostService {
         }
         productRepository.save(productPost.getProduct());
 
-        if(productPost.getExpectedPickupDate().isBefore(LocalDate.now())) {
+        if (productPost.getExpectedPickupDate().isBefore(LocalDate.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pick up date cannot be before today");
         }
 
-        if(productPost.getExpectedPickupDate().isAfter(productPost.getExpectedDeliveryDate())) {
+        if (productPost.getExpectedPickupDate().isAfter(productPost.getExpectedDeliveryDate())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Delivery date cannot be before pick up date");
         }
 
@@ -182,6 +181,7 @@ public class ProductPostService {
         }
         return searchPosts;
     }
+
     public List<ProductPost> getProductPostByCriteria(User user, String userType, String deliveryStatus) {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> senderPosts = new ArrayList<>();
@@ -219,5 +219,17 @@ public class ProductPostService {
         return senderPosts;
     }
 
+    /**
+     * @return updated ProductPosts with interested users
+     */
+    public ProductPost updateInterestedPeople(User user, Long productPostId) {
+        ProductPost productPost = getProductPostById(productPostId);
 
+        if (productPost.getContract().getSender().getId().equals(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can not show interest in your own product");
+        }
+
+        productPost.getInterestedPeoples().add(user);
+        return productPostRepository.save(productPost);
+    }
 }

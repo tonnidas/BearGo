@@ -39,6 +39,21 @@ export default function PostWidget(props) {
     }
   }
 
+  const handleInterested = async (event) => {
+    event.preventDefault();
+
+    AuthService.setAxiosAuthHeader();
+
+    try {
+      const resp = await axios.post('/api/productPosts/setInterestedPeople?productPostId=' + props.post.id);
+      console.log(resp.data);
+      alert("Thank you for your interest, sender will contact you shortly!");
+    } catch (error) {
+      console.log(error);
+      alert('Failed to create product post, reason: ' + error.response.data.message);
+    }
+  }
+
   return (
     <div className='widget'>
       <div className='widget-head'>
@@ -106,7 +121,7 @@ export default function PostWidget(props) {
               </a>
             </li>
             <li>
-              <a href='#'>
+              <a role="button" href='#' onClick={handleInterested}>
                 <i className='icon-check'></i>Interested
               </a>
             </li>

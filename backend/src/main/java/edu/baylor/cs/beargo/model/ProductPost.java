@@ -68,4 +68,10 @@ public class ProductPost {
     @JsonIdentityReference(alwaysAsId = true)
     private List<ProductPostComment> comments = new ArrayList<>();
 
+    @ManyToMany // owning-side
+    @JoinTable(
+            name = "Post_interestedPeople",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "interestedPeople_id"))
+    private Set<User> interestedPeoples = new HashSet<>();
 }
