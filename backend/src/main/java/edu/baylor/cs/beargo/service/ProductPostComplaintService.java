@@ -49,6 +49,12 @@ public class ProductPostComplaintService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot complaint against own ProductPost, update or delete ProductPost instead");
         }
 
+        for(ProductPostComplaint c : productPost.getComplaints()) {
+            if(c.getComplainedBy().getId().equals(user.getId())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You have already reported this post");
+            }
+        }
+
         // overwrite with default values
         complaint.setComplainedBy(user);
         complaint.setProductPost(productPost);
@@ -57,7 +63,7 @@ public class ProductPostComplaintService {
         complaint.setResolvedBy(null);
         complaint.setResolveDate(null);
 
-        // TODO: check complaints count for the product post and send notification - Tonni
+        // TODO: check complaints count for the product post and send notification - Saad
 
         return productPostComplaintRepository.save(complaint);
     }

@@ -50,7 +50,26 @@ export default function PostWidget(props) {
       alert("Thank you for your interest, sender will contact you shortly!");
     } catch (error) {
       console.log(error);
-      alert('Failed to create product post, reason: ' + error.response.data.message);
+      alert('Failed to click Interested, reason: ' + error.response.data.message);
+    }
+  }
+
+  const handleReport = async (event) => {
+    event.preventDefault();
+
+    const reportText = prompt("Enter your issue!", "");
+
+    AuthService.setAxiosAuthHeader();
+
+    try {
+      const resp = await axios.post('/api/complaints?productPostId=' + props.post.id, {
+        reason: reportText
+      });
+      console.log(resp.data);
+      alert("Thank you for reporting, an admin will review this shortly!");
+    } catch (error) {
+      console.log(error);
+      alert('Failed to report, reason: ' + error.response.data.message);
     }
   }
 
@@ -126,7 +145,7 @@ export default function PostWidget(props) {
               </a>
             </li>
             <li>
-              <a href='#'>
+              <a role="button" href='#' onClick={handleReport}>
                 <i className='icon-alert'></i>Report
               </a>
             </li>
