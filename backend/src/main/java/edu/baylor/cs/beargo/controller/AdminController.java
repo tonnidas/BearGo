@@ -1,17 +1,17 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/admins")
@@ -51,7 +51,6 @@ public class AdminController {
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
-
     // Promote a user to be admin
     @GetMapping("/promote/{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -60,6 +59,12 @@ public class AdminController {
         return new ResponseEntity<>(promotedUser, HttpStatus.OK);
     }
 
-    //ban user here
+    // block product post
+    @PostMapping("/resolve/productPost")
+    public ResponseEntity<Set<ProductPostComplaint>> resolvePostComplaint(@AuthenticationPrincipal User user, @RequestParam Long productPostId, @RequestParam String verdict) {
+        Set<ProductPostComplaint> complaints = adminService.resolvePostComplaint(user, productPostId, verdict);
+        return new ResponseEntity<>(complaints, HttpStatus.OK);
+    }
 
+    // block user here
 }

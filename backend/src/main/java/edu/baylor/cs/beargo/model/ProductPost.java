@@ -40,6 +40,9 @@ public class ProductPost {
     @Column(nullable = false)
     private LocalDate expectedDeliveryDate;
 
+    @Column(nullable = false)
+    private boolean isBlocked;
+
     @OneToOne // owning-side
     @JoinColumn(name = "source_address_id")
     @JsonIdentityReference(alwaysAsId = true)

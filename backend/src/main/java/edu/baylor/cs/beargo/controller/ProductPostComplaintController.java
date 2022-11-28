@@ -23,10 +23,4 @@ public class ProductPostComplaintController {
         ProductPostComplaint createdComplaint = productPostComplaintService.createComplaint(user, productPostComplaint, productPostId);
         return new ResponseEntity<>(createdComplaint, HttpStatus.OK);
     }
-
-    @GetMapping
-    public ResponseEntity<Set<ProductPostComplaint>> confirmComplaintReview(@AuthenticationPrincipal User user, @RequestParam Long productPostId) {
-        Set<ProductPostComplaint> complaints = productPostComplaintService.confirmComplaintReview(user, productPostId);
-        return new ResponseEntity<>(complaints, HttpStatus.OK);
-    }
 }

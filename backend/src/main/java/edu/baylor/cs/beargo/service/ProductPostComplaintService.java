@@ -67,30 +67,4 @@ public class ProductPostComplaintService {
 
         return productPostComplaintRepository.save(complaint);
     }
-
-    /**
-     * Checks if
-     *
-     * @param user          the authenticated user
-     * @param productPostId the corresponding product post id
-     * @return created contract
-     */
-    public Set<ProductPostComplaint> confirmComplaintReview(User user, Long productPostId) {
-        ProductPost productPost = productPostService.getProductPostById(productPostId);
-        Set<ProductPostComplaint> complaints = productPost.getComplaints();
-
-        Set<User> users = new HashSet<>();
-
-        for (ProductPostComplaint c : complaints) {
-            c.setIsResolved(Boolean.TRUE);
-            c.setResolveDate(LocalDate.now());
-            c.setResolvedBy(user);
-            users.add(c.getComplainedBy());
-            productPostComplaintRepository.save(c);
-        }
-
-        // TODO: send notification to users
-
-        return complaints;
-    }
 }

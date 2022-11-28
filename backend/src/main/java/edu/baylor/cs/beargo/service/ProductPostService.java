@@ -56,7 +56,7 @@ public class ProductPostService {
         List<ProductPost> allPosts = productPostRepository.findAllByOrderByCreatedAtDesc();
         List<ProductPost> searchPosts = new ArrayList<>();
         for (ProductPost pr : allPosts) {
-            if (pr.getContract().getDeliveryStatus().equals(DeliveryStatus.SEARCHING_TRAVELER)) {
+            if (pr.getContract().getDeliveryStatus().equals(DeliveryStatus.SEARCHING_TRAVELER) && !pr.isBlocked()) {
                 searchPosts.add(pr);
             }
         }
@@ -117,6 +117,7 @@ public class ProductPostService {
         addressRepository.save(productPost.getSource());
         addressRepository.save(productPost.getDestination());
 
+        productPost.setBlocked(false);
         productPost.setCreatedAt(LocalDateTime.now());
 
         if (productPost.getProduct() == null) {
