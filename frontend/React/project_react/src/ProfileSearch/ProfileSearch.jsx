@@ -11,19 +11,28 @@ import * as ReactDOMClient from 'react-dom/client';
 import Sidebar from '../Components/Sidebar';
 import ProfileSearchNavbar from './ProfileSearchNavbar';
 import OtherUsersProfile from './OtherUsersProfile';
+import UserList from './UserList';
 
 export default function ProfileSearch() {
 
+    const [name, setName] = useState({});
+    const [userListVisible, setUserListVisible] = useState(false);
+
     const handleUserFullname = (name) => {
         console.log("ProfileSearch => Search Name: " + name);
+        setName(values => ({ ...values, ['fullname']: name }))
+        setUserListVisible(true);
     }
 
     return (
         <div>
-            <ProfileSearchNavbar handleUserFullname={handleUserFullname}/>
+            <ProfileSearchNavbar handleUserFullname={handleUserFullname} />
             <Sidebar />
-            <br/>
-            <OtherUsersProfile />
+            <br />
+            {!userListVisible && <OtherUsersProfile />}
+            <br />
+            {userListVisible && <UserList name={name.fullname}/>}
+            <br />
 
             <script src="js/jquery-3.2.1.min.js"></script>
             <script src="js/bootstrap.min.js"></script>
