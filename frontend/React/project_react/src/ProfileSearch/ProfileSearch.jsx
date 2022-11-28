@@ -13,6 +13,13 @@ export default function ProfileSearch() {
     const handleUserFullname = (name) => {
         console.log("ProfileSearch => Search Name: " + name);
         setName(values => ({ ...values, ['fullname']: name }))
+        setOtherProfileVisible(false);
+    }
+
+    function getUserIdFromUserList(id) {
+        console.log("ProfileSearch => User ID: " + id);
+        setOtherProfileVisible(true);
+        setName(values => ({ ...values, ['fullname']: "" }))
     }
 
     return (
@@ -22,7 +29,7 @@ export default function ProfileSearch() {
             <br />
             {otherProfileVisible && <OtherUsersProfile />}
             <br />
-            {name.fullname && <UserList name={name.fullname}/>}
+            {name.fullname && <UserList name={name.fullname} getUserIdFromUserList={getUserIdFromUserList}/>}
             <br />
 
             <script src="js/jquery-3.2.1.min.js"></script>

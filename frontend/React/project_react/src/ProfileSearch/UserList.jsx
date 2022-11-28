@@ -15,7 +15,7 @@ const styles = {
     }
 }
 
-export default function UserList({ name }) {
+export default function UserList({ name, getUserIdFromUserList }) {
     const navigate = useNavigate();
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
@@ -57,7 +57,7 @@ export default function UserList({ name }) {
                         <div className='container mt-5'>
                             <h4 style={styles.center_align}> User's name with - {name} </h4>
                             <br />
-                            <Records data={currentRecords} />
+                            <Records data={currentRecords} getUserIdFromRecords={getUserIdFromUserList}/>
                             <Pagination
                                 nPages={nPages}
                                 currentPage={currentPage}

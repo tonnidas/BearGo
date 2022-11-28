@@ -40,7 +40,13 @@ const styles = {
 }
 
 
-const Records = ({ data }) => {
+const Records = ({ data, getUserIdFromRecords }) => {
+
+    function getUserId(id) {
+        console.log("Records => User ID: " + id);
+        getUserIdFromRecords(id);
+    }
+
     return (
         <>
             {data.map(item => (
@@ -58,7 +64,7 @@ const Records = ({ data }) => {
                             <span style={styles.profile_pic_name_style}>{item.fullname}</span>
                         </div>
                         <div style={styles.button_align}>
-                            <button style={styles.button}>
+                            <button style={styles.button} onClick={() => getUserId(item.id)}>
                                 View
                             </button>
                         </div>
