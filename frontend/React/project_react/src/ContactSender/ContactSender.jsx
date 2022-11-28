@@ -1,51 +1,73 @@
 import './ContactSender.css';
 
+import React, { useEffect, useState } from 'react';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
 import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
+import axios from 'axios';
+import AuthService from '../Service/AuthService';
 
 import urlPaths from '../urlPaths';
 
 export default function ContactSender() {
+  const [posts, setPosts] = useState([]);
 
   const handleClick = (e) => {
-    
+    AuthService.setAxiosAuthHeader();
+    axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
+
+      .then((res) => {
+        console.log(res.data);
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+
+      });
+    // try {
+    //   AuthService.setAxiosAuthHeader();
+    //   const resp = axios.get('api/productPosts/getProductPostByCriteria/sender/NONE');
+    //   console.log(resp.data);
+    //   setPosts(resp.data);
+
+    // } catch (error) {
+    //   console.log(error);
+    //   alert('Failed to create blog post, reason: ' + error.response.data.message);
+    // }
   };
+
   return (
     <>
       <Navbar />
-    
+
       <div className='container-fluid'>
         <div className='row'>
           <Sidebar />
 
           <main role='main' className='main col-md-12 ml-sm-auto col-lg-9'>
-          <div className='topnav'>
-          <button className='common-btn global' onClick={handleClick}>
-            <i className='icon'></i> <span>My Post</span>
-          </button>
+            <div className='topnav'>
+              <button className='common-btn global' onClick={handleClick}>
+                <i className='icon'></i> <span>My Post</span>
+              </button>
 
-          <button className='common-btn global' onClick={handleClick}>
-            <i className='icon'></i> <span>In-transit</span>
-          </button>
+              <button className='common-btn global' onClick={handleClick}>
+                <i className='icon'></i> <span>In-transit</span>
+              </button>
 
-          <button className='common-btn global' onClick={handleClick}>
-            <i className='icon'></i> <span>Completed</span>
-          </button>
+              <button className='common-btn global' onClick={handleClick}>
+                <i className='icon'></i> <span>Completed</span>
+              </button>
 
-          <button className='common-btn global' onClick={handleClick}>
-            <i className='icon'></i> <span>Interested People</span>
-          </button>
-
-        {/* <a class="active" href="#posts" >My Posts</a>
+              {/* <a class="active" href="#posts" >My Posts</a>
         <a href="#interested">Interested Travellers</a>
         <a href="#completed">Completed</a>
         <a href="#intransit">In-Transit</a> */}
-      </div>
+            </div>
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
+                {posts.map(post =>
                   <div className='widget'>
                     <div className='widget-head'>
                       <a href='#' className='user-avatar'>
@@ -66,52 +88,87 @@ export default function ContactSender() {
                         <form action='#'>
                           <div className='form-group'>
                             <label>Description</label>
-                            <p>
-                              I think it's entirely appropriate that the courier
-                              delivery pin to receive my parcel from
-                              @CounterLove was 911 because these limited edition
-                              Hertzoggie cookies are criminally delicious!
-                            </p>
+                           
+                              <p>
+                                {post.contract.description}
+                              </p>
+                           
                           </div>
                           <div className='form-group'>
-                            <img className='img-fluid' src={parcel_1} alt='' />
+                            <label>Delivery Status</label>
+                            {/* {posts.map(post =>
+                              <p>
+                                {post.contract.deliveryStatus}
+                              </p>
+                            )} */}
                           </div>
 
                           <div className='row'>
                             <div className='col-md-6'>
                               <div className='form-group'>
                                 <label>Start Date</label>
-                                <p>Sep 22, 2022</p>
+                                {posts.map(post =>
+                                  <p>
+                                    {post.contract.contractStartDate}
+                                  </p>
+                                )}
                               </div>
                             </div>
                             <div className='col-md-6'>
                               <div className='form-group'>
                                 <label>End Date</label>
-                                <p>Sep 22, 2022</p>
+                                {posts.map(post =>
+                                  <p>
+                                    {post.contract.contractEndDate}
+                                  </p>
+                                )}
                               </div>
                             </div>
                             <div className='col-md-6'>
                               <label>Source Location</label>
-                              <p>New york</p>
+                              <br/>
+                              <label>Street: </label>
+                              <p>{post.source.street}</p>
+                              <br/>
+                              <label>City: </label>
+                              <p>{post.source.city}</p>
+                              <br/>
+                              <label>Zip: </label>
+                              <p>{post.source.zip}</p>
+                              <br/>
+                              <label>State: </label>
+                              <p>{post.source.state}</p>
                             </div>
+                            
                             <div className='col-md-6'>
                               <label>Destination Location</label>
-                              <p>Los Angeles</p>
+                              <br/>
+                              <label>Street: </label>
+                              <p>{post.destination.street}</p>
+                              <br/>
+                              <label>City: </label>
+                              <p>{post.destination.city}</p>
+                              <br/>
+                              <label>Zip: </label>
+                              <p>{post.destination.zip}</p>
+                              <br/>
+                              <label>State: </label>
+                              <p>{post.destination.state}</p>
                             </div>
                           </div>
 
                           <div className='form-group'>
-                            <label className='checkbox'>
-                              <input type='checkbox' name='terms' value='' />
-                              <span className='checkmark'></span>
-                              Terms & conditions
-                            </label>
+
                           </div>
-                          <button className='common-btn'>Submit</button>
+                          <button className='common-btn'>Interested People</button>
+                          <br />
+                          <br />
+                          <button className='common-btn'>Update Status</button>
                         </form>
                       </div>
                     </div>
                   </div>
+                   )}
                 </div>
               </div>
               <div className='col-md-4'>
