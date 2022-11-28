@@ -26,6 +26,13 @@ public class BlogPostController {
         return new ResponseEntity<>(blogPostDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/getMyBlogPosts")
+    public ResponseEntity<List<BlogPostDto>> getMyBlogPosts(@AuthenticationPrincipal User user) {
+        List<BlogPost> blogPosts = blogPostService.getMyBlogPosts(user);
+        List<BlogPostDto> blogPostDtoList = BlogPostDto.getBlogPostDtoList(blogPosts);
+        return new ResponseEntity<>(blogPostDtoList, HttpStatus.OK);
+    }
+
     @GetMapping("/getBlogPostById")
     public ResponseEntity<BlogPost> getBlogPostById(@RequestParam(name = "blogPostId") Long id) {
         BlogPost blogPost = blogPostService.getBlogPostById(id);

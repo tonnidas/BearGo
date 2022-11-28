@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,24 @@ public class BlogPostService {
      */
     public List<BlogPost> getBlogPosts() {
         return blogPostRepository.findAllByOrderByPostedDateTimeDesc();
+    }
+
+    /**
+     * Checks if the blog post is of the logged user
+     *
+     * @param user     the logged user
+     * @return blog post
+     */
+    public List<BlogPost> getMyBlogPosts(User user) {
+        List<BlogPost> blogPosts = blogPostRepository.findAllByOrderByPostedDateTimeDesc();
+        List<BlogPost> blogs = new ArrayList<>();
+
+        for (BlogPost b : blogPosts) {
+            if (b.getPostedBy().getId().equals(user.getId())) {
+                blogs.add(b);
+            }
+        }
+        return blogs;
     }
 
     /**

@@ -15,6 +15,7 @@ import urlPaths from './urlPaths';
 import ProfileSearch from './ProfileSearch/ProfileSearch';
 import UpdatePost from './UpdatePost/UpdatePost';
 import ReviewPost from './ReviewPost/ReviewPost';
+import MyBlogs from './MyBlogs/MyBlogs';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path={urlPaths.home} element={<FrontPage />} />
         <Route path={urlPaths.blog} element={<BlogPosts />} />
         <Route path={urlPaths.myPosts} element={<MyPosts />} />
+        <Route path={urlPaths.myBlog} element={<MyBlogs />} />
         <Route path={urlPaths.createPost} element={<CreatePost />} />
         <Route path={urlPaths.createBlog} element={<CreateBlog />} />
         <Route path={urlPaths.contactSender} element={<ContactSender />} />
