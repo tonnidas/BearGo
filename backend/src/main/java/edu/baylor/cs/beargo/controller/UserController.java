@@ -9,6 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -20,6 +22,13 @@ public class UserController {
     public ResponseEntity<UserDetails> getCurrentUser(@AuthenticationPrincipal User user) {
         UserDetails currentUser = userService.loadUserByUsername(user.getUsername());
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
+    }
+
+    // Get the user that is currently logged in to the system
+    @GetMapping("/findByFullname")
+    public ResponseEntity<List<User>> findByFullname(@RequestParam(value = "name") String name) {
+        List<User> userList = userService.findByFullname(name);
+        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
     // update current user

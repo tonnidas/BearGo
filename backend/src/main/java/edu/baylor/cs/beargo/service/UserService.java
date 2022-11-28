@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -108,6 +110,21 @@ public class UserService implements UserDetailsService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user exists for given id");
         }
+    }
+
+    /**
+     * @param fullname required for search
+     * @return List of users contains this full name
+     */
+    public List<User> findByFullname(String fullname) {
+        List<User> userList = userRepository.findByFullnameContainingIgnoreCase(fullname);
+        List<User> retUserList = new ArrayList<>();
+        for (User user : userList) {
+            if (user.getIsAdmin() == false) {
+                retUserList.add(user);
+            }
+        }
+        return retUserList;
     }
 
     // user is current user
