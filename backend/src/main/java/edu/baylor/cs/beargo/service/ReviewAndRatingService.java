@@ -113,4 +113,24 @@ public class ReviewAndRatingService {
 
         return reviewAndRatingRepository.save(reviewAndRating);
     }
+
+    // TODO
+    /**
+     *
+     * @param userId the user id
+     * @return average rating of given user as a sender
+     */
+    public Double getRatingAsSender(Long userId) {
+        return 2.6;
+    }
+
+    // TODO
+    /**
+     *
+     * @param userId the user id
+     * @return average rating of given user as a traveler
+     */
+    public Double getRatingAsTraveler(Long userId) {
+        return 4.2;
+    }
 }

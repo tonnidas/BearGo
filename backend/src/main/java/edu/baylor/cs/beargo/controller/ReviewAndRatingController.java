@@ -30,4 +30,14 @@ public class ReviewAndRatingController {
         ReviewAndRating reviewAndRating = reviewAndRatingService.createReviewAndRating(user, contractId, rating, review);
         return new ResponseEntity<>(reviewAndRating, HttpStatus.OK);
     }
+
+    @GetMapping("/getRatingAsSender")
+    public ResponseEntity<Double> getRatingAsSender(@RequestParam(value = "userId") Long userId) {
+        return new ResponseEntity<>(reviewAndRatingService.getRatingAsSender(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getRatingAsTraveler")
+    public ResponseEntity<Double> getRatingAsTraveler(@RequestParam(value = "userId") Long userId) {
+        return new ResponseEntity<>(reviewAndRatingService.getRatingAsTraveler(userId), HttpStatus.OK);
+    }
 }
