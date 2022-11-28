@@ -1,6 +1,5 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.dto.RatingDto;
 import edu.baylor.cs.beargo.model.Contract;
 import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
@@ -113,19 +112,5 @@ public class ReviewAndRatingService {
         }
 
         return reviewAndRatingRepository.save(reviewAndRating);
-    }
-
-    // TODO
-    /**
-     *
-     * @param userId the user id
-     * @return average rating of given user as a sender and a traveler
-     */
-    public RatingDto getRatingByUserId(Long userId) {
-        RatingDto ratingDto = new RatingDto();
-        ratingDto.setUserId(userId);
-        ratingDto.setRatingAsSender(2.6);
-        ratingDto.setRatingAsTraveler(4.2);
-        return ratingDto;
     }
 }

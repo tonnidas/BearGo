@@ -26,8 +26,8 @@ export default function ReviewAndRatingPage({ userId }) {
     useEffect(() => {
         console.log("ReviewRating User ID: " + userId);
         AuthService.setAxiosAuthHeader();
-        // localhost:8080/api/reviewAndRating/getRatingByUserId?userId=3
-        axios.get("/api/reviewAndRating/getRatingByUserId", {
+        // localhost:8080/api/users/getRatingByUserId?userId=3
+        axios.get("/api/users/getRatingByUserId", {
             params: {
                 userId: Number(userId)
             }

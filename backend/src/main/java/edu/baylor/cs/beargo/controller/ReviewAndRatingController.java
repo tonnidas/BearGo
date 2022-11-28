@@ -1,6 +1,5 @@
 package edu.baylor.cs.beargo.controller;
 
-import edu.baylor.cs.beargo.dto.RatingDto;
 import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ReviewAndRatingService;
@@ -30,10 +29,5 @@ public class ReviewAndRatingController {
                                                          @RequestParam Integer rating, @RequestParam String review) {
         ReviewAndRating reviewAndRating = reviewAndRatingService.createReviewAndRating(user, contractId, rating, review);
         return new ResponseEntity<>(reviewAndRating, HttpStatus.OK);
-    }
-
-    @GetMapping("/getRatingByUserId")
-    public ResponseEntity<RatingDto> getRatingByUserId(@RequestParam(value = "userId") Long userId) {
-        return new ResponseEntity<>(reviewAndRatingService.getRatingByUserId(userId), HttpStatus.OK);
     }
 }

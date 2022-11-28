@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.RatingDto;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class UserController {
     @PostMapping("/updateProfile")
     public User updateCurrentUser(@RequestBody User updatedUser, @AuthenticationPrincipal User user) {
         return userService.updateUser(updatedUser, user);
+    }
+
+    @GetMapping("/getRatingByUserId")
+    public ResponseEntity<RatingDto> getRatingByUserId(@RequestParam(value = "userId") Long userId) {
+        return new ResponseEntity<>(userService.getRatingByUserId(userId), HttpStatus.OK);
     }
 }

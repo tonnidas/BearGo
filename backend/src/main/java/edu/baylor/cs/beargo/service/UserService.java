@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.dto.RatingDto;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.UserRepository;
 import edu.baylor.cs.beargo.security.JwtTokenProvider;
@@ -163,6 +164,20 @@ public class UserService implements UserDetailsService {
         // activityService.saveUpdatedProfileActivity(user);
 
         return user;
+    }
+
+    // TODO
+    /**
+     *
+     * @param userId the user id
+     * @return average rating of given user as a sender and a traveler
+     */
+    public RatingDto getRatingByUserId(Long userId) {
+        RatingDto ratingDto = new RatingDto();
+        ratingDto.setUserId(userId);
+        ratingDto.setRatingAsSender(2.6);
+        ratingDto.setRatingAsTraveler(4.2);
+        return ratingDto;
     }
 
     /**
