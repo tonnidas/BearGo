@@ -17,13 +17,6 @@ export default function OtherUsersProfile({ userId }) {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        console.log(name + " " + value);
-        setInputs(values => ({ ...values, [name]: value }))
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Username: " + inputs.username);
@@ -50,10 +43,10 @@ export default function OtherUsersProfile({ userId }) {
     useEffect(() => {
         AuthService.setAxiosAuthHeader();
         axios.get("/api/users/getUserById", {
-                params: {
-                    id: Number(userId)
-                }
-            })
+            params: {
+                id: Number(userId)
+            }
+        })
             .then(res => {
                 // res.data.map((key, value) => console.log(key + " " + value));
                 // console.log(res.data);
@@ -68,9 +61,6 @@ export default function OtherUsersProfile({ userId }) {
             });
     }, [userId]);
 
-    // console.log(State.getStatesOfCountry("US"));
-    // console.log(City.getCitiesOfState("US", "TX"));
-
     return (
         <div>
             <div className="container">
@@ -78,96 +68,51 @@ export default function OtherUsersProfile({ userId }) {
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
                             <RoundedProfilePic username={inputs.username} />
-                            <ReviewAndRatingPage username={"review"}/>
+                            <ReviewAndRatingPage username={"review"} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
                             </div>
                             <div className="form-group">
                                 <label>Name</label>
-                                <input type="text"
-                                    className="form-control"
-                                    placeholder="Jhon Doe"
-                                    name='fullname'
-                                    value={inputs.fullname || ""}
-                                    onChange={handleChange} />
+                                <div className="form-control">
+                                    {inputs.fullname || "-"}
+                                </div>
                             </div>
                             <div className="form-group">
                                 <label>Phone</label>
-                                <input type="text"
-                                    className="form-control"
-                                    placeholder="(XXX)-XXX-XXXX"
-                                    name='phoneNumber'
-                                    pattern='^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$'
-                                    value={inputs.phoneNumber || ""}
-                                    onChange={handleChange} />
+                                <div className="form-control">
+                                    {inputs.phoneNumber || "-"}
+                                </div>
                             </div>
 
                             <div className="form-group">
                                 <label>State</label>
-                                <div className='select-style'>
-                                    <select name='state' 
-                                        value={inputs.state || ""} 
-                                        onChange={handleChange}>
-                                        {
-                                            State.getStatesOfCountry("US").map((option) => (<option value={option.isoCode}>{option.name}</option>))
-                                        }
-                                    </select>
+                                <div className="form-control">
+                                    {inputs.state || "-"}
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>City</label>
-                                <div className='select-style'>
-                                    <select name='city' value={inputs.city || ""} onChange={handleChange}>
-                                        {
-                                            City.getCitiesOfState("US", inputs.state).map((option) => (<option value={option.isoCode}>{option.name}</option>))
-                                        }
-                                    </select>
+                                <div className="form-control">
+                                    {inputs.city || "-"}
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>Street</label>
-                                <input type="text"
-                                    className="form-control"
-                                    placeholder="Street, Apt, Building"
-                                    name='street'
-                                    value={inputs.street || ""}
-                                    onChange={handleChange} />
+                                <div className="form-control">
+                                    {inputs.street || "-"}
+                                </div>
                             </div>
 
                             <div className="form-group">
                                 <label>Zip</label>
-                                <input type="text"
-                                    pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)"
-                                    className="form-control"
-                                    placeholder="XXXXX"
-                                    name='zip'
-                                    value={inputs.zip || ""}
-                                    onChange={handleChange} />
-                            </div>
-                               
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input type="password"
-                                    className="form-control"
-                                    placeholder="12345"
-                                    name='password'
-                                    value={inputs.password || ""}
-                                    onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password"
-                                    className="form-control"
-                                    placeholder="12345"
-                                    name='confirmPassword'
-                                    value={inputs.confirmPassword || ""}
-                                    onChange={handleChange} />
-                            </div>
 
-                            <button type="submit"
-                                className="common-btn btn-primary">Update</button>
+                                <div className="form-control">
+                                    {inputs.zip || "-"}
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
