@@ -6,7 +6,6 @@ const urlPaths = {
   contractTraveller: '/contractTraveller',
   createPost: '/createPost',
   createBlog: '/createBlog',
-  message: '/message',
   settings: '/settings',
   myBlog: '/myBlog',
   register: '/register',

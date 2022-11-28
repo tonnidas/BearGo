@@ -31,7 +31,7 @@ export default function MyPostWidget(props) {
       const resp = await axios.post('/api/comments?productPostId=' + props.post.id, {
         comment: commentData
       });
-      setComments([...comments, {comment: resp.data.comment, commentTime: resp.data.commentTime, commentedBy: {fullname: props.user}}]);
+      setComments([...comments, { comment: resp.data.comment, commentTime: resp.data.commentTime, commentedBy: { fullname: props.user } }]);
       event.target[0].value = "";
     } catch (error) {
       console.log(error);
@@ -61,6 +61,20 @@ export default function MyPostWidget(props) {
           <p>
             {props.post.description}
           </p>
+          <div className='row'>
+            <div className='col-md-12'>
+              <label>Status</label>
+              <p>{props.post.contract.deliveryStatus}</p>
+            </div>
+            <div className='col-md-6'>
+              <label>Source Location</label>
+              <p>{props.post.source.street + ", " + props.post.source.city + ", " + props.post.source.state + ", " + props.post.source.zip + ", " + props.post.source.country}</p>
+            </div>
+            <div className='col-md-6'>
+              <label>Destination Location</label>
+              <p>{props.post.destination.street + ", " + props.post.destination.city + ", " + props.post.destination.state + ", " + props.post.destination.zip + ", " + props.post.destination.country}</p>
+            </div>
+          </div>
           <span className='icon-time'>
             Pickup from:&nbsp; <Moment format="LL">{props.post.expectedPickupDate}</Moment>
           </span>
