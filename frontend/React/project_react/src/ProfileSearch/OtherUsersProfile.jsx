@@ -12,7 +12,7 @@ import * as ReactDOMClient from 'react-dom/client';
 import ReviewAndRatingPage from '../Profile/ReviewAndRatingPage';
 import RoundedProfilePic from '../Profile/RoundedProfilePic';
 
-export default function OtherUsersProfile() {
+export default function OtherUsersProfile({ userId }) {
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
@@ -49,7 +49,11 @@ export default function OtherUsersProfile() {
 
     useEffect(() => {
         AuthService.setAxiosAuthHeader();
-        axios.get("/api/users/current")
+        axios.get("/api/users/getUserById", {
+                params: {
+                    id: Number(userId)
+                }
+            })
             .then(res => {
                 // res.data.map((key, value) => console.log(key + " " + value));
                 // console.log(res.data);
@@ -62,7 +66,7 @@ export default function OtherUsersProfile() {
                     navigate(urlPaths.login);
                 }
             });
-    }, []);
+    }, [userId]);
 
     // console.log(State.getStatesOfCountry("US"));
     // console.log(City.getCitiesOfState("US", "TX"));

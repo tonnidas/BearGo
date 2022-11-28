@@ -8,18 +8,20 @@ import UserList from './UserList';
 export default function ProfileSearch() {
 
     const [name, setName] = useState({});
+    const [userId, setUserId] = useState({});
     const [otherProfileVisible, setOtherProfileVisible] = useState(false);
 
     const handleUserFullname = (name) => {
         console.log("ProfileSearch => Search Name: " + name);
-        setName(values => ({ ...values, ['fullname']: name }))
+        setName(values => ({ ...values, ['fullname']: name }));
         setOtherProfileVisible(false);
     }
 
     function getUserIdFromUserList(id) {
         console.log("ProfileSearch => User ID: " + id);
+        setUserId(values => ({ ...values, ['id']: id }));
         setOtherProfileVisible(true);
-        setName(values => ({ ...values, ['fullname']: "" }))
+        setName(values => ({ ...values, ['fullname']: "" }));
     }
 
     return (
@@ -27,7 +29,7 @@ export default function ProfileSearch() {
             <ProfileSearchNavbar handleUserFullname={handleUserFullname} />
             <Sidebar />
             <br />
-            {otherProfileVisible && <OtherUsersProfile />}
+            {otherProfileVisible && userId.id && <OtherUsersProfile userId={userId.id}/>}
             <br />
             {name.fullname && <UserList name={name.fullname} getUserIdFromUserList={getUserIdFromUserList}/>}
             <br />
