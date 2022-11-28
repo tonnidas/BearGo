@@ -9,7 +9,7 @@ const styles = {
     }
 }
 
-export default function UserList({name}) {
+export default function UserList({ name }) {
     let users = [{ 'id': 1, 'first_name': 'A1', 'last_name': 'S1', 'city': 'Dhaka' },
     { 'id': 2, 'first_name': 'A2', 'last_name': 'S2', 'city': 'Dhaka' },
     { 'id': 3, 'first_name': 'A3', 'last_name': 'S3', 'city': 'Dhaka' },
