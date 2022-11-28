@@ -3,6 +3,7 @@ package edu.baylor.cs.beargo.dto;
 import edu.baylor.cs.beargo.model.Address;
 import edu.baylor.cs.beargo.model.Product;
 import edu.baylor.cs.beargo.model.ProductPost;
+import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,11 +31,14 @@ public class ProductPostDto {
     private Address source;
     private Address destination;
 
+    private boolean isBlocked;
+
     private Product product;
     private ContractDto contract;
 
     private List<ProductPostCommentDto> comments = new ArrayList<>();
     private Set<UserDto> interestedPeoples = new HashSet<>();
+    private Set<ProductPostComplaintDto> complaints = new HashSet<>();
 
     public static ProductPostDto getProductPostDto(ProductPost productPost) {
         ModelMapper modelMapper = new ModelMapper();
