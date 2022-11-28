@@ -7,11 +7,18 @@ import image_man from '../images/man_avatar1.jpg';
 import parcel_1 from '../images/parcel-1.jpg';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
-
+import Moment from 'react-moment';
 import urlPaths from '../urlPaths';
 
 export default function ContactSender() {
   const [posts, setPosts] = useState([]);
+  const handleChange = (event) => {
+    const value = event.target.value;
+    AuthService.setAxiosAuthHeader();
+    const resp = axios.post("api/contracts/updateStatus/1/" + value)      
+    console.log(resp.data);
+    alert('Status Updated!');
+}
 
   const handleClick = (e) => {
     AuthService.setAxiosAuthHeader();
@@ -25,16 +32,6 @@ export default function ContactSender() {
         console.log(err);
 
       });
-    // try {
-    //   AuthService.setAxiosAuthHeader();
-    //   const resp = axios.get('api/productPosts/getProductPostByCriteria/sender/NONE');
-    //   console.log(resp.data);
-    //   setPosts(resp.data);
-
-    // } catch (error) {
-    //   console.log(error);
-    //   alert('Failed to create blog post, reason: ' + error.response.data.message);
-    // }
   };
 
   return (
@@ -67,108 +64,119 @@ export default function ContactSender() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                {posts.map(post =>
-                  <div className='widget'>
-                    <div className='widget-head'>
-                      <a href='#' className='user-avatar'>
-                        <div className='mask'>
-                          <img className='mask-img' src={image_man} alt='' />
-                          <svg>
-                            <use href='#icon-mask'></use>
-                          </svg>
-                        </div>
-                        <div className='user-avatar-name'>
-                          <h4>Nusa Penida</h4>
-                          <span>12:53 PM · Sep 22, 2022</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div className='widget-inner'>
-                      <div className='post post-contact'>
-                        <form action='#'>
-                          <div className='form-group'>
-                            <label>Description</label>
-                           
+                  {posts.map(post => 
+                    <div className='widget'>
+                      <div className='widget-head'>
+                        <a href='#' className='user-avatar'>
+                          <div className='mask'>
+                            <img className='mask-img' src={image_man} alt='' />
+                            <svg>
+                              <use href='#icon-mask'></use>
+                            </svg>
+                          </div>
+                          <div className='user-avatar-name'>
+                            <h4>{post.contract.sender.username}</h4>
+                            <span><Moment format="LLL">{post.createdAt}</Moment></span>
+                          </div>
+                        </a>
+                      </div>
+                      <div className='widget-inner'>
+                        <div className='post post-contact'>
+                          <form action='#'>
+                            <div className='form-group'>
+                              <label>Description</label>
+
                               <p>
                                 {post.contract.description}
                               </p>
-                           
-                          </div>
-                          <div className='form-group'>
-                            <label>Delivery Status</label>
-                            {/* {posts.map(post =>
+
+                            </div>
+                            <div className='form-group'>
+                              <label>Delivery Status</label>                             
                               <p>
                                 {post.contract.deliveryStatus}
                               </p>
-                            )} */}
-                          </div>
+                          
+                            </div>
 
-                          <div className='row'>
-                            <div className='col-md-6'>
-                              <div className='form-group'>
-                                <label>Start Date</label>
-                                {posts.map(post =>
-                                  <p>
-                                    {post.contract.contractStartDate}
-                                  </p>
-                                )}
+                            <div className='row'>
+                              <div className='col-md-6'>
+                                <div className='form-group'>
+                                  <label>Start Date</label>
+                                  {posts.map(post =>
+                                    <p>
+                                      {post.contract.contractStartDate}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                              <div className='col-md-6'>
+                                <div className='form-group'>
+                                  <label>End Date</label>
+                                  {posts.map(post =>
+                                    <p>
+                                      {post.contract.contractEndDate}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                              <div className='col-md-6'>
+                                <label>Source Location</label>
+                                <br />
+                                <label>Street: </label>
+                                <p>{post.source.street}</p>
+                                <br />
+                                <label>City: </label>
+                                <p>{post.source.city}</p>
+                                <br />
+                                <label>Zip: </label>
+                                <p>{post.source.zip}</p>
+                                <br />
+                                <label>State: </label>
+                                <p>{post.source.state}</p>
+                              </div>
+
+                              <div className='col-md-6'>
+                                <label>Destination Location</label>
+                                <br />
+                                <label>Street: </label>
+                                <p>{post.destination.street}</p>
+                                <br />
+                                <label>City: </label>
+                                <p>{post.destination.city}</p>
+                                <br />
+                                <label>Zip: </label>
+                                <p>{post.destination.zip}</p>
+                                <br />
+                                <label>State: </label>
+                                <p>{post.destination.state}</p>
                               </div>
                             </div>
-                            <div className='col-md-6'>
-                              <div className='form-group'>
-                                <label>End Date</label>
-                                {posts.map(post =>
-                                  <p>
-                                    {post.contract.contractEndDate}
-                                  </p>
-                                )}
+
+                            <div className='form-group'>
+
+                            </div>
+                            <div className='form-group'>
+                              <label>Update Status</label>
+                              <div className='select-style'>
+                                <select name='#' onChange={handleChange}>
+                                  <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
+                                  <option value='PICKED_UP'> PICKED_UP</option>
+                                  <option value='DELIVERED'>DELIVERED</option>
+                                </select>
                               </div>
                             </div>
-                            <div className='col-md-6'>
-                              <label>Source Location</label>
-                              <br/>
-                              <label>Street: </label>
-                              <p>{post.source.street}</p>
-                              <br/>
-                              <label>City: </label>
-                              <p>{post.source.city}</p>
-                              <br/>
-                              <label>Zip: </label>
-                              <p>{post.source.zip}</p>
-                              <br/>
-                              <label>State: </label>
-                              <p>{post.source.state}</p>
-                            </div>
-                            
-                            <div className='col-md-6'>
-                              <label>Destination Location</label>
-                              <br/>
-                              <label>Street: </label>
-                              <p>{post.destination.street}</p>
-                              <br/>
-                              <label>City: </label>
-                              <p>{post.destination.city}</p>
-                              <br/>
-                              <label>Zip: </label>
-                              <p>{post.destination.zip}</p>
-                              <br/>
-                              <label>State: </label>
-                              <p>{post.destination.state}</p>
-                            </div>
-                          </div>
+                            <br />
+                            <button className='common-btn'>Interested People</button>
+                            <br />
 
-                          <div className='form-group'>
 
-                          </div>
-                          <button className='common-btn'>Interested People</button>
-                          <br />
-                          <br />
-                          <button className='common-btn'>Update Status</button>
-                        </form>
+                            {/* <button className='common-btn'>Update Status</button> */}
+                          </form>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                   )}
+                  )}
                 </div>
               </div>
               <div className='col-md-4'>

@@ -44,8 +44,10 @@ public class ContractController {
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 
-    @PostMapping("/updateStatus")
-    public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user, @RequestParam Long contractId, @RequestParam String newStatus) {
+    @PostMapping("/updateStatus/{contractId}/{newStatus}")
+    public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user,
+                                                 @PathVariable("contractId") Long contractId,
+                                                 @PathVariable("newStatus") String newStatus) {
         Contract updatedContract = contractService.updateContractStatus(user, contractId, newStatus);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
