@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByIsAdminTrue();
 
     List<User> findByIsAdminFalse();
+
+    List<User> findByFullnameContainingIgnoreCase(String fullname);
 }
