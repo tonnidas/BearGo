@@ -13,7 +13,8 @@ const urlPaths = {
   profile: '/profile',
   profileSearch: '/profileSearch',
   message: '/message',
-  updatePost: '/updatePost'
+  updatePost: '/updatePost',
+  reviewPost: '/reviewPost'
 };
 
 export default urlPaths;

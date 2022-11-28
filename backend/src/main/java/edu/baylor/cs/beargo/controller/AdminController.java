@@ -1,5 +1,7 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.ProductPostDto;
+import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.AdminService;
@@ -15,13 +17,13 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/admins")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     @Autowired
     AdminService adminService;
 
     // Get all admins (except general users)
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> admins() {
         List<User> admins = adminService.getAdmins();
         return new ResponseEntity<>(admins, HttpStatus.OK);
@@ -29,7 +31,6 @@ public class AdminController {
 
     // Get only users (except admins)
     @GetMapping("/onlyUsers")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> users() {
         List<User> users = adminService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -37,7 +38,6 @@ public class AdminController {
 
     // Get all users (including admins)
     @GetMapping("/allUsers")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> allUsers() {
         List<User> users = adminService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -45,7 +45,6 @@ public class AdminController {
 
     // Get admin by id
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> getAdminById(@PathVariable("id") Long id) {
         User admin = adminService.getAdminById(id);
         return new ResponseEntity<>(admin, HttpStatus.OK);
@@ -53,7 +52,6 @@ public class AdminController {
 
     // Promote a user to be admin
     @GetMapping("/promote/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> promote(@PathVariable("id") Long id) {
         User promotedUser = adminService.promoteUser(id);
         return new ResponseEntity<>(promotedUser, HttpStatus.OK);
@@ -66,5 +64,12 @@ public class AdminController {
         return new ResponseEntity<>(complaints, HttpStatus.OK);
     }
 
-    // block user here
+    // return all product posts that has more than "threshold" unresolved reports
+    @GetMapping("/getReportedProductPosts")
+    public List<ProductPostDto> getReportedProductPosts(@RequestParam int threshold) {
+        List<ProductPost> productPosts = adminService.getReportedProductPosts(threshold);
+        return ProductPostDto.getProductPostDtoList(productPosts);
+    }
+
+    // TODO: block user here
 }
