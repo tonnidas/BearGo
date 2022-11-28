@@ -58,6 +58,9 @@ export default function PostWidget(props) {
     event.preventDefault();
 
     const reportText = prompt("Enter your issue!", "");
+    if (reportText === null) {
+      return;
+    }
 
     AuthService.setAxiosAuthHeader();
 

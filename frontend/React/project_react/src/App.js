@@ -14,6 +14,7 @@ import Message from './Message/Message';
 import urlPaths from './urlPaths';
 import ProfileSearch from './ProfileSearch/ProfileSearch';
 import UpdatePost from './UpdatePost/UpdatePost';
+import ReviewPost from './ReviewPost/ReviewPost';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path={urlPaths.profileSearch} element={<ProfileSearch />} />
         <Route path={urlPaths.message} element={<Message />} />
         <Route path={urlPaths.updatePost} element={<UpdatePost />} />
+        <Route path={urlPaths.reviewPost} element={<ReviewPost />} />
       </Routes>
     </BrowserRouter>
 

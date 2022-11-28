@@ -68,6 +68,12 @@ export default function Sidebar(props) {
                   <span>Profile Search </span>
                 </a>
               </li>
+              <li className={url === urlPaths.reviewPost ? 'active' : ''}>
+                <a href={urlPaths.reviewPost}>
+                  <i className='icon-search'></i>
+                  <span>Admin . Review Post </span>
+                </a>
+              </li>
             </ul>
           </div>
           <button className='common-btn global-add' onClick={handleClickCreateProductPost}>
