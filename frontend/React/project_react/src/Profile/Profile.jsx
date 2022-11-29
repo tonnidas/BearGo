@@ -19,17 +19,12 @@ export default function Profile() {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        console.log(name + " " + value);
-        setInputs(values => ({ ...values, [name]: value }))
-    }
+    const handleWindowConfirm = async () => {
+        if (window.confirm("Are you sure to update your profile ?") == false) {
+            return;
+        }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log("Username: " + inputs.username);
-
+        AuthService.setAxiosAuthHeader();
         try {
             const resp = await axios.post('/api/users/updateProfile', {
                 username: inputs.username,
@@ -47,6 +42,19 @@ export default function Profile() {
             console.log(error);
             alert('Profile update failed! Please try again');
         }
+    }
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        console.log(name + " " + value);
+        setInputs(values => ({ ...values, [name]: value }))
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("Username: " + inputs.username);
+        handleWindowConfirm();
     }
 
     useEffect(() => {
@@ -72,14 +80,14 @@ export default function Profile() {
     return (
         <div>
             <ProfileNavbar />
-            <Sidebar/>
-            <br/>
+            <Sidebar />
+            <br />
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
                             <RoundedProfilePic username={inputs.username} />
-                            <ReviewAndRatingPage userId={inputs.id}/>
+                            <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
                             </div>
@@ -106,8 +114,8 @@ export default function Profile() {
                             <div className="form-group">
                                 <label>State</label>
                                 <div className='select-style'>
-                                    <select name='state' 
-                                        value={inputs.state || ""} 
+                                    <select name='state'
+                                        value={inputs.state || ""}
                                         onChange={handleChange}>
                                         {
                                             State.getStatesOfCountry("US").map((option) => (<option value={option.isoCode}>{option.name}</option>))
@@ -147,7 +155,7 @@ export default function Profile() {
                                     value={inputs.zip || ""}
                                     onChange={handleChange} />
                             </div>
-                               
+
                             <div className="form-group">
                                 <label>Password</label>
                                 <input type="password"
