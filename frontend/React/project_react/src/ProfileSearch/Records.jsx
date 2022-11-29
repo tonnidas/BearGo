@@ -54,12 +54,12 @@ const Records = ({ data, getUserIdFromRecords }) => {
                     <div style={styles.div_background} key={item.id}>
                         <div style={styles.profile_pic}>
                             <ReactRoundedImage
-                                image={MyPhoto}
-                                roundedColor="#321124"
+                                image={(item.imageId && ("/api/images/download/" + item.imageId)) || MyPhoto}
+                                roundedColor="#000000"
                                 imageWidth="70"
                                 imageHeight="70"
                                 roundedSize="10"
-                                hoverColor="#DD1144" />
+                                hoverColor="#007bff" />
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                             <span style={styles.profile_pic_name_style}>{item.fullname}</span>
                         </div>

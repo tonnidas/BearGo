@@ -115,11 +115,11 @@ export default function RoundedProfilePic({ imageId, username, isOwnProfile }) {
                 <div style={styles.profile_pic}>
                     <ReactRoundedImage
                         image={inputs.imageFile || (imageId && ("/api/images/download/" + imageId)) || MyPhoto}
-                        roundedColor="#321124"
+                        roundedColor="#000000"
                         imageWidth="150"
                         imageHeight="150"
                         roundedSize="10"
-                        hoverColor="#DD1144" />
+                        hoverColor="#007bff" />
                 </div>
 
                 {getUploadImageOption(isOwnProfile)}
