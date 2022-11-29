@@ -19,7 +19,7 @@ export default function ReviewPost() {
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
 
-    axios.get("/api/admins/getReportedProductPosts?threshold=5")
+    axios.get("/api/admins/getReportedProductPosts?threshold=0")
       .then((res) => {
         console.log(res.data);
         setPosts(res.data);

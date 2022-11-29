@@ -104,7 +104,7 @@ export default function Profile() {
                                 <label>Phone</label>
                                 <input type="text"
                                     className="form-control"
-                                    placeholder="(XXX)-XXX-XXXX"
+                                    placeholder="(XXX)XXX-XXXX"
                                     name='phoneNumber'
                                     pattern='^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$'
                                     value={inputs.phoneNumber || ""}

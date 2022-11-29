@@ -64,7 +64,7 @@ export default function Register() {
                             </div>
                             <div className="form-group">
                                 <label>Phone</label>
-                                <input required type="text" className="form-control" placeholder="(XXX)-XXX-XXXX" name='phone' value={inputs.phone || ""} onChange={handleChange} />
+                                <input required type="text" className="form-control" placeholder="(XXX)XXX-XXXX" name='phone' value={inputs.phone || ""} onChange={handleChange} />
                             </div>
 
                             <div className='row'>
