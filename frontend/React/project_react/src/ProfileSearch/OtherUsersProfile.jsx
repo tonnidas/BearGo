@@ -64,7 +64,7 @@ export default function OtherUsersProfile({ userId }) {
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleReport}>
-                            <RoundedProfilePic username={inputs.username} isOwnProfile={false}/>
+                            <RoundedProfilePic imageId={inputs.imageId} username={inputs.username} isOwnProfile={false}/>
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />

@@ -43,7 +43,7 @@ const styles = {
 }
 
 
-export default function RoundedProfilePic({ username, isOwnProfile }) {
+export default function RoundedProfilePic({ imageId, username, isOwnProfile }) {
 
     const [inputs, setInputs] = React.useState({ ['imageUploadFile']: MyPhoto });
 
@@ -114,7 +114,7 @@ export default function RoundedProfilePic({ username, isOwnProfile }) {
             <div style={styles.div_background}>
                 <div style={styles.profile_pic}>
                     <ReactRoundedImage
-                        image={inputs.imageFile || MyPhoto}
+                        image={inputs.imageFile || (imageId && ("/api/images/download/" + imageId)) || MyPhoto}
                         roundedColor="#321124"
                         imageWidth="150"
                         imageHeight="150"
