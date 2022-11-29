@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+
+  beargo-frontend:
+    image: tonnidas/beargo-frontend
+    build:
+      context: frontend/React/project_react
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: /api
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - beargo-backend
+
+  beargo-backend:
+    image: tonnidas/beargo-backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    expose:
+      - "8080"
+    restart: always
+    depends_on:
+      - beargo-db
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${BEARGO_ADMIN_PASSWORD:?}
+      SPRING_DATASOURCE_URL: jdbc:mysql://beargo-db:3306/beargo
+      BEARGO_ADMIN_PASSWORD: ${BEARGO_ADMIN_PASSWORD:?}
+
+  beargo-db:
+    image: mysql:5.7
+    expose:
+      - "3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: beargo
+      MYSQL_ROOT_PASSWORD: ${BEARGO_ADMIN_PASSWORD:?}
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
