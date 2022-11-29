@@ -38,8 +38,10 @@ public class ContractController {
         return new ResponseEntity<>(userContractsDto, HttpStatus.OK);
     }
 
-    @PostMapping("/confirmContract")
-    public ResponseEntity<Contract> confirmContract(@AuthenticationPrincipal User user, @RequestParam Long productPostId, @RequestParam Long travelerId) {
+    @PostMapping("/confirmContract/{productPostId}/{travelerId}")
+    public ResponseEntity<Contract> confirmContract(@AuthenticationPrincipal User user,
+                                                    @PathVariable("productPostId") Long productPostId,
+                                                    @PathVariable("travelerId") Long travelerId) {
         Contract updatedContract = contractService.confirmContract(user, productPostId, travelerId);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
