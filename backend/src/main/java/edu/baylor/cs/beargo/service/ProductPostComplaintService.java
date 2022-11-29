@@ -8,11 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.event.PublicInvocationEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -66,5 +68,10 @@ public class ProductPostComplaintService {
         // TODO: check complaints count for the product post and send notification - Saad
 
         return productPostComplaintRepository.save(complaint);
+    }
+
+    public List<ProductPostComplaint> getAllComplains()
+    {
+        return productPostComplaintRepository.findAll();
     }
 }
