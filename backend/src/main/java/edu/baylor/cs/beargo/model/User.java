@@ -48,6 +48,9 @@ public class User implements UserDetails {
     private String zip;
     private String phoneNumber;
 
+    @Column
+    private Long imageId;
+
     @OneToMany(mappedBy = "sender") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Contract> senderContracts = new HashSet<>();

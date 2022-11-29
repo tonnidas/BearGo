@@ -54,4 +54,10 @@ public class UserController {
     public ResponseEntity<ContractFrequencyDto> getContractFrequency(@RequestParam(value = "userId") Long userId) {
         return new ResponseEntity<>(userService.getContractFrequency(userId), HttpStatus.OK);
     }
+
+    @PostMapping("/updateProfileImage/{imageId}")
+    public ResponseEntity<User> updateProfileImage(@AuthenticationPrincipal User user,
+                                                   @PathVariable(value = "imageId") Long imageId) {
+        return new ResponseEntity<>(userService.updateProfileImage(user, imageId), HttpStatus.OK);
+    }
 }

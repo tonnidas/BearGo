@@ -283,6 +283,21 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     *
+     * @param user the user whose profile will be updated
+     * @param imageId the imageId of the profile picture
+     * @return the user after updating the profile picture
+     */
+    public User updateProfileImage(User user, Long imageId) {
+        User userDB = getUserById(user.getId());
+        if(userDB == null) {
+            return user;
+        }
+        userDB.setImageId(imageId);
+        return userRepository.save(userDB);
+    }
+
+    /**
      * Checks if
      *
      * @param
