@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,6 +73,13 @@ public class ProductPostComplaintService {
 
     public List<ProductPostComplaint> getAllComplains()
     {
-        return productPostComplaintRepository.findAll();
+        List<ProductPostComplaint> complaintLis = productPostComplaintRepository.findAll();
+        List<ProductPostComplaint> allComplaints = new ArrayList<>();
+        for(ProductPostComplaint p : complaintLis)
+        {
+            if(!p.getIsResolved())
+                allComplaints.add(p);
+        }
+        return allComplaints;
     }
 }
