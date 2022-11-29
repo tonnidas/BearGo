@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.service;
 
 import edu.baylor.cs.beargo.dto.RatingDto;
+import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.UserRepository;
 import edu.baylor.cs.beargo.security.JwtTokenProvider;
@@ -19,12 +20,16 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ReviewAndRatingService reviewAndRatingService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -166,7 +171,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    // TODO
+    // TODO: Need to check
     /**
      *
      * @param userId the user id
@@ -175,8 +180,37 @@ public class UserService implements UserDetailsService {
     public RatingDto getRatingByUserId(Long userId) {
         RatingDto ratingDto = new RatingDto();
         ratingDto.setUserId(userId);
-        ratingDto.setRatingAsSender(2.6);
-        ratingDto.setRatingAsTraveler(4.2);
+        double totalRatingAsSender = 0;
+        double totalRatingAsTraveler = 0;
+        int totalRatingCntAsSender = 0;
+        int totalRatingCntAsTraveler = 0;
+        User user = getUserById(userId);
+        Set<ReviewAndRating> reviewAndRatingList = user.getReceivedReviews();
+        for (ReviewAndRating reviewAndRating: reviewAndRatingList) {
+            reviewAndRating = reviewAndRatingService.getReviewRatingById(reviewAndRating.getId());
+            if (reviewAndRating != null) {
+                if(reviewAndRating.getContractReviewedBySender() != null) {
+                    totalRatingCntAsTraveler++;
+                    totalRatingAsTraveler += reviewAndRating.getRating();
+                } else {
+                    totalRatingAsSender++;
+                    totalRatingAsSender += reviewAndRating.getRating();
+                }
+            }
+        }
+
+        if (totalRatingCntAsSender == 0) {
+            ratingDto.setRatingAsSender(0.0);
+        } else {
+            ratingDto.setRatingAsSender(totalRatingAsSender / totalRatingCntAsSender);
+        }
+
+        if (totalRatingCntAsTraveler == 0) {
+            ratingDto.setRatingAsTraveler(0.0);
+        } else {
+            ratingDto.setRatingAsTraveler(totalRatingAsTraveler / totalRatingCntAsTraveler);
+        }
+
         return ratingDto;
     }
 
