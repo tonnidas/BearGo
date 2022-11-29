@@ -28,8 +28,9 @@ public class UserController {
 
     // Get the user that is currently logged in to the system
     @GetMapping("/findByFullname")
-    public ResponseEntity<List<User>> findByFullname(@RequestParam(value = "name") String name) {
-        List<User> userList = userService.findByFullname(name);
+    public ResponseEntity<List<User>> findByFullname(@AuthenticationPrincipal User user,
+                                                     @RequestParam(value = "name") String name) {
+        List<User> userList = userService.findByFullname(user, name);
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 

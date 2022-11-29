@@ -128,11 +128,11 @@ public class UserService implements UserDetailsService {
      * @param fullname required for search
      * @return List of users contains this full name
      */
-    public List<User> findByFullname(String fullname) {
+    public List<User> findByFullname(User currentUser, String fullname) {
         List<User> userList = userRepository.findByFullnameContainingIgnoreCase(fullname);
         List<User> retUserList = new ArrayList<>();
         for (User user : userList) {
-            if (user.getIsAdmin() == false) {
+            if (!user.getIsAdmin() && !currentUser.getId().equals(user.getId())) {
                 retUserList.add(user);
             }
         }
