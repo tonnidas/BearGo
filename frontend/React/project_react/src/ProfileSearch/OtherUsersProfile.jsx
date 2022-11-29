@@ -15,26 +15,25 @@ export default function OtherUsersProfile({ userId }) {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
-    const handleSubmit = async (event) => {
+    const handleReport = async (event) => {
         event.preventDefault();
-        console.log("Username: " + inputs.username);
+        console.log("User Id: " + userId);
 
+        const reportText = prompt("Enter your report!", "");
+        if (reportText === null) {
+            return;
+        }
+
+        AuthService.setAxiosAuthHeader();
+        // localhost:8080/api/userComplaint/reportUser?reportTo=3&reason=So bad
         try {
-            const resp = await axios.post('/api/users/updateProfile', {
-                username: inputs.username,
-                fullname: inputs.fullname,
-                password: inputs.password,
-                phoneNumber: inputs.phoneNumber,
-                state: inputs.state,
-                city: inputs.city,
-                street: inputs.street,
-                zip: inputs.zip
-            });
+            const resp = await axios.post('/api/userComplaint/reportUser?'
+                                                +'reportTo=' + userId + "&reason=" + reportText);
             console.log(resp.data);
-            alert('Profile Updated!');
+            alert("Thank you for reporting, an admin will review this shortly!");
         } catch (error) {
             console.log(error);
-            alert('Profile update failed! Please try again');
+            alert('Failed to report, reason: ' + error.response.data.message);
         }
     }
 
@@ -64,7 +63,7 @@ export default function OtherUsersProfile({ userId }) {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
-                        <form className="user-form" onSubmit={handleSubmit}>
+                        <form className="user-form" onSubmit={handleReport}>
                             <RoundedProfilePic username={inputs.username} />
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
@@ -111,6 +110,10 @@ export default function OtherUsersProfile({ userId }) {
                                     {inputs.zip || "-"}
                                 </div>
                             </div>
+
+                            <button type="submit"
+                                className="common-btn btn-primary">Report</button>
+
                         </form>
                     </div>
                 </div>
