@@ -20,6 +20,21 @@ public class UserComplaintService {
     @Autowired
     UserComplaintRepository userComplaintRepository;
 
+    // TODO: check it and set rest of the variable.
+    /**
+     * @param reportBy the user who is reporting
+     * @param reportTo the user id who is reported
+     * @param reason the original report for the user
+     * @return userComplaint object
+     */
+    public UserComplaint reportUser(User reportBy, Long reportTo, String reason) {
+        UserComplaint userComplaint = new UserComplaint();
+        userComplaint.setComplainedByUser(reportBy);
+        userComplaint.setComplainedUserId(reportTo);
+        userComplaint.setReason(reason);
+        return userComplaint;
+    }
+
     public UserComplaint createUserComplaint(User user, UserComplaint userComplaint) {
         if (userComplaint.getReason() == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reason cannot be empty text");
