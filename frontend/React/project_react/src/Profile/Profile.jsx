@@ -86,7 +86,7 @@ export default function Profile() {
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
-                            <RoundedProfilePic username={inputs.username} />
+                            <RoundedProfilePic username={inputs.username} isOwnProfile={true}/>
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
