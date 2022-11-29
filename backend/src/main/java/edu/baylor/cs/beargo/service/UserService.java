@@ -85,10 +85,15 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * Create admin user if not exist, otherwise update.
+     *
+     * @param email admin email/username
+     * @param password admin password
+     * @param name full name
      * @return created admin object
      */
     public User registerAdmin(String email, String password, String name) {
-        User adminUser = new User();
+        User adminUser = userRepository.findByUsername(email).orElseGet(User::new);
         adminUser.setIsAdmin(true);
         adminUser.setUsername(email);
         adminUser.setPassword(passwordEncoder.encode(password));
