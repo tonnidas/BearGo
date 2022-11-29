@@ -1,6 +1,9 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.dto.ContractFrequencyDto;
 import edu.baylor.cs.beargo.dto.RatingDto;
+import edu.baylor.cs.beargo.model.Contract;
+import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.UserRepository;
@@ -30,6 +33,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     ReviewAndRatingService reviewAndRatingService;
+
+    @Autowired
+    ContractService contractService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -212,6 +218,63 @@ public class UserService implements UserDetailsService {
         }
 
         return ratingDto;
+    }
+
+    // TODO: Need to check
+    /**
+     *
+     * @param userId the user id
+     * @return total number of contract, delivered, and unsuccessful contract as sender and traveler
+     */
+    public ContractFrequencyDto getContractFrequency(Long userId) {
+        ContractFrequencyDto contractFrequencyDto = new ContractFrequencyDto();
+
+        contractFrequencyDto.setUsedId(userId);
+
+        int totalContractAsSender = 0;
+        int totalDeliveredAsSender = 0;
+        int totalUnsuccessfulAsSender = 0;
+
+        int totalContractAsTraveler = 0;
+        int totalDeliveredAsTraveler = 0;
+        int totalUnsuccessfulAsTraveler = 0;
+
+        User user = getUserById(userId);
+
+        if(user != null) {
+            totalContractAsSender = user.getSenderContracts().size();
+            totalContractAsTraveler = user.getTravelerContracts().size();
+
+            for(Contract contract: user.getSenderContracts()) {
+                contract = contractService.getContractById(contract.getId());
+                if(contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
+                    totalDeliveredAsSender++;
+                }
+                if(contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
+                    totalUnsuccessfulAsSender++;
+                }
+            }
+
+            for(Contract contract: user.getTravelerContracts()) {
+                contract = contractService.getContractById(contract.getId());
+                if(contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
+                    totalDeliveredAsTraveler++;
+                }
+                if(contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
+                    totalUnsuccessfulAsTraveler++;
+                }
+            }
+        }
+
+        contractFrequencyDto.setTotalContractAsSender(totalContractAsSender);
+        contractFrequencyDto.setTotalDeliveredAsSender(totalDeliveredAsSender);
+        contractFrequencyDto.setTotalUnsuccessfulAsSender(totalUnsuccessfulAsSender);
+
+        contractFrequencyDto.setTotalContractAsTraveler(totalContractAsTraveler);
+        contractFrequencyDto.setTotalDeliveredAsTraveler(totalDeliveredAsTraveler);
+        contractFrequencyDto.setTotalUnsuccessfulAsTraveler(totalUnsuccessfulAsTraveler);
+
+        return contractFrequencyDto;
     }
 
     /**

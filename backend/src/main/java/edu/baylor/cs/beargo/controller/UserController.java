@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.ContractFrequencyDto;
 import edu.baylor.cs.beargo.dto.RatingDto;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.UserService;
@@ -46,5 +47,10 @@ public class UserController {
     @GetMapping("/getRatingByUserId")
     public ResponseEntity<RatingDto> getRatingByUserId(@RequestParam(value = "userId") Long userId) {
         return new ResponseEntity<>(userService.getRatingByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getContractFrequency")
+    public ResponseEntity<ContractFrequencyDto> getContractFrequency(@RequestParam(value = "userId") Long userId) {
+        return new ResponseEntity<>(userService.getContractFrequency(userId), HttpStatus.OK);
     }
 }
