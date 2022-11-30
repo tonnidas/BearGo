@@ -10,24 +10,43 @@ import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
 import AuthService from '../Service/AuthService';
 
+import { useNavigate } from "react-router-dom";
+import logo_white from '../images/logo-white.svg';
+import urlPaths from '../urlPaths';
 const Message = () => {
 
+	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState([]);
+	const [userId, setUserId] = useState('');
 
 	useEffect(() => {
 		AuthService.setAxiosAuthHeader();
-		axios.get("/api/Message/3")
+		axios.get("/api/users/current")
+			.then(res => {
+				setUserId(res.data.id);
+				console.log('userId:', res.data.id);
+			})
+			.catch((err) => {
+				console.log(err);
+				if (err.response.status === 401) {
+					navigate(urlPaths.login);
+				}
+			});
+	}, []);
+
+	useEffect(() => {
+		AuthService.setAxiosAuthHeader();
+		axios.get("/api/Message/msngrList")
 
 			.then((res) => {
-				console.log(res.data);
 				setData(res.data);
 				setLoading(false);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [userId]);
 
 	return (
 		<>
@@ -42,7 +61,7 @@ const Message = () => {
 							<div className="col-md-8">
 								<div className="main-inner">
 									<div className="widget">
-										<MessageChatBox messageData={data} />
+										<MessageChatBox id={userId} toId={'3'} messageData={data} />
 									</div>
 								</div>
 							</div>
@@ -51,11 +70,11 @@ const Message = () => {
 								<div className='chat'>
 
 									{loading ? <p>Loading, Please Wait...</p> :
-										<MessageList id='3' data={data} />
+										<MessageList id={userId} data={data} />
 									}
-									</div>
 								</div>
 							</div>
+						</div>
 					</main>
 				</div>
 			</div>
