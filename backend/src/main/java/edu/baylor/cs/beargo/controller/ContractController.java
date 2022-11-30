@@ -32,6 +32,12 @@ public class ContractController {
         return new ResponseEntity<>(contract, HttpStatus.OK);
     }
 
+    @GetMapping("/getReviewCompletion/{contractId}")
+    public ResponseEntity<Boolean> getReviewCompletion(@AuthenticationPrincipal User user,
+                                                       @PathVariable("contractId") Long contractId) {
+        return new ResponseEntity<>(contractService.getReviewCompletion(user, contractId), HttpStatus.OK);
+    }
+
     @GetMapping("/userContracts")
     public ResponseEntity<UserContractsDto> getContractByUserId(@RequestParam Long userId, @RequestParam int lookBackMonths) {
         UserContractsDto userContractsDto = contractService.getContractByUserIdByDate(userId, lookBackMonths);
