@@ -183,4 +183,29 @@ public class ContractService {
 
         return contractRepository.save(contract);
     }
+
+    /**
+     * Checks if the current user already completed review for this contract
+     *
+     * @param user       the authenticated user
+     * @param contractId the contract id
+     * @return the review done status
+     */
+    public Boolean getReviewCompletion(User user, Long contractId) {
+        Contract contract = getContractById(contractId);
+        if (contract == null) {
+            return false;
+        }
+        if (contract.getSender().getId().equals(user.getId())) {
+            if (contract.getReviewAndRatingBySender() == null) {
+                return false;
+            }
+            return true;
+        } else {
+            if (contract.getReviewAndRatingByTraveler() == null) {
+                return false;
+            }
+            return false;
+        }
+    }
 }
