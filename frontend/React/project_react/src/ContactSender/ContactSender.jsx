@@ -29,8 +29,10 @@ export default function ContactSender() {
         alert('Traveller selected!');
     }
 
-    const handleClick = (e) => {
-        AuthService.setAxiosAuthHeader();
+    const handleClick = (e, status) => {
+        if(status == "NONE")
+        {
+            AuthService.setAxiosAuthHeader();
         axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
 
             .then((res) => {
@@ -41,6 +43,36 @@ export default function ContactSender() {
                 console.log(err);
 
             });
+        }
+        else if(status == "IN_TRANSIT")
+        {
+            AuthService.setAxiosAuthHeader();
+            axios.get("/api/productPosts/getProductPostByCriteria/sender/IN_TRANSIT")
+    
+                .then((res) => {
+                    console.log(res.data);
+                    setPosts(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+    
+                });
+        }
+        else if(status == "DELIVERED")
+        {
+            AuthService.setAxiosAuthHeader();
+            axios.get("/api/productPosts/getProductPostByCriteria/sender/DELIVERED")
+    
+                .then((res) => {
+                    console.log(res.data);
+                    setPosts(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+    
+                });
+        }
+        
     };
 
     return (
@@ -53,15 +85,15 @@ export default function ContactSender() {
 
                     <main role='main' className='main col-md-12 ml-sm-auto col-lg-9'>
                         <div className='topnav'>
-                            <button className='common-btn global' onClick={handleClick}>
-                                <i className='icon'></i> <span>My Post</span>
+                            <button className='common-btn global' onClick={e => handleClick(e, "NONE")}>
+                                <i className='icon'></i> <span>My Contracts</span>
                             </button>
 
-                            <button className='common-btn global' onClick={handleClick}>
+                            <button className='common-btn global' onClick={e => handleClick(e, "IN_TRANSIT")}>
                                 <i className='icon'></i> <span>In-transit</span>
                             </button>
 
-                            <button className='common-btn global' onClick={handleClick}>
+                            <button className='common-btn global' onClick={e=> handleClick(e, "DELIVERED")}>
                                 <i className='icon'></i> <span>Completed</span>
                             </button>
 
