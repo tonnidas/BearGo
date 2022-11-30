@@ -32,12 +32,12 @@ public class NotificationController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Notification> setNotification(@AuthenticationPrincipal User user, @RequestBody Notification notification) {
+    @PostMapping(value = "/{toId}")
+    public ResponseEntity<Notification> setNotification(@PathVariable(value = "toId") Long toId,@AuthenticationPrincipal User user, @RequestBody Notification notification) {
 
         log.info("Saving Notification for User ID: " + user.getId().toString());
 
-        Notification retVal = notificationService.saveNotification(user, notification);
+        Notification retVal = notificationService.saveNotification(user, notification,toId);
         return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 }

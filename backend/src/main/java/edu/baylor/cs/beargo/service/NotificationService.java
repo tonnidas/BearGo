@@ -4,6 +4,7 @@ package edu.baylor.cs.beargo.service;
 import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
+import edu.baylor.cs.beargo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ public class NotificationService {
     NotificationRepository repo;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     private KafkaTemplate<String, Notification> notificationKafkaTemplate;
 
     public List<Notification> getNotification(User user) {
@@ -45,9 +49,11 @@ public class NotificationService {
 
     }
 
-    public Notification saveNotification(User user, Notification notification) {
+    public Notification saveNotification(User user, Notification notification, Long toUserId) {
 
-        notification.setNotifyUser(user);
+        User toUser = userRepository.findById(toUserId).orElse(null);
+
+        notification.setNotifyUser(toUser);
 
         Notification savedNotification = repo.save(notification);
         String topicName = "newnotification";
