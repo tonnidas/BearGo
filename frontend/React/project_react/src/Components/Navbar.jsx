@@ -79,23 +79,13 @@ export default function Navbar() {
                                         <div className='col-md-6'>
                                             <div className='form-group'>
                                                 <label>Start Date</label>
-                                                <input
-                                                    className='form-control'
-                                                    type='date'
-                                                    name=''
-                                                    value=''
-                                                />
+                                                <input required className='form-control' type='date' name='startDate' value={inputs.startDate} onChange={handleChange} />
                                             </div>
                                         </div>
                                         <div className='col-md-6'>
                                             <div className='form-group'>
                                                 <label>End Date</label>
-                                                <input
-                                                    className='form-control'
-                                                    type='date'
-                                                    name=''
-                                                    value=''
-                                                />
+                                                <input required className='form-control' type='date' name='endDate' value={inputs.endDate} onChange={handleChange} />
                                             </div>
                                         </div>
                                     </div>
@@ -103,15 +93,15 @@ export default function Navbar() {
                             <div className='col-md-6'>
                                 <label>Source</label>
                               <div className='form-group'>
-                                <label>Street</label>
-                                <input required className='form-control' name='sourceStreet' value={inputs.sourceStreet} onChange={handleChange} />
+                                <label>City</label>
+                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
                               </div>
                             </div>
 
                             <div className='col-md-6'>
                               <div className='form-group'>
-                                <label>City</label>
-                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                                {/* <label>City</label> */}
+                                {/* <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} /> */}
                               </div>
                             </div>
 
@@ -133,15 +123,15 @@ export default function Navbar() {
                             <div className='col-md-6'>
                                 <label>Destination</label>
                               <div className='form-group'>
-                                <label>Street</label>
-                                <input required className='form-control' name='sourceStreet' value={inputs.sourceStreet} onChange={handleChange} />
+                              <label>City</label>
+                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
                               </div>
                             </div>
 
                             <div className='col-md-6'>
                               <div className='form-group'>
-                                <label>City</label>
-                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                                {/* <label>City</label> */}
+                                {/* <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} /> */}
                               </div>
                             </div>
 
