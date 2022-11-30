@@ -92,11 +92,11 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<BlogPost> blogPosts = new HashSet<>();
 
-    @OneToMany(mappedBy = "reviewedBy") // inverse-side
+    @OneToMany(mappedBy = "reviewedTo") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
     private Set<ReviewAndRating> receivedReviews = new HashSet<>();
 
-    @OneToMany(mappedBy = "reviewedTo") // inverse-side
+    @OneToMany(mappedBy = "reviewedBy") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
     private Set<ReviewAndRating> givenReviews = new HashSet<>();
 
