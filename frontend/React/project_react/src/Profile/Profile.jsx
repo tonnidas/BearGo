@@ -19,6 +19,10 @@ export default function Profile() {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
+    function imageChange(imageId) {
+        setInputs(values => ({ ...values, ['imageId']: imageId }))
+    }
+
     const handleWindowConfirm = async () => {
         if (window.confirm("Are you sure to update your profile ?") == false) {
             return;
@@ -79,14 +83,14 @@ export default function Profile() {
 
     return (
         <div>
-            <ProfileNavbar />
+            <ProfileNavbar imageId={inputs.imageId}/>
             <Sidebar />
             <br />
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
-                            <RoundedProfilePic imageId={inputs.imageId} username={inputs.username} isOwnProfile={true}/>
+                            <RoundedProfilePic imageChange={imageChange} imageId={inputs.imageId} username={inputs.username} isOwnProfile={true}/>
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />

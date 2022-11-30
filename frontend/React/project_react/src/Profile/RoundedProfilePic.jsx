@@ -43,7 +43,7 @@ const styles = {
 }
 
 
-export default function RoundedProfilePic({ imageId, username, isOwnProfile }) {
+export default function RoundedProfilePic({ imageChange, imageId, username, isOwnProfile }) {
 
     const [inputs, setInputs] = React.useState({ ['imageUploadFile']: MyPhoto });
 
@@ -73,6 +73,9 @@ export default function RoundedProfilePic({ imageId, username, isOwnProfile }) {
             // localhost:8080/api/users/updateProfileImage/3
             const resp = await axios.post('/api/users/updateProfileImage/' + respImageUpload.data.id);
             console.log(resp.data);
+            if(imageChange) {
+                imageChange(respImageUpload.data.id);
+            }
             alert('Profile image updated');
         } catch (error) {
             console.log(error);

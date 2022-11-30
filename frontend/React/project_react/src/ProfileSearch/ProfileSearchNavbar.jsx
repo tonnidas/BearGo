@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import ReactRoundedImage from "react-rounded-image";
 import Notification from '../Components/Notification';
 
 import admin from '../images/admin.jpg';
@@ -10,7 +10,7 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 
-export default function ProfileSearchNavbar({handleUserFullname}) {
+export default function ProfileSearchNavbar({ handleUserFullname }) {
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
@@ -25,7 +25,7 @@ export default function ProfileSearchNavbar({handleUserFullname}) {
     const handleSearchNameSubmit = () => {
         console.log("ProfileSearchNavbar => Search Name: " + inputs.searchName);
         handleUserFullname(inputs.searchName);
-        setInputs(values => ({ ...values, ['searchName']: ""}))
+        setInputs(values => ({ ...values, ['searchName']: "" }))
     }
 
     useEffect(() => {
@@ -95,7 +95,7 @@ export default function ProfileSearchNavbar({handleUserFullname}) {
                                         </div>
                                     </div>
                                     <button className='common-btn'
-                                            onClick={handleSearchNameSubmit}>Search</button>
+                                        onClick={handleSearchNameSubmit}>Search</button>
                                 </div>
                             </div>
                         </li>
@@ -113,7 +113,13 @@ export default function ProfileSearchNavbar({handleUserFullname}) {
                                 aria-haspopup='true'
                                 aria-expanded='false'
                             >
-                                <img src={admin} alt='' />
+                                <ReactRoundedImage
+                                    image={(inputs.imageId && ("/api/images/download/" + inputs.imageId)) || admin}
+                                    roundedColor="#000000"
+                                    imageWidth="40"
+                                    imageHeight="40"
+                                    roundedSize="2"
+                                    hoverColor="#007bff" />
                             </a>
                             <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
                                 <h3>{inputs.fullname}</h3>

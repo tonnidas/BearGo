@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import ReactRoundedImage from "react-rounded-image";
 import Notification from '../Components/Notification';
 
 import admin from '../images/admin.jpg';
@@ -131,7 +131,13 @@ export default function Navbar() {
                                 aria-haspopup='true'
                                 aria-expanded='false'
                             >
-                                <img src={admin} alt='' />
+                                <ReactRoundedImage
+                                    image={(inputs.imageId && ("/api/images/download/" + inputs.imageId)) || admin}
+                                    roundedColor="#000000"
+                                    imageWidth="40"
+                                    imageHeight="40"
+                                    roundedSize="2"
+                                    hoverColor="#007bff" />
                             </a>
                             <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
                                 <h3>{inputs.fullname}</h3>
