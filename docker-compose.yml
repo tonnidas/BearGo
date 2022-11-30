@@ -11,7 +11,10 @@ services:
         REACT_APP_API_BASE_URL: /api
     ports:
       - "80:80"
+      - "443:443"
     restart: always
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - beargo-backend
 
