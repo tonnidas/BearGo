@@ -15,6 +15,12 @@ export default function Navbar() {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
 
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        
+    }
+
     useEffect(() => {
         AuthService.setAxiosAuthHeader();
         axios.get("/api/users/current")
@@ -93,8 +99,68 @@ export default function Navbar() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='form-group'>
-                                        <label>Source Location</label>
+                                    <div className='row'>
+                            <div className='col-md-6'>
+                                <label>Source</label>
+                              <div className='form-group'>
+                                <label>Street</label>
+                                <input required className='form-control' name='sourceStreet' value={inputs.sourceStreet} onChange={handleChange} />
+                              </div>
+                            </div>
+
+                            <div className='col-md-6'>
+                              <div className='form-group'>
+                                <label>City</label>
+                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                              </div>
+                            </div>
+
+                            <div className='col-md-4'>
+                              <div className='form-group'>
+                                <label>State</label>
+                                <input required className='form-control' name='sourceState' value={inputs.sourceState} onChange={handleChange} />
+                              </div>
+                            </div>
+                                        {/* <div className='select-style'>
+                                            <select name='#'>
+                                                <option value=''>New York</option>
+                                                <option value=''>Los Angeles</option>
+                                                <option value=''>Chicago</option>
+                                            </select>
+                                        </div> */}
+                                    </div>
+                                    <div className='row'>
+                            <div className='col-md-6'>
+                                <label>Destination</label>
+                              <div className='form-group'>
+                                <label>Street</label>
+                                <input required className='form-control' name='sourceStreet' value={inputs.sourceStreet} onChange={handleChange} />
+                              </div>
+                            </div>
+
+                            <div className='col-md-6'>
+                              <div className='form-group'>
+                                <label>City</label>
+                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                              </div>
+                            </div>
+
+                            <div className='col-md-4'>
+                              <div className='form-group'>
+                                <label>State</label>
+                                <input required className='form-control' name='sourceState' value={inputs.sourceState} onChange={handleChange} />
+                              </div>
+                            </div>
+                                        {/* <div className='select-style'>
+                                            <select name='#'>
+                                                <option value=''>New York</option>
+                                                <option value=''>Los Angeles</option>
+                                                <option value=''>Chicago</option>
+                                            </select>
+                                        </div> */}
+                                    </div>
+                                    {/* <div className='form-group'>                                       
+                                        
                                         <div className='select-style'>
                                             <select name='#'>
                                                 <option value=''>New York</option>
@@ -102,17 +168,7 @@ export default function Navbar() {
                                                 <option value=''>Chicago</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div className='form-group'>
-                                        <label>Destination Location</label>
-                                        <div className='select-style'>
-                                            <select name='#'>
-                                                <option value=''>New York</option>
-                                                <option value=''>Los Angeles</option>
-                                                <option value=''>Chicago</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    </div> */}
                                     <button className='common-btn'>Search</button>
                                 </form>
                             </div>
