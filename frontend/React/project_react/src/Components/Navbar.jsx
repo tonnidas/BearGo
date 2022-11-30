@@ -18,7 +18,27 @@ export default function Navbar() {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        
+        console.log(name + " and "+ value);
+        setInputs(values => ({ ...values, [name]: value }))
+
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const resp = await axios.post('/api/auth/register', {
+                startDate: inputs.startDate,
+                endDate: inputs.endDate,
+                sourceCity: inputs.sourceCity,
+                sourceState: inputs.sourceState,
+                destCity: inputs.destCity,
+                destState: inputs.destState
+            });
+            console.log(resp.data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -124,7 +144,7 @@ export default function Navbar() {
                                 <label>Destination</label>
                               <div className='form-group'>
                               <label>City</label>
-                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                                <input required className='form-control' name='destCity' value={inputs.destCity} onChange={handleChange} />
                               </div>
                             </div>
 
@@ -138,7 +158,7 @@ export default function Navbar() {
                             <div className='col-md-4'>
                               <div className='form-group'>
                                 <label>State</label>
-                                <input required className='form-control' name='sourceState' value={inputs.sourceState} onChange={handleChange} />
+                                <input required className='form-control' name='destState' value={inputs.destState} onChange={handleChange} />
                               </div>
                             </div>
                                         {/* <div className='select-style'>
@@ -159,7 +179,7 @@ export default function Navbar() {
                                             </select>
                                         </div>
                                     </div> */}
-                                    <button className='common-btn'>Search</button>
+                                    <button type="submit" className='common-btn'>Search</button>
                                 </form>
                             </div>
                         </li>
