@@ -13,16 +13,24 @@ import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 import { State } from 'country-state-city';
 
-//var stompClient = null;
-const socket = SockJS('http://localhost:8080/ws');
-const stompClient = Stomp.over(socket);
+var stompClient = null;
+//var socket = null;
+
+
+
+
+
+
+
 
 
 
 
 export default function Notification() {
+    const socket = SockJS('http://localhost:8080/ws');
     const navigate = useNavigate();
     var [posts, setPosts] = useState([]); 
+
     
     
     const [stompClient1, setStompClient] = useState([]);
@@ -51,22 +59,19 @@ export default function Notification() {
     
    
     useEffect(() => {
-
-        console.log("Connecting");
         //const socket = SockJS('http://localhost:8080/ws');
-        
-        //const stompClient = Stomp.over(socket);
-        //stompClient = Stomp.over(socket);
 
+       
+        console.log("Connecting");
+        //socket = SockJS('http://localhost:8080/ws');
+        stompClient = Stomp.over(socket);
         stompClient.connect({}, onConnected);
+               
 
-        
-
-    });
+    }, []);
     
     const onConnected = () => {
-        console.log("Connected");
-        stompClient.subscribe
+        console.log("Connected");        
         stompClient.subscribe("/topic/newNotification2", onMessage);
 
     };
@@ -74,7 +79,15 @@ export default function Notification() {
         console.log("data received");
         const dto = JSON.parse(data.body);
         console.log(dto);
-        posts.data.push(dto);
+
+        setPosts(values => [
+            dto,
+            ...values
+        ]);
+
+        
+         
+
         //setnotificationdata(dto);
         //notificationdata.push(dto);
         //setnotificationdata(notificationdata);
@@ -147,12 +160,7 @@ export default function Notification() {
 
                       <div className='notifications'>
 
-                          {notificationdata.map(n =>
-                              <p className='unread'>
-                                  {n.notificationMsg}
-                              </p>
-                          )} 
-                          
+                         
 
                         
                                             
