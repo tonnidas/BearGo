@@ -218,6 +218,11 @@ input[type="datetime-local"],
 input[type="month"] {
   -webkit-appearance: listbox; }
 
+/* input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}  */
+
 textarea {
   overflow: auto;
   resize: vertical; }
@@ -3570,6 +3575,24 @@ input:focus {
     width: 100%;
     padding: 15px;
     border-radius: 10px; }
+
+.review-rating-from-product-post-form {
+    background: #fff;
+    border-radius: 18px;
+    padding: 0px;
+    margin-bottom: 0px; }
+    .user-form img {
+        margin: 20px 0;
+        height: 64px; }
+    .user-form .sm-link {
+        font-weight: 500;
+        color: #5db1b2; }
+    .user-form label {
+        font-weight: 500; }
+    .user-form .common-btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px; }
 
 .btn-group {
   display: flex;

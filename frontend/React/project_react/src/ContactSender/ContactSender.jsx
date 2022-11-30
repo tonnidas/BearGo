@@ -8,6 +8,9 @@ import parcel_1 from '../images/parcel-1.jpg';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import Moment from 'react-moment';
+import Collapsible from 'react-collapsible';
+
+import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
 
 export default function ContactSender() {
     const [posts, setPosts] = useState([]);
@@ -16,7 +19,7 @@ export default function ContactSender() {
     const handleChange = (event, param) => {
         const value = event.target.value;
         AuthService.setAxiosAuthHeader();
-        const resp = axios.post("api/contracts/updateStatus/" + param +"/" + value)
+        const resp = axios.post("api/contracts/updateStatus/" + param + "/" + value)
         console.log(resp.data);
         alert('Status Updated!');
     }
@@ -30,50 +33,189 @@ export default function ContactSender() {
     }
 
     const handleClick = (e, status) => {
-        if(status == "NONE")
-        {
+        if (status == "NONE") {
             AuthService.setAxiosAuthHeader();
-        axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
+            axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
 
-            .then((res) => {
-                console.log(res.data);
-                setPosts(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
+                .then((res) => {
+                    console.log(res.data);
+                    setPosts(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
 
-            });
+                });
         }
-        else if(status == "IN_TRANSIT")
-        {
+        else if (status == "IN_TRANSIT") {
             AuthService.setAxiosAuthHeader();
             axios.get("/api/productPosts/getProductPostByCriteria/sender/IN_TRANSIT")
-    
+
                 .then((res) => {
                     console.log(res.data);
                     setPosts(res.data);
                 })
                 .catch((err) => {
                     console.log(err);
-    
+
                 });
         }
-        else if(status == "DELIVERED")
-        {
+        else if (status == "DELIVERED") {
             AuthService.setAxiosAuthHeader();
             axios.get("/api/productPosts/getProductPostByCriteria/sender/DELIVERED")
-    
+
                 .then((res) => {
                     console.log(res.data);
                     setPosts(res.data);
                 })
                 .catch((err) => {
                     console.log(err);
-    
+
                 });
         }
-        
     };
+
+
+    function reviewRatingButton(contractId, deliveryStatus) {
+        if (deliveryStatus == "DELIVERED") {
+            return <ReviewAndRating contractId={contractId}/>;
+        }
+        return (
+            <></>
+        );
+    }
+
+    function showPost(post) {
+        return (
+            <div className='widget'>
+
+                <div className='widget-head'>
+                    <a href='#' className='user-avatar'>
+                        <div className='mask'>
+                            <img className='mask-img' src={image_man} alt='' />
+                            <svg>
+                                <use href='#icon-mask'></use>
+                            </svg>
+                        </div>
+                        <div className='user-avatar-name'>
+                            <h4>{post.contract.sender.username}</h4>
+                            <span><Moment format="LLL">{post.createdAt}</Moment></span>
+                        </div>
+                    </a>
+                </div>
+                <div className='widget-inner'>
+                    <div className='post post-contact'>
+                        <form className="user-form">
+                            <div className='form-group'>
+                                <label>Description</label>
+
+                                <p>
+                                    {post.contract.description}
+                                </p>
+
+                            </div>
+                            <div className='form-group'>
+                                <label>Delivery Status</label>
+                                <p>
+                                    {post.contract.deliveryStatus}
+                                </p>
+
+                            </div>
+
+                            <div className='row'>
+                                <div className='col-md-6'>
+                                    <div className='form-group'>
+                                        <label>Start Date</label>
+                                        {posts.map(post =>
+                                            <p>
+                                                {post.contract.contractStartDate}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className='col-md-6'>
+                                    <div className='form-group'>
+                                        <label>End Date</label>
+
+                                        <p>
+                                            {post.contract.contractEndDate}
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <div className='col-md-6'>
+                                    <label>Source Location</label>
+                                    <br />
+                                    <label>Street: </label>
+                                    <p>{post.source.street}</p>
+                                    <br />
+                                    <label>City: </label>
+                                    <p>{post.source.city}</p>
+                                    <br />
+                                    <label>Zip: </label>
+                                    <p>{post.source.zip}</p>
+                                    <br />
+                                    <label>State: </label>
+                                    <p>{post.source.state}</p>
+                                </div>
+
+                                <div className='col-md-6'>
+                                    <label>Destination Location</label>
+                                    <br />
+                                    <label>Street: </label>
+                                    <p>{post.destination.street}</p>
+                                    <br />
+                                    <label>City: </label>
+                                    <p>{post.destination.city}</p>
+                                    <br />
+                                    <label>Zip: </label>
+                                    <p>{post.destination.zip}</p>
+                                    <br />
+                                    <label>State: </label>
+                                    <p>{post.destination.state}</p>
+                                </div>
+                            </div>
+
+                            <div className='form-group'>
+
+                            </div>
+                            <div className='form-group'>
+                                <label>Update Status</label>
+                                <div className='select-style'>
+                                    <select name='#' onChange={e => handleChange(e, post.contract.id)}>
+                                        <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
+                                        <option value='PICKED_UP'> PICKED_UP</option>
+                                        <option value='DELIVERED'>DELIVERED</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            {/* <button className='common-btn'>Interested People</button> */}
+                            <div className="form-group">
+                                <label>Interested Travelers</label>
+                                <div className='select-style'>
+                                    <select name='#'
+
+                                        onChange={event => handleChangePeople(event, post.id)}>
+                                        <option value='None'>Select Traveler</option>
+                                        {
+                                            post.interestedPeoples.map(p =>
+                                                <option value={p.id}>{p.username}</option>
+                                            )
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            {/* <button className='common-btn'>Update Status</button> */}
+                            {
+                                reviewRatingButton(post.contract.id, post.contract.deliveryStatus)
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -93,7 +235,7 @@ export default function ContactSender() {
                                 <i className='icon'></i> <span>In-transit</span>
                             </button>
 
-                            <button className='common-btn global' onClick={e=> handleClick(e, "DELIVERED")}>
+                            <button className='common-btn global' onClick={e => handleClick(e, "DELIVERED")}>
                                 <i className='icon'></i> <span>Completed</span>
                             </button>
 
@@ -106,133 +248,8 @@ export default function ContactSender() {
                             <div className='col-md-8'>
                                 <div className='main-inner'>
                                     {
-                                        posts.map(post =>
-                                            <div className='widget'>
-
-                                                <div className='widget-head'>
-                                                    <a href='#' className='user-avatar'>
-                                                        <div className='mask'>
-                                                            <img className='mask-img' src={image_man} alt='' />
-                                                            <svg>
-                                                                <use href='#icon-mask'></use>
-                                                            </svg>
-                                                        </div>
-                                                        <div className='user-avatar-name'>
-                                                            <h4>{post.contract.sender.username}</h4>
-                                                            <span><Moment format="LLL">{post.createdAt}</Moment></span>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div className='widget-inner'>
-                                                    <div className='post post-contact'>
-                                                        <form action='#'>
-                                                            <div className='form-group'>
-                                                                <label>Description</label>
-
-                                                                <p>
-                                                                    {post.contract.description}
-                                                                </p>
-
-                                                            </div>
-                                                            <div className='form-group'>
-                                                                <label>Delivery Status</label>
-                                                                <p>
-                                                                    {post.contract.deliveryStatus}
-                                                                </p>
-
-                                                            </div>
-
-                                                            <div className='row'>
-                                                                <div className='col-md-6'>
-                                                                    <div className='form-group'>
-                                                                        <label>Start Date</label>
-                                                                        {posts.map(post =>
-                                                                            <p>
-                                                                                {post.contract.contractStartDate}
-                                                                            </p>
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                                <div className='col-md-6'>
-                                                                    <div className='form-group'>
-                                                                        <label>End Date</label>
-
-                                                                        <p>
-                                                                            {post.contract.contractEndDate}
-                                                                        </p>
-
-                                                                    </div>
-                                                                </div>
-                                                                <div className='col-md-6'>
-                                                                    <label>Source Location</label>
-                                                                    <br />
-                                                                    <label>Street: </label>
-                                                                    <p>{post.source.street}</p>
-                                                                    <br />
-                                                                    <label>City: </label>
-                                                                    <p>{post.source.city}</p>
-                                                                    <br />
-                                                                    <label>Zip: </label>
-                                                                    <p>{post.source.zip}</p>
-                                                                    <br />
-                                                                    <label>State: </label>
-                                                                    <p>{post.source.state}</p>
-                                                                </div>
-
-                                                                <div className='col-md-6'>
-                                                                    <label>Destination Location</label>
-                                                                    <br />
-                                                                    <label>Street: </label>
-                                                                    <p>{post.destination.street}</p>
-                                                                    <br />
-                                                                    <label>City: </label>
-                                                                    <p>{post.destination.city}</p>
-                                                                    <br />
-                                                                    <label>Zip: </label>
-                                                                    <p>{post.destination.zip}</p>
-                                                                    <br />
-                                                                    <label>State: </label>
-                                                                    <p>{post.destination.state}</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className='form-group'>
-
-                                                            </div>
-                                                            <div className='form-group'>
-                                                                <label>Update Status</label>
-                                                                <div className='select-style'>
-                                                                    <select name='#' onChange={e => handleChange(e, post.contract.id)}>
-                                                                        <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
-                                                                        <option value='PICKED_UP'> PICKED_UP</option>
-                                                                        <option value='DELIVERED'>DELIVERED</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <br />
-                                                            {/* <button className='common-btn'>Interested People</button> */}
-                                                            <div className="form-group">
-                                                                <label>Interested Travelers</label>
-                                                                <div className='select-style'>
-                                                                    <select name='#'
-
-                                                                        onChange={event => handleChangePeople(event, post.id)}>
-                                                                            <option value='None'>Select Traveler</option>
-                                                                        {   
-                                                                            post.interestedPeoples.map(p =>
-                                                                                <option value={p.id}>{p.username}</option>
-                                                                            )}
-
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <br />
-                                                            {/* <button className='common-btn'>Update Status</button> */}
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
+                                        posts.map(post => showPost(post))
+                                    }
                                 </div>
                             </div>
                             <div className='col-md-4'>
