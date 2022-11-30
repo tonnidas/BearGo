@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.dto.ProductPostDto;
+import edu.baylor.cs.beargo.dto.SearchDto;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ProductPostService;
@@ -37,14 +38,11 @@ public class ProductPostController {
         return ProductPostDto.getProductPostDto(productPost);
     }
 
-    @GetMapping("/searchProductPost/{source}/{destination}/{startDate}/{endDate}")
+    @GetMapping("/searchProductPost")
     public ResponseEntity<List<ProductPostDto>> searchProductPost(@AuthenticationPrincipal User user,
-                                                                  @PathVariable("source") String source,
-                                                                  @PathVariable("destination") String destination,
-                                                                  @PathVariable("startDate") Date startDate,
-                                                                  @PathVariable("endDate") Date endDate) {
+                                                                  @RequestBody SearchDto searchDto) {
 
-        List<ProductPost> searchPosts = productPostService.searchProductPost(source, destination, startDate, endDate);
+        List<ProductPost> searchPosts = productPostService.searchProductPost(searchDto);
         List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(searchPosts);
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
     }
