@@ -13,6 +13,7 @@ import ProfileNavbar from './ProfileNavbar';
 import ReviewAndRatingPage from './ReviewAndRatingPage';
 
 import RoundedProfilePic from './RoundedProfilePic';
+import AllReportList from './AllReportList';
 
 export default function Profile() {
 
@@ -83,14 +84,14 @@ export default function Profile() {
 
     return (
         <div>
-            <ProfileNavbar imageId={inputs.imageId}/>
+            <ProfileNavbar imageId={inputs.imageId} />
             <Sidebar />
             <br />
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleSubmit}>
-                            <RoundedProfilePic imageChange={imageChange} imageId={inputs.imageId} username={inputs.username} isOwnProfile={true}/>
+                            <RoundedProfilePic imageChange={imageChange} imageId={inputs.imageId} username={inputs.username} isOwnProfile={true} />
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
@@ -181,6 +182,9 @@ export default function Profile() {
 
                             <button type="submit"
                                 className="common-btn btn-primary">Update</button>
+
+                            <br /> <br />
+                            <AllReportList userId={inputs.id} />
                         </form>
                     </div>
                 </div>
