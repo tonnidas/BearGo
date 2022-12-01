@@ -48,6 +48,7 @@ export default function Profile() {
                 zip: inputs.zip
             });
             console.log(resp.data);
+            setInputs(resp.data);
             alert('Profile Updated!');
         } catch (error) {
             console.log(error);
