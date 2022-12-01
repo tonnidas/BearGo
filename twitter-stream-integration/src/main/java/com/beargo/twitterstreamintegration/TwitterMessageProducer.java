@@ -1,8 +1,12 @@
 package com.beargo.twitterstreamintegration;
 
 import java.util.List;
+
+import com.beargo.twitterstreamintegration.Model.TwitterModel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.endpoint.MessageProducerSupport;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.CollectionUtils;
@@ -14,6 +18,10 @@ import twitter4j.TwitterStream;
 
 @Slf4j
 public class TwitterMessageProducer extends MessageProducerSupport {
+
+    @Autowired
+    private KafkaTemplate<String, TwitterModel> twitterKafkaTemplate;
+
 
     private final TwitterStream twitterStream;
 
@@ -84,10 +92,28 @@ public class TwitterMessageProducer extends MessageProducerSupport {
 
         @Override
         public void onStatus(Status status) {
-            System.out.println(status.getId());
+            TwitterModel tModel = new TwitterModel();
 
-            System.out.println(status.getUser().getScreenName());
-            System.out.println(status.getText());
+            String tid = String.valueOf(status.getId());
+            String username = status.getUser().getScreenName();
+            String textdata = status.getText();
+
+            log.info(tid);
+            log.info(username);
+            log.info(textdata);
+
+            tModel.setTid(tid);
+            tModel.setTUsername(username);
+            tModel.setTText(textdata);
+
+
+            log.info(tid);
+            log.info(username);
+            log.info(textdata);
+
+            String topicName = "tweet";
+            twitterKafkaTemplate.send(topicName,tModel);
+
 
             //sendMessage(MessageBuilder.withPayload(status).build());
         }
