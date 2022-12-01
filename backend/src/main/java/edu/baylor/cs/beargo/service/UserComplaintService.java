@@ -1,9 +1,9 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.dto.UserComplaintDto;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.model.UserComplaint;
 import edu.baylor.cs.beargo.repository.UserComplaintRepository;
-import edu.baylor.cs.beargo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,6 @@ public class UserComplaintService {
     UserComplaintRepository userComplaintRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserService userService;
 
     // TODO: check it and set rest of the variable.
@@ -39,18 +36,16 @@ public class UserComplaintService {
      * @return userComplaint object
      */
     public UserComplaint createUserComplaint(User reportBy, Long reportTo, String reason) {
-        if (reason == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reason cannot be empty text");
-        Optional<User> user = userRepository.findById(reportTo);
-        User u = new User();
-        if (user.isPresent())
-            u = user.get();
+        User user = userService.getUserById(reportTo);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User does not exist");
+        }
         UserComplaint userComplaint = new UserComplaint();
         userComplaint.setComplainedByUserId(reportBy.getId());
         userComplaint.setComplainedByUserName(reportBy.getFullname());
         userComplaint.setComplainDate(LocalDate.now());
         userComplaint.setIsResolved(false);
-        userComplaint.setComplainedUser(u);
+        userComplaint.setComplainedUser(user);
         userComplaint.setReason(reason);
         return userComplaintRepository.save(userComplaint);
     }
@@ -64,16 +59,32 @@ public class UserComplaintService {
         return userComplaintRepository.findByComplainedUser(user);
     }
 
-    public List<UserComplaint> getAllComplains() {
+    public List<UserComplaintDto> getAllComplaints() {
         List<UserComplaint> complaintLis = userComplaintRepository.findAll();
-        List<UserComplaint> allComplaints = new ArrayList<>();
+        List<UserComplaintDto> allComplaints = new ArrayList<>();
         for (UserComplaint u : complaintLis) {
+            UserComplaintDto userComplaintDto = new UserComplaintDto();
+            userComplaintDto = userComplaintDto.getUserComplaintDto(u);
             if (!u.getIsResolved()) {
-                allComplaints.add(u);
-                System.out.println(u.getComplainedUser().getId());
-                System.out.println(u.getComplainedUser().getUsername());
+                User user = userService.getUserById(u.getComplainedUser().getId());
+                userComplaintDto.setComplainedUser(user);
+                allComplaints.add(userComplaintDto);
             }
         }
         return allComplaints;
+    }
+    public UserComplaint resolveComplaint(User user, Long complaintid) {
+        Optional<UserComplaint> opt = userComplaintRepository.findById(complaintid);
+        UserComplaint userC = new UserComplaint();
+        if(opt.isPresent())
+        {
+            UserComplaint userComplaint = opt.get();
+            userComplaint.setIsResolved(true);
+            userComplaint.setId(complaintid);
+            userComplaint.setResolvedBy(user);
+            userComplaint.setComplainDate(LocalDate.now());
+            return userComplaintRepository.save(userComplaint);
+        }
+        return null;
     }
 }

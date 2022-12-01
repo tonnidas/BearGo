@@ -1,13 +1,14 @@
 package edu.baylor.cs.beargo.dto;
 
 import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.model.UserComplaint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,8 +16,17 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserComplaintDto {
     private Long id;
-    private String username;
-    private User complainedByUser;
+    private String reason;
+    private Boolean isResolved;
+    private LocalDate complainDate;
+    private LocalDate resolveDate;
     private User complainedUser;
-    Set<User> usersComplained = new HashSet<>();
+    private Long complainedByUserId;
+    private String complainedByUserName;
+    private User resolvedBy;
+
+    public static UserComplaintDto getUserComplaintDto(UserComplaint userComplaint) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(userComplaint, UserComplaintDto.class);
+    }
 }
