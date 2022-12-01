@@ -15,7 +15,8 @@ const urlPaths = {
   message: '/message',
   updatePost: '/updatePost',
   reviewPost: '/reviewPost',
-  forgetPassword: '/forgetPassword'
+  forgetPassword: '/forgetPassword',
+  reportUser: '/reportUser'
 };
 
 export default urlPaths;

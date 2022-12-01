@@ -17,6 +17,7 @@ import UpdatePost from './UpdatePost/UpdatePost';
 import ReviewPost from './ReviewPost/ReviewPost';
 import MyBlogs from './MyBlogs/MyBlogs';
 import ForgetPassword from './ForgetPassword/ForgetPassword';
+import ReportUser from './ReportUser/ReportUser';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path={urlPaths.updatePost} element={<UpdatePost />} />
         <Route path={urlPaths.reviewPost} element={<ReviewPost />} />
         <Route path={urlPaths.forgetPassword} element={<ForgetPassword />} />
+        <Route path={urlPaths.reportUser} element={<ReportUser />} />
       </Routes>
     </BrowserRouter>
 

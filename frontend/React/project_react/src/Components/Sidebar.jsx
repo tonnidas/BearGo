@@ -79,6 +79,12 @@ export default function Sidebar(props) {
                                     <span>Admin . Review Post </span>
                                 </a>
                             </li>
+                            <li className={url === urlPaths.reportUser ? 'active' : ''}>
+                                <a href={urlPaths.reportUser}>
+                                    <i className='icon-search'></i>
+                                    <span>Admin . Review User </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <button className='common-btn global-add' onClick={handleClickCreateProductPost}>
