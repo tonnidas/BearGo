@@ -25,6 +25,12 @@ export default function Profile() {
     }
 
     const handleWindowConfirm = async () => {
+
+        if (inputs.password !== inputs.confirmPassword) {
+            alert('Password and confirm password did not match!');
+            return;
+        }
+
         if (window.confirm("Are you sure to update your profile ?") == false) {
             return;
         }
