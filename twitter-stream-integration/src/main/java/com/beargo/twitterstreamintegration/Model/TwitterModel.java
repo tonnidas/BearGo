@@ -9,7 +9,7 @@ public class TwitterModel {
 
 
 
-    private String tid;
+    private Long tid;
     private String tText;
     private String tUsername;
 

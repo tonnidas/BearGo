@@ -3,12 +3,16 @@ package com.beargo.twitterstreamintegration;
 import java.util.List;
 
 import com.beargo.twitterstreamintegration.Model.TwitterModel;
+import com.beargo.twitterstreamintegration.Service.TwitterService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.endpoint.MessageProducerSupport;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
@@ -16,14 +20,19 @@ import twitter4j.Status;
 import twitter4j.StatusAdapter;
 import twitter4j.TwitterStream;
 
+//@Slf4j
 @Slf4j
+
+
+
 public class TwitterMessageProducer extends MessageProducerSupport {
 
-    @Autowired
-    private KafkaTemplate<String, TwitterModel> twitterKafkaTemplate;
-
-
     private final TwitterStream twitterStream;
+
+    @Autowired
+    TwitterService twitterService;
+
+
 
     private List<Long> follows;
     private List<String> terms;
@@ -94,11 +103,11 @@ public class TwitterMessageProducer extends MessageProducerSupport {
         public void onStatus(Status status) {
             TwitterModel tModel = new TwitterModel();
 
-            String tid = String.valueOf(status.getId());
+            Long tid = status.getId();
             String username = status.getUser().getScreenName();
             String textdata = status.getText();
 
-            log.info(tid);
+            log.info(tid.toString());
             log.info(username);
             log.info(textdata);
 
@@ -107,12 +116,7 @@ public class TwitterMessageProducer extends MessageProducerSupport {
             tModel.setTText(textdata);
 
 
-            log.info(tid);
-            log.info(username);
-            log.info(textdata);
-
-            String topicName = "tweet";
-            twitterKafkaTemplate.send(topicName,tModel);
+            twitterService.sendTweetKafka(tModel);
 
 
             //sendMessage(MessageBuilder.withPayload(status).build());
