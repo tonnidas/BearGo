@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/userComplaint")
@@ -23,5 +25,10 @@ public class UserComplaintController {
                                                         @RequestParam(value = "reason") String reason) {
 
         return new ResponseEntity<>(userComplaintService.createUserComplaint(user, userId, reason), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllComplaintByUserId/{userId}")
+    public ResponseEntity<List<UserComplaint>> getAllComplaintByUserId(@PathVariable(value = "userId") Long userId) {
+        return new ResponseEntity<>(userComplaintService.getAllComplaintByUserId(userId), HttpStatus.OK);
     }
 }

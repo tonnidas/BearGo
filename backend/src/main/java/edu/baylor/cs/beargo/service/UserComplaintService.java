@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -37,5 +38,13 @@ public class UserComplaintService {
         userComplaint.setComplainedUserId(reportTo);
         userComplaint.setReason(reason);
         return userComplaintRepository.save(userComplaint);
+    }
+
+    /**
+     * @param userId the user id for whom the report is needed
+     * @return List of userComplaint object for the given user id
+     */
+    public List<UserComplaint> getAllComplaintByUserId(Long userId) {
+        return userComplaintRepository.findByComplainedUserId(userId);
     }
 }
