@@ -27,20 +27,15 @@ public class UserComplaintService {
      * @param reason the original report for the user
      * @return userComplaint object
      */
-    public UserComplaint reportUser(User reportBy, Long reportTo, String reason) {
+    public UserComplaint createUserComplaint(User reportBy, Long reportTo, String reason) {
+        if (reason == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reason cannot be empty text");
         UserComplaint userComplaint = new UserComplaint();
         userComplaint.setComplainedByUser(reportBy);
-        userComplaint.setComplainedUserId(reportTo);
-        userComplaint.setReason(reason);
-        return userComplaint;
-    }
-
-    public UserComplaint createUserComplaint(User user, UserComplaint userComplaint) {
-        if (userComplaint.getReason() == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reason cannot be empty text");
-        userComplaint.setComplainedByUser(user);
         userComplaint.setComplainDate(LocalDate.now());
         userComplaint.setIsResolved(false);
+        userComplaint.setComplainedUserId(reportTo);
+        userComplaint.setReason(reason);
         return userComplaintRepository.save(userComplaint);
     }
 }

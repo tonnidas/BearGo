@@ -18,16 +18,10 @@ public class UserComplaintController {
     UserComplaintService userComplaintService;
 
     @PostMapping("/reportUser")
-    public ResponseEntity<UserComplaint> reportUser(@AuthenticationPrincipal User user,
-                                                    @RequestParam(value = "reportTo") Long userId,
-                                                    @RequestParam(value = "reason") String reason) {
-        return new ResponseEntity<>(userComplaintService.reportUser(user, userId, reason), HttpStatus.OK);
-    }
-
-    @PostMapping
     public ResponseEntity<UserComplaint> createComplain(@AuthenticationPrincipal User user,
-                                                        @RequestBody UserComplaint userComplaint) {
+                                                        @RequestParam(value = "reportTo") Long userId,
+                                                        @RequestParam(value = "reason") String reason) {
 
-        return new ResponseEntity<>(userComplaintService.createUserComplaint(user, userComplaint), HttpStatus.OK);
+        return new ResponseEntity<>(userComplaintService.createUserComplaint(user, userId, reason), HttpStatus.OK);
     }
 }
