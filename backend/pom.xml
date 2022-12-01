@@ -88,6 +88,13 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!--Dependency for sendgrid-->
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+
         <!--Dependency for kafka-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>

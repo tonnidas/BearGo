@@ -1,20 +1,23 @@
 package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.service.EmailService;
 import edu.baylor.cs.beargo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    EmailService emailService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
@@ -23,8 +26,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User registeredUser = userService.register(user);
+    public ResponseEntity<User> register(@RequestBody User user, @RequestParam int code) {
+        User registeredUser = userService.register(user, code);
         return new ResponseEntity<>(registeredUser, HttpStatus.OK);
+    }
+
+    @PostMapping("/register/sendCode")
+    public String sendVerificationCode(@RequestParam String email) throws IOException {
+        emailService.sendVerificationEmail(email);
+        return "Verification email sent";
     }
 }

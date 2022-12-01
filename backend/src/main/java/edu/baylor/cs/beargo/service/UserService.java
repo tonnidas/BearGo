@@ -38,6 +38,9 @@ public class UserService implements UserDetailsService {
     ContractService contractService;
 
     @Autowired
+    EmailService emailService;
+
+    @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
@@ -78,18 +81,22 @@ public class UserService implements UserDetailsService {
      * @param user the User object
      * @return created User object
      */
-    public User register(User user) {
+    public User register(User user, int verificationCode) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIsAdmin(false);
-        return userRepository.save(user);
+        if (emailService.verifyCode(user.getUsername(), verificationCode)) {
+            return userRepository.save(user);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Verification code did not match");
+        }
     }
 
     /**
      * Create admin user if not exist, otherwise update.
      *
-     * @param email admin email/username
+     * @param email    admin email/username
      * @param password admin password
-     * @param name full name
+     * @param name     full name
      * @return created admin object
      */
     public User registerAdmin(String email, String password, String name) {
@@ -183,8 +190,8 @@ public class UserService implements UserDetailsService {
     }
 
     // TODO: Need to check
+
     /**
-     *
      * @param userId the user id
      * @return average rating of given user as a sender and a traveler
      */
@@ -197,10 +204,10 @@ public class UserService implements UserDetailsService {
         int totalRatingCntAsTraveler = 0;
         User user = getUserById(userId);
         Set<ReviewAndRating> reviewAndRatingList = user.getReceivedReviews();
-        for (ReviewAndRating reviewAndRating: reviewAndRatingList) {
+        for (ReviewAndRating reviewAndRating : reviewAndRatingList) {
             reviewAndRating = reviewAndRatingService.getReviewRatingById(reviewAndRating.getId());
             if (reviewAndRating != null) {
-                if(reviewAndRating.getContractReviewedBySender() != null) {
+                if (reviewAndRating.getContractReviewedBySender() != null) {
                     totalRatingCntAsTraveler++;
                     totalRatingAsTraveler += reviewAndRating.getRating();
                 } else {
@@ -226,8 +233,8 @@ public class UserService implements UserDetailsService {
     }
 
     // TODO: Need to check
+
     /**
-     *
      * @param userId the user id
      * @return total number of contract, delivered, and unsuccessful contract as sender and traveler
      */
@@ -246,26 +253,26 @@ public class UserService implements UserDetailsService {
 
         User user = getUserById(userId);
 
-        if(user != null) {
+        if (user != null) {
             totalContractAsSender = user.getSenderContracts().size();
             totalContractAsTraveler = user.getTravelerContracts().size();
 
-            for(Contract contract: user.getSenderContracts()) {
+            for (Contract contract : user.getSenderContracts()) {
                 contract = contractService.getContractById(contract.getId());
-                if(contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
+                if (contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
                     totalDeliveredAsSender++;
                 }
-                if(contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
+                if (contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
                     totalUnsuccessfulAsSender++;
                 }
             }
 
-            for(Contract contract: user.getTravelerContracts()) {
+            for (Contract contract : user.getTravelerContracts()) {
                 contract = contractService.getContractById(contract.getId());
-                if(contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
+                if (contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
                     totalDeliveredAsTraveler++;
                 }
-                if(contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
+                if (contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
                     totalUnsuccessfulAsTraveler++;
                 }
             }
@@ -283,14 +290,13 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     *
-     * @param user the user whose profile will be updated
+     * @param user    the user whose profile will be updated
      * @param imageId the imageId of the profile picture
      * @return the user after updating the profile picture
      */
     public User updateProfileImage(User user, Long imageId) {
         User userDB = getUserById(user.getId());
-        if(userDB == null) {
+        if (userDB == null) {
             return user;
         }
         userDB.setImageId(imageId);

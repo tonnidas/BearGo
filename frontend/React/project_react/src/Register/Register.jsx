@@ -25,7 +25,21 @@ export default function Register() {
         }
 
         try {
-            const resp = await axios.post('/api/auth/register', {
+            const resp = await axios.post('/api/auth/register/sendCode?email=' + inputs.username);
+            console.log(resp.data);
+        } catch (error) {
+            console.log(error);
+            alert('Failed to send verification email');
+            return;
+        }
+
+        const verificationCode = prompt("Enter verfication code sent to your email", "");
+        if (verificationCode === null) {
+            return;
+        }
+
+        try {
+            const resp = await axios.post('/api/auth/register?code=' + verificationCode, {
                 username: inputs.username,
                 fullname: inputs.name,
                 password: inputs.password,
@@ -41,7 +55,7 @@ export default function Register() {
             navigate(urlPaths.login);
         } catch (error) {
             console.log(error);
-            alert('Registration failed! Please try again');
+            alert('Registration failed, reason: ' + error.response.data.message);
         }
     }
 
