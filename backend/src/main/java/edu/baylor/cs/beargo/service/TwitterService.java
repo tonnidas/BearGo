@@ -1,5 +1,9 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.model.TwitterModel;
+import edu.baylor.cs.beargo.repository.TwitterModelRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
@@ -9,31 +13,24 @@ import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Slf4j
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class TwitterService extends SocialConfigurerAdapter {
     @Autowired
-    private Twitter twitter;
+    private TwitterModelRepository repo;
 
-    @Autowired
-    private TwitterTemplate twitterTemplate;
+   public List<TwitterModel> getAllTweets(){
 
-    public void getTweets() {
-        log.info("Tweets:", twitter.searchOperations().search("#Amazon"));
-    }
+       return repo.findAll();
+   }
 
-    public void tweet(String tweetText) {
-        Twitter t = new TwitterTemplate("1KHoEzRifBOlpOJvogBxMo39b", "8pMQpULFLjE8ADhHqT5HTuDhc46iUqGOI733NB9M7F1h4AQJXS",
-                "1114229184-UL1GND9Z2ZchbVN9jOW1AbO1u6as5xBW7DqtFgI",
-                "kr15AoOC7khbOb5TuEuutqqc3Ma7hciIyTwiPg0spKmfO");
+   public void saveTweet(TwitterModel t){
 
-        try {
-            TwitterProfile p = t.userOperations().getUserProfile();
-            SearchResults ts = t.searchOperations().search("#Amazon");
-            log.info(ts.toString());
-        } catch (RuntimeException ex) {
-            log.error("Unable to tweet" + tweetText, ex);
-        }
-    }
+        repo.save(t);
+   }
 }
