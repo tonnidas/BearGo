@@ -9,53 +9,119 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
-import ReviewPostWidget from '../Components/ReviewPostWidget';
 
 
 export default function ReportUser() {
-  const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
+    const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    AuthService.setAxiosAuthHeader();
-
-    axios.get("/api/userComplaint/allUserComplaints")
-      .then((res) => {
-        console.log(res.data);
-        setPosts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 401) {
-          navigate(urlPaths.login);
+    const handleResolve = async (verdict,complaintid) => {
+        if (window.confirm("Are you sure to mark this as " + verdict + "?") == false) {
+          return
         }
-      });
-  }, []);
+    
+        AuthService.setAxiosAuthHeader();
+    
+        try {
+          const resp = await axios.post('/api/userComplaint/resolveComplaint/' + complaintid);
+          console.log(resp.data);
+          alert("Thank you for resolving the issue!");
+        } catch (error) {
+          console.log(error);
+          alert('Failed to reolve the issue, reason: ' + error.response.data.message);
+        }
+      }
 
-  return (
-    <div>
-      <title>User Complaints</title>
+    useEffect(() => {
+        AuthService.setAxiosAuthHeader();
 
-      <Navbar />
+        axios.get("/api/userComplaint/allUserComplaints")
+            .then((res) => {
+                console.log(res.data);
+                setPosts(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                }
+            });
+    }, []);
 
-      <div className='container-fluid'>
-        <div className='row'>
-          <Sidebar />
+    const handleIgnore = async (event, complaintid) => {
+        event.preventDefault();
+        console.log("ignored");
+        handleResolve("ignored", complaintid);
+    }
 
-          {/* <main role='main' className='main col-md-12 ml-sm-auto col-lg-9'>
-            <div className='row' style={{ position: 'relative' }}>
-              <div className='col-md-8'>
-                <div className='main-inner'>
-                  {posts.map(post => <ReviewPostWidget post={post} key={post.id} />)}
+    const handleBlock = async (event) => {
+        event.preventDefault();
+        console.log("block");
+        // handleResolve("blocked");
+    }
+
+    return (
+        <div>
+            <title>User Complaints</title>
+
+            <Navbar />
+
+            <div className='container-fluid'>
+                <div className='row'>
+                    <Sidebar />
+                    {posts.map(post =>
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                <div className="col-md-5">
+                                    <form className="user-form">
+                                        <div className="form-group">
+                                            <label>Name</label>
+                                            <p>
+                                                {post.complainedUser.fullname}
+                                            </p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Phone</label>
+                                            <p>
+                                                {post.complainedUser.phoneNumber}
+                                            </p>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Reason</label>
+                                            <p>
+                                                {post.reason}
+                                            </p>
+                                        </div>
+
+                                        <div className='widget-footer'>
+                                            <div className='post-action'>
+                                                <ul>
+                                                    <li>
+                                                        <a role="button" href='#' onClick={ e => handleIgnore(e, post.id)}>
+                                                            <i className='icon-check'></i>Ignore
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a role="button" href='#' onClick={handleBlock}>
+                                                            <i className='icon-alert'></i>Block
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
-              </div>
+
             </div>
-          </main> */}
+
+            <script src='js/jquery-3.2.1.min.js'></script>
+            <script src='js/bootstrap.min.js'></script>
+            <script src='js/scripts.js'></script>
         </div>
-      </div>
-      <script src='js/jquery-3.2.1.min.js'></script>
-      <script src='js/bootstrap.min.js'></script>
-      <script src='js/scripts.js'></script>
-    </div>
-  );
+    );
 }
