@@ -27,7 +27,17 @@ export default function Navbar() {
         event.preventDefault();
 
         try {
-            const resp = await axios.post('/api/auth/register', {
+            if(inputs.sourceState == null)
+            {
+                alert('State can not be empty!');
+            return;
+            }
+            if(inputs.destState == null)
+            {
+                alert('State can not be empty!');
+            return;
+            }
+            const resp = await axios.get('/api/productPosts/searchProductPost', {
                 startDate: inputs.startDate,
                 endDate: inputs.endDate,
                 sourceCity: inputs.sourceCity,
@@ -114,7 +124,7 @@ export default function Navbar() {
                                 <label>Source</label>
                               <div className='form-group'>
                                 <label>City</label>
-                                <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                                <input className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
                               </div>
                             </div>
 
@@ -144,7 +154,7 @@ export default function Navbar() {
                                 <label>Destination</label>
                               <div className='form-group'>
                               <label>City</label>
-                                <input required className='form-control' name='destCity' value={inputs.destCity} onChange={handleChange} />
+                                <input className='form-control' name='destCity' value={inputs.destCity} onChange={handleChange} />
                               </div>
                             </div>
 
