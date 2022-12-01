@@ -3,6 +3,7 @@ package edu.baylor.cs.beargo.Config;
 import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
+import edu.baylor.cs.beargo.model.TwitterModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
@@ -88,34 +89,34 @@ public class KafkaListenerConfig {
         return factory;
     }
 
-/*
-    // Kafka Listener Config for Message to be added
+    // --------------------------------------------------------------------------------------------
+    // Kafka Listener Config for Twitter Model
     @Bean
-    public ConsumerFactory<String, Message> MessageConsumerFactory() {
+    public ConsumerFactory<String, TwitterModel> TwitterModelConsumerFactory() {
 
         Map<String, Object> config = new HashMap<>();
 
         // Adding the Configuration
         //config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_msg");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_notification");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(config,
                 new StringDeserializer(),
-                new JsonDeserializer<>(Message.class));
+                new JsonDeserializer<>(TwitterModel.class));
 
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Message> MessageContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Message> factory
+    public ConcurrentKafkaListenerContainerFactory<String, TwitterModel> TwitterModelContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, TwitterModel> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(MessageConsumerFactory());
+        factory.setConsumerFactory(TwitterModelConsumerFactory());
         return factory;
     }
-*/
+
     // Kafka Listener Config for Message dto
     @Bean
     public ConsumerFactory<String, MessageDto> MessageDtoConsumerFactory() {
