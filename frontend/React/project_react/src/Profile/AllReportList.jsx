@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import Collapsible from 'react-collapsible';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Moment from 'react-moment';
 
 const styles = {
     trigger: {
@@ -28,10 +32,10 @@ const styles = {
         fontFamily: 'consolas',
         fontSize: 14,
     },
-    list_style: {
-        fontSize: '14px',
-        marginLeft: '10p',
-        listStyleType: 'circle',
+    list_style_sx: {
+        width: '100%', 
+        maxWidth: 360, 
+        bgcolor: 'background.paper'
     }
 }
 
@@ -87,15 +91,9 @@ const AllReportList = ({ userId }) => {
                             (userComplaints.length != 0)
                             &&
                             <>
-                                <ul style={styles.list_style}>
-                                    {
-                                        userComplaints.map(item => (
-                                            <>
-                                                <li style={{display: 'list-item'}}>{item.reason}</li>
-                                            </>
-                                        ))
-                                    }
-                                </ul>
+                                {
+                                    getComplaintList(userComplaints)
+                                }
                             </>
                         }
                     </>
@@ -103,6 +101,33 @@ const AllReportList = ({ userId }) => {
             }
         </>
     );
+
+    function getSecondaryItem(reportedBy, reportDate) {
+        return (
+            <p>
+                {"By - " + reportedBy + " on "}
+                <span>
+                    <Moment format="LLL">{reportDate}</Moment>
+                </span>
+            </p>
+        );
+    }
+
+    function getComplaintList(userComplaints) {
+        return (
+            <List sx={styles.list_style_sx}>
+                {
+                    userComplaints.map(item => (
+                        <ListItem>
+                            <ListItemText 
+                            primary={item.reason} 
+                            secondary={getSecondaryItem(item.complainedByUserName, item.complainDate)} />
+                        </ListItem>)
+                    )
+                }
+            </List>
+        );
+    }
 }
 
 export default AllReportList
