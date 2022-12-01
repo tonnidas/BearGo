@@ -14,7 +14,8 @@ const urlPaths = {
   profileSearch: '/profileSearch',
   message: '/message',
   updatePost: '/updatePost',
-  reviewPost: '/reviewPost'
+  reviewPost: '/reviewPost',
+  forgetPassword: '/forgetPassword'
 };
 
 export default urlPaths;

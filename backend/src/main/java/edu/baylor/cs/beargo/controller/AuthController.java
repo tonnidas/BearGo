@@ -31,9 +31,14 @@ public class AuthController {
         return new ResponseEntity<>(registeredUser, HttpStatus.OK);
     }
 
-    @PostMapping("/register/sendCode")
+    @PostMapping("/sendCode")
     public String sendVerificationCode(@RequestParam String email) throws IOException {
         emailService.sendVerificationEmail(email);
         return "Verification email sent";
+    }
+
+    @PostMapping("/resetPassword")
+    public User resetPassword(@RequestParam String email, @RequestParam String newPassword, @RequestParam int code) {
+        return userService.resetPassword(email, newPassword, code);
     }
 }

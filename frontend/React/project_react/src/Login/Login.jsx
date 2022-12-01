@@ -54,7 +54,8 @@ export default function Login() {
                                             <i className="icon-person"></i> Create Account</a>
                                     </div>
                                     <div className="col text-right">
-                                        <a href="#" className="sm-link fr gray"><i className="icon-help"></i> forgot password?</a>
+                                        <a href={urlPaths.forgetPassword} className="sm-link fr gray">
+                                        <i className="icon-help"></i> forgot password?</a>
                                     </div>
                                 </div>
                             </div>

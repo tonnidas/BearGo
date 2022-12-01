@@ -82,9 +82,22 @@ public class UserService implements UserDetailsService {
      * @return created User object
      */
     public User register(User user, int verificationCode) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username/email already taken");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIsAdmin(false);
         if (emailService.verifyCode(user.getUsername(), verificationCode)) {
+            return userRepository.save(user);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Verification code did not match");
+        }
+    }
+
+    public User resetPassword(String email, String newPassword, int code) {
+        if (emailService.verifyCode(email, code)) {
+            User user = getUserByUsername(email);
+            user.setPassword(passwordEncoder.encode(newPassword));
             return userRepository.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Verification code did not match");
@@ -132,7 +145,7 @@ public class UserService implements UserDetailsService {
         if (optionalUser.isPresent()) {
             return optionalUser.get();
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user exists for given id");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user exists for given user name");
         }
     }
 
@@ -175,8 +188,6 @@ public class UserService implements UserDetailsService {
             user.setPhoneNumber(updatedUser.getPhoneNumber());
         }
 
-
-        // TODO: update password more elegantly
         if (updatedUser.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         }

@@ -16,6 +16,7 @@ import ProfileSearch from './ProfileSearch/ProfileSearch';
 import UpdatePost from './UpdatePost/UpdatePost';
 import ReviewPost from './ReviewPost/ReviewPost';
 import MyBlogs from './MyBlogs/MyBlogs';
+import ForgetPassword from './ForgetPassword/ForgetPassword';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path={urlPaths.message} element={<Message />} />
         <Route path={urlPaths.updatePost} element={<UpdatePost />} />
         <Route path={urlPaths.reviewPost} element={<ReviewPost />} />
+        <Route path={urlPaths.forgetPassword} element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
 

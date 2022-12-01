@@ -1,13 +1,18 @@
 import logo_white from '../images/logo-white.svg';
 import urlPaths from '../urlPaths';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import AuthService from '../Service/AuthService';
 
 
 export default function Register() {
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
+
+    useEffect(() => {
+        AuthService.logout();
+    }, []);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -25,7 +30,7 @@ export default function Register() {
         }
 
         try {
-            const resp = await axios.post('/api/auth/register/sendCode?email=' + inputs.username);
+            const resp = await axios.post('/api/auth/sendCode?email=' + inputs.username);
             console.log(resp.data);
         } catch (error) {
             console.log(error);
