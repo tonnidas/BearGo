@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.dto.SearchDto;
 import edu.baylor.cs.beargo.model.*;
 import edu.baylor.cs.beargo.repository.AddressRepository;
 import edu.baylor.cs.beargo.repository.ContractRepository;
@@ -211,13 +212,38 @@ public class ProductPostService {
         return productPostRepository.save(oldProductPost);
     }
 
-    public List<ProductPost> searchProductPost(String source, String destination, Date startDate, Date endDate) {
+    public List<ProductPost> searchProductPost(SearchDto searchDto) {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> searchPosts = new ArrayList<>();
+        Date stDate = searchDto.getStartDate();
+        Date enDate = searchDto.getEndDate();
         for (ProductPost pr : posts) {
-            if (startDate != null && endDate != null) {
-                Date date = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                if (date.after(startDate) && date.before(endDate)) {
+            System.out.println(searchDto.getSourceCity());
+            System.out.println(searchDto.getSourceState());
+            System.out.println(searchDto.getDestCity());
+            System.out.println(searchDto.getDestState());
+            if (stDate != null && enDate != null) {
+                Date date1 = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date date2 = Date.from(pr.getExpectedPickupDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                if ((date1.after(stDate) && date1.before(enDate)) || (date2.after(stDate) && date2.before(enDate))) {
+                    searchPosts.add(pr);
+                }
+            }
+            if((searchDto.getSourceCity() != null && searchDto.getSourceState() !=null) &&
+                    (searchDto.getDestCity() != null && searchDto.getDestState() !=null))
+            {
+                if(pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
+                pr.getDestination().getCity().equals(searchDto.getDestCity()))
+                    searchPosts.add(pr);
+            }
+            else if((searchDto.getSourceCity().isEmpty() && searchDto.getSourceState() !=null) &&
+                    searchDto.getDestCity().isEmpty() && searchDto.getDestState() !=null)
+            {
+                System.out.println(pr.getDestination().getState());
+                if(pr.getSource().getState().equals(searchDto.getSourceState()) &&
+                pr.getDestination().getState().equals(searchDto.getDestState()))
+                {
+                    System.out.println(pr.getDestination().getState());
                     searchPosts.add(pr);
                 }
             }
