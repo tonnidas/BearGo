@@ -63,9 +63,9 @@ public class User implements UserDetails {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<ProductPostComplaint> createdComplaints = new HashSet<>();
 
-    @OneToMany(mappedBy = "complainedByUser") // inverse-side
+    @OneToMany(mappedBy = "complainedUser") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)
-    private List<UserComplaint> createdComplaintsOfUser = new ArrayList<>();
+    private List<UserComplaint> createdComplaintsUser = new ArrayList<>();
 
     @OneToMany(mappedBy = "resolvedBy") // inverse-side
     @JsonIdentityReference(alwaysAsId = true)

@@ -35,15 +35,19 @@ public class UserComplaint {
     @ManyToOne // owning-side
     @JoinColumn(name = "user_id")
     @JsonIdentityReference(alwaysAsId = true)
-    private User complainedByUser;
+    private User complainedUser;
 
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")
 //    @JsonIdentityReference(alwaysAsId = true)
 //    private User complainedUser;
 
-    @Column(name = "complainedUserId")
-    private Long complainedUserId;
+
+    @Column(name = "complainedByUserId")
+    private Long complainedByUserId;
+
+    @Column(name = "complainedByUserName")
+    private String complainedByUserName;
 
     @ManyToOne // owning-side
     @JoinColumn(name = "admin_id")

@@ -10,7 +10,7 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ searchpost }) {
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
@@ -18,38 +18,42 @@ export default function Navbar() {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name + " and "+ value);
+        console.log(name + " and " + value);
         setInputs(values => ({ ...values, [name]: value }))
 
     }
 
     const handleSubmit = async (event) => {
+        console.log("hello");
         event.preventDefault();
+        AuthService.setAxiosAuthHeader();
 
         try {
-            if(inputs.sourceState == null)
-            {
+            if (inputs.sourceState == null) {
                 alert('State can not be empty!');
-            return;
+                return;
             }
-            if(inputs.destState == null)
-            {
-                alert('State can not be empty!');
-            return;
-            }
-            const resp = await axios.get('/api/productPosts/searchProductPost', {
+
+            const data = {
                 startDate: inputs.startDate,
                 endDate: inputs.endDate,
                 sourceCity: inputs.sourceCity,
                 sourceState: inputs.sourceState,
-                destCity: inputs.destCity,
+                destCity: inputs.destCity, 
                 destState: inputs.destState
-            });
+            }
+            const resp = axios.get('/api/productPosts/searchProductPost', data);
+            console.log("search ");
             console.log(resp.data);
+            searchpost(resp.data);
+            //posts(resp.data);
+
         } catch (error) {
             console.log(error);
         }
     }
+
+
 
     useEffect(() => {
         AuthService.setAxiosAuthHeader();
@@ -120,27 +124,27 @@ export default function Navbar() {
                                         </div>
                                     </div>
                                     <div className='row'>
-                            <div className='col-md-6'>
-                                <label>Source</label>
-                              <div className='form-group'>
-                                <label>City</label>
-                                <input className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
-                              </div>
-                            </div>
+                                        <div className='col-md-6'>
+                                            <label>Source</label>
+                                            <div className='form-group'>
+                                                <label>City</label>
+                                                <input className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} />
+                                            </div>
+                                        </div>
 
-                            <div className='col-md-6'>
-                              <div className='form-group'>
-                                {/* <label>City</label> */}
-                                {/* <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} /> */}
-                              </div>
-                            </div>
+                                        <div className='col-md-6'>
+                                            <div className='form-group'>
+                                                {/* <label>City</label> */}
+                                                {/* <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} /> */}
+                                            </div>
+                                        </div>
 
-                            <div className='col-md-4'>
-                              <div className='form-group'>
-                                <label>State</label>
-                                <input required className='form-control' name='sourceState' value={inputs.sourceState} onChange={handleChange} />
-                              </div>
-                            </div>
+                                        <div className='col-md-4'>
+                                            <div className='form-group'>
+                                                <label>State</label>
+                                                <input required className='form-control' name='sourceState' value={inputs.sourceState} onChange={handleChange} />
+                                            </div>
+                                        </div>
                                         {/* <div className='select-style'>
                                             <select name='#'>
                                                 <option value=''>New York</option>
@@ -150,27 +154,27 @@ export default function Navbar() {
                                         </div> */}
                                     </div>
                                     <div className='row'>
-                            <div className='col-md-6'>
-                                <label>Destination</label>
-                              <div className='form-group'>
-                              <label>City</label>
-                                <input className='form-control' name='destCity' value={inputs.destCity} onChange={handleChange} />
-                              </div>
-                            </div>
+                                        <div className='col-md-6'>
+                                            <label>Destination</label>
+                                            <div className='form-group'>
+                                                <label>City</label>
+                                                <input className='form-control' name='destCity' value={inputs.destCity} onChange={handleChange} />
+                                            </div>
+                                        </div>
 
-                            <div className='col-md-6'>
-                              <div className='form-group'>
-                                {/* <label>City</label> */}
-                                {/* <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} /> */}
-                              </div>
-                            </div>
+                                        <div className='col-md-6'>
+                                            <div className='form-group'>
+                                                {/* <label>City</label> */}
+                                                {/* <input required className='form-control' name='sourceCity' value={inputs.sourceCity} onChange={handleChange} /> */}
+                                            </div>
+                                        </div>
 
-                            <div className='col-md-4'>
-                              <div className='form-group'>
-                                <label>State</label>
-                                <input required className='form-control' name='destState' value={inputs.destState} onChange={handleChange} />
-                              </div>
-                            </div>
+                                        <div className='col-md-4'>
+                                            <div className='form-group'>
+                                                <label>State</label>
+                                                <input required className='form-control' name='destState' value={inputs.destState} onChange={handleChange} />
+                                            </div>
+                                        </div>
                                         {/* <div className='select-style'>
                                             <select name='#'>
                                                 <option value=''>New York</option>
@@ -189,7 +193,7 @@ export default function Navbar() {
                                             </select>
                                         </div>
                                     </div> */}
-                                    <button type="submit" className='common-btn'>Search</button>
+                                    <button className='common-btn' onClick={handleSubmit}>Search</button>
                                 </form>
                             </div>
                         </li>

@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.model.UserComplaint;
 import edu.baylor.cs.beargo.service.UserComplaintService;
@@ -30,5 +31,10 @@ public class UserComplaintController {
     @GetMapping("/getAllComplaintByUserId/{userId}")
     public ResponseEntity<List<UserComplaint>> getAllComplaintByUserId(@PathVariable(value = "userId") Long userId) {
         return new ResponseEntity<>(userComplaintService.getAllComplaintByUserId(userId), HttpStatus.OK);
+    }
+    @GetMapping("/allUserComplaints")
+    public ResponseEntity<List<UserComplaint>> getComplains() {
+        List<UserComplaint> allComplains = userComplaintService.getAllComplains();
+        return new ResponseEntity<>(allComplains, HttpStatus.OK);
     }
 }

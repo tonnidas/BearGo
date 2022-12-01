@@ -17,6 +17,6 @@ public class UserComplaintDto {
     private Long id;
     private String username;
     private User complainedByUser;
-    private Long complainedUserId;
+    private User complainedUser;
     Set<User> usersComplained = new HashSet<>();
 }
