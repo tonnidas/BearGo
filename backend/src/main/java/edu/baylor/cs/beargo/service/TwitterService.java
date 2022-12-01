@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
-public class TwitterService extends SocialConfigurerAdapter {
+public class TwitterService{
     @Autowired
     private TwitterModelRepository repo;
 
@@ -29,8 +29,9 @@ public class TwitterService extends SocialConfigurerAdapter {
        return repo.findAll();
    }
 
-   public void saveTweet(TwitterModel t){
+   public TwitterModel saveTweet(TwitterModel t){
 
-        repo.save(t);
+        TwitterModel savedTweet = repo.save(t);
+        return savedTweet;
    }
 }

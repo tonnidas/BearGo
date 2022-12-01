@@ -29,7 +29,7 @@ import java.util.Date;
         " AND m.createdAt  < m1.createdAt "+
         " )"+
         " WHERE m1.id IS NULL AND (m.fromUser = :aUser OR m.toUser =:aUser)"+
-        " ORDER BY m.createdAt ")
+        " ORDER BY m.createdAt DESC")
 
 
 public class Message implements Serializable {

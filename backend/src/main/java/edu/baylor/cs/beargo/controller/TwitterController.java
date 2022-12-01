@@ -1,14 +1,18 @@
 package edu.baylor.cs.beargo.controller;
 
 
+
+import edu.baylor.cs.beargo.model.TwitterModel;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.TwitterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -19,8 +23,24 @@ public class TwitterController {
     TwitterService twitterService;
 
     @GetMapping
-    public ResponseEntity<String> writeTweet() {
-        twitterService.tweet("Test Tweet");
-        return new ResponseEntity<>("Done", HttpStatus.OK);
+    public ResponseEntity<List<TwitterModel>> getNotification(@AuthenticationPrincipal User user) {
+
+        Long uid = user.getId();
+
+        log.info("Retrieving all tweets" );
+        List<TwitterModel> tweetList = twitterService.getAllTweets();
+        return new ResponseEntity<>(tweetList, HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<TwitterModel> setTestTweet(@AuthenticationPrincipal User user, @RequestBody TwitterModel t) {
+
+        Long uid = user.getId();
+
+        log.info("Saving Tweets" );
+        TwitterModel tweet = twitterService.saveTweet(t);
+        return new ResponseEntity<>(tweet, HttpStatus.OK);
+    }
+
+
 }

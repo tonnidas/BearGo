@@ -13,15 +13,15 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "tid")
 public class TwitterModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long tid;
 
     @Column
-    private String tid;
+    private Long id;
 
     @Column
     private String tText;

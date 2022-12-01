@@ -3,6 +3,7 @@ package edu.baylor.cs.beargo.Config;
 import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
+import edu.baylor.cs.beargo.model.TwitterModel;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -31,10 +32,11 @@ public class KafkaListener {
 
 
     // Listener for String
-    @org.springframework.kafka.annotation.KafkaListener(topics = "msgstring", groupId = "group_string", containerFactory = "kafkaListenerContainerFactory")
+    @org.springframework.kafka.annotation.KafkaListener(topics = "tweet", groupId = "group_tweet", containerFactory = "kafkaListenerContainerFactory")
     public void listenString(String data) {
 
         log.info(data);
+        System.out.println(data);
 
     }
 
@@ -74,6 +76,29 @@ public class KafkaListener {
 
         // send new msg to that user
         messagingTemplate.convertAndSend(topic, message);
+
+
+    }
+
+
+    // Listener for Twitter
+
+
+    @org.springframework.kafka.annotation.KafkaListener(topics = "tweet", groupId = "group_tweet", containerFactory = "TwitterModelContainerFactory")
+    public void listenTweet(TwitterModel twitterModel) {
+
+        log.info("Listening {}", twitterModel);
+        System.out.println(twitterModel.getId());
+        System.out.println(twitterModel.getTText());
+        System.out.println(twitterModel.getTUsername());
+
+        System.out.println("Received Tweets");
+
+
+        String topic = "/topic/tweet";
+
+        // send tweet to all user
+        //messagingTemplate.convertAndSend(topic, message);
 
 
     }
