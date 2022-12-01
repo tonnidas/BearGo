@@ -8,7 +8,7 @@
         <version>3.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.saad056</groupId>
+    <groupId>com.beargo</groupId>
     <artifactId>twitter-stream-integration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>twitter-stream-integration</name>

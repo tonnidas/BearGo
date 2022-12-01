@@ -1,4 +1,4 @@
-package com.saad056.twitterstreamintegration;
+package com.beargo.twitterstreamintegration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
