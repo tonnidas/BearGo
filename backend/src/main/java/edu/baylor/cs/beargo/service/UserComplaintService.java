@@ -1,6 +1,5 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.model.UserComplaint;
 import edu.baylor.cs.beargo.repository.UserComplaintRepository;
@@ -15,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,11 +27,15 @@ public class UserComplaintService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     // TODO: check it and set rest of the variable.
+
     /**
      * @param reportBy the user who is reporting
      * @param reportTo the user id who is reported
-     * @param reason the original report for the user
+     * @param reason   the original report for the user
      * @return userComplaint object
      */
     public UserComplaint createUserComplaint(User reportBy, Long reportTo, String reason) {
@@ -41,7 +43,7 @@ public class UserComplaintService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reason cannot be empty text");
         Optional<User> user = userRepository.findById(reportTo);
         User u = new User();
-        if(user.isPresent())
+        if (user.isPresent())
             u = user.get();
         UserComplaint userComplaint = new UserComplaint();
         userComplaint.setComplainedByUserId(reportBy.getId());
@@ -58,17 +60,15 @@ public class UserComplaintService {
      * @return List of userComplaint object for the given user id
      */
     public List<UserComplaint> getAllComplaintByUserId(Long userId) {
-        return userComplaintRepository.findByComplainedUserId(userId);
+        User user = userService.getUserById(userId);
+        return userComplaintRepository.findByComplainedUser(user);
     }
 
-    public List<UserComplaint> getAllComplains()
-    {
+    public List<UserComplaint> getAllComplains() {
         List<UserComplaint> complaintLis = userComplaintRepository.findAll();
         List<UserComplaint> allComplaints = new ArrayList<>();
-        for(UserComplaint u : complaintLis)
-        {
-            if(!u.getIsResolved())
-            {
+        for (UserComplaint u : complaintLis) {
+            if (!u.getIsResolved()) {
                 allComplaints.add(u);
                 System.out.println(u.getComplainedUser().getId());
                 System.out.println(u.getComplainedUser().getUsername());
