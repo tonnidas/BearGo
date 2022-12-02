@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/productPosts")
@@ -38,13 +40,48 @@ public class ProductPostController {
         return ProductPostDto.getProductPostDto(productPost);
     }
 
-    @GetMapping("/searchProductPost")
-    public ResponseEntity<List<ProductPostDto>> searchProductPost(@AuthenticationPrincipal User user,
-                                                                  @RequestBody SearchDto searchDto) {
+//    @GetMapping("/searchProductPost")
+//    public ResponseEntity<List<ProductPostDto>> searchProductPost(@AuthenticationPrincipal User user,
+//                                                                  @RequestParam(value = "startDate") String startDate
+////                                                                  ,@RequestParam Date endDate,
+////                                                                  @RequestParam String sourceCity,
+////                                                                  @RequestParam String sourceState,
+////                                                                  @RequestParam String destCity,
+////                                                                  @RequestParam String destState
+//    ) {
+//
+//        SearchDto searchDto = new SearchDto();
+////        searchDto.setStartDate(startDate);
+////        searchDto.setEndDate(endDate);
+////        searchDto.setSourceCity(sourceCity);
+////        searchDto.setSourceState(sourceState);
+////        searchDto.setDestState(destState);
+////        searchDto.setDestCity(destCity);
+//        List<ProductPost> searchPosts = productPostService.searchProductPost(searchDto);
+//        List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(searchPosts);
+//        return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
+//    }
 
+    @GetMapping("/searchProductPost/{startDate}/{endDate}/{sourceCity}/{sourceState}/{destCity}/{destState}")
+    public ResponseEntity<?> searchProductPost(@AuthenticationPrincipal User user,
+                                               @PathVariable(value = "startDate") String startDate,
+                                               @PathVariable(value = "endDate") String endDate,
+                                               @PathVariable(value = "sourceCity") String sourceCity,
+                                               @PathVariable(value = "sourceState") String sourceState,
+                                               @PathVariable(value = "destCity") String destCity,
+                                               @PathVariable(value = "destState") String destState)
+    {
+        SearchDto searchDto = new SearchDto();
+        searchDto.setStartDate(startDate);
+        searchDto.setEndDate(endDate);
+        searchDto.setSourceCity(sourceCity);
+        searchDto.setSourceState(sourceState);
+        searchDto.setDestState(destState);
+        searchDto.setDestCity(destCity);
         List<ProductPost> searchPosts = productPostService.searchProductPost(searchDto);
         List<ProductPostDto> productPostDtoList = ProductPostDto.getProductPostDtoList(searchPosts);
         return new ResponseEntity<>(productPostDtoList, HttpStatus.OK);
+        // return new ResponseEntity<>("OkayOkay", HttpStatus.OK);
     }
 
     @GetMapping("/getAllProductPost")
