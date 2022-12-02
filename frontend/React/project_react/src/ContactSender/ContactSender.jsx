@@ -14,10 +14,13 @@ import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
 
 export default function ContactSender() {
     const [posts, setPosts] = useState([]);
-    const [people, setPeople] = useState([]);
+    const [inputs, setInputs] = useState({});
 
     const handleChange = (event, param) => {
         const value = event.target.value;
+        const name = event.target.name;
+        console.log(value + " " + name);
+        //setPosts(values => ({ ...values, [name]: value }))
         AuthService.setAxiosAuthHeader();
         const resp = axios.post("api/contracts/updateStatus/" + param + "/" + value)
         console.log(resp.data);
@@ -184,23 +187,13 @@ export default function ContactSender() {
                             <div className='form-group'>
 
                             </div>
-                            <div className='form-group'>
-                                <label>Update Status</label>
-                                <div className='select-style'>
-                                    <select name='#' onChange={e => handleChange(e, post.contract.id)}>
-                                        <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
-                                        <option value='PICKED_UP'> PICKED_UP</option>
-                                        <option value='DELIVERED'>DELIVERED</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <br />
-                            {/* <button className='common-btn'>Interested People</button> */}
+                            <br/>
                             <div className="form-group">
                                 <label>Interested Travelers</label>
                                 <div className='select-style'>
-                                    <select name='#'
-
+                                    <select name='interestedPeoples'
+                                    // value={post.contract.traveler.username || ""}
+                                       
                                         onChange={event => handleChangePeople(event, post.id)}>
                                         <option value='None'>Select Traveler</option>
                                         {
@@ -211,6 +204,21 @@ export default function ContactSender() {
                                     </select>
                                 </div>
                             </div>
+                            <div className='form-group'>
+                                <label>Update Status</label>
+                                <div className='select-style'>
+                                    <select name='deliveryStatus' 
+                                    //value={post.contract.deliveryStatus || ""}
+                                    onChange={e => handleChange(e, post.contract.id)}>
+                                        <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
+                                        <option value='PICKED_UP'> PICKED_UP</option>
+                                        <option value='DELIVERED'>DELIVERED</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            {/* <button className='common-btn'>Interested People</button> */}
+                          
                             <br />
                             {/* <button className='common-btn'>Update Status</button> */}
                             {
