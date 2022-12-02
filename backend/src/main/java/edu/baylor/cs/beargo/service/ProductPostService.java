@@ -275,12 +275,20 @@ public class ProductPostService {
                 }
 
             }
-            else if(userType.equals("traveller"))
+            else if(userType.equals("traveler"))
             {
                 User u = c.getTraveler();
                 Long uid = u.getId();
+                String status = c.getDeliveryStatus().toString();
                 if(id == uid)
-                    senderPosts.add(p);
+                {
+                    if(deliveryStatus!=null && deliveryStatus.equals(status))
+                        senderPosts.add(p);
+                    else if (deliveryStatus.equals("NONE"))
+                    {
+                        senderPosts.add(p);
+                    }
+                }
             }
 
         }
