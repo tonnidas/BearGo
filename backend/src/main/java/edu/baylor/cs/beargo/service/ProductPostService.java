@@ -215,29 +215,27 @@ public class ProductPostService {
     public List<ProductPost> searchProductPost(SearchDto searchDto) {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> searchPosts = new ArrayList<>();
-        Date stDate = searchDto.getStartDate();
-        Date enDate = searchDto.getEndDate();
         for (ProductPost pr : posts) {
             System.out.println(searchDto.getSourceCity());
             System.out.println(searchDto.getSourceState());
             System.out.println(searchDto.getDestCity());
             System.out.println(searchDto.getDestState());
-            if (stDate != null && enDate != null) {
-                Date date1 = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                Date date2 = Date.from(pr.getExpectedPickupDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                if ((date1.after(stDate) && date1.before(enDate)) || (date2.after(stDate) && date2.before(enDate))) {
-                    searchPosts.add(pr);
-                }
-            }
-            if((searchDto.getSourceCity() != null && searchDto.getSourceState() !=null) &&
-                    (searchDto.getDestCity() != null && searchDto.getDestState() !=null))
+//            if (stDate != null && enDate != null) {
+//                Date date1 = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+//                Date date2 = Date.from(pr.getExpectedPickupDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+//                if ((date1.after(stDate) && date1.before(enDate)) || (date2.after(stDate) && date2.before(enDate))) {
+//                    searchPosts.add(pr);
+//                }
+//            }
+            if((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
+                    (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")))
             {
                 if(pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
                 pr.getDestination().getCity().equals(searchDto.getDestCity()))
                     searchPosts.add(pr);
             }
-            else if((searchDto.getSourceCity().isEmpty() && searchDto.getSourceState() !=null) &&
-                    searchDto.getDestCity().isEmpty() && searchDto.getDestState() !=null)
+            else if((searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
+                    searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))
             {
                 System.out.println(pr.getDestination().getState());
                 if(pr.getSource().getState().equals(searchDto.getSourceState()) &&
@@ -247,6 +245,7 @@ public class ProductPostService {
                     searchPosts.add(pr);
                 }
             }
+            
         }
         return searchPosts;
     }

@@ -13,8 +13,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class SearchDto {
     private Long id;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String sourceCity;
     private String sourceState;
     private String destCity;
