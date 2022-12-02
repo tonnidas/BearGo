@@ -33,7 +33,7 @@ export default function ContractTraveller() {
         if(status == "NONE")
         {
             AuthService.setAxiosAuthHeader();
-        axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
+        axios.get("/api/productPosts/getProductPostByCriteria/traveler/NONE")
 
             .then((res) => {
                 console.log(res.data);
@@ -47,7 +47,7 @@ export default function ContractTraveller() {
         else if(status == "IN_TRANSIT")
         {
             AuthService.setAxiosAuthHeader();
-            axios.get("/api/productPosts/getProductPostByCriteria/sender/IN_TRANSIT")
+            axios.get("/api/productPosts/getProductPostByCriteria/traveler/IN_TRANSIT")
     
                 .then((res) => {
                     console.log(res.data);
@@ -61,7 +61,7 @@ export default function ContractTraveller() {
         else if(status == "DELIVERED")
         {
             AuthService.setAxiosAuthHeader();
-            axios.get("/api/productPosts/getProductPostByCriteria/sender/DELIVERED")
+            axios.get("/api/productPosts/getProductPostByCriteria/traveler/DELIVERED")
     
                 .then((res) => {
                     console.log(res.data);
@@ -209,30 +209,13 @@ export default function ContractTraveller() {
                                                                 <label>Update Status</label>
                                                                 <div className='select-style'>
                                                                     <select name='#' onChange={e => handleChange(e, post.contract.id)}>
-                                                                        <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
                                                                         <option value='PICKED_UP'> PICKED_UP</option>
-                                                                        <option value='DELIVERED'>DELIVERED</option>
+                                                                        <option value='TRANSIT'>IN-TRANSIT</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <br />
-                                                            {/* <button className='common-btn'>Interested People</button> */}
-                                                            <div className="form-group">
-                                                                <label>Interested Travelers</label>
-                                                                <div className='select-style'>
-                                                                    <select name='#'
-
-                                                                        onChange={event => handleChangePeople(event, post.id)}>
-                                                                            <option value='None'>Select Traveler</option>
-                                                                        {   
-                                                                            post.interestedPeoples.map(p =>
-                                                                                <option value={p.id}>{p.username}</option>
-                                                                            )}
-
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <br />
+                                                          
                                                             {/* <button className='common-btn'>Update Status</button> */}
                                                         </form>
                                                     </div>
