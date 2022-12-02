@@ -101,7 +101,12 @@ public class KafkaListenerConfig {
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_tweet");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
+        //config.put(JsonDeserializer.TRUSTED_PACKAGES,"edu.baylor.cs.beargo.model.TwitterModel");
+
+        //config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "edu.baylor.cs.beargo.model.TwitterModel");
+        config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS,false);
+
+        config.put(JsonDeserializer.TRUSTED_PACKAGES, "edu.baylor.cs.beargo.model.TwitterModel");
 
 
         return new DefaultKafkaConsumerFactory<>(config,

@@ -32,7 +32,7 @@ public class KafkaListener {
 
 
     // Listener for String
-    @org.springframework.kafka.annotation.KafkaListener(topics = "tweet", groupId = "group_tweet", containerFactory = "kafkaListenerContainerFactory")
+    @org.springframework.kafka.annotation.KafkaListener(topics = "string", groupId = "group_string", containerFactory = "kafkaListenerContainerFactory")
     public void listenString(String data) {
 
         log.info(data);
@@ -46,6 +46,7 @@ public class KafkaListener {
     @org.springframework.kafka.annotation.KafkaListener(topics = "newnotification", groupId = "group_notification", containerFactory = "NotificationContainerFactory")
     public void listenNotification(Notification notifications) {
 
+        System.out.println(notifications.getNotificationMsg());
         log.info("Listening {}", notifications);
         Long uid = notifications.getId();
 
@@ -87,10 +88,14 @@ public class KafkaListener {
     @org.springframework.kafka.annotation.KafkaListener(topics = "tweet", groupId = "group_tweet", containerFactory = "TwitterModelContainerFactory")
     public void listenTweet(TwitterModel twitterModel) {
 
+        System.out.println("Received Tweets");
         log.info("Listening {}", twitterModel);
-        System.out.println(twitterModel.getId());
+        System.out.println("h"+twitterModel);
+        System.out.println(""+twitterModel.toString());
+        System.out.println(twitterModel.getTid());
         System.out.println(twitterModel.getTText());
         System.out.println(twitterModel.getTUsername());
+
 
         System.out.println("Received Tweets");
 
