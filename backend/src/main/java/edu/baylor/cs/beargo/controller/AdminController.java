@@ -5,6 +5,7 @@ import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.AdminService;
+import edu.baylor.cs.beargo.service.MyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,15 @@ import java.util.Set;
 public class AdminController {
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    MyService myService;
+
+    @PostMapping("/populate")
+    public ResponseEntity<String> populate() {
+        myService.populate();
+        return new ResponseEntity<>("Data populated", HttpStatus.OK);
+    }
 
     // Get all admins (except general users)
     @GetMapping
