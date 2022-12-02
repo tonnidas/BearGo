@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 
+import { Tweet } from 'react-twitter-widgets'
+
 import urlPaths from '../urlPaths';
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
@@ -40,14 +42,14 @@ export default function TwitterWidget(props) {
             );
         });
         stompClient.activate();
-        /*
+        
         AuthService.setAxiosAuthHeader();
-        axios.get("api/notification")
+        axios.get("api/twitter")
 
             .then((res) => {
 
                 console.log(res.data);
-                setPosts(res.data);
+                setTweets(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -55,7 +57,7 @@ export default function TwitterWidget(props) {
                     navigate(urlPaths.login);
                 }
             });
-            */
+            
 
     }, []);
 
@@ -73,28 +75,9 @@ export default function TwitterWidget(props) {
               
           <div className='twitter-feed'> 
               
-          {tweet.map(t =>
-              
-              
-              <blockquote className="twitter-tweet">
+              {tweet.map(t =>
 
-                  
-
-                  
-                      <p>{t.ttext}</p>
-                  
-                      
-                  
-                      {/*<a href={getUrl(t.tweeturl)}></a>*/}
-                  <a href={t.tweeturl}></a>
-                  <Helmet>
-                      <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                  </Helmet>
-                  
-                      
-              </blockquote>
-
-              
+                  <Tweet tweetId={t.tidstring}/>
               
 
               )}

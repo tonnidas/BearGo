@@ -33,6 +33,7 @@ public class TwitterService{
 
         String tUrl = "https://twitter.com/" + t.getTUsername() + "/status/" + t.getTid().toString();
         t.setTweeturl(tUrl);
+        t.setTidstring(t.getTid().toString());
         TwitterModel savedTweet = repo.save(t);
         return savedTweet;
    }
