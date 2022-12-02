@@ -65,21 +65,5 @@ public class ProducerConfig {
         return new KafkaTemplate<>(StringProducerFactory());
     }
 
-    // Generic template
-    @Bean
-    public ProducerFactory<String, Container> ContainerproducerFactory(){
 
-        Map<String, Object> config = new HashMap<>();
-
-        config.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
-        config.put(org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        config.put(org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-
-        return new DefaultKafkaProducerFactory(config);
-    }
-
-    @Bean
-    public KafkaTemplate<String, Container> kafkaTemplateContainer(){
-        return new KafkaTemplate<>(ContainerproducerFactory());
-    }
 }

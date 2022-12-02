@@ -101,7 +101,8 @@ public class TwitterMessageProducer extends MessageProducerSupport {
         @Override
         public void onStatus(Status status) {
             TwitterModel tModel = new TwitterModel();
-
+            log.info("--",status);
+            System.out.println(status);
             Long tid = status.getId();
             String username = status.getUser().getScreenName();
             String textdata = status.getText();

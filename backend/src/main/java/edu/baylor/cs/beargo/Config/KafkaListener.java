@@ -1,20 +1,18 @@
 package edu.baylor.cs.beargo.Config;
 
 import edu.baylor.cs.beargo.dto.MessageDto;
-import edu.baylor.cs.beargo.model.Message;
 import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.TwitterModel;
 import edu.baylor.cs.beargo.repository.NotificationRepository;
+import edu.baylor.cs.beargo.service.TwitterService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.header.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.handler.annotation.Payload;
+
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.StreamSupport;
+
 
 @Component
 @Slf4j
@@ -24,6 +22,9 @@ public class KafkaListener {
 
     @Autowired
     NotificationRepository notificationRepository;
+
+    @Autowired
+    TwitterService tService;
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
@@ -50,10 +51,6 @@ public class KafkaListener {
         log.info("Listening {}", notifications);
         Long uid = notifications.getId();
 
-
-      //  String topic = "/topic/newNotification2" + uid.toString();
-
-        //String topic = "/topic/newNotification" + uid.toString();
 
         String topic = "/topic/newNotification2";
 
@@ -104,8 +101,8 @@ public class KafkaListener {
 
         String topic = "/topic/tweet";
 
-        // send tweet to all user
-        //messagingTemplate.convertAndSend(topic, message);
+        TwitterModel savedTweet = tService.saveTweet(twitterModel);
+        messagingTemplate.convertAndSend(topic, savedTweet);
 
 
     }

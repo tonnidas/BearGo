@@ -34,6 +34,9 @@ public class TwitterModel implements Serializable {
     private String tUsername;
 
     @Column
+    private String tweeturl;
+
+    @Column
     private Date createdAt = new Date();
 
 }
