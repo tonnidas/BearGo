@@ -1,4 +1,4 @@
-package com.beargo.twitterstreamintegration;
+package edu.baylor.cs.beargo;
 
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;

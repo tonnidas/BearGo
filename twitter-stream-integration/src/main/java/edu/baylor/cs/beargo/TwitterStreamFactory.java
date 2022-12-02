@@ -1,4 +1,4 @@
-package com.beargo.twitterstreamintegration;
+package edu.baylor.cs.beargo;
 
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 import twitter4j.TwitterStream;

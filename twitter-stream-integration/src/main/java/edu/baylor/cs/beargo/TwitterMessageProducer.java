@@ -1,18 +1,13 @@
-package com.beargo.twitterstreamintegration;
+package edu.baylor.cs.beargo;
 
 import java.util.List;
 
-import com.beargo.twitterstreamintegration.Model.TwitterModel;
-import com.beargo.twitterstreamintegration.Service.TwitterService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import edu.baylor.cs.beargo.Model.TwitterModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.endpoint.MessageProducerSupport;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
@@ -29,8 +24,12 @@ public class TwitterMessageProducer extends MessageProducerSupport {
 
     private final TwitterStream twitterStream;
 
+//    @Autowired
+//    TwitterService twitterService;
+
     @Autowired
-    TwitterService twitterService;
+    //private KafkaTemplate<String, String> tTemplate;
+    private KafkaTemplate<String, TwitterModel> tTemplate;
 
 
 
@@ -107,19 +106,27 @@ public class TwitterMessageProducer extends MessageProducerSupport {
             String username = status.getUser().getScreenName();
             String textdata = status.getText();
 
-            log.info(tid.toString());
-            log.info(username);
-            log.info(textdata);
+
 
             tModel.setTid(tid);
             tModel.setTUsername(username);
             tModel.setTText(textdata);
 
 
-            twitterService.sendTweetKafka(tModel);
+
+            //twitterService.sendTweetKafka(tModel);
+
+            String topicName = "tweet";
+            tTemplate.send(topicName,tModel);
 
 
-            //sendMessage(MessageBuilder.withPayload(status).build());
+            log.info("Sent to kafka");
+            log.info(tid.toString());
+            log.info(username);
+            log.info(textdata);
+
+            //
+            // sendMessage(MessageBuilder.withPayload(status).build());
         }
 
         @Override

@@ -1,7 +1,7 @@
-package com.beargo.twitterstreamintegration.Service;
+package edu.baylor.cs.beargo.Service;
 
 
-import com.beargo.twitterstreamintegration.Model.TwitterModel;
+import edu.baylor.cs.beargo.Model.TwitterModel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +16,14 @@ import org.springframework.stereotype.Service;
 public class TwitterService {
 
     @Autowired
-    private KafkaTemplate<String, String> tTemplate;
+    //private KafkaTemplate<String, String> tTemplate;
+    private KafkaTemplate<String, TwitterModel> tTemplate;
 
     public void sendTweetKafka(TwitterModel t){
 
 
         log.info("Send to kafka");
-        log.info(t.getTid().toString());
+        //og.info(t.getId().toString());
         log.info(t.getTText());
         log.info(t.getTUsername());
 
@@ -31,8 +32,9 @@ public class TwitterService {
 
         String topicName = "tweet";
 
-        String data = t.getTid().toString()+"|" + t.getTUsername()+"|"+t.getTText();
-        tTemplate.send(topicName,data);
+        //String data = t.getId().toString()+"|" + t.getTUsername()+"|"+t.getTText();
+        //tTemplate.send(topicName,data);
+        tTemplate.send(topicName,t);
     }
 
 }

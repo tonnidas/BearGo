@@ -1,6 +1,6 @@
-package com.beargo.twitterstreamintegration.kafka;
+package edu.baylor.cs.beargo.kafka;
 
-import com.beargo.twitterstreamintegration.Model.TwitterModel;
+import edu.baylor.cs.beargo.Model.TwitterModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,12 +13,16 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Component;
 
+
+
+
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
 @EnableKafka
 @Component
-//@Slf4j
+@Slf4j
 @Configuration
 public class ProducerConfig {
 
@@ -32,6 +36,8 @@ public class ProducerConfig {
         //configProps.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configProps.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
         configProps.put(org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+        configProps.put(JsonSerializer.ADD_TYPE_INFO_HEADERS,false);
         configProps.put(org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
@@ -57,5 +63,23 @@ public class ProducerConfig {
     @Bean
     public KafkaTemplate<String, String> StringModelkafkaTemplate() {
         return new KafkaTemplate<>(StringProducerFactory());
+    }
+
+    // Generic template
+    @Bean
+    public ProducerFactory<String, Container> ContainerproducerFactory(){
+
+        Map<String, Object> config = new HashMap<>();
+
+        config.put(org.apache.kafka.clients.producer.ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serveraddress);
+        config.put(org.apache.kafka.clients.producer.ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(org.apache.kafka.clients.producer.ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+        return new DefaultKafkaProducerFactory(config);
+    }
+
+    @Bean
+    public KafkaTemplate<String, Container> kafkaTemplateContainer(){
+        return new KafkaTemplate<>(ContainerproducerFactory());
     }
 }

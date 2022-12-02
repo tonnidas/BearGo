@@ -1,4 +1,4 @@
-package com.beargo.twitterstreamintegration;
+package edu.baylor.cs.beargo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
