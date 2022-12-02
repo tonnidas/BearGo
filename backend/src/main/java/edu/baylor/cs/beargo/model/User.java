@@ -39,6 +39,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean isAdmin = false;
 
+    @Column(name = "enabled")
+    private Boolean enabled = true;
+
     @Column(nullable = false)
     private String fullname;
 
@@ -143,6 +146,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 }

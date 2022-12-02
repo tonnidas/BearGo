@@ -60,4 +60,11 @@ public class UserController {
                                                    @PathVariable(value = "imageId") Long imageId) {
         return new ResponseEntity<>(userService.updateProfileImage(user, imageId), HttpStatus.OK);
     }
+
+    @PostMapping("/banOrUnbanUser/{userId}/{isBanned}")
+    public ResponseEntity<User> banOrUnbanUser(@AuthenticationPrincipal User currentUser,
+                                               @PathVariable(value = "userId") Long userId,
+                                               @PathVariable(value = "isBanned") Boolean isBanned) {
+        return new ResponseEntity<>(userService.banOrUnbanUser(currentUser, userId, isBanned), HttpStatus.OK);
+    }
 }

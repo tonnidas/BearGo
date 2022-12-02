@@ -315,12 +315,24 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Checks if
+     * Checks if the current logged-in user is admin or not.
+     * Checks if the user with user id exists in database or not
+     * Sets the current ban information
      *
-     * @param
-     * @param
-     * @param
-     * @return
+     * @param currentUser the current logged-in user
+     * @param userId      the user id whose profile will be banned or unbanned
+     * @param isBanned    the value true or false
+     * @return the user after updating the ban info
      */
-    // TODO: Ban a user for 6 months or a year or forever from the system - Maisha
+    public User banOrUnbanUser(User currentUser, Long userId, boolean isBanned) {
+        if (!currentUser.getIsAdmin()) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Only admin can update ban info");
+        }
+        User userDB = getUserById(userId);
+        if (userDB == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user exists for given user id");
+        }
+        userDB.setEnabled(!isBanned);
+        return userRepository.save(userDB);
+    }
 }
