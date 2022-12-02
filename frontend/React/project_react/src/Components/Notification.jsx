@@ -11,34 +11,61 @@ import { Stomp } from "@stomp/stompjs";
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import { useNavigate } from "react-router-dom";
-import { State } from 'country-state-city';
+
 
 var stompClient = null;
-//var socket = null;
-
-
-
-
-
-
-
-
-
 
 
 export default function Notification() {
     const socket = SockJS('http://localhost:8080/ws');
-    const navigate = useNavigate();
-    var [posts, setPosts] = useState([]); 
+    
+    
 
-    
-    
-    const [stompClient1, setStompClient] = useState([]);
-    var [notificationdata, setnotificationdata] = useState([]);
+    const navigate = useNavigate();
+    var [posts, setPosts] = useState([]);
 
     useEffect(() => {
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe(
+                "/topic/newNotification2",
+                message => {
+                    console.log("Saad");
+                    if (message.body) {
+                        var dto = JSON.parse(message.body);
+                        
+                        console.log(dto);
+                        setPosts(values => [
+                            dto,
+                            ...values
+                        ]);
+                    }
+                }
+            );
+        });
+        stompClient.activate();
 
-        
+        AuthService.setAxiosAuthHeader();
+        axios.get("api/notification")
+
+            .then((res) => {
+
+                console.log(res.data);
+                setPosts(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                }
+            });
+        //return stompClient;
+    }, []);
+
+    /*
+    useEffect(() => {
+
+
         AuthService.setAxiosAuthHeader();
         axios.get("api/notification")
 
@@ -55,126 +82,46 @@ export default function Notification() {
             });
     }, []);
 
-    
-    
-   
-    useEffect(() => {
-        //const socket = SockJS('http://localhost:8080/ws');
+   */
 
-       
-        console.log("Connecting");
-        //socket = SockJS('http://localhost:8080/ws');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, onConnected);
-               
-
-    }, []);
-    
-    const onConnected = () => {
-        console.log("Connected");        
-        stompClient.subscribe("/topic/newNotification2", onMessage);
-
-    };
-    const onMessage = (data) => {
-        console.log("data received");
-        const dto = JSON.parse(data.body);
-        console.log(dto);
-
-        setPosts(values => [
-            dto,
-            ...values
-        ]);
-
-        
-         
-
-        //setnotificationdata(dto);
-        //notificationdata.push(dto);
-        //setnotificationdata(notificationdata);
-        //notificationdata.push(dto);
-        //setnotificationdata(notificationdata);
-        /*
-        setnotificationdata(values => [
-            dto,
-            ...values
-        ]);
-         
-        
-        setPosts(values => [
-            dto,
-            ...values
-        ]);
-        
-        */
-
-    };
-        /*
-        stompClient.connect({}, () => {
-            stompClient.subscribe('/topic/newNotification2', (data) => {
-
-                
-
-                
-                const dto = JSON.parse(data.body);
-                console.log("I am printing");
-                
-                setPosts(values => [
-                    dto,
-                    ...values
-                ]);
-            
-                console.log(posts);
-                
-               
-            });
-        });
-
-    
-        setStompClient(stompClient);
-
-    }, []);
-    
-       */
-    
+    return (
+        <>
+            <div>
+                <div>
+                    <a
+                        className='nav-link dropdown-toggle'
+                        href='#'
+                        id='navbarDropdown'
+                        role='button'
+                        data-toggle='dropdown'
+                        aria-haspopup='true'
+                        aria-expanded='false'
+                    >
+                        <i className='icon-notifications'></i>
+                    </a>
+                    <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
+                        <h3>Notifications</h3>
 
 
-  return (
-    <>
-    <div>
-    <div>
-              <a
-                className='nav-link dropdown-toggle'
-                href='#'
-                id='navbarDropdown'
-                role='button'
-                data-toggle='dropdown'
-                aria-haspopup='true'
-                aria-expanded='false'
-              >
-                <i className='icon-notifications'></i>
-              </a>
-              <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
-                      <h3>Notifications</h3>
-                      
+
+                        <div className='notifications'>
 
 
-                      <div className='notifications'>
 
-                         
 
-                        
-                                            
-                {posts.map(post =>
-                  <p className='unread'>
-                  {post.notificationMsg}
-                  </p>
-                )}
-                      </div>
 
-                     
-              </div>
+                            {posts.map(post =>
+                                <p className='unread'>
+                                    {post.notificationMsg}
+                                </p>
+                            )}
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
-    </div>
-       </>
-  );
+        </>
+    );
+  
 }
