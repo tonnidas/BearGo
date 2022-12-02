@@ -192,13 +192,13 @@ export default function ContactSender() {
                                 <label>Interested Travelers</label>
                                 <div className='select-style'>
                                     <select name='interestedPeoples'
-                                    // value={post.contract.traveler.username || ""}
-                                       
+                                    // value={post.contract.traveler.username || ""} 
+                                        disabled={post.contract?.traveler?.id}
                                         onChange={event => handleChangePeople(event, post.id)}>
                                         <option value='None'>Select Traveler</option>
                                         {
                                             post.interestedPeoples.map(p =>
-                                                <option value={p.id}>{p.username}</option>
+                                                <option value={p.id} selected={post.contract.traveler?.id === p.id ? true : false}>{p.username}</option>
                                             )
                                         }
                                     </select>
@@ -207,12 +207,11 @@ export default function ContactSender() {
                             <div className='form-group'>
                                 <label>Update Status</label>
                                 <div className='select-style'>
-                                    <select name='deliveryStatus' 
-                                    //value={post.contract.deliveryStatus || ""}
+                                    <select name='deliveryStatus'
                                     onChange={e => handleChange(e, post.contract.id)}>
-                                        <option value='SEARCHING_TRAVELER'>SEARCHING_TRAVELER</option>
-                                        <option value='PICKED_UP'> PICKED_UP</option>
-                                        <option value='DELIVERED'>DELIVERED</option>
+                                        <option value='SEARCHING_TRAVELER' selected={post.contract.deliveryStatus === 'SEARCHING_TRAVELER' ? true : false}>SEARCHING_TRAVELER</option>
+                                        <option value='PICKED_UP' selected={post.contract.deliveryStatus === 'PICKED_UP' ? true : false}> PICKED_UP</option>
+                                        <option value='DELIVERED' selected={post.contract.deliveryStatus === 'DELIVERED' ? true : false}>DELIVERED</option>
                                     </select>
                                 </div>
                             </div>

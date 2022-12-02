@@ -51,7 +51,13 @@ export default function Sidebar(props) {
                             <li className={url === urlPaths.contactSender ? 'active' : ''}>
                                 <a href={urlPaths.contactSender}>
                                     <i className='icon-phone'></i>
-                                    <span>My Contract </span>
+                                    <span>My Contract as Sender</span>
+                                </a>
+                            </li>
+                            <li className={url === urlPaths.contractTraveller ? 'active' : ''}>
+                                <a href={urlPaths.contractTraveller}>
+                                    <i className='icon-phone'></i>
+                                    <span>My Contract as Traveller</span>
                                 </a>
                             </li>
                             <li className={url === urlPaths.blog ? 'active' : ''}>
