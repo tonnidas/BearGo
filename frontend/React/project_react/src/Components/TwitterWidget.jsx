@@ -13,20 +13,41 @@ var stompClient = null;
 
 export default function TwitterWidget(props) {
 
-    //const socket = SockJS('http://localhost:8080/ws');
+    const socket = SockJS('http://localhost:8080/ws');
+
+
+
     const navigate = useNavigate();
-    var [tweets, settweets] = useState([]); 
+    var [tweet, setTweets] = useState([]);
 
     useEffect(() => {
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe(
+                "/topic/tweet",
+                message => {
+                    
+                    if (message.body) {
+                        var dto = JSON.parse(message.body);
 
-
+                        console.log(dto);
+                        setTweets(values => [
+                            dto,
+                            ...values
+                        ]);
+                    }
+                }
+            );
+        });
+        stompClient.activate();
+        /*
         AuthService.setAxiosAuthHeader();
-        axios.get("api/twitter")
+        axios.get("api/notification")
 
             .then((res) => {
 
                 console.log(res.data);
-                settweets(res.data);
+                setPosts(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -34,68 +55,53 @@ export default function TwitterWidget(props) {
                     navigate(urlPaths.login);
                 }
             });
-    }, []);
-    /*
-    useEffect(() => {
-       
-
-        console.log("Connecting");
-        
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, onConnected);
-
+            */
 
     }, []);
 
-    const onConnected = () => {
-        console.log("Connected");
-        stompClient.subscribe("/topic/tweet", onMessage);
+    function getUrl(url) {
+   
+        console.log(url);
+        return url;
 
-    };
-    const onMessage = (data) => {
-        console.log("data received");
-        const dto = JSON.parse(data.body);
-        console.log(dto);
-
-        settweets(values => [
-            dto,
-            ...values
-        ]);
-
-    };
-    */
+    }
   return (
     <div className='col-md-4'>
-          <div className='twitter-feed'>
+          
+              
 
-              <blockquote class="twitter-tweet">
-                  <p lang="en" dir="ltr">
-                      I think it&#39;s entirely appropriate that the courier
-                      delivery pin to receive my parcel from
-                  <a href="https://twitter.com/CounterLove?ref_src=twsrc%5Etfw">@CounterLove</a>
-                  was 911 because these limited edition Hertzoggie cookies are
-                  criminally delicious!
-                  <a href="https://t.co/1z52eA0Oor">pic.twitter.com/1z52eA0Oor</a>
-                  </p>
-
-                  <a href="https://twitter.com/the_pod_one/status/1572841559812411392"></a>
-              </blockquote>
-              <Helmet>
-                <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-              </Helmet>
-          {tweets.map(tweet =>
-              <blockquote class="twitter-tweet">
+              
+          <div className='twitter-feed'> 
+              
+          {tweet.map(t =>
+              
+              
+              <blockquote className="twitter-tweet">
 
                   
-                      <p lang="en" dir="ltr">
-                          {tweet.ttext}
-                      </p>
 
-                  <a href="https://twitter.com/the_pod_one/status/1572841559812411392"></a>
+                  
+                      <p>{t.ttext}</p>
+                  
+                      
+                  
+                      {/*<a href={getUrl(t.tweeturl)}></a>*/}
+                  <a href={t.tweeturl}></a>
+                  <Helmet>
+                      <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                  </Helmet>
+                  
+                      
               </blockquote>
+
+              
+              
+
               )}
-        
-      </div>
+              
+          </div>      
+            
+     
     </div>
   );
 }
