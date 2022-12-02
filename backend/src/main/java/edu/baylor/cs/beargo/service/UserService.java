@@ -273,7 +273,7 @@ public class UserService implements UserDetailsService {
                 if (contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
                     totalDeliveredAsSender++;
                 }
-                if (contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
+                if (contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFUL) {
                     totalUnsuccessfulAsSender++;
                 }
             }
@@ -283,7 +283,7 @@ public class UserService implements UserDetailsService {
                 if (contract.getDeliveryStatus() == DeliveryStatus.DELIVERED) {
                     totalDeliveredAsTraveler++;
                 }
-                if (contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFULL) {
+                if (contract.getDeliveryStatus() == DeliveryStatus.UNSUCCESSFUL) {
                     totalUnsuccessfulAsTraveler++;
                 }
             }

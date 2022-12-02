@@ -58,7 +58,7 @@ public class MyService {
             blogPost.setDescription("Blog Post Description " + i);
             blogPost.setPostedDateTime(LocalDateTime.now());
             blogPost.setLastEditedDateTime(blogPost.getPostedDateTime());
-            // It depends on the user loop. There must be some user with this user name.
+            // It depends on the user loop. There must be some user with this username.
             User user = userRepository.findByUsername("user" + ((i % 2) + 11) + "@beargo.com").get();
             blogPost.setPostedBy(user);
             blogPostRepository.save(blogPost);
@@ -69,7 +69,7 @@ public class MyService {
             reviewAndRating.setReview("This person is good " + i);
             reviewAndRating.setRating(5);
             reviewAndRating.setReviewDateTime(LocalDateTime.now());
-            // It depends on the user loop. There must be some user with this user name.
+            // It depends on the user loop. There must be some user with this username.
             User user1 = userRepository.findByUsername("user" + (i * 2 + 9) + "@beargo.com").get();
             User user2 = userRepository.findByUsername("user" + (i * 2 + 10) + "@beargo.com").get();
             reviewAndRating.setReviewedBy(user1);

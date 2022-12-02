@@ -6,5 +6,5 @@ public enum DeliveryStatus {
     PICKED_UP,          // by sender or traveler
     IN_TRANSIT,         // by traveler only
     DELIVERED,          // by sender only
-    UNSUCCESSFULL       // only when contract end date passed
+    UNSUCCESSFUL       // only when contract end date passed
 }
