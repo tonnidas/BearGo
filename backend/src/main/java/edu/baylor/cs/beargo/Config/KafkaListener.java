@@ -53,7 +53,9 @@ public class KafkaListener {
 
       //  String topic = "/topic/newNotification2" + uid.toString();
 
-        String topic = "/topic/newNotification" + uid.toString();
+        //String topic = "/topic/newNotification" + uid.toString();
+
+        String topic = "/topic/newNotification2";
 
 
         System.out.println("Received New Notification");
