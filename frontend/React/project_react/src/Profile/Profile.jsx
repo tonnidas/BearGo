@@ -18,7 +18,7 @@ import AllReportList from './AllReportList';
 export default function Profile() {
 
     const navigate = useNavigate();
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({'isAdmin': false});
 
     function imageChange(imageId) {
         setInputs(values => ({ ...values, ['imageId']: imageId }))
@@ -190,8 +190,14 @@ export default function Profile() {
                             <button type="submit"
                                 className="common-btn btn-primary">Update</button>
 
-                            <br /> <br />
-                            <AllReportList userId={inputs.id} />
+                            {
+                                (inputs.isAdmin == false)
+                                &&
+                                <>
+                                    <br /> <br />
+                                    <AllReportList userId={inputs.id} />
+                                </>
+                            }
                         </form>
                     </div>
                 </div>

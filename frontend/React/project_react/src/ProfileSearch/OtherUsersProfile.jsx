@@ -9,11 +9,13 @@ import urlPaths from '../urlPaths';
 
 import ReviewAndRatingPage from '../Profile/ReviewAndRatingPage';
 import RoundedProfilePic from '../Profile/RoundedProfilePic';
+import AllReportList from '../Profile/AllReportList';
 
 export default function OtherUsersProfile({ userId }) {
 
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({});
+    const [currentUser, setCurrentUser] = useState({ "isAdmin": false });
 
     const handleReport = async (event) => {
         event.preventDefault();
@@ -28,7 +30,7 @@ export default function OtherUsersProfile({ userId }) {
         // localhost:8080/api/userComplaint/reportUser?reportTo=3&reason=So bad
         try {
             const resp = await axios.post('/api/userComplaint/reportUser?'
-                                                +'reportTo=' + userId + "&reason=" + reportText);
+                + 'reportTo=' + userId + "&reason=" + reportText);
             console.log(resp.data);
             alert("Thank you for reporting, an admin will review this shortly!");
         } catch (error) {
@@ -58,13 +60,30 @@ export default function OtherUsersProfile({ userId }) {
             });
     }, [userId]);
 
+    useEffect(() => {
+        AuthService.setAxiosAuthHeader();
+        axios.get("/api/users/current")
+            .then(res => {
+                // res.data.map((key, value) => console.log(key + " " + value));
+                console.log(res.data);
+                setCurrentUser(res.data);
+                console.log(currentUser);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                }
+            });
+    }, []);
+
     return (
         <div>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
                         <form className="user-form" onSubmit={handleReport}>
-                            <RoundedProfilePic imageId={inputs.imageId} username={inputs.username} isOwnProfile={false}/>
+                            <RoundedProfilePic imageId={inputs.imageId} username={inputs.username} isOwnProfile={false} />
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
@@ -111,8 +130,21 @@ export default function OtherUsersProfile({ userId }) {
                                 </div>
                             </div>
 
-                            <button type="submit"
-                                className="common-btn btn-primary">Report</button>
+                            {
+                                (currentUser.isAdmin == false)
+                                &&
+                                <form className="user-form">
+                                    <button type="submit"
+                                        className="common-btn btn-primary">Report</button>
+                                </form>
+                            }
+                            {
+                                (currentUser.isAdmin == true)
+                                &&
+                                <>
+                                    <AllReportList userId={inputs.id} />
+                                </>
+                            }
 
                         </form>
                     </div>
