@@ -34,19 +34,19 @@ export default function Navbar({ searchpost }) {
                 return;
             }
 
-            const data = {
-                startDate: inputs.startDate,
-                endDate: inputs.endDate,
-                sourceCity: inputs.sourceCity,
-                sourceState: inputs.sourceState,
-                destCity: inputs.destCity, 
-                destState: inputs.destState
-            }
-            const resp = axios.get('/api/productPosts/searchProductPost', data);
-            console.log("search ");
-            console.log(resp.data);
-            searchpost(resp.data);
-            //posts(resp.data);
+            
+            axios.get('/api/productPosts/searchProductPost/' + (inputs.startDate || "-") + '/' + (inputs.endDate || "-") + '/'
+                                        + (inputs.sourceCity || "-") + '/' + (inputs.sourceState || "-") + '/' + (inputs.destCity || "-")
+                                       + '/' + (inputs.destState || "-"))
+            .then(res => {
+                console.log(res.data);
+                searchpost(res.data);
+               // navigate(urlPaths.home);
+            }).catch(err => {
+                console.log("Error");
+                console.log(err);
+            })
+          
 
         } catch (error) {
             console.log(error);
