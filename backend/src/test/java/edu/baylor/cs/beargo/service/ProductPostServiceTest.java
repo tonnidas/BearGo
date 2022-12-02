@@ -42,7 +42,7 @@ class ProductPostServiceTest {
 
     @Test
     void getProductPosts() {
-        User user = userRepository.save(getSampleUser());
+        User user = userRepository.save(getSampleUser(1));
         productPostService.createProductPost(user, getSampleProductPost());
         productPostService.createProductPost(user, getSampleProductPost());
         assert productPostService.getProductPosts().size() == 2;
@@ -50,7 +50,7 @@ class ProductPostServiceTest {
 
     @Test
     void getSearchingTravelerPosts() {
-        User user = userRepository.save(getSampleUser());
+        User user = userRepository.save(getSampleUser(1));
         productPostService.createProductPost(user, getSampleProductPost());
 
         ProductPost productPost = productPostService.createProductPost(user, getSampleProductPost());
@@ -63,7 +63,7 @@ class ProductPostServiceTest {
 
     @Test
     void getProductPostsByUser() {
-        User user = userRepository.save(getSampleUser());
+        User user = userRepository.save(getSampleUser(1));
         productPostService.createProductPost(user, getSampleProductPost());
         List<ProductPost> searchedProductPosts = productPostService.getProductPostsByUser(user);
         assert searchedProductPosts.size() == 1;
@@ -72,7 +72,7 @@ class ProductPostServiceTest {
 
     @Test
     void getProductPostById() {
-        User user = userRepository.save(getSampleUser());
+        User user = userRepository.save(getSampleUser(1));
         ProductPost createdProductPost = productPostService.createProductPost(user, getSampleProductPost());
         ProductPost searchedProductPost = productPostService.getProductPostById(createdProductPost.getId());
         assert Objects.equals(searchedProductPost.getId(), createdProductPost.getId());
@@ -80,21 +80,21 @@ class ProductPostServiceTest {
 
     @Test
     void createProductPost() {
-        User user = userRepository.save(getSampleUser());
+        User user = userRepository.save(getSampleUser(1));
         ProductPost createdProductPost = productPostService.createProductPost(user, getSampleProductPost());
         assert createdProductPost.getId() != null;
     }
 
     @Test
     void updateProductPost() {
-        User user = userRepository.save(getSampleUser());
+        User user = userRepository.save(getSampleUser(1));
         ProductPost createdProductPost = productPostService.createProductPost(user, getSampleProductPost());
         createdProductPost.setDescription("new description");
         ProductPost updatedProductPost = productPostService.updateProductPost(user, createdProductPost);
         assert updatedProductPost.getDescription().equals(createdProductPost.getDescription());
     }
 
-//    @Test
+    //    @Test
 //    void searchProductPost() {
 //    }
 //
@@ -102,9 +102,19 @@ class ProductPostServiceTest {
 //    void getProductPostByCriteria() {
 //    }
 //
-//    @Test
-//    void updateInterestedPeople() {
-//    }
+    @Test
+    void updateInterestedPeople() {
+        User user = userRepository.save(getSampleUser(1));
+        ProductPost createdProductPost = productPostService.createProductPost(user, getSampleProductPost());
+
+        User traveler1 = userRepository.save(getSampleUser(2));
+        User traveler2 = userRepository.save(getSampleUser(3));
+        productPostService.updateInterestedPeople(traveler1, createdProductPost.getId());
+        ProductPost updatedProductPost = productPostService.updateInterestedPeople(traveler2, createdProductPost.getId());
+
+        assert updatedProductPost.getId().equals(createdProductPost.getId());
+        assert updatedProductPost.getInterestedPeoples().size() == 2;
+    }
 
     private ProductPost getSampleProductPost() {
         ProductPost productPost = new ProductPost();
@@ -130,9 +140,9 @@ class ProductPostServiceTest {
         return productPost;
     }
 
-    private User getSampleUser() {
+    private User getSampleUser(int suffix) {
         User user = new User();
-        user.setUsername("user@beargo.com");
+        user.setUsername("user" + suffix + "@beargo.com");
         user.setPassword("password");
         user.setFullname("user");
         user.setIsAdmin(false);
