@@ -75,9 +75,15 @@ export default function ContractTraveller() {
         
     };
 
+    const searchPosts = (searchData) => {
+        console.log("front page ");
+        console.log(searchData);
+        setPosts(searchData);
+    }
+
     return (
         <>
-            <Navbar />
+      <Navbar searchpost={searchPosts} />
 
             <div className='container-fluid'>
                 <div className='row'>

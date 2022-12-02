@@ -84,6 +84,12 @@ export default function ContactSender() {
         );
     }
 
+    const searchPosts = (searchData) => {
+        console.log("front page ");
+        console.log(searchData);
+        setPosts(searchData);
+    }
+
     function showPost(post) {
         return (
             <div className='widget'>
@@ -219,7 +225,7 @@ export default function ContactSender() {
 
     return (
         <>
-            <Navbar />
+      <Navbar searchpost={searchPosts} />
 
             <div className='container-fluid'>
                 <div className='row'>

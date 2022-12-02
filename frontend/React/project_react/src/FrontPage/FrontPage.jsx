@@ -46,11 +46,17 @@ export default function FrontPage() {
       });
   }, []);
 
+  const searchPosts = (searchData) => {
+      console.log("front page ");
+      console.log(searchData);
+      setPosts(searchData);
+  }
+
   return (
     <div>
       <title>Dashboard</title>
 
-      <Navbar />
+      <Navbar searchpost={searchPosts} />
 
       <div className='container-fluid'>
         <div className='row'>
