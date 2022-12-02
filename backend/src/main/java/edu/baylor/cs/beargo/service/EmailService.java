@@ -3,7 +3,6 @@ package edu.baylor.cs.beargo.service;
 
 import com.sendgrid.Method;
 import com.sendgrid.Request;
-import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
@@ -32,16 +31,20 @@ public class EmailService {
         Integer code = new Random().nextInt(9000) + 1000;
         confirmationCodes.put(email, code);
 
+        if (sendgridApiKey == null || sendgridApiKey.length() == 0) {
+            log.info("Email: " + email + ", verification code: " + code);
+            return;
+        }
+
         Email from = new Email(adminEmail);
         Email to = new Email(email);
 
-        String subject = "BearGo: Confirmation Code";
-        Content content = new Content("text/plain", "Your confirmation code is " + code);
+        String subject = "BearGo: Verification Code";
+        Content content = new Content("text/plain", "Your verification code is " + code);
 
         log.info("Sending verification email to " + email);
-        log.info("TODO REMOVE THIS CODE: " + code);
         Mail mail = new Mail(from, subject, to, content);
-        // sendEmail(mail);
+        sendEmail(mail);
     }
 
     public boolean verifyCode(String email, int code) {

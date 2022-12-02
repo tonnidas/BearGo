@@ -41,6 +41,7 @@ $ docker compose push
 $ ssh root@beargo.live
 $ cd beargo
 $ export BEARGO_ADMIN_PASSWORD={replace}
+$ export SENDGRID_API_KEY={replace}
 $ docker compose pull
 $ docker compose up -d
 $ docker compose logs -f
