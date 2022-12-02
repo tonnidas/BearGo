@@ -152,7 +152,7 @@ const AllReportList = ({ userId }) => {
                             (userComplaints.length == 0)
                             &&
                             <>
-                                <h6 style={styles.center_align}>Great, you don't have any reports yet.</h6>
+                                <h6 style={styles.center_align}>Great, no report found yet.</h6>
                             </>
                         }
                         {

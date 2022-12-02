@@ -82,7 +82,7 @@ export default function OtherUsersProfile({ userId }) {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-5">
-                        <form className="user-form" onSubmit={handleReport}>
+                        <form className="user-form">
                             <RoundedProfilePic imageId={inputs.imageId} username={inputs.username} isOwnProfile={false} />
                             <ReviewAndRatingPage userId={inputs.id} />
                             <div className="text-center">
@@ -133,17 +133,17 @@ export default function OtherUsersProfile({ userId }) {
                             {
                                 (currentUser.isAdmin == false)
                                 &&
-                                <form className="user-form">
-                                    <button type="submit"
-                                        className="common-btn btn-primary">Report</button>
-                                </form>
+                                <>
+                                    <form onClick={handleReport} className="report-user-from-other-profile">
+                                        <button type="submit"
+                                            className="common-btn btn-primary">Report</button>
+                                    </form>
+                                </>
                             }
                             {
                                 (currentUser.isAdmin == true)
                                 &&
-                                <>
-                                    <AllReportList userId={inputs.id} />
-                                </>
+                                <AllReportList userId={inputs.id} />
                             }
 
                         </form>
