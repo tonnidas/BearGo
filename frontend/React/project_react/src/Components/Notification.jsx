@@ -59,30 +59,10 @@ export default function Notification() {
                     navigate(urlPaths.login);
                 }
             });
-        //return stompClient;
+     
     }, []);
 
-    /*
-    useEffect(() => {
-
-
-        AuthService.setAxiosAuthHeader();
-        axios.get("api/notification")
-
-            .then((res) => {
-
-                console.log(res.data);
-                setPosts(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-                if (err.response.status === 401) {
-                    navigate(urlPaths.login);
-                }
-            });
-    }, []);
-
-   */
+   
 
     return (
         <>
