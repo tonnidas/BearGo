@@ -26,6 +26,9 @@ public class Contract {
     @Column
     private LocalDate contractStartDate;
 
+    @Column
+    private Double cost;
+
     @Column(nullable = false)
     private LocalDate contractEndDate;
 

@@ -14,12 +14,11 @@ import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
 
 export default function ContactSender() {
     const [posts, setPosts] = useState([]);
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState('');
 
     const handleChange = (event, param) => {
         const value = event.target.value;
         const name = event.target.name;
-        console.log(value + " " + name);
         //setPosts(values => ({ ...values, [name]: value }))
         AuthService.setAxiosAuthHeader();
         const resp = axios.post("api/contracts/updateStatus/" + param + "/" + value)
@@ -29,10 +28,30 @@ export default function ContactSender() {
 
     const handleChangePeople = (event, param) => {
         const value = event.target.value;
+        const name = event.target.name;
         AuthService.setAxiosAuthHeader();
         const resp = axios.post("api/contracts/confirmContract/" + param + "/" + value)
         console.log("id " + param);
         alert('Traveller selected!');
+    }
+
+    const handleChangeCost = (event, param) => {
+        const value = event.target.value;
+        setInputs(value);
+        AuthService.setAxiosAuthHeader();
+        // const resp = axios.post("api/contracts/confirmContract/" + param + "/" + value)
+        //console.log("cost " + value);
+        //alert('Traveller selected!');
+    }
+
+    const handleButton = (event) => {
+        const value = event.target.value;
+
+        console.log("cost " + inputs);
+        AuthService.setAxiosAuthHeader();
+        // const resp = axios.post("api/contracts/confirmContract/" + param + "/" + value)
+
+        //alert('Traveller selected!');
     }
 
     const handleClick = (e, status) => {
@@ -80,7 +99,7 @@ export default function ContactSender() {
 
     function reviewRatingButton(contractId, deliveryStatus) {
         if (deliveryStatus == "DELIVERED") {
-            return <ReviewAndRating contractId={contractId}/>;
+            return <ReviewAndRating contractId={contractId} />;
         }
         return (
             <></>
@@ -187,12 +206,12 @@ export default function ContactSender() {
                             <div className='form-group'>
 
                             </div>
-                            <br/>
+                            <br />
                             <div className="form-group">
                                 <label>Interested Travelers</label>
                                 <div className='select-style'>
                                     <select name='interestedPeoples'
-                                    // value={post.contract.traveler.username || ""} 
+                                        // value={post.contract.traveler.username || ""} 
                                         disabled={post.contract?.traveler?.id}
                                         onChange={event => handleChangePeople(event, post.id)}>
                                         <option value='None'>Select Traveler</option>
@@ -208,16 +227,21 @@ export default function ContactSender() {
                                 <label>Update Status</label>
                                 <div className='select-style'>
                                     <select name='deliveryStatus'
-                                    onChange={e => handleChange(e, post.contract.id)}>
+                                        onChange={e => handleChange(e, post.contract.id)}>
                                         <option value='SEARCHING_TRAVELER' selected={post.contract.deliveryStatus === 'SEARCHING_TRAVELER' ? true : false}>SEARCHING_TRAVELER</option>
                                         <option value='PICKED_UP' selected={post.contract.deliveryStatus === 'PICKED_UP' ? true : false}> PICKED_UP</option>
                                         <option value='DELIVERED' selected={post.contract.deliveryStatus === 'DELIVERED' ? true : false}>DELIVERED</option>
                                     </select>
                                 </div>
                             </div>
-                            
-                            {/* <button className='common-btn'>Interested People</button> */}
-                          
+                            <div className="form-group">
+                                <label>Cost</label>
+                                <input className="form-control" placeholder="0.0" name='cost'
+                                    onChange={event => handleChangeCost(event, post.contract.id)} />
+                            </div>
+
+                            <button className='common-btn' onClick={handleButton}>Add Cost</button>
+
                             <br />
                             {/* <button className='common-btn'>Update Status</button> */}
                             {
@@ -232,7 +256,7 @@ export default function ContactSender() {
 
     return (
         <>
-      <Navbar searchpost={searchPosts} />
+            <Navbar searchpost={searchPosts} />
 
             <div className='container-fluid'>
                 <div className='row'>
