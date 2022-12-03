@@ -48,47 +48,40 @@ export default function Sidebar(props) {
                                     <span>Home </span>{' '}
                                 </a>
                             </li>
+                            <li className={url === urlPaths.blog ? 'active' : ''}>
+                                <a href={urlPaths.blog}>
+                                    <i className='icon-globe'></i>
+                                    <span>Blogs </span>{' '}
+                                </a>
+                            </li>
                             <li className={url === urlPaths.message ? 'active' : ''}>
                                 <a href={urlPaths.message}>
                                     <i className='icon-message-square'></i>
-                                    <span>message </span>
-                                </a>
-                            </li>
-                            <li className={url === urlPaths.settings ? 'active' : ''}>
-                                <a href={urlPaths.home}>
-                                    <i className='icon-settings'></i>
-                                    <span>Settings </span>
+                                    <span>Message </span>
                                 </a>
                             </li>
                             <li className={url === urlPaths.myPosts ? 'active' : ''}>
                                 <a href={urlPaths.myPosts}>
-                                    <i className='icon-phone'></i>
+                                    <i className='icon-file-text'></i>
                                     <span>My Product Post </span>
+                                </a>
+                            </li>
+                            <li className={url === urlPaths.myBlog ? 'active' : ''}>
+                                <a href={urlPaths.myBlog}>
+                                    <i className='icon-blog'></i>
+                                    <span>My Blog Post</span>
                                 </a>
                             </li>
                             <li className={url === urlPaths.contactSender ? 'active' : ''}>
                                 <a href={urlPaths.contactSender}>
-                                    <i className='icon-phone'></i>
+                                    <i className='icon-calendar'></i>
                                     <span>My Contract as Sender</span>
                                 </a>
                             </li>
                             <li className={url === urlPaths.contractTraveller ? 'active' : ''}>
                                 <a href={urlPaths.contractTraveller}>
-                                    <i className='icon-phone'></i>
+                                    <i className='icon-calendar'></i>
                                     <span>My Contract as Traveller</span>
-                                </a>
-                            </li>
-                            <li className={url === urlPaths.blog ? 'active' : ''}>
-                                <a href={urlPaths.blog}>
-                                    {' '}
-                                    <i className='icon-home'></i>
-                                    <span>Blogs </span>{' '}
-                                </a>
-                            </li>
-                            <li className={url === urlPaths.myBlog ? 'active' : ''}>
-                                <a href={urlPaths.myBlog}>
-                                    <i className='icon-clipboard'></i>
-                                    <span>My blog </span>
                                 </a>
                             </li>
                             <li className={url === urlPaths.profileSearch ? 'active' : ''}>
@@ -101,18 +94,17 @@ export default function Sidebar(props) {
                                 {
                                     isAdmin && (
                                         <a href={urlPaths.reviewPost}>
-                                            <i className='icon-search'></i>
+                                            <i className='icon-eye'></i>
                                             <span>Admin . Review Post </span>
                                         </a>
                                     )
                                 }
-
                             </li>
                             <li className={url === urlPaths.reportUser ? 'active' : ''}>
                                 {
                                     isAdmin && (
                                         <a href={urlPaths.reportUser}>
-                                            <i className='icon-search'></i>
+                                            <i className='icon-eye'></i>
                                             <span>Admin . Review User </span>
                                         </a>
                                     )
