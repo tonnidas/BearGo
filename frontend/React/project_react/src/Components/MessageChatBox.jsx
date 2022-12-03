@@ -5,6 +5,12 @@ import { MessageReceiveComponent } from '../Components/MessageReceiveComponent';
 import { MessageSentComponent } from '../Components/MessageSentComponent';
 import AuthService from '../Service/AuthService';
 
+import * as SockJS from 'sockjs-client';
+
+import { Stomp } from "@stomp/stompjs";
+
+var stompClient = null;
+
 export default function MessageChatBox(props) {
 
   const [loading, setLoading] = useState(true);
@@ -51,8 +57,57 @@ export default function MessageChatBox(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [props.toId, reloadWindow]);
+    //}, [props.toId]);
+    }, [props.toId, reloadWindow]);
+    
+    useEffect(() => {
+        const socket = SockJS('http://localhost:8080/ws');
+        console.log("My ID is ???: "  + props.toId)
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe(
+                "/topic/frommsg" + props.toId,
+                message => {
 
+                    if (message.body) {
+                        var dto = JSON.parse(message.body);
+                        //setData(dto);
+                        console.log("--------------");
+                        console.log(msg);
+                        console.log(data)
+                        console.log(dto);
+                        
+
+                        console.log("------------");
+                        //setData(myArray);
+                        //setMsg(dto.msg);
+                        console.log(msg);
+                        /*
+                        setMsg(values => [
+                            ...values,
+                            dto
+
+
+
+                        ]);
+                        */
+                        setData(values => [
+                            ...values,
+                            dto
+                            
+
+
+                        ]);
+                        
+                        //setReloadWindow(!reloadWindow);
+                    }
+                }
+            );
+        });
+        console.log("Subscribed to Message");
+        stompClient.activate();
+    }, [props.toId]);
+    
 
   return (
     <>
