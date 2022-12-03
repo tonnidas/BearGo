@@ -76,4 +76,10 @@ public class MessageService {
 
         return msgRepo.findMyMsgList(user);
     }
+
+    public List<User> getUsers() {
+
+
+        return userRepo.findAll();
+    }
 }

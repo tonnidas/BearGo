@@ -73,7 +73,7 @@ public class KafkaListener {
         Long uid = message.getId();
 
         String topic = "/topic/newmsg" + uid.toString();
-
+        System.out.println(topic);
         // send new msg to that user
         messagingTemplate.convertAndSend(topic, message);
 

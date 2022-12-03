@@ -4,6 +4,7 @@ import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
 
 import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.service.AdminService;
 import edu.baylor.cs.beargo.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import java.util.List;
 public class MessageController {
     @Autowired
     MessageService msgService;
+
+    @Autowired
+    AdminService adminService;
 
     @GetMapping(value = "/{toId}")
     public ResponseEntity<List<Message>> getMyMsg(@PathVariable(value = "toId") Long toId,@AuthenticationPrincipal User user) {
@@ -59,6 +63,15 @@ public class MessageController {
         log.info("Saving Message for User: " + user.getId().toString());
         Message msg = msgService.saveMsg(m,user,toId);
         return new ResponseEntity<>(msg, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/all/users")
+    public ResponseEntity<List<User>> getAllUsers(@AuthenticationPrincipal User user) {
+
+        //Long uid = user.getId();
+        log.info("Getting all users ");
+        List<User> userList = adminService.getUsers();
+        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
 

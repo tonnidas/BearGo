@@ -1,12 +1,66 @@
-import React from 'react';
 
-export const MessageList = (props) => {
+
+import React, { useEffect, useState } from 'react';
+
+import AuthService from '../Service/AuthService';
+import urlPaths from '../urlPaths';
+import axios from 'axios';
+import { Input,Card } from 'antd';
+
+
+export var MessageList = (props) => {
+
+    var [users, setUsers] = useState([]);
+    var [usermatch, setusermatch] = useState([]);
+    useEffect(() => {
+        AuthService.setAxiosAuthHeader();
+        axios.get("api/Message/all/users")
+            .then(res => {
+                //setUserId(res.data.id);
+                console.log('userId:', res.data.id);
+                setUsers(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                }
+            });
+    }, []);
+
+    console.log(users);
+    const searchUsers = (text) => {
+
+        if (!text) {
+            setusermatch([]);
+        }
+        else {
+            let matches = users.filter((userdata) => {
+                const regex = new RegExp(`${text}`, 'gi');
+                return userdata.fullname.match(regex);
+            });
+            setusermatch(matches);
+            console.log("matched data");
+            console.log(matches);
+        }
+    };
+    
   return (
     <>
-      <div className='body'>
-        <div className='search'>
-          <input placeholder='Search...' type='text' />
-        </div>
+          <div className='body'>
+              <div className='search'>
+                  <input style={{ width: "40%", marginTop: "5px"} } placeholder='Search...' type='text' onChange={(e) => searchUsers(e.target.value)} />
+              </div>
+              {usermatch && usermatch.map((item, index) => (
+                  <div key={index} style={{ marginLeft: "5%", marginTop:"5px" }}>
+
+                      <a href="/">{item.fullname}</a>
+                      {/*<Card title={item.fullname}/>*/}
+                      {/*Id:{item.id}*/}
+                      {/*</Card>*/}
+                  </div>
+              ))}
+              
         <ul>
           {
             props.data.map((chatObj, index) => {
