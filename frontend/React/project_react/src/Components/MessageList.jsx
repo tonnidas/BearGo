@@ -9,10 +9,11 @@ export const MessageList = (props) => {
         </div>
         <ul>
           {
-            props.data.map(chatObj => {
-              const userId = chatObj.fromid === Number(props.id) ? chatObj.toid : chatObj.fromid;
+            props.data.map((chatObj, index) => {
+              const msgUserId = chatObj.fromid === Number(props.id) ? chatObj.toid : chatObj.fromid;
+              console.log(`list user Id: ${msgUserId}`);
               const userName = chatObj.fromid === Number(props.id) ? chatObj.toName : chatObj.fromname;
-              return (<li>
+              return (<li key={index} onClick={() => props.clickHandler(msgUserId, userName)} >
                 <a className='thumbnail' href='#'>
                   {userName.substring(0, 1)}
                 </a>
