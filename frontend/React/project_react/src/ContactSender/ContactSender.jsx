@@ -119,7 +119,12 @@ export default function ContactSender() {
 
     function reviewRatingButton(contractId, deliveryStatus) {
         if (deliveryStatus == "DELIVERED") {
-            return <ReviewAndRating contractId={contractId} />;
+            return (
+                <>
+                <br />
+                <ReviewAndRating contractId={contractId} />
+                </>
+            );
         }
         return (
             <></>
