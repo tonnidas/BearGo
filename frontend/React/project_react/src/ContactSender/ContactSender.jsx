@@ -9,10 +9,14 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import Moment from 'react-moment';
 import Collapsible from 'react-collapsible';
+import { useNavigate } from "react-router-dom";
+import urlPaths from '../urlPaths';
 
 import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
 
 export default function ContactSender() {
+    const navigate = useNavigate();
+
     const [posts, setPosts] = useState([]);
     const [inputs, setInputs] = useState('');
 
@@ -99,6 +103,27 @@ export default function ContactSender() {
         }
         return (
             <></>
+        );
+    }
+
+    const handleInvoice = (event, post) => {
+        console.log("handleInvoice called");
+        event.preventDefault();
+        // navigate(urlPaths.invoice, {'name': "name"});
+        console.log(post);
+        let newWindow = window.open(urlPaths.invoice);
+        newWindow["post"] = post
+    }
+
+    function createInvoiceButton(post) {
+        return (
+            <>
+                <br />
+                <br />
+                <a>
+                    <button className='common-btn' onClick={async (event) => handleInvoice(event, post)}>Create Invoice</button>
+                </a>
+            </>
         );
     }
 
@@ -238,8 +263,11 @@ export default function ContactSender() {
 
                             <button className='common-btn' onClick={event => handleButton(event, post.contract.id)}>Add Cost</button>
 
-                            <br />
                             {/* <button className='common-btn'>Update Status</button> */}
+                            {
+                                createInvoiceButton(post)
+                            }
+                            <br />
                             {
                                 reviewRatingButton(post.contract.id, post.contract.deliveryStatus)
                             }

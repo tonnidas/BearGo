@@ -16,7 +16,8 @@ const urlPaths = {
   updatePost: '/updatePost',
   reviewPost: '/reviewPost',
   forgetPassword: '/forgetPassword',
-  reportUser: '/reportUser'
+  reportUser: '/reportUser',
+  invoice: '/invoice'
 };
 
 export default urlPaths;
