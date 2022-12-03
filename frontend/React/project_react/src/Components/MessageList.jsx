@@ -44,6 +44,14 @@ export var MessageList = (props) => {
             console.log(matches);
         }
     };
+
+    var newfunc =(item)=> {
+        console.log("My Data--------");
+        console.log(item);
+        console.log(props);
+        props.clickHandler(item.id, item.fullname);
+
+    }
     
   return (
     <>
@@ -51,10 +59,20 @@ export var MessageList = (props) => {
               <div className='search'>
                   <input style={{ width: "40%", marginTop: "5px"} } placeholder='Search...' type='text' onChange={(e) => searchUsers(e.target.value)} />
               </div>
-              {usermatch && usermatch.map((item, index) => (
-                  <div key={index} style={{ marginLeft: "5%", marginTop:"5px" }}>
+              {/*{usermatch && usermatch.map((item, index) => (*/}
+              {/*    <div key={index} style={{ marginLeft: "5%", marginTop:"5px" }}>*/}
 
-                      <a href="/">{item.fullname}</a>
+              {/*        <a href="/">{item.fullname}</a>*/}
+              {/*        */}{/*<Card title={item.fullname}/>*/}
+              {/*        */}{/*Id:{item.id}*/}
+              {/*        */}{/*</Card>*/}
+              {/*    </div>*/}
+              {/*))}*/}
+
+              {usermatch && usermatch.map((item, index) => (
+                  <div key={index} style={{ marginLeft: "5%", marginTop: "5px" }}>
+                      
+                      <a onClick={(e) => newfunc(item)} >{item.fullname}</a>
                       {/*<Card title={item.fullname}/>*/}
                       {/*Id:{item.id}*/}
                       {/*</Card>*/}
