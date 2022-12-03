@@ -46,7 +46,7 @@ public class ProductPostCommentService {
     }
 
     /**
-     * @return An admin by id
+     * @return Return list of comments
      */
     public List<ProductPostComment> getCommentsByProductPostId(Long productPostId) {
         Optional<ProductPost> productPost = productPostRepository.findById(productPostId);
@@ -78,6 +78,8 @@ public class ProductPostCommentService {
         productPostComment.setCommentedProductPost(productPost);
         productPostComment.setCommentTime(LocalDateTime.now());
         productPostComment.setCommentedBy(user);
+
+        productPost.getComments().add(productPostComment);
 
         return productPostCommentRepository.save(productPostComment);
     }
