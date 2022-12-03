@@ -29,6 +29,26 @@ export default function ContractTraveller() {
         alert('Traveller selected!');
     }
 
+    function onload(){
+        AuthService.setAxiosAuthHeader();
+            axios.get("/api/productPosts/getProductPostByCriteria/traveler/NONE")
+
+                .then((res) => {
+                    console.log(res.data);
+                    setPosts(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+
+                });
+    }
+    useEffect(() => {
+        let ignore = false;
+        
+        if (!ignore)  onload()
+        return () => { ignore = true; }
+        },[]);
+
     const handleClick = (e, status) => {
         if(status == "NONE")
         {
@@ -102,11 +122,6 @@ export default function ContractTraveller() {
                             <button className='common-btn global' onClick={e=> handleClick(e, "DELIVERED")}>
                                 <i className='icon'></i> <span>Completed</span>
                             </button>
-
-                            {/* <a class="active" href="#posts" >My Posts</a>
-        <a href="#interested">Interested Travellers</a>
-        <a href="#completed">Completed</a>
-        <a href="#intransit">In-Transit</a> */}
                         </div>
                         <div className='row' style={{ position: 'relative' }}>
                             <div className='col-md-8'>

@@ -68,18 +68,10 @@ public class AdminController {
     }
 
     // block product post
-    @PostMapping("/resolve/productPost")
-    public ResponseEntity<Set<ProductPostComplaint>> resolvePostComplaint(@AuthenticationPrincipal User user, @RequestParam Long productPostId, @RequestParam String verdict) {
-        Set<ProductPostComplaint> complaints = adminService.resolvePostComplaint(user, productPostId, verdict);
-        return new ResponseEntity<>(complaints, HttpStatus.OK);
-    }
+
 
     // return all product posts that has more than "threshold" unresolved reports
-    @GetMapping("/getReportedProductPosts")
-    public List<ProductPostDto> getReportedProductPosts(@RequestParam int threshold) {
-        List<ProductPost> productPosts = adminService.getReportedProductPosts(threshold);
-        return ProductPostDto.getProductPostDtoList(productPosts);
-    }
+
 
     // TODO: block user here
 }

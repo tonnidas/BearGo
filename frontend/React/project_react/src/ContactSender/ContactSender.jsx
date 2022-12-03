@@ -54,6 +54,26 @@ export default function ContactSender() {
         //alert('Traveller selected!');
     }
 
+    function onload(){
+        AuthService.setAxiosAuthHeader();
+            axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
+
+                .then((res) => {
+                    console.log(res.data);
+                    setPosts(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+
+                });
+    }
+    useEffect(() => {
+        let ignore = false;
+        
+        if (!ignore)  onload()
+        return () => { ignore = true; }
+        },[]);
+
     const handleClick = (e, status) => {
         if (status == "NONE") {
             AuthService.setAxiosAuthHeader();

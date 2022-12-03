@@ -92,36 +92,6 @@ public class AdminService {
         }
     }
 
-    /**
-     * Checks if verdict parameter is "blocked"
-     *
-     * @param user          the authenticated user
-     * @param productPostId the corresponding product post id
-     * @return created contract
-     */
-    public Set<ProductPostComplaint> resolvePostComplaint(User user, Long productPostId, String verdict) {
-        ProductPost productPost = productPostService.getProductPostById(productPostId);
-        Set<ProductPostComplaint> complaints = productPost.getComplaints();
-
-        if (verdict.equals("blocked")) {
-            productPost.setBlocked(true);
-            productPostRepository.save(productPost);
-        }
-
-        Set<User> users = new HashSet<>(); // for notification
-
-        for (ProductPostComplaint c : complaints) {
-            c.setIsResolved(Boolean.TRUE);
-            c.setResolveDate(LocalDate.now());
-            c.setResolvedBy(user);
-            users.add(c.getComplainedBy()); // for notification
-            productPostComplaintRepository.save(c);
-        }
-
-        // TODO: send notification to users - Saad vai
-
-        return complaints;
-    }
 
     /**
      * Return all product posts that has more than "threshold" unresolved reports
@@ -129,22 +99,5 @@ public class AdminService {
      * @param threshold threshold for unresolved reports
      * @return filtered product posts
      */
-    public List<ProductPost> getReportedProductPosts(int threshold) {
-        List<ProductPost> productPosts = productPostService.getProductPosts();
-        List<ProductPost> reportedProductPosts = new ArrayList<>();
 
-        for (ProductPost productPost : productPosts) {
-            int count = 0;
-            for (ProductPostComplaint complaint : productPost.getComplaints()) {
-                if (!complaint.getIsResolved()) {
-                    count++;
-                }
-            }
-            if (count > threshold) {
-                reportedProductPosts.add(productPost);
-            }
-        }
-
-        return reportedProductPosts;
-    }
 }
