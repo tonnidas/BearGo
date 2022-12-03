@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import AuthService from '../Service/AuthService';
 import urlPaths from '../urlPaths';
 import axios from 'axios';
-import { Input,Card } from 'antd';
+//import { Input } from 'antd';
 
 
 export var MessageList = (props) => {
