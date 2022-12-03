@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import urlPaths from '../urlPaths';
+import AuthService from '../Service/AuthService';
+import axios from 'axios';
 
 export default function Sidebar(props) {
     const url = window.location.pathname;
 
     const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        AuthService.setAxiosAuthHeader();
+        axios.get("/api/users/current")
+            .then(res => {
+                setIsAdmin(res.data.isAdmin);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                }
+            });
+    }, []);
+
     const handleClickCreateProductPost = (e) => {
         navigate(urlPaths.createPost);
     };
@@ -80,16 +98,25 @@ export default function Sidebar(props) {
                                 </a>
                             </li>
                             <li className={url === urlPaths.reviewPost ? 'active' : ''}>
-                                <a href={urlPaths.reviewPost}>
-                                    <i className='icon-search'></i>
-                                    <span>Admin . Review Post </span>
-                                </a>
+                                {
+                                    isAdmin && (
+                                        <a href={urlPaths.reviewPost}>
+                                            <i className='icon-search'></i>
+                                            <span>Admin . Review Post </span>
+                                        </a>
+                                    )
+                                }
+
                             </li>
                             <li className={url === urlPaths.reportUser ? 'active' : ''}>
-                                <a href={urlPaths.reportUser}>
-                                    <i className='icon-search'></i>
-                                    <span>Admin . Review User </span>
-                                </a>
+                                {
+                                    isAdmin && (
+                                        <a href={urlPaths.reportUser}>
+                                            <i className='icon-search'></i>
+                                            <span>Admin . Review User </span>
+                                        </a>
+                                    )
+                                }
                             </li>
                         </ul>
                     </div>
