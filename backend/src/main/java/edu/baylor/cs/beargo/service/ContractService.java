@@ -208,4 +208,13 @@ public class ContractService {
             return false;
         }
     }
+
+    public Contract addCost(User user, Long contractId, Double cost) {
+        Contract contract = getContractById(contractId);
+        ProductPost p = contract.getProductPost();
+        contract.setCost(cost);
+        p.setContract(contract);
+        System.out.println("cost " + p.getContract().getCost());
+        return contractRepository.save(contract);
+    }
 }

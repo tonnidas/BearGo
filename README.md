@@ -35,14 +35,28 @@ $ docker compose build
 $ docker compose push
 ```
 
+- Create required directories and env files in server (one time)
+
+```
+$ ssh root@beargo.live
+$ cd beargo
+$ mkdir -p backend frontend/React/project_react
+
+$ nano .env
+BEARGO_ADMIN_PASSWORD={replace}
+SENDGRID_API_KEY={replace}
+```
+
 - Pull and deploy the images in server (without erasing DB)
 
 ```
 $ ssh root@beargo.live
 $ cd beargo
-$ export BEARGO_ADMIN_PASSWORD={replace}
-$ export SENDGRID_API_KEY={replace}
+
+$ curl -LJO https://raw.githubusercontent.com/tonnidas/BearGo/main/docker-compose.yml
+
 $ docker compose pull
+$ docker compose down
 $ docker compose up -d
 $ docker compose logs -f
 ```
@@ -50,6 +64,7 @@ $ docker compose logs -f
 - Erase DB and deploy (Alert: backup DB before doing this)
 
 ```
-$ docker compose down; docker volume rm beargo_db-data
+$ docker compose down
+$ docker volume rm beargo_db-data
 $ docker compose up -d
 ```

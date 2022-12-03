@@ -33,7 +33,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${BEARGO_ADMIN_PASSWORD:?}
       SPRING_DATASOURCE_URL: jdbc:mysql://beargo-db:3306/beargo
       BEARGO_ADMIN_PASSWORD: ${BEARGO_ADMIN_PASSWORD:?}
-      SENDGRID_API_KEY: ${SENDGRID_API_KEY:?}
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
 
   beargo-db:
     image: mysql:5.7

@@ -202,9 +202,16 @@ export default function ContractTraveller() {
                                                                 </div>
                                                             </div>
 
-                                                            <div className='form-group'>
+                                                            <div className='col-md-6'>
+                                                                    <div className='form-group'>
+                                                                        <label>Cost</label>
 
-                                                            </div>
+                                                                        <p>
+                                                                            {post.contract.cost}
+                                                                        </p>
+
+                                                                    </div>
+                                                                </div>
                                                             <div className='form-group'>
                                                                 <label>Update Status</label>
                                                                 <div className='select-style'>

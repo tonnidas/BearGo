@@ -142,6 +142,7 @@ public class ProductPostService {
         contract.setDeliveryStatus(DeliveryStatus.SEARCHING_TRAVELER);
         contract.setProductPost(productPost);
         contract.setSender(user);
+        contract.setCost(0.0);
         contractRepository.save(contract);
 
         // set contract to product post
@@ -258,6 +259,7 @@ public class ProductPostService {
         for(ProductPost p : posts)
         {
             Contract c = p.getContract();
+            System.out.println("cost " + p.getContract().getCost());
             if(userType.equals("sender"))
             {
 
