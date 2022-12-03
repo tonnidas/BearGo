@@ -111,5 +111,21 @@ public class AdminService {
         return reportedProductPosts;
     }
 
+    public Set<ProductPostComplaint> reviewProductPostComplaint(User user, Long productPostId, String verdict) {
+        ProductPost productPost = productPostService.getProductPostById(productPostId);
+        Set<ProductPostComplaint> complaints = productPost.getComplaints();
+
+        if (verdict.equals("blocked")) {
+            productPost.setBlocked(true);
+            productPostRepository.save(productPost);
+        }
+        for (ProductPostComplaint c : complaints) {
+            c.setIsResolved(Boolean.TRUE);
+            c.setResolveDate(LocalDate.now());
+            c.setResolvedBy(user);
+            productPostComplaintRepository.save(c);
+        }
+        return complaints;
+    }
 
 }

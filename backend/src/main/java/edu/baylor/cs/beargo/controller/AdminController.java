@@ -73,6 +73,11 @@ public class AdminController {
         return ProductPostDto.getProductPostDtoList(productPosts);
     }
 
-
-    // TODO: block user here
+    @PostMapping("/resolve/productPost")
+    public ResponseEntity<Set<ProductPostComplaint>> reviewProductPostComplaint(@AuthenticationPrincipal User user,
+                                                                                @RequestParam Long productPostId,
+                                                                                @RequestParam String verdict) {
+        Set<ProductPostComplaint> complaints = adminService.reviewProductPostComplaint(user, productPostId, verdict);
+        return new ResponseEntity<>(complaints, HttpStatus.OK);
+    }
 }

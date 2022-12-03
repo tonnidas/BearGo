@@ -17,10 +17,8 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -217,36 +215,35 @@ public class ProductPostService {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> searchPosts = new ArrayList<>();
         for (ProductPost pr : posts) {
-            System.out.println(searchDto.getSourceCity());
-            System.out.println(searchDto.getSourceState());
-            System.out.println(searchDto.getDestCity());
-            System.out.println(searchDto.getDestState());
-//            if (stDate != null && enDate != null) {
-//                Date date1 = Date.from(pr.getExpectedDeliveryDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-//                Date date2 = Date.from(pr.getExpectedPickupDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-//                if ((date1.after(stDate) && date1.before(enDate)) || (date2.after(stDate) && date2.before(enDate))) {
-//                    searchPosts.add(pr);
-//                }
-//            }
-            if((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
-                    (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")))
-            {
-                if(pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
-                pr.getDestination().getCity().equals(searchDto.getDestCity()))
+            String stDate = searchDto.getStartDate();
+            String enDate = searchDto.getEndDate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+            LocalDate startdate = LocalDate.parse(stDate, formatter);
+            LocalDate endDate = LocalDate.parse(enDate, formatter);
+            if (stDate != null && enDate != null) {
+                LocalDate date1 = pr.getExpectedPickupDate();
+                LocalDate date2 = pr.getExpectedDeliveryDate();
+
+                if ((date1.isAfter(startdate) && date1.isBefore(endDate)) ||
+                        (date2.isAfter(startdate) && date2.isBefore(endDate))) {
                     searchPosts.add(pr);
-            }
-            else if((searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
-                    searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))
-            {
-                System.out.println(pr.getDestination().getState());
-                if(pr.getSource().getState().equals(searchDto.getSourceState()) &&
-                pr.getDestination().getState().equals(searchDto.getDestState()))
-                {
+
+                if ((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
+                        (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))) {
+                    if (pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
+                            pr.getDestination().getCity().equals(searchDto.getDestCity()))
+                        searchPosts.add(pr);
+                } else if ((searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
+                        searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")) {
                     System.out.println(pr.getDestination().getState());
-                    searchPosts.add(pr);
+                    if (pr.getSource().getState().equals(searchDto.getSourceState()) &&
+                            pr.getDestination().getState().equals(searchDto.getDestState())) {
+                        System.out.println(pr.getDestination().getState());
+                        searchPosts.add(pr);
+                    }
                 }
             }
-            
+            }
         }
         return searchPosts;
     }
