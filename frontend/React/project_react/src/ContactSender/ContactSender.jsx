@@ -35,21 +35,17 @@ export default function ContactSender() {
         alert('Traveller selected!');
     }
 
-    const handleChangeCost = (event, param) => {
+    const handleChangeCost = (event) => {
         const value = event.target.value;
         setInputs(value);
-        AuthService.setAxiosAuthHeader();
-        // const resp = axios.post("api/contracts/confirmContract/" + param + "/" + value)
-        //console.log("cost " + value);
-        //alert('Traveller selected!');
     }
 
-    const handleButton = (event) => {
+    const handleButton = (event, param) => {
         const value = event.target.value;
 
         console.log("cost " + inputs);
         AuthService.setAxiosAuthHeader();
-        // const resp = axios.post("api/contracts/confirmContract/" + param + "/" + value)
+        const resp = axios.post("api/contracts/addCost/" + param + "/" + inputs)
 
         //alert('Traveller selected!');
     }
@@ -237,10 +233,10 @@ export default function ContactSender() {
                             <div className="form-group">
                                 <label>Cost</label>
                                 <input className="form-control" placeholder="0.0" name='cost'
-                                    onChange={event => handleChangeCost(event, post.contract.id)} />
+                                    onChange={event => handleChangeCost(event)} />
                             </div>
 
-                            <button className='common-btn' onClick={handleButton}>Add Cost</button>
+                            <button className='common-btn' onClick={event => handleButton(event, post.contract.id)}>Add Cost</button>
 
                             <br />
                             {/* <button className='common-btn'>Update Status</button> */}
