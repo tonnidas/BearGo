@@ -15,10 +15,8 @@ var stompClient = null;
 
 export default function TwitterWidget(props) {
 
-    const socket = SockJS('http://localhost:8080/ws');
-
-
-
+    const socket = (location.hostname === "localhost" || location.hostname === "127.0.0.1") ? SockJS('http://localhost:8080/ws') : SockJS('https://beargo.live/ws');
+    
     const navigate = useNavigate();
     var [tweet, setTweets] = useState([]);
 
