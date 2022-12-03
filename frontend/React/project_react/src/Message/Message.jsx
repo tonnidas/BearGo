@@ -12,6 +12,12 @@ import AuthService from '../Service/AuthService';
 
 import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
+
+import * as SockJS from 'sockjs-client';
+
+import { Stomp } from "@stomp/stompjs";
+
+var stompClient = null;
 const Message = () => {
 
 	const navigate = useNavigate();
@@ -60,6 +66,48 @@ const Message = () => {
 				console.log(err);
 			});
 	}, [userId, reloadWindow]);
+
+	useEffect(() => {
+		const socket = SockJS('http://localhost:8080/ws');
+		console.log("My ID is ???: " + userId)
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function (frame) {
+			stompClient.subscribe(
+				"/topic/newmsg" +  userId,
+				message => {
+					
+					if (message.body) {
+						var dto = JSON.parse(message.body);
+						//setData(dto);
+						console.log("--------------");
+						console.log(data)
+						console.log(dto);
+
+						var newdata = null;
+						newdata = data.filter(function (obj) {
+							return obj.fromid !== dto.fromid;
+						});
+
+						console.log(newdata);
+						setData(newdata);
+
+						console.log("------------");
+						//setData(myArray);
+
+						setData(values => [
+							dto,
+							... values
+							
+
+						]);
+					}
+				}
+			);
+		});
+		console.log("Subscribed to Message");
+		stompClient.activate();
+
+	}, [userId]);
 
 	return (
 		<>

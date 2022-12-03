@@ -70,7 +70,7 @@ public class KafkaListener {
     public void listenMessage(MessageDto message) {
 
         log.info("Listening {}", message);
-        Long uid = message.getId();
+        Long uid = message.getToid();
 
         String topic = "/topic/newmsg" + uid.toString();
         System.out.println(topic);
