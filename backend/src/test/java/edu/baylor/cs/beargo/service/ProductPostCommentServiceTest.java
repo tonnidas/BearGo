@@ -1,13 +1,18 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.*;
+import edu.baylor.cs.beargo.model.ProductPost;
+import edu.baylor.cs.beargo.model.ProductPostComment;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
+
+import static edu.baylor.cs.beargo.service.SampleModels.*;
 
 @DataJpaTest
 class ProductPostCommentServiceTest {
@@ -50,10 +55,22 @@ class ProductPostCommentServiceTest {
 
     @Test
     void getCommentById() {
+        User user1 = userRepository.save(getSampleUser(1));
+        User user2 = userRepository.save(getSampleUser(2));
+        ProductPost productPost = productPostService.createProductPost(user1, getSampleProductPost());
+        ProductPostComment productPostComment = productPostCommentService.createComment(user2, getSampleProductPostComment(), productPost.getId());
+        assert productPostCommentService.getCommentById(productPostComment.getId()) != null;
     }
 
     @Test
     void getCommentsByProductPostId() {
+        User user1 = userRepository.save(getSampleUser(1));
+        User user2 = userRepository.save(getSampleUser(2));
+        ProductPost productPost = productPostService.createProductPost(user1, getSampleProductPost());
+        ProductPostComment productPostComment = productPostCommentService.createComment(user2, getSampleProductPostComment(), productPost.getId());
+        List<ProductPostComment> searchedPostComments = productPostCommentService.getCommentsByProductPostId(productPost.getId());
+        assert searchedPostComments.size() == 1;
+        assert Objects.equals(searchedPostComments.get(0).getId(), productPostComment.getId());
     }
 
     @Test
@@ -67,44 +84,11 @@ class ProductPostCommentServiceTest {
 
     @Test
     void updateComment() {
-    }
-
-    private ProductPostComment getSampleProductPostComment() {
-        ProductPostComment productPostComment = new ProductPostComment();
-        productPostComment.setComment("nice");
-        return productPostComment;
-    }
-
-    private ProductPost getSampleProductPost() {
-        ProductPost productPost = new ProductPost();
-
-        productPost.setDescription("Product Post 1");
-        productPost.setExpectedPickupDate(LocalDate.now());
-        productPost.setExpectedDeliveryDate(LocalDate.now());
-
-        Address address = new Address();
-        address.setStreet("1825");
-        address.setCity("Waco");
-        address.setState("TX");
-        address.setZip("76706");
-        address.setCountry("USA");
-        productPost.setSource(address);
-        productPost.setDestination(address);
-
-        Product product = new Product();
-        product.setDescription("Product 1");
-        product.setWeight(10.0);
-        productPost.setProduct(product);
-
-        return productPost;
-    }
-
-    private User getSampleUser(int suffix) {
-        User user = new User();
-        user.setUsername("user" + suffix + "@beargo.com");
-        user.setPassword("password");
-        user.setFullname("user");
-        user.setIsAdmin(false);
-        return user;
+        User user1 = userRepository.save(getSampleUser(1));
+        User user2 = userRepository.save(getSampleUser(2));
+        ProductPost productPost = productPostService.createProductPost(user1, getSampleProductPost());
+        ProductPostComment comment = productPostCommentService.createComment(user2, getSampleProductPostComment(), productPost.getId());
+        ProductPostComment newComment = productPostCommentService.updateComment(user2, comment.getId(), "New comment");
+        assert newComment.getComment().equals("New comment");
     }
 }

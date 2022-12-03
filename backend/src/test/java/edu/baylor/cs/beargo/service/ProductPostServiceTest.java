@@ -1,15 +1,19 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.*;
+import edu.baylor.cs.beargo.model.DeliveryStatus;
+import edu.baylor.cs.beargo.model.ProductPost;
+import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+
+import static edu.baylor.cs.beargo.service.SampleModels.getSampleProductPost;
+import static edu.baylor.cs.beargo.service.SampleModels.getSampleUser;
 
 @DataJpaTest
 class ProductPostServiceTest {
@@ -114,38 +118,5 @@ class ProductPostServiceTest {
 
         assert updatedProductPost.getId().equals(createdProductPost.getId());
         assert updatedProductPost.getInterestedPeoples().size() == 2;
-    }
-
-    private ProductPost getSampleProductPost() {
-        ProductPost productPost = new ProductPost();
-
-        productPost.setDescription("Product Post 1");
-        productPost.setExpectedPickupDate(LocalDate.now());
-        productPost.setExpectedDeliveryDate(LocalDate.now());
-
-        Address address = new Address();
-        address.setStreet("1825");
-        address.setCity("Waco");
-        address.setState("TX");
-        address.setZip("76706");
-        address.setCountry("USA");
-        productPost.setSource(address);
-        productPost.setDestination(address);
-
-        Product product = new Product();
-        product.setDescription("Product 1");
-        product.setWeight(10.0);
-        productPost.setProduct(product);
-
-        return productPost;
-    }
-
-    private User getSampleUser(int suffix) {
-        User user = new User();
-        user.setUsername("user" + suffix + "@beargo.com");
-        user.setPassword("password");
-        user.setFullname("user");
-        user.setIsAdmin(false);
-        return user;
     }
 }
