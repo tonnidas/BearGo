@@ -92,12 +92,24 @@ public class AdminService {
         }
     }
 
+    public List<ProductPost> getReportedProductPosts(int threshold) {
+        List<ProductPost> productPosts = productPostService.getProductPosts();
+        List<ProductPost> reportedProductPosts = new ArrayList<>();
 
-    /**
-     * Return all product posts that has more than "threshold" unresolved reports
-     *
-     * @param threshold threshold for unresolved reports
-     * @return filtered product posts
-     */
+        for (ProductPost productPost : productPosts) {
+            int count = 0;
+            for (ProductPostComplaint complaint : productPost.getComplaints()) {
+                if (!complaint.getIsResolved()) {
+                    count++;
+                }
+            }
+            if (count > threshold) {
+                reportedProductPosts.add(productPost);
+            }
+        }
+
+        return reportedProductPosts;
+    }
+
 
 }
