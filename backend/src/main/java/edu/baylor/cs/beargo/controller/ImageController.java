@@ -15,11 +15,22 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
+    /**
+     *
+     * @param file the image file
+     * @return the uploaded image
+     * @throws IOException an IOException
+     */
     @PostMapping("/upload")
     public Image uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
         return imageService.uploadImage(file);
     }
 
+    /**
+     *
+     * @param id   the image id
+     * @return byte
+     */
     @GetMapping(value = "download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] downloadImageById(@PathVariable Long id) {
         return imageService.getImageById(id);

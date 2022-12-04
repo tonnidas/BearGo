@@ -19,6 +19,10 @@ public class ContractController {
     @Autowired
     ContractService contractService;
 
+    /**
+     *
+     * @return a list of all contracts
+     */
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Contract>> getContracts() {
@@ -26,24 +30,48 @@ public class ContractController {
         return new ResponseEntity<>(contracts, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param id  the contract id
+     * @return the contract
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Contract> getContractById(@PathVariable("id") Long id) {
         Contract contract = contractService.getContractById(id);
         return new ResponseEntity<>(contract, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param user         the logged user
+     * @param contractId   the contract id
+     * @return a boolean value
+     */
     @GetMapping("/getReviewCompletion/{contractId}")
     public ResponseEntity<Boolean> getReviewCompletion(@AuthenticationPrincipal User user,
                                                        @PathVariable("contractId") Long contractId) {
         return new ResponseEntity<>(contractService.getReviewCompletion(user, contractId), HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param userId          the user id
+     * @param lookBackMonths  the time
+     * @return the user contract Dto
+     */
     @GetMapping("/userContracts")
     public ResponseEntity<UserContractsDto> getContractByUserId(@RequestParam Long userId, @RequestParam int lookBackMonths) {
         UserContractsDto userContractsDto = contractService.getContractByUserIdByDate(userId, lookBackMonths);
         return new ResponseEntity<>(userContractsDto, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param user          the logged user
+     * @param productPostId the product post id
+     * @param travelerId    the traveler id
+     * @return the updated contract
+     */
     @PostMapping("/confirmContract/{productPostId}/{travelerId}")
     public ResponseEntity<Contract> confirmContract(@AuthenticationPrincipal User user,
                                                     @PathVariable("productPostId") Long productPostId,
@@ -52,6 +80,13 @@ public class ContractController {
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param user        the logged user
+     * @param contractId  the contract id
+     * @param newStatus   the new status of contract
+     * @return the updated contract
+     */
     @PostMapping("/updateStatus/{contractId}/{newStatus}")
     public ResponseEntity<Contract> updateStatus(@AuthenticationPrincipal User user,
                                                  @PathVariable("contractId") Long contractId,
@@ -60,6 +95,13 @@ public class ContractController {
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param user        the logged user
+     * @param contractId  the contract id
+     * @param cost        the cost
+     * @return the updated contract
+     */
     @PostMapping("/addCost/{contractId}/{cost}")
     public ResponseEntity<Contract> addCost(@AuthenticationPrincipal User user,
                                                  @PathVariable("contractId") Long contractId,
@@ -68,6 +110,16 @@ public class ContractController {
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param user       the logged user
+     * @param postid     the product post id
+     * @param travelerid the traveler id
+     * @param contractid the contract id
+     * @param status     the new status
+     * @param cost       the cost
+     * @return the updated contract
+     */
     @PostMapping("/updateEverything/{parampostid}/{travelervalue}/{contractid}/{status}/{cost}")
     public ResponseEntity<Contract> updateEverything(@AuthenticationPrincipal User user,
                                             @PathVariable("parampostid") Long postid,
