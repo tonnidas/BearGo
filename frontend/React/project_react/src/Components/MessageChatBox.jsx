@@ -38,7 +38,7 @@ export default function MessageChatBox(props) {
       AuthService.setAxiosAuthHeader();
       const response = await axios.post(`/api/Message/${props.toId}`, data);
       props.reload();
-      setReloadWindow(!reloadWindow);
+      //setReloadWindow(!reloadWindow);
     } catch (error) {
       console.error(`Failed to send msg. Error: ${error.message}`);
       alert('Msg not sent!');
@@ -57,8 +57,8 @@ export default function MessageChatBox(props) {
       .catch((err) => {
         console.log(err);
       });
-    //}, [props.toId]);
-    }, [props.toId, reloadWindow]);
+    }, [props.toId]);
+    //}, [props.toId, reloadWindow]);
     
     useEffect(() => {
         const socket = SockJS('http://localhost:8080/ws');
@@ -79,25 +79,27 @@ export default function MessageChatBox(props) {
                         
 
                         console.log("------------");
-                        //setData(myArray);
-                        //setMsg(dto.msg);
+                       
                         console.log(msg);
-                        /*
-                        setMsg(values => [
-                            ...values,
-                            dto
+                       
 
+                        var newdata = null;
+                        newdata = data.filter(function (obj) {
+                            return obj.fromid !== dto.fromid;
+                        });
 
+                        console.log(newdata);
+                        setData(newdata);
 
-                        ]);
-                        */
+                        console.log("------------");
+                      
+
                         setData(values => [
-                            ...values,
-                            dto
-                            
-
+                            dto,
+                            ...values
 
                         ]);
+                        
                         
                         //setReloadWindow(!reloadWindow);
                     }
