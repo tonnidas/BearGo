@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useRef ,useEffect, useState, Component } from 'react';
 
 //import admin from '../images/admin.jpg';
 //import logo_white from '../images/logo-white.svg';
@@ -19,9 +19,11 @@ import { State } from 'country-state-city';
 var stompClient = null;
 //var socket = null;
 
-
+var counter = 0;
 
 export default function Notification() {
+    const [not, setNot] = useState(0);
+    
 
     const socket = (location.hostname === "localhost" || location.hostname === "127.0.0.1") ? SockJS('http://localhost:8080/ws') : SockJS('https://beargo.live/ws');
 
@@ -37,7 +39,11 @@ export default function Notification() {
                     console.log("Saad");
                     if (message.body) {
                         var dto = JSON.parse(message.body);
-                        
+                        //not = not + 1;
+                        counter += 1;
+                        setNot(counter);
+                        console.log("#####################");
+                        console.log(not);
                         console.log(dto);
                         setPosts(values => [
                             dto,
@@ -66,13 +72,24 @@ export default function Notification() {
      
     }, []);
 
-   
+    const handleClick = (e) => {
+        e.preventDefault();
+        
+            counter = 0;
+            console.log('The link was clicked.');
+            setNot(0);
+      
+            console.log(counter);
+
+    }
+
+    
 
     return (
         <>
             <div>
                 <div>
-                    <a
+                    <a onClick={handleClick}
                         className='nav-link dropdown-toggle'
                         href='#'
                         id='navbarDropdown'
@@ -82,7 +99,9 @@ export default function Notification() {
                         aria-expanded='false'
                     >
                         <i className='icon-notifications'></i>
+                        ({ not})
                     </a>
+                    
                     <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
                         <h3>Notifications</h3>
 
