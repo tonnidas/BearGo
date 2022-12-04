@@ -221,8 +221,9 @@ public class UserService implements UserDetailsService {
                 if (reviewAndRating.getContractReviewedBySender() != null) {
                     totalRatingCntAsTraveler++;
                     totalRatingAsTraveler += reviewAndRating.getRating();
-                } else {
-                    totalRatingAsSender++;
+                }
+                if (reviewAndRating.getContractReviewedByTraveler() != null) {
+                    totalRatingCntAsSender++;
                     totalRatingAsSender += reviewAndRating.getRating();
                 }
             }

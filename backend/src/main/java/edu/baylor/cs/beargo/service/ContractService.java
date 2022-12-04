@@ -196,17 +196,20 @@ public class ContractService {
         if (contract == null) {
             return false;
         }
-        if (contract.getSender().getId().equals(user.getId())) {
-            if (contract.getReviewAndRatingBySender() == null) {
-                return false;
-            }
-            return true;
-        } else {
-            if (contract.getReviewAndRatingByTraveler() == null) {
-                return false;
-            }
+        if (contract.getSender() == null && contract.getTraveler() == null) {
             return false;
         }
+        if (contract.getSender() != null && contract.getSender().getId().equals(user.getId())) {
+            if (contract.getReviewAndRatingBySender() != null) {
+                return true;
+            }
+        }
+        if (contract.getTraveler() != null && contract.getTraveler().getId().equals(user.getId())) {
+            if (contract.getReviewAndRatingByTraveler() != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Contract updateCost(User user, Long contractId, Double cost) {
