@@ -38,6 +38,7 @@ export default function Login() {
                             <div className="text-center">
                                 <img src={logo_white} alt="" />
                             </div>
+                            <br/>
                             <div className="form-group">
                                 <label>Email / Username</label>
                                 <input type="text" className="form-control" placeholder="user@example.com" name='username' value={inputs.username || ""} onChange={handleChange} />
