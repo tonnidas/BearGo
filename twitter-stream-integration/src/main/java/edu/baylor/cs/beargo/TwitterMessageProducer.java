@@ -110,8 +110,8 @@ public class TwitterMessageProducer extends MessageProducerSupport {
 
 
             tModel.setTid(tid);
-            tModel.setTUsername(username);
-            tModel.setTText(textdata);
+            //tModel.setTUsername(username);
+            //tModel.setTText(textdata);
 
 
 
