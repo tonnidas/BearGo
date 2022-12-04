@@ -123,6 +123,9 @@ export default function ContactSender() {
                 <>
                     <br />
                     <ReviewAndRating contractId={contractId} />
+                <br />
+                <ReviewAndRating contractId={contractId} />
+
                 </>
             );
         }
