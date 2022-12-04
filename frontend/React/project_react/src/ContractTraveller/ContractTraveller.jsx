@@ -9,6 +9,8 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import Moment from 'react-moment';
 
+import urlPaths from '../urlPaths';
+
 import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
 import ProfileImage from '../Service/Helper';
 
@@ -119,10 +121,7 @@ export default function ContractTraveller() {
     const handleInvoice = (event, post) => {
         console.log("handleInvoice called");
         event.preventDefault();
-        // navigate(urlPaths.invoice, {'name': "name"});
-        console.log(post);
-        let newWindow = window.open(urlPaths.invoice);
-        newWindow["post"] = post
+        window.open(urlPaths.invoice + "?pid=" + post.id);
     }
 
     function createInvoiceButton(post) {
