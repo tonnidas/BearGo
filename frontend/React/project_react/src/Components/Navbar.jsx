@@ -29,10 +29,21 @@ export default function Navbar({ searchpost }) {
         AuthService.setAxiosAuthHeader();
 
         try {
-            if (inputs.sourceState == null) {
-                alert('State can not be empty!');
-                return;
+            if(inputs.sourceCity != null)
+            {
+                if (inputs.sourceState == null) {
+                    alert('State can not be empty!');
+                    return;
+                }
             }
+            if(inputs.destCity != null)
+            {
+                if (inputs.destState == null) {
+                    alert('State can not be empty!');
+                    return;
+                }
+            }
+           
 
             
             axios.get('/api/productPosts/searchProductPost/' + (inputs.startDate || "-") + '/' + (inputs.endDate || "-") + '/'
