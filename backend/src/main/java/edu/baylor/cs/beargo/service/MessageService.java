@@ -36,6 +36,12 @@ public class MessageService {
     @Autowired
     private KafkaTemplate<String, MessageDto> kafkaTemplate;
 
+    /**
+     * @param m        message
+     * @param fromUser user who is sending the msg
+     * @param toId     user id
+     * @return a image file
+     */
     public Message saveMsg(Message m, User fromUser, Long toId) {
 
         User toUser = userRepo.findById(toId).orElse(null);
@@ -60,23 +66,37 @@ public class MessageService {
         return savedMsg;
     }
 
+    /**
+     * @param user     user who is sending the msg
+     * @param toId     user id
+     * @return a image file
+     */
     public List<Message> getMyMsg(User user, Long toId) {
         User toUser = userRepo.findById(toId).orElse(null);
         return msgRepo.findMyMsg(user,toUser);
     }
 
 
-
+    /**
+     *
+     * @return a list of msgs
+     */
     public List<Message> getAllmsg() {
         return msgRepo.findAll();
     }
 
+    /**
+     * @return a list of msgs
+     */
     public List<Message> getAllmsngrList(User user) {
 
 
         return msgRepo.findMyMsgList(user);
     }
 
+    /**
+     * @return a list of users
+     */
     public List<User> getUsers() {
 
 

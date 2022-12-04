@@ -9,6 +9,9 @@ import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.UserRepository;
 import edu.baylor.cs.beargo.security.JwtTokenProvider;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,8 @@ import java.util.Set;
 
 @Service
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;

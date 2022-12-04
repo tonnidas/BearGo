@@ -21,12 +21,20 @@ public class ImageService {
     @Autowired
     ImageRepository imageRepository;
 
+    /**
+     * @param file         the image file
+     * @return a image file
+     */
     public Image uploadImage(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setContent(file.getBytes());
         return imageRepository.save(image);
     }
 
+    /**
+     * @param id    the image id
+     * @return a byte
+     */
     public byte[] getImageById(Long id) {
         Optional<Image> image = imageRepository.findById(id);
         if (image.isPresent()) {

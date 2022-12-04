@@ -10,6 +10,8 @@ import axios from 'axios';
 
 export var MessageList = (props) => {
 
+    const [searchdata, setsearchdata] = useState('');
+
     var [users, setUsers] = useState([]);
     var [usermatch, setusermatch] = useState([]);
     useEffect(() => {
@@ -30,7 +32,7 @@ export var MessageList = (props) => {
 
     console.log(users);
     const searchUsers = (text) => {
-
+        setsearchdata(text);
         if (!text) {
             setusermatch([]);
         }
@@ -50,6 +52,8 @@ export var MessageList = (props) => {
         console.log(item);
         console.log(props);
         props.clickHandler(item.id, item.fullname);
+        setsearchdata("");
+        setusermatch([]);
 
     }
     
@@ -57,7 +61,7 @@ export var MessageList = (props) => {
     <>
           <div className='body'>
               <div className='search'>
-                  <input style={{ width: "40%", marginTop: "5px"} } placeholder='Search...' type='text' onChange={(e) => searchUsers(e.target.value)} />
+                  <input style={{ width: "40%", marginTop: "5px" }} placeholder='Search...' type='text' value={searchdata} onChange={(e) => searchUsers(e.target.value)} />
               </div>
               {/*{usermatch && usermatch.map((item, index) => (*/}
               {/*    <div key={index} style={{ marginLeft: "5%", marginTop:"5px" }}>*/}

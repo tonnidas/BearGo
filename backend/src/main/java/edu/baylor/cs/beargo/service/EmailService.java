@@ -1,6 +1,5 @@
 package edu.baylor.cs.beargo.service;
 
-
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;
@@ -27,6 +26,9 @@ public class EmailService {
 
     Map<String, Integer> confirmationCodes = new HashMap<>();
 
+    /** sends code to the destination email address
+     * @param email    the email
+     */
     public void sendVerificationEmail(String email) throws IOException {
         Integer code = new Random().nextInt(9000) + 1000;
         confirmationCodes.put(email, code);
@@ -47,6 +49,12 @@ public class EmailService {
         sendEmail(mail);
     }
 
+    /**
+     * Checks if the action taken by the admin is for blocking the productPost
+     * @param email         the email
+     * @param code          the code
+     * @return a boolean
+     */
     public boolean verifyCode(String email, int code) {
         if (confirmationCodes.containsKey(email)) {
             return confirmationCodes.get(email) == code;
@@ -55,6 +63,9 @@ public class EmailService {
         }
     }
 
+    /**
+     * @param mail          the Mail
+     */
     public void sendEmail(Mail mail) throws IOException {
         SendGrid sg = new SendGrid(sendgridApiKey);
         Request request = new Request();

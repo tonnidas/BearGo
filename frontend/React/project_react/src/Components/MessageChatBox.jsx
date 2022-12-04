@@ -19,13 +19,19 @@ export default function MessageChatBox(props) {
     const [msg, setMsg] = useState('');
     const [reloadWindow, setReloadWindow] = useState(false);
 
+    const [txtValue, settxtValue] = useState('');
+
+    
+
     const handleChange = (event) => {
         const value = event.target.value;
+        //event.target.value="";
         setMsg(value);
-        console.log(`Msg: ${msg}`);
+        //console.log(`Msg: ${msg}`);
     }
 
     const sendMsg = async () => {
+        
         if (!msg) {
             alert('No msg to send!');
             return;
@@ -34,7 +40,7 @@ export default function MessageChatBox(props) {
             msg,
         }
         console.log(data);
-
+        //settxtValue("");
         try {
             AuthService.setAxiosAuthHeader();
             const response = await axios.post(`/api/Message/${props.toId}`, data);
@@ -52,6 +58,7 @@ export default function MessageChatBox(props) {
             console.error(`Failed to send msg. Error: ${error.message}`);
             alert('Msg not sent!');
         }
+        setMsg("");
     }
 
     useEffect(() => {
@@ -174,7 +181,8 @@ export default function MessageChatBox(props) {
                     </div>
 
                     <div className="chatapp-footer" style={{ margin: '4px' }}>
-                        <textarea onChange={handleChange}
+                        
+                        <textarea onChange={e => handleChange(e)} value={msg}
                             style={{ margin: '16px' }}
                             name="chatText" rows="1" className="form-control" placeholder="Write a message"></textarea>
                         {/* <div className="send-button"> */}

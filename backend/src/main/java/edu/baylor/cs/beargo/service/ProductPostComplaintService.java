@@ -1,5 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.ProductPostComplaint;
 import edu.baylor.cs.beargo.model.User;
@@ -8,15 +9,12 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.event.PublicInvocationEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -24,10 +22,16 @@ import java.util.Set;
 public class ProductPostComplaintService {
 
     @Autowired
+    NotificationService notificationService;
+
+    @Autowired
     ProductPostComplaintRepository productPostComplaintRepository;
 
     @Autowired
     ProductPostService productPostService;
+
+    @Autowired
+    AdminService adminService;
 
     /**
      * Checks if the complained product post is valid
@@ -52,8 +56,8 @@ public class ProductPostComplaintService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot complaint against own ProductPost, update or delete ProductPost instead");
         }
 
-        for(ProductPostComplaint c : productPost.getComplaints()) {
-            if(c.getComplainedBy().getId().equals(user.getId())) {
+        for (ProductPostComplaint c : productPost.getComplaints()) {
+            if (c.getComplainedBy().getId().equals(user.getId())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You have already reported this post");
             }
         }
@@ -67,17 +71,28 @@ public class ProductPostComplaintService {
         complaint.setResolveDate(null);
 
         // TODO: check complaints count for the product post and send notification - Saad
+        Notification notification = new Notification();
+        notification.setNotificationMsg("You complain is recorded");
+        notificationService.saveNotification(user, notification, user.getId());
+
+        List<User> admins = adminService.getAdmins();
+        for (User admin : admins) {
+            Notification notification1 = new Notification();
+            notification1.setNotificationMsg("A user has complained a product post");
+            notificationService.saveNotification(admin, notification, admin.getId());
+        }
 
         return productPostComplaintRepository.save(complaint);
     }
 
-    public List<ProductPostComplaint> getAllComplains()
-    {
+    /**
+     * @return a list of complaints
+     */
+    public List<ProductPostComplaint> getAllComplains() {
         List<ProductPostComplaint> complaintLis = productPostComplaintRepository.findAll();
         List<ProductPostComplaint> allComplaints = new ArrayList<>();
-        for(ProductPostComplaint p : complaintLis)
-        {
-            if(!p.getIsResolved())
+        for (ProductPostComplaint p : complaintLis) {
+            if (!p.getIsResolved())
                 allComplaints.add(p);
         }
         return allComplaints;

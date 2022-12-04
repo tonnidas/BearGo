@@ -55,6 +55,7 @@ public class AdminService {
     }
 
     /**
+     * @param id      the id of admin
      * @return An admin by id
      */
     public User getAdminById(Long id) {
@@ -72,8 +73,7 @@ public class AdminService {
     }
 
     /**
-     * TODO: Promote user by id to be an admin
-     *
+     * @param id      the id of user
      * @return promoted User
      */
     public User promoteUser(Long id) {
@@ -92,6 +92,11 @@ public class AdminService {
         }
     }
 
+    /**
+     * Checks if the number of complaints against a productPost is greater than the threshold
+     * @param threshold  the threshold value
+     * @return a list of productPosts
+     */
     public List<ProductPost> getReportedProductPosts(int threshold) {
         List<ProductPost> productPosts = productPostService.getProductPosts();
         List<ProductPost> reportedProductPosts = new ArrayList<>();
@@ -107,10 +112,16 @@ public class AdminService {
                 reportedProductPosts.add(productPost);
             }
         }
-
         return reportedProductPosts;
     }
 
+    /**
+     * Checks if the action taken by the admin is for blocking the productPost
+     * @param user          the authenticated user
+     * @param productPostId the contract id
+     * @param verdict       the verdict decision
+     * @return a set of complaints
+     */
     public Set<ProductPostComplaint> reviewProductPostComplaint(User user, Long productPostId, String verdict) {
         ProductPost productPost = productPostService.getProductPostById(productPostId);
         Set<ProductPostComplaint> complaints = productPost.getComplaints();
