@@ -154,15 +154,16 @@ export default function PostWidget(props) {
               </a>
             </li>
             <li>
+              <a role="button" href='#' onClick={handleShare}>
+                <i className='icon-check'></i>Share
+              </a>
+            </li>
+            <li>
               <a role="button" href='#' onClick={handleReport}>
                 <i className='icon-alert'></i>Report
               </a>
             </li>
-            <li>
-              <a role="button" href='#' onClick={handleShare}>
-                <i className='icon-alert'></i>Share
-              </a>
-            </li>
+            
           </ul>
         </div>
 
