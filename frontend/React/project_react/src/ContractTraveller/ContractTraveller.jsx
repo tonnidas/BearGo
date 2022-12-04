@@ -15,6 +15,7 @@ export default function ContractTraveller() {
 
     const handleChange = (event, param) => {
         const value = event.target.value;
+        console.log(value);
         AuthService.setAxiosAuthHeader();
         const resp = axios.post("api/contracts/updateStatus/" + param +"/" + value)
         console.log(resp.data);
@@ -231,8 +232,8 @@ export default function ContractTraveller() {
                                                                 <label>Update Status</label>
                                                                 <div className='select-style'>
                                                                     <select name='#' onChange={e => handleChange(e, post.contract.id)}>
-                                                                        <option value='PICKED_UP'> PICKED_UP</option>
-                                                                        <option value='TRANSIT'>IN-TRANSIT</option>
+                                                                        <option value='PICKED_UP' selected={post.contract.deliveryStatus === 'PICKED_UP' ? true : false}> PICKED_UP</option>
+                                                                        <option value='IN_TRANSIT' selected={post.contract.deliveryStatus === 'IN_TRANSIT' ? true : false}>IN-TRANSIT</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
