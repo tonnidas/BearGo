@@ -14,11 +14,12 @@ import ReviewAndRatingPage from './ReviewAndRatingPage';
 
 import RoundedProfilePic from './RoundedProfilePic';
 import AllReportList from './AllReportList';
+import ReviewAsSenderAndTraveler from './ReviewAsSenderAndTraveler';
 
 export default function Profile() {
 
     const navigate = useNavigate();
-    const [inputs, setInputs] = useState({'isAdmin': false});
+    const [inputs, setInputs] = useState({ 'isAdmin': false });
 
     function imageChange(imageId) {
         setInputs(values => ({ ...values, ['imageId']: imageId }))
@@ -196,6 +197,22 @@ export default function Profile() {
                                 <>
                                     <br /> <br />
                                     <AllReportList userId={inputs.id} />
+                                </>
+                            }
+                            {
+                                (inputs.isAdmin == false)
+                                &&
+                                <>
+                                    <br />
+                                    <ReviewAsSenderAndTraveler userId={inputs.id} isSender={true} />
+                                </>
+                            }
+                            {
+                                (inputs.isAdmin == false)
+                                &&
+                                <>
+                                    <br />
+                                    <ReviewAsSenderAndTraveler userId={inputs.id} isSender={false} />
                                 </>
                             }
                         </form>
