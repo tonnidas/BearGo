@@ -12,6 +12,7 @@ import image_woman from '../images/women_avatar1.jpg';
 import Moment from 'react-moment';
 import CommentWidget from './CommentWidget';
 import ProfileImage from '../Service/Helper';
+import { TwitterShareButton, TwitterIcon } from 'react-share';
 
 export default function PostWidget(props) {
   const navigate = useNavigate();
@@ -57,8 +58,12 @@ export default function PostWidget(props) {
 
   const handleShare = async (event) => {
     event.preventDefault();
+    console.log(props.post);
+    console.log("cd="+props.post.createdAt);
+    console.log("dl="+props.post.expectedDeliveryDate);
 
   }
+  
 
   const handleReport = async (event) => {
     event.preventDefault();
@@ -154,9 +159,14 @@ export default function PostWidget(props) {
               </a>
             </li>
             <li>
-              <a role="button" href='#' onClick={handleShare}>
-                <i className='icon-check'></i>Share
-              </a>
+            <TwitterShareButton
+              url="#BearGO"
+              title={props.post.description+" "+props.post.expectedPickupDate+" "+props.post.expectedPickupDate}
+              className="Demo__some-network__share-button">
+              <TwitterIcon
+                size={32}
+                round />
+           </TwitterShareButton>
             </li>
             <li>
               <a role="button" href='#' onClick={handleReport}>
