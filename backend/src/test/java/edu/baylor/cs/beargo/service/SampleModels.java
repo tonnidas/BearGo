@@ -3,8 +3,36 @@ package edu.baylor.cs.beargo.service;
 import edu.baylor.cs.beargo.model.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class SampleModels {
+
+    public static Product getSampleProduct(Double w, String d) {
+        Product product = new Product();
+        product.setWeight(w);
+        product.setDescription(d);
+        return product;
+    }
+
+    public static ProductPostComplaint getSamplerProductPostComplaint() {
+        ProductPostComplaint productPostComplaint = new ProductPostComplaint();
+
+        productPostComplaint.setReason("Wrong Description");
+        productPostComplaint.setIsResolved(Boolean.FALSE);
+        productPostComplaint.setComplainDate(LocalDate.now());
+
+        return productPostComplaint;
+    }
+
+    public static BlogPost getSamplerBlogPost() {
+        BlogPost blogPost = new BlogPost();
+
+        blogPost.setDescription("Blog Post 1");
+        blogPost.setPostedDateTime(LocalDateTime.now());
+
+        return blogPost;
+    }
+
     public static ProductPostComment getSampleProductPostComment() {
         ProductPostComment productPostComment = new ProductPostComment();
         productPostComment.setComment("nice");
@@ -33,6 +61,15 @@ public class SampleModels {
         productPost.setProduct(product);
 
         return productPost;
+    }
+
+    public static User getSampleAdmin(int suffix) {
+        User user = new User();
+        user.setUsername("admin" + suffix + "@beargo.com");
+        user.setPassword("password");
+        user.setFullname("admin");
+        user.setIsAdmin(true);
+        return user;
     }
 
     public static User getSampleUser(int suffix) {

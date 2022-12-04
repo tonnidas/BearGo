@@ -212,6 +212,14 @@ public class ContractService {
         return false;
     }
 
+    /**
+     * Checks if the current user already completed review for this contract
+     *
+     * @param user       the authenticated user
+     * @param contractId the contract id
+     * @param cost       the cost
+     * @return the contract
+     */
     public Contract updateCost(User user, Long contractId, Double cost) {
         Contract contract = getContractById(contractId);
         if(contract == null) {

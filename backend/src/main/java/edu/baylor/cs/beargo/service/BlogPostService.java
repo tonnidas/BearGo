@@ -73,7 +73,7 @@ public class BlogPostService {
      * Checks if the postedBy exists
      * Sets the postedTime by current time
      * Sets the lastEditedTime by current time
-     *
+     * @param user     the logged user
      * @param blogPost the user id
      * @return created blog post
      */

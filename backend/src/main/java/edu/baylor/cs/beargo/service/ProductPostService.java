@@ -392,6 +392,9 @@ public class ProductPostService {
         return productPostRepository.save(productPost);
     }
 
+    /**
+     * @return updated ProductPost
+     */
     public ProductPost updateCost(Long productPostId, Double cost) {
         ProductPost productPost = getProductPostById(productPostId);
         productPost.getContract().setCost(cost);
