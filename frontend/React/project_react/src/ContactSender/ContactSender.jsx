@@ -54,25 +54,25 @@ export default function ContactSender() {
         //alert('Traveller selected!');
     }
 
-    function onload(){
+    function onload() {
         AuthService.setAxiosAuthHeader();
-            axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
+        axios.get("/api/productPosts/getProductPostByCriteria/sender/NONE")
 
-                .then((res) => {
-                    console.log(res.data);
-                    setPosts(res.data);
-                })
-                .catch((err) => {
-                    console.log(err);
+            .then((res) => {
+                console.log(res.data);
+                setPosts(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
 
-                });
+            });
     }
     useEffect(() => {
         let ignore = false;
-        
-        if (!ignore)  onload()
+
+        if (!ignore) onload()
         return () => { ignore = true; }
-        },[]);
+    }, []);
 
     const handleClick = (e, status) => {
         if (status == "NONE") {
@@ -121,8 +121,8 @@ export default function ContactSender() {
         if (deliveryStatus == "DELIVERED") {
             return (
                 <>
-                <br />
-                <ReviewAndRating contractId={contractId} />
+                    <br />
+                    <ReviewAndRating contractId={contractId} />
                 </>
             );
         }

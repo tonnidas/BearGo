@@ -9,6 +9,8 @@ import axios from 'axios';
 import AuthService from '../Service/AuthService';
 import Moment from 'react-moment';
 
+import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
+
 export default function ContractTraveller() {
     const [posts, setPosts] = useState([]);
     const [people, setPeople] = useState([]);
@@ -17,7 +19,7 @@ export default function ContractTraveller() {
         const value = event.target.value;
         console.log(value);
         AuthService.setAxiosAuthHeader();
-        const resp = axios.post("api/contracts/updateStatus/" + param +"/" + value)
+        const resp = axios.post("api/contracts/updateStatus/" + param + "/" + value)
         console.log(resp.data);
         alert('Status Updated!');
     }
@@ -30,30 +32,8 @@ export default function ContractTraveller() {
         alert('Traveller selected!');
     }
 
-    function onload(){
+    function onload() {
         AuthService.setAxiosAuthHeader();
-            axios.get("/api/productPosts/getProductPostByCriteria/traveler/NONE")
-
-                .then((res) => {
-                    console.log(res.data);
-                    setPosts(res.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-
-                });
-    }
-    useEffect(() => {
-        let ignore = false;
-        
-        if (!ignore)  onload()
-        return () => { ignore = true; }
-        },[]);
-
-    const handleClick = (e, status) => {
-        if(status == "NONE")
-        {
-            AuthService.setAxiosAuthHeader();
         axios.get("/api/productPosts/getProductPostByCriteria/traveler/NONE")
 
             .then((res) => {
@@ -64,36 +44,55 @@ export default function ContractTraveller() {
                 console.log(err);
 
             });
+    }
+    useEffect(() => {
+        let ignore = false;
+
+        if (!ignore) onload()
+        return () => { ignore = true; }
+    }, []);
+
+    const handleClick = (e, status) => {
+        if (status == "NONE") {
+            AuthService.setAxiosAuthHeader();
+            axios.get("/api/productPosts/getProductPostByCriteria/traveler/NONE")
+
+                .then((res) => {
+                    console.log(res.data);
+                    setPosts(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+
+                });
         }
-        else if(status == "IN_TRANSIT")
-        {
+        else if (status == "IN_TRANSIT") {
             AuthService.setAxiosAuthHeader();
             axios.get("/api/productPosts/getProductPostByCriteria/traveler/IN_TRANSIT")
-    
+
                 .then((res) => {
                     console.log(res.data);
                     setPosts(res.data);
                 })
                 .catch((err) => {
                     console.log(err);
-    
+
                 });
         }
-        else if(status == "DELIVERED")
-        {
+        else if (status == "DELIVERED") {
             AuthService.setAxiosAuthHeader();
             axios.get("/api/productPosts/getProductPostByCriteria/traveler/DELIVERED")
-    
+
                 .then((res) => {
                     console.log(res.data);
                     setPosts(res.data);
                 })
                 .catch((err) => {
                     console.log(err);
-    
+
                 });
         }
-        
+
     };
 
     const searchPosts = (searchData) => {
@@ -102,9 +101,44 @@ export default function ContractTraveller() {
         setPosts(searchData);
     }
 
+    function reviewRatingButton(contractId, deliveryStatus) {
+        if (deliveryStatus == "DELIVERED") {
+            return (
+                <>
+                    <br />
+                    <ReviewAndRating contractId={contractId} />
+                </>
+            );
+        }
+        return (
+            <></>
+        );
+    }
+
+    const handleInvoice = (event, post) => {
+        console.log("handleInvoice called");
+        event.preventDefault();
+        // navigate(urlPaths.invoice, {'name': "name"});
+        console.log(post);
+        let newWindow = window.open(urlPaths.invoice);
+        newWindow["post"] = post
+    }
+
+    function createInvoiceButton(post) {
+        return (
+            <>
+                <br />
+                <br />
+                <a>
+                    <button className='common-btn' onClick={async (event) => handleInvoice(event, post)}>Create Invoice</button>
+                </a>
+            </>
+        );
+    }
+
     return (
         <>
-      <Navbar searchpost={searchPosts} />
+            <Navbar searchpost={searchPosts} />
 
             <div className='container-fluid'>
                 <div className='row'>
@@ -120,7 +154,7 @@ export default function ContractTraveller() {
                                 <i className='icon'></i> <span>In-transit</span>
                             </button>
 
-                            <button className='common-btn global' onClick={e=> handleClick(e, "DELIVERED")}>
+                            <button className='common-btn global' onClick={e => handleClick(e, "DELIVERED")}>
                                 <i className='icon'></i> <span>Completed</span>
                             </button>
                         </div>
@@ -219,15 +253,15 @@ export default function ContractTraveller() {
                                                             </div>
 
                                                             <div className='col-md-6'>
-                                                                    <div className='form-group'>
-                                                                        <label>Cost</label>
+                                                                <div className='form-group'>
+                                                                    <label>Cost</label>
 
-                                                                        <p>
-                                                                            {post.contract.cost}
-                                                                        </p>
+                                                                    <p>
+                                                                        {post.contract.cost}
+                                                                    </p>
 
-                                                                    </div>
                                                                 </div>
+                                                            </div>
                                                             <div className='form-group'>
                                                                 <label>Update Status</label>
                                                                 <div className='select-style'>
@@ -238,8 +272,15 @@ export default function ContractTraveller() {
                                                                 </div>
                                                             </div>
                                                             <br />
-                                                          
+
                                                             {/* <button className='common-btn'>Update Status</button> */}
+                                                            {
+                                                                createInvoiceButton(post)
+                                                            }
+                                                            <br />
+                                                            {
+                                                                reviewRatingButton(post.contract.id, post.contract.deliveryStatus)
+                                                            }
                                                         </form>
                                                     </div>
                                                 </div>
