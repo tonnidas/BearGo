@@ -124,9 +124,6 @@ export default function ContactSender() {
                 <>
                     <br />
                     <ReviewAndRating contractId={contractId} />
-                <br />
-                <ReviewAndRating contractId={contractId} />
-
                 </>
             );
         }
@@ -138,10 +135,7 @@ export default function ContactSender() {
     const handleInvoice = (event, post) => {
         console.log("handleInvoice called");
         event.preventDefault();
-        // navigate(urlPaths.invoice, {'name': "name"});
-        console.log(post);
-        let newWindow = window.open(urlPaths.invoice);
-        newWindow["post"] = post
+        window.open(urlPaths.invoice + "?pid=" + post.id);
     }
 
     function createInvoiceButton(post) {

@@ -1,51 +1,105 @@
 import { Document, Page, Text, Image, StyleSheet, Font, PDFViewer } from "@react-pdf/renderer";
-import { useEffect } from "react";
+import { useState } from "react";
+import AuthService from '../Service/AuthService';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import React from 'react';
+import axios from 'axios';
 
-const Invoice = () => {
+export default function Invoice() {
 
-    useEffect(() => {
-        console.log(window["myVar"]);
+    const [post, setPost] = useState({});
+    const [loaded, setLoaded] = useState(false);
+
+    function updatePost(key, value) {
+        setPost(values => ({ ...values, [key]: value }));
+    }
+
+    // console.log(document.getElementById('pid').value);
+
+    const [searchParams] = useSearchParams();
+    const postId = searchParams.get("pid");
+    console.log("Post ID - " + postId);
+
+    React.useEffect(() => {
+        console.log("Post ID from use effect - " + postId);
+        AuthService.setAxiosAuthHeader();
+        axios.get("/api/productPosts/" + postId)
+            .then(res => {
+                // console.log(res.data);
+                setPost(res.data);
+                updatePost('id', res.data.id);
+                updatePost('contractId', res.data.contract.id);
+                updatePost('description', res.data.contract.description);
+                updatePost('deliveryStatus', res.data.contract.deliveryStatus);
+                updatePost('contractStartDate', res.data.contract.contractStartDate);
+                updatePost('contractEndDate', res.data.contract.contractEndDate);
+                if (res.data.contract.traveler == null) {
+                    updatePost('traveler', "No traveler is selected yet.");
+                } else {
+                    updatePost('traveler', res.data.contract.traveler.username);
+                }
+                updatePost('cost', res.data.contract.cost);
+                updatePost('sourceStreet', res.data.source.street);
+                updatePost('sourceCity', res.data.source.city);
+                updatePost('sourceState', res.data.source.state);
+                updatePost('sourceZip', res.data.source.zip);
+                updatePost('destinationStreet', res.data.destination.street);
+                updatePost('destinationCity', res.data.destination.city);
+                updatePost('destinationState', res.data.destination.state);
+                updatePost('destinationZip', res.data.destination.zip);
+                setLoaded(true);
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status === 401) {
+                    navigate(urlPaths.login);
+                } else {
+                    alert(err.response.data.message)
+                }
+            });
     }, []);
 
     return (
         <>
-            <PDFViewer className='navbar navbar-expand-lg navbar-light fixed-top'
-                style={styles.PDFViewer_Body}>
-                <Document>
-                    <Page style={styles.body}>
-                        <Text style={styles.title}>INVOICE</Text>
-                        <Text style={styles.header} fixed>
-                            ~ BearGo ~
-                        </Text>
+            {
+                (loaded == true)
+                &&
+                <PDFViewer className='navbar navbar-expand-lg navbar-light fixed-top'
+                    style={styles.PDFViewer_Body}>
+                    <Document>
+                        <Page style={styles.body}>
+                            <Text style={styles.title}>INVOICE</Text>
+                            <Text style={styles.header} fixed>
+                                ~ BearGo ~
+                            </Text>
 
+                            {/* <Text style={styles.author}>Miguel de Cervantes</Text> */}
 
-                        {/* <Text style={styles.author}>Miguel de Cervantes</Text> */}
+                            <Text style={styles.text}>Invoice No: #{post.id}</Text>
+                            <Text style={styles.text}>Description: {post.description}</Text>
+                            <Text style={styles.text}>Delivery Status: {post.deliveryStatus}</Text>
+                            <Text style={styles.text}>Start Date: {post.contractStartDate}</Text>
+                            <Text style={styles.text}>End Date: {post.contractEndDate}</Text>
+                            <Text style={styles.text}>Traveler: {post.traveler || "Okay"}</Text>
+                            <Text style={styles.text}>Cost: {post.cost}</Text>
+                            <Text style={styles.header}> - Source Location - </Text>
+                            <Text style={styles.text}>Street: {post.sourceStreet}</Text>
+                            <Text style={styles.text}>City: {post.sourceCity}</Text>
+                            <Text style={styles.text}>State: {post.sourceState}</Text>
+                            <Text style={styles.text}>Zip: {post.sourceZip}</Text>
+                            <Text style={styles.header}> - Destination Location - </Text>
+                            <Text style={styles.text}>Street: {post.destinationStreet}</Text>
+                            <Text style={styles.text}>City: {post.destinationCity}</Text>
+                            <Text style={styles.text}>State: {post.destinationState}</Text>
+                            <Text style={styles.text}>Zip: {post.destinationZip}</Text>
 
-                        <Text style={styles.text}>Invoice No: #{window["post"].contract.id}</Text>
-                        <Text style={styles.text}>Description: {window["post"].contract.description}</Text>
-                        <Text style={styles.text}>Delivery Status: {window["post"].contract.deliveryStatus}</Text>
-                        <Text style={styles.text}>Start Date: {window["post"].contract.contractStartDate}</Text>
-                        <Text style={styles.text}>End Date: {window["post"].contract.contractEndDate}</Text>
-                        <Text style={styles.text}>Traveler: {window["post"].contract.traveler || "Nobody is selected yet."}</Text>
-                        <Text style={styles.text}>Cost: {window["cost"]}</Text>
-                        <Text style={styles.header}> - Source Location - </Text>
-                        <Text style={styles.text}>Street: {window["post"].source.street}</Text>
-                        <Text style={styles.text}>City: {window["post"].source.city}</Text>
-                        <Text style={styles.text}>State: {window["post"].source.state}</Text>
-                        <Text style={styles.text}>Zip: {window["post"].source.zip}</Text>
-                        <Text style={styles.header}> - Destination Location - </Text>
-                        <Text style={styles.text}>Street: {window["post"].destination.street}</Text>
-                        <Text style={styles.text}>City: {window["post"].destination.city}</Text>
-                        <Text style={styles.text}>State: {window["post"].destination.state}</Text>
-                        <Text style={styles.text}>Zip: {window["post"].destination.zip}</Text>
-
-
-                        <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
-                            `${pageNumber} / ${totalPages}`
-                        )} fixed />
-                    </Page>
-                </Document>
-            </PDFViewer>
+                            <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+                                `${pageNumber} / ${totalPages}`
+                            )} fixed />
+                        </Page>
+                    </Document>
+                </PDFViewer>
+            }
         </>
     );
 }
@@ -110,4 +164,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Invoice
+// export default Invoice

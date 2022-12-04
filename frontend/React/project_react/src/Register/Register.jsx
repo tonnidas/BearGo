@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
+import { Country, State, City } from "country-state-city";
 
 
 export default function Register() {
@@ -83,37 +84,58 @@ export default function Register() {
                             </div>
                             <div className="form-group">
                                 <label>Phone</label>
-                                <input required type="text" className="form-control" placeholder="(XXX)XXX-XXXX" name='phone' value={inputs.phone || ""} onChange={handleChange} />
+                                <input type="text"
+                                    className="form-control"
+                                    placeholder="(XXX)XXX-XXXX"
+                                    name='phone'
+                                    pattern='^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$'
+                                    value={inputs.phone || ""}
+                                    onChange={handleChange} />
                             </div>
 
-                            <div className='row'>
-                                <div className='col-md-6'>
-                                    <div className='form-group'>
-                                        <label>Street</label>
-                                        <input required className='form-control' name='street' value={inputs.street} onChange={handleChange} />
-                                    </div>
+                            <div className="form-group">
+                                <label>State</label>
+                                <div className='select-style'>
+                                    <select name='state'
+                                        value={inputs.state || ""}
+                                        onChange={handleChange}>
+                                        {
+                                            State.getStatesOfCountry("US").map((option) => (<option value={option.isoCode}>{option.name}</option>))
+                                        }
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div className='col-md-6'>
-                                    <div className='form-group'>
-                                        <label>City</label>
-                                        <input required className='form-control' name='city' value={inputs.city} onChange={handleChange} />
-                                    </div>
+                            <div className="form-group">
+                                <label>City</label>
+                                <div className='select-style'>
+                                    <select name='city' value={inputs.city || ""} onChange={handleChange}>
+                                        {
+                                            City.getCitiesOfState("US", inputs.state).map((option) => (<option value={option.isoCode}>{option.name}</option>))
+                                        }
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div className='col-md-6'>
-                                    <div className='form-group'>
-                                        <label>State</label>
-                                        <input required className='form-control' name='state' value={inputs.state} onChange={handleChange} />
-                                    </div>
-                                </div>
+                            <div className="form-group">
+                                <label>Street</label>
+                                <input type="text"
+                                    className="form-control"
+                                    placeholder="Street, Apt, Building"
+                                    name='street'
+                                    value={inputs.street || ""}
+                                    onChange={handleChange} />
+                            </div>
 
-                                <div className='col-md-6'>
-                                    <div className='form-group'>
-                                        <label>Zip</label>
-                                        <input required className='form-control' name='zip' value={inputs.zip} onChange={handleChange} />
-                                    </div>
-                                </div>
+                            <div className="form-group">
+                                <label>Zip</label>
+                                <input type="text"
+                                    pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)"
+                                    className="form-control"
+                                    placeholder="XXXXX"
+                                    name='zip'
+                                    value={inputs.zip || ""}
+                                    onChange={handleChange} />
                             </div>
 
                             <div className="form-group">
