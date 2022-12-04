@@ -181,7 +181,7 @@ export default function ContractTraveller() {
                                                 </div>
                                                 <div className='widget-inner'>
                                                     <div className='post post-contact'>
-                                                        <form action='#'>
+                                                        <form action='#' className="user-form">
                                                             <div className='form-group'>
                                                                 <label>Description</label>
 
