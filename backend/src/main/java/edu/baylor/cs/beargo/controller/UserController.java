@@ -2,6 +2,8 @@ package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.dto.ContractFrequencyDto;
 import edu.baylor.cs.beargo.dto.RatingDto;
+import edu.baylor.cs.beargo.dto.ReviewAndRatingDto;
+import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,16 @@ public class UserController {
     @GetMapping("/getRatingByUserId")
     public ResponseEntity<RatingDto> getRatingByUserId(@RequestParam(value = "userId") Long userId) {
         return new ResponseEntity<>(userService.getRatingByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getReviewRatingByUserIdAsSender/{userId}")
+    public ResponseEntity<List<ReviewAndRatingDto>> getReviewRatingByUserIdAsSender(@PathVariable(value = "userId") Long userId) {
+        return new ResponseEntity<>(userService.getReviewRatingByUserIdAsSender(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getReviewRatingByUserIdAsTraveler/{userId}")
+    public ResponseEntity<List<ReviewAndRatingDto>> getReviewRatingByUserIdAsTraveler(@PathVariable(value = "userId") Long userId) {
+        return new ResponseEntity<>(userService.getReviewRatingByUserIdAsTraveler(userId), HttpStatus.OK);
     }
 
     @GetMapping("/getContractFrequency")

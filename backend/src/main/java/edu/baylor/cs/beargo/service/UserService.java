@@ -2,6 +2,7 @@ package edu.baylor.cs.beargo.service;
 
 import edu.baylor.cs.beargo.dto.ContractFrequencyDto;
 import edu.baylor.cs.beargo.dto.RatingDto;
+import edu.baylor.cs.beargo.dto.ReviewAndRatingDto;
 import edu.baylor.cs.beargo.model.Contract;
 import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ReviewAndRating;
@@ -200,7 +201,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    // TODO: Need to check
+    // Checked and tested
 
     /**
      * @param userId the user id
@@ -242,6 +243,56 @@ public class UserService implements UserDetailsService {
         }
 
         return ratingDto;
+    }
+
+    /**
+     * @param userId the user id
+     * @return all the review and ratings of given user as a sender
+     */
+    public List<ReviewAndRatingDto> getReviewRatingByUserIdAsSender(Long userId) {
+        List<ReviewAndRatingDto> reviewAndRatingListRet = new ArrayList<>();
+        User user = getUserById(userId);
+        Set<ReviewAndRating> reviewAndRatingList = user.getReceivedReviews();
+        for (ReviewAndRating reviewAndRating : reviewAndRatingList) {
+            reviewAndRating = reviewAndRatingService.getReviewRatingById(reviewAndRating.getId());
+            if (reviewAndRating != null) {
+                if (reviewAndRating.getContractReviewedByTraveler() != null) {
+                    ReviewAndRatingDto reviewAndRatingDto = new ReviewAndRatingDto();
+                    reviewAndRatingDto.setRating(reviewAndRating.getRating());
+                    reviewAndRatingDto.setReview(reviewAndRating.getReview());
+                    reviewAndRatingDto.setReviewDateTime(reviewAndRating.getReviewDateTime());
+                    reviewAndRatingDto.setReviewer(reviewAndRating.getReviewedBy().getUsername());
+                    reviewAndRatingListRet.add(reviewAndRatingDto);
+                }
+            }
+        }
+
+        return reviewAndRatingListRet;
+    }
+
+    /**
+     * @param userId the user id
+     * @return all the review and ratings of given user as a traveler
+     */
+    public List<ReviewAndRatingDto> getReviewRatingByUserIdAsTraveler(Long userId) {
+        List<ReviewAndRatingDto> reviewAndRatingListRet = new ArrayList<>();
+        User user = getUserById(userId);
+        Set<ReviewAndRating> reviewAndRatingList = user.getReceivedReviews();
+        for (ReviewAndRating reviewAndRating : reviewAndRatingList) {
+            reviewAndRating = reviewAndRatingService.getReviewRatingById(reviewAndRating.getId());
+            if (reviewAndRating != null) {
+                if (reviewAndRating.getContractReviewedBySender() != null) {
+                    ReviewAndRatingDto reviewAndRatingDto = new ReviewAndRatingDto();
+                    reviewAndRatingDto.setRating(reviewAndRating.getRating());
+                    reviewAndRatingDto.setReview(reviewAndRating.getReview());
+                    reviewAndRatingDto.setReviewDateTime(reviewAndRating.getReviewDateTime());
+                    reviewAndRatingDto.setReviewer(reviewAndRating.getReviewedBy().getUsername());
+                    reviewAndRatingListRet.add(reviewAndRatingDto);
+                }
+            }
+        }
+
+        return reviewAndRatingListRet;
     }
 
     // TODO: Need to check
