@@ -32,8 +32,8 @@ public class TwitterService{
 
    public List<TwitterModel> getAllTweets(){
        //Pageable pageable = PageRequest.of(0, pageSize);
-       Pageable sortedCreatedDeate = PageRequest.of(0, pageSize, Sort.by("createdAt").descending());
-       Page<TwitterModel> tweetList =  repo.findAll(sortedCreatedDeate);
+       Pageable sortedCreatedDate = PageRequest.of(0, pageSize, Sort.by("createdAt").descending());
+       Page<TwitterModel> tweetList =  repo.findAll(sortedCreatedDate);
 
        if(tweetList.hasContent()) {
            return tweetList.getContent();
