@@ -11,6 +11,7 @@ import image_man from '../images/man_avatar1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import Moment from 'react-moment';
 import CommentWidget from './CommentWidget';
+import ProfileImage from '../Service/Helper';
 
 export default function PostWidget(props) {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function PostWidget(props) {
       const resp = await axios.post('/api/comments?productPostId=' + props.post.id, {
         comment: commentData
       });
-      setComments([...comments, { comment: resp.data.comment, commentTime: resp.data.commentTime, commentedBy: { fullname: props.user } }]);
+      setComments([...comments, { comment: resp.data.comment, commentTime: resp.data.commentTime, commentedBy: { fullname: props.user.fullname } }]);
       event.target[0].value = "";
     } catch (error) {
       console.log(error);
@@ -86,7 +87,7 @@ export default function PostWidget(props) {
       <div className='widget-head'>
         <a href='#' className='user-avatar'>
           <div className='mask'>
-            <img className='mask-img' src={image_man} alt='' />
+            <img className='mask-img' src={ProfileImage(props.post.contract.sender)} alt='' />
             <svg>
               <use href='#icon-mask'></use>
             </svg>
@@ -178,7 +179,7 @@ export default function PostWidget(props) {
                 <div className='mask'>
                   <img
                     className='mask-img'
-                    src={image_woman}
+                    src={ProfileImage(props.user)}
                     alt=''
                   />
                   <svg>
@@ -187,7 +188,7 @@ export default function PostWidget(props) {
                 </div>
                 <div className='comment-box-content'>
                   <div className='user-avatar-name'>
-                    <h4>{props.user}</h4>
+                    <h4>{props.user.fullname}</h4>
                     <span><Moment format="LLL">{Date.now()}</Moment></span>
                   </div>
                   <form onSubmit={handleCommentSubmit}>

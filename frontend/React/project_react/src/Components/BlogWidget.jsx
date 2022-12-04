@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import image_man from '../images/man_avatar1.jpg';
 import Moment from 'react-moment';
+import ProfileImage from '../Service/Helper';
 
 export default function BlogWidget(props) {
 
@@ -10,7 +11,7 @@ export default function BlogWidget(props) {
       <div className='widget-head'>
         <a href='#' className='user-avatar'>
           <div className='mask'>
-            <img className='mask-img' src={image_man} alt='' />
+            <img className='mask-img' src={ProfileImage(props.post.postedBy)} alt='' />
             <svg>
               <use href='#icon-mask'></use>
             </svg>

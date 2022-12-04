@@ -3,6 +3,7 @@ import React from 'react';
 import image_man from '../images/man_avatar1.jpg';
 import image_woman from '../images/women_avatar1.jpg';
 import Moment from 'react-moment';
+import ProfileImage from '../Service/Helper';
 
 export default function CommentWidget(props) {
   return (
@@ -11,7 +12,7 @@ export default function CommentWidget(props) {
         <div className='mask'>
           <img
             className='mask-img'
-            src={image_man}
+            src={ProfileImage(props.comment.commentedBy)}
             alt=''
           />
           <svg>

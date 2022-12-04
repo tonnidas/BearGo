@@ -2,6 +2,7 @@ import React from 'react';
 
 import image_man from '../images/man_avatar1.jpg';
 import Moment from 'react-moment';
+import ProfileImage from '../Service/Helper';
 
 export default function ReportWidget(props) {
   return (
@@ -10,7 +11,7 @@ export default function ReportWidget(props) {
         <div className='mask'>
           <img
             className='mask-img'
-            src={image_man}
+            src={ProfileImage(props.report.complainedBy)}
             alt=''
           />
           <svg>
