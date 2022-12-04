@@ -51,7 +51,7 @@ export default function ContactSender() {
         AuthService.setAxiosAuthHeader();
         const resp = axios.post("api/contracts/addCost/" + param + "/" + inputs)
 
-        //alert('Traveller selected!');
+        alert('Ready to generate invoice!!!');
     }
 
     function onload(){
@@ -282,11 +282,11 @@ export default function ContactSender() {
                             </div>
                             <div className="form-group">
                                 <label>Cost</label>
-                                <input className="form-control" placeholder="0.0" name='cost'
+                                <input className="form-control" placeholder="0.0" name='cost' value={post.contract.cost}
                                     onChange={event => handleChangeCost(event)} />
                             </div>
 
-                            <button className='common-btn' onClick={event => handleButton(event, post.contract.id)}>Add Cost</button>
+                            <button className='common-btn' onClick={event => handleButton(event, post.contract.id)}>Add</button>
 
                             {/* <button className='common-btn'>Update Status</button> */}
                             {

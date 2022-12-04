@@ -54,6 +54,11 @@ export default function PostWidget(props) {
     }
   }
 
+  const handleShare = async (event) => {
+    event.preventDefault();
+
+  }
+
   const handleReport = async (event) => {
     event.preventDefault();
 
@@ -150,6 +155,11 @@ export default function PostWidget(props) {
             <li>
               <a role="button" href='#' onClick={handleReport}>
                 <i className='icon-alert'></i>Report
+              </a>
+            </li>
+            <li>
+              <a role="button" href='#' onClick={handleShare}>
+                <i className='icon-alert'></i>Share
               </a>
             </li>
           </ul>
