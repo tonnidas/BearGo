@@ -10,6 +10,7 @@ import urlPaths from '../urlPaths';
 import ReviewAndRatingPage from '../Profile/ReviewAndRatingPage';
 import RoundedProfilePic from '../Profile/RoundedProfilePic';
 import AllReportList from '../Profile/AllReportList';
+import ReviewAsSenderAndTraveler from '../Profile/ReviewAsSenderAndTraveler';
 
 export default function OtherUsersProfile({ userId }) {
 
@@ -145,7 +146,18 @@ export default function OtherUsersProfile({ userId }) {
                                 &&
                                 <AllReportList userId={inputs.id} />
                             }
-
+                            {
+                                <>
+                                <br />
+                                    <ReviewAsSenderAndTraveler userId={inputs.id} isSender={true} />
+                                </>
+                            }
+                            {
+                                <>
+                                <br />
+                                    <ReviewAsSenderAndTraveler userId={inputs.id} isSender={false} />
+                                </>
+                            }
                         </form>
                     </div>
                 </div>
