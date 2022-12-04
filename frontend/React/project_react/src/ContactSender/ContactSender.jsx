@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import urlPaths from '../urlPaths';
 
 import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
+import ProfileImage from '../Service/Helper';
 
 export default function ContactSender() {
     const navigate = useNavigate();
@@ -168,7 +169,7 @@ export default function ContactSender() {
                 <div className='widget-head'>
                     <a href='#' className='user-avatar'>
                         <div className='mask'>
-                            <img className='mask-img' src={image_man} alt='' />
+                            <img className='mask-img' src={ProfileImage(post.contract.sender)} alt='' />
                             <svg>
                                 <use href='#icon-mask'></use>
                             </svg>

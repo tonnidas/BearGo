@@ -23,8 +23,8 @@ export default function FrontPage() {
 
     axios.get("/api/users/current")
       .then(res => {
-        console.log(res.data.fullname);
-        setUser(res.data.fullname);
+        console.log(res.data);
+        setUser(res.data);
       })
       .catch((err) => {
         console.log(err);

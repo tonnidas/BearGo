@@ -16,9 +16,23 @@ import MyPostWidget from '../Components/MyPostWidget';
 export default function MyPosts() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     AuthService.setAxiosAuthHeader();
+
+    axios.get("/api/users/current")
+      .then(res => {
+        console.log(res.data);
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          navigate(urlPaths.login);
+        }
+      });
+
     axios.get("/api/productPosts/getProductPostByUser")
       .then((res) => {
         console.log(res.data);
@@ -46,7 +60,7 @@ export default function MyPosts() {
             <div className='row' style={{ position: 'relative' }}>
               <div className='col-md-8'>
                 <div className='main-inner'>
-                  {posts.map(post => <MyPostWidget post={post} key={post.id} />)}
+                  {posts.map(post => <MyPostWidget post={post} user={user} key={post.id} />)}
                 </div>
               </div>
 

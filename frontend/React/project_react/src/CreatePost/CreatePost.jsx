@@ -11,19 +11,20 @@ import urlPaths from '../urlPaths';
 import { Country, State, City } from "country-state-city";
 import axios from 'axios';
 import Moment from 'react-moment';
+import ProfileImage from '../Service/Helper';
 
 export default function CreatePost() {
 
   const navigate = useNavigate();
   const FormData = require('form-data');
-  const [inputs, setInputs] = React.useState({});
+  const [inputs, setInputs] = React.useState({'user':{}});
 
   React.useEffect(() => {
     AuthService.setAxiosAuthHeader();
     axios.get("/api/users/current")
       .then(res => {
         console.log(res.data.fullname);
-        setInputs(values => ({ ...values, ['user']: res.data.fullname }));
+        setInputs(values => ({ ...values, ['user']: res.data }));
       })
       .catch((err) => {
         console.log(err);
@@ -118,13 +119,13 @@ export default function CreatePost() {
                     <div className='widget-head'>
                       <a href='#' className='user-avatar'>
                         <div className='mask'>
-                          <img className='mask-img' src={image_man} alt='' />
+                          <img className='mask-img' src={ProfileImage(inputs.user)} alt='' />
                           <svg>
                             <use href='#icon-mask'></use>
                           </svg>
                         </div>
                         <div className='user-avatar-name'>
-                          <h4>{inputs.user || "John Doe"}</h4>
+                          <h4>{inputs.user.fullname || "John Doe"}</h4>
                           <span><Moment format="LLL">{Date.now()}</Moment></span>
                         </div>
                       </a>

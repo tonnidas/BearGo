@@ -10,6 +10,7 @@ import AuthService from '../Service/AuthService';
 import Moment from 'react-moment';
 
 import ReviewAndRating from '../ReviewAndRating/ReviewAndRating';
+import ProfileImage from '../Service/Helper';
 
 export default function ContractTraveller() {
     const [posts, setPosts] = useState([]);
@@ -168,7 +169,7 @@ export default function ContractTraveller() {
                                                 <div className='widget-head'>
                                                     <a href='#' className='user-avatar'>
                                                         <div className='mask'>
-                                                            <img className='mask-img' src={image_man} alt='' />
+                                                            <img className='mask-img' src={ProfileImage(post.contract.sender)} alt='' />
                                                             <svg>
                                                                 <use href='#icon-mask'></use>
                                                             </svg>
