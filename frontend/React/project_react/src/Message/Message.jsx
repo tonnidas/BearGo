@@ -20,6 +20,9 @@ import { Stomp } from "@stomp/stompjs";
 var stompClient = null;
 const Message = () => {
 
+	const socket = (location.hostname === "localhost" || location.hostname === "127.0.0.1") ? SockJS('http://localhost:8080/ws') : SockJS('https://beargo.live/ws');
+
+
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState([]);
@@ -66,9 +69,10 @@ const Message = () => {
 				console.log(err);
 			});
 	}, [userId, reloadWindow]);
+	//}, [userId]);
 
 	useEffect(() => {
-		const socket = SockJS('http://localhost:8080/ws');
+		//const socket = SockJS('http://localhost:8080/ws');
 		console.log("My ID is ???: " + userId)
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function (frame) {
@@ -107,6 +111,7 @@ const Message = () => {
 		console.log("Subscribed to Message");
 		stompClient.activate();
 
+	//}, [userId]);
 	}, [userId]);
 
 	return (
