@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.service;
 
 import edu.baylor.cs.beargo.model.Contract;
+import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ReviewAndRating;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ReviewAndRatingRepository;
@@ -69,8 +70,8 @@ public class ReviewAndRatingService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Contract is not finalized yet");
         }
 
-        if (LocalDate.now().isBefore(contract.getContractEndDate())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review and rating can be give only after contract end date");
+        if (contract.getDeliveryStatus() != DeliveryStatus.DELIVERED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product is not delivered yet");
         }
 
         if (!contract.getSender().getId().equals(user.getId())
