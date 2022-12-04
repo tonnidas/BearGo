@@ -1,9 +1,6 @@
 package edu.baylor.cs.beargo.service;
 
-import edu.baylor.cs.beargo.model.Contract;
-import edu.baylor.cs.beargo.model.DeliveryStatus;
-import edu.baylor.cs.beargo.model.ReviewAndRating;
-import edu.baylor.cs.beargo.model.User;
+import edu.baylor.cs.beargo.model.*;
 import edu.baylor.cs.beargo.repository.ReviewAndRatingRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -29,6 +26,9 @@ public class ReviewAndRatingService {
 
     @Autowired
     ContractService contractService;
+
+    @Autowired
+    NotificationService notificationService;
 
     /**
      * @return all ReviewAndRatings
@@ -111,6 +111,13 @@ public class ReviewAndRatingService {
             reviewAndRating.setReviewedBy(contract.getTraveler());
             reviewAndRating.setReviewedTo(contract.getSender());
         }
+
+        /*
+            Sending Notification to User
+         */
+        Notification notification = new Notification();
+        notification.setNotificationMsg(user.getUsername() + " reviewed you - " + review);
+        notificationService.saveNotification(reviewAndRating.getReviewedBy(), notification, reviewAndRating.getReviewedTo().getId());
 
         return reviewAndRatingRepository.save(reviewAndRating);
     }

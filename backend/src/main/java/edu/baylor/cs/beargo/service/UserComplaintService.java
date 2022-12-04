@@ -1,6 +1,7 @@
 package edu.baylor.cs.beargo.service;
 
 import edu.baylor.cs.beargo.dto.UserComplaintDto;
+import edu.baylor.cs.beargo.model.Notification;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.model.UserComplaint;
 import edu.baylor.cs.beargo.repository.UserComplaintRepository;
@@ -11,7 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -26,6 +30,9 @@ public class UserComplaintService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    NotificationService notificationService;
 
     // TODO: check it and set rest of the variable.
 
@@ -47,6 +54,14 @@ public class UserComplaintService {
         userComplaint.setIsResolved(false);
         userComplaint.setComplainedUser(user);
         userComplaint.setReason(reason);
+
+        /*
+            Sending Notification to User
+         */
+        Notification notification = new Notification();
+        notification.setNotificationMsg(user.getUsername() + " reported you - " + reason);
+        notificationService.saveNotification(reportBy, notification, reportTo);
+
         return userComplaintRepository.save(userComplaint);
     }
 
