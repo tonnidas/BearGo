@@ -19,7 +19,7 @@ export default function ContactSender() {
     const navigate = useNavigate();
 
     const [posts, setPosts] = useState([]);
-    const [inputs, setInputs] = useState('');
+    const [inputs, setInputs] = useState({});
 
     const handleChange = (event, param) => {
         const value = event.target.value;
@@ -40,9 +40,12 @@ export default function ContactSender() {
         alert('Traveller selected!');
     }
 
-    const handleChangeCost = (event) => {
+    const handleChangeCost = (event, postId) => {
         const value = event.target.value;
-        setInputs(value);
+        console.log(inputs);
+        console.log(inputs['' + postId + '']);
+        setInputs(values => ({ ...values, [postId]: value }))
+        //setInputs(value);
     }
 
     const handleButton = (event, param) => {
@@ -50,9 +53,22 @@ export default function ContactSender() {
         event.preventDefault();
         console.log("cost " + inputs);
         AuthService.setAxiosAuthHeader();
-        const resp = axios.post("api/contracts/addCost/" + param + "/" + inputs)
+        const resp = axios.post("api/contracts/addCost/" + param + "/" + inputs[param])
 
         alert('Ready to generate invoice!!!');
+    }
+    function getCost(postId, cost) {
+        if (cost > 0) {
+            return cost;
+        }
+        return inputs[postId];
+    }
+
+    function getDisabled(postId, cost) {
+        if (cost > 0) {
+            return true;
+        }
+        return false;
     }
 
     function onload() {
@@ -280,8 +296,10 @@ export default function ContactSender() {
                             </div>
                             <div className="form-group">
                                 <label>Cost</label>
-                                <input className="form-control" placeholder="0.0" name='cost' value={post.contract.cost}
-                                    onChange={event => handleChangeCost(event)} />
+                                <input type="number" min="0" className="form-control" name='cost' placeholder="0"
+                                    value={getCost(post.contract.id, post.contract.cost)}
+                                    disabled={getDisabled(post.contract.id, post.contract.cost)}
+                                    onChange={event => handleChangeCost(event, post.contract.id)} />
                             </div>
 
                             <button className='common-btn' onClick={event => handleButton(event, post.contract.id)}>Add</button>
