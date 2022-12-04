@@ -15,6 +15,7 @@ import java.time.LocalDate;
 public class ContractDto {
     private Long id;
     private String description;
+    private Double cost;
     private LocalDate contractStartDate;
     private LocalDate contractEndDate;
     private DeliveryStatus deliveryStatus;

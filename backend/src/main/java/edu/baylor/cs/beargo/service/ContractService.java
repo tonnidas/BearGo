@@ -209,12 +209,11 @@ public class ContractService {
         }
     }
 
-    public Contract addCost(User user, Long contractId, Double cost) {
+    public Contract updateCost(User user, Long contractId, Double cost) {
         Contract contract = getContractById(contractId);
-        ProductPost p = contract.getProductPost();
-        contract.setCost(cost);
-        p.setContract(contract);
-        System.out.println("cost " + p.getContract().getCost());
-        return contractRepository.save(contract);
+        if(contract == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No contract found with this id.");
+        }
+        return productPostService.updateCost(contract.getProductPost().getId(), cost).getContract();
     }
 }

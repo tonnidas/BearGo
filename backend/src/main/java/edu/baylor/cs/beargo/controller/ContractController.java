@@ -64,7 +64,28 @@ public class ContractController {
     public ResponseEntity<Contract> addCost(@AuthenticationPrincipal User user,
                                                  @PathVariable("contractId") Long contractId,
                                                  @PathVariable("cost") Double cost ) {
-        Contract updatedContract = contractService.addCost(user, contractId, cost);
+        Contract updatedContract = contractService.updateCost(user, contractId, cost);
+        return new ResponseEntity<>(updatedContract, HttpStatus.OK);
+    }
+
+    @PostMapping("/updateEverything/{parampostid}/{travelervalue}/{contractid}/{status}/{cost}")
+    public ResponseEntity<Contract> updateEverything(@AuthenticationPrincipal User user,
+                                            @PathVariable("parampostid") Long postid,
+                                            @PathVariable("travelervalue") Long travelerid,
+                                            @PathVariable("contractid") Long contractid,
+                                            @PathVariable("status") String status,
+                                            @PathVariable("cost") Double cost )
+    {
+
+        System.out.println("postid  " + postid);
+        System.out.println("travelerid  " + travelerid);
+        System.out.println("contractid  " + contractid);
+        System.out.println("status  " + status);
+        System.out.println("cost  " + cost);
+
+        Contract updatedTraveler = contractService.confirmContract(user, postid, travelerid);
+        Contract updatedContractStatus = contractService.updateContractStatus(user, contractid, status);
+        Contract updatedContract = contractService.updateCost(user, contractid, cost);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 }

@@ -307,4 +307,10 @@ public class ProductPostService {
         productPost.getInterestedPeoples().add(user);
         return productPostRepository.save(productPost);
     }
+
+    public ProductPost updateCost(Long productPostId, Double cost) {
+        ProductPost productPost = getProductPostById(productPostId);
+        productPost.getContract().setCost(cost);
+        return productPostRepository.save(productPost);
+    }
 }

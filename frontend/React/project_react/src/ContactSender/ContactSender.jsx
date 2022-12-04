@@ -46,7 +46,7 @@ export default function ContactSender() {
 
     const handleButton = (event, param) => {
         const value = event.target.value;
-
+        event.preventDefault();
         console.log("cost " + inputs);
         AuthService.setAxiosAuthHeader();
         const resp = axios.post("api/contracts/addCost/" + param + "/" + inputs)
@@ -339,7 +339,7 @@ export default function ContactSender() {
                                 </div>
                             </div>
                             <div className='col-md-4'>
-                                <div className='twitter-feed'>
+                                {/* <div className='twitter-feed'>
                                     <blockquote
                                         className='twitter-tweet'
                                         style={{ marginBottom: '10px' }}
@@ -387,7 +387,7 @@ export default function ContactSender() {
                                         src='https://platform.twitter.com/widgets.js'
                                         charSet='utf-8'
                                     ></script>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </main>
