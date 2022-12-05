@@ -230,12 +230,14 @@ public class ProductPostService {
                     //searchPosts.add(pr);
 
                 if ((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
-                        (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))) {
+                        (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")))
+                {
                     if (pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
                             pr.getDestination().getCity().equals(searchDto.getDestCity()))
                         searchPosts.add(pr);
                 } else if ((searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
-                        searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")) {
+                        searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))
+                {
                     System.out.println(pr.getDestination().getState());
                     if (pr.getSource().getState().equals(searchDto.getSourceState()) &&
                             pr.getDestination().getState().equals(searchDto.getDestState())) {
@@ -243,7 +245,12 @@ public class ProductPostService {
                         searchPosts.add(pr);
                     }
                 }
-                else if(searchDto.getDestCity().equals("-"))
+                    else if ((searchDto.getSourceCity().equals("-") && searchDto.getSourceState().equals("-")) &&
+                            (searchDto.getDestCity().equals("-") && searchDto.getDestState().equals("-")))
+                    {
+                            searchPosts.add(pr);
+                    }
+                else if(searchDto.getDestCity().equals("-") && searchDto.getDestState().equals("-"))
                 {
                     if (pr.getSource().getCity().equals(searchDto.getSourceCity()))
                     {
@@ -256,7 +263,7 @@ public class ProductPostService {
                         searchPosts.add(pr);
                     }
                 }
-                else if(searchDto.getSourceCity().equals("-"))
+                else if(searchDto.getSourceCity().equals("-") && searchDto.getSourceCity().equals("-"))
                 {
                     if (pr.getDestination().getCity().equals(searchDto.getDestCity()))
                     {
@@ -269,6 +276,7 @@ public class ProductPostService {
                         searchPosts.add(pr);
                     }
                 }
+
             }
             }
             else if (stDate == null && enDate == null) {
