@@ -101,11 +101,11 @@ export default function ReportUser() {
                                                             <i className='icon-check'></i>Ignore
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    {/* <li>
                                                         <a role="button" href='#' onClick={handleBlock}>
                                                             <i className='icon-alert'></i>Block
                                                         </a>
-                                                    </li>
+                                                    </li> */}
                                                 </ul>
                                             </div>
                                         </div>
