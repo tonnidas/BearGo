@@ -36,12 +36,11 @@ public class NotificationService {
     private KafkaTemplate<String, Notification> notificationKafkaTemplate;
 
     /**
-     * @param user          the user
+     * @param user the user
      * @return a list of notifications
      */
     public List<Notification> getNotification(User user) {
         //List<Notification> notificationList = repo.findByNotifyuser(user);
-
 
 
         log.info("Retrieving notifications for user");
@@ -54,9 +53,9 @@ public class NotificationService {
     }
 
     /**
-     * @param user          the user
-     * @param notification  the notification
-     * @param toUserId      the user id
+     * @param user         the user
+     * @param notification the notification
+     * @param toUserId     the user id
      * @return a notification
      */
     public Notification saveNotification(User user, Notification notification, Long toUserId) {

@@ -33,8 +33,6 @@ public class UserComplaintService {
     @Autowired
     NotificationService notificationService;
 
-    // TODO: check it and set rest of the variable.
-
     /**
      * @param reportBy the user who is reporting
      * @param reportTo the user id who is reported
@@ -77,6 +75,9 @@ public class UserComplaintService {
         return userComplaintRepository.findByComplainedUser(user);
     }
 
+    /**
+     * @return a list of all complaints
+     */
     public List<UserComplaintDto> getAllComplaints() {
         List<UserComplaint> complaintLis = userComplaintRepository.findAll();
         List<UserComplaintDto> allComplaints = new ArrayList<>();
@@ -92,6 +93,11 @@ public class UserComplaintService {
         return allComplaints;
     }
 
+    /**
+     * @param user        the logged user
+     * @param complaintid yhe complaint id
+     * @return the resolved complaint
+     */
     public UserComplaint resolveComplaint(User user, Long complaintid) {
         Optional<UserComplaint> opt = userComplaintRepository.findById(complaintid);
         UserComplaint userC = new UserComplaint();

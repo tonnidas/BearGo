@@ -22,7 +22,7 @@ public class ImageService {
     ImageRepository imageRepository;
 
     /**
-     * @param file         the image file
+     * @param file the image file
      * @return a image file
      */
     public Image uploadImage(MultipartFile file) throws IOException {
@@ -32,7 +32,7 @@ public class ImageService {
     }
 
     /**
-     * @param id    the image id
+     * @param id the image id
      * @return a byte
      */
     public byte[] getImageById(Long id) {

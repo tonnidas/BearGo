@@ -86,8 +86,6 @@ public class ProductPostComplaintService {
         } catch (Exception e) {
             log.error("Can not send notification, reason: " + e);
         }
-
-
         return productPostComplaintRepository.save(complaint);
     }
 

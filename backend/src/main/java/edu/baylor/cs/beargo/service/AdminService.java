@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -55,7 +58,7 @@ public class AdminService {
     }
 
     /**
-     * @param id      the id of admin
+     * @param id the id of admin
      * @return An admin by id
      */
     public User getAdminById(Long id) {
@@ -73,7 +76,7 @@ public class AdminService {
     }
 
     /**
-     * @param id      the id of user
+     * @param id the id of user
      * @return promoted User
      */
     public User promoteUser(Long id) {
@@ -94,7 +97,8 @@ public class AdminService {
 
     /**
      * Checks if the number of complaints against a productPost is greater than the threshold
-     * @param threshold  the threshold value
+     *
+     * @param threshold the threshold value
      * @return a list of productPosts
      */
     public List<ProductPost> getReportedProductPosts(int threshold) {
@@ -117,6 +121,7 @@ public class AdminService {
 
     /**
      * Checks if the action taken by the admin is for blocking the productPost
+     *
      * @param user          the authenticated user
      * @param productPostId the contract id
      * @param verdict       the verdict decision
@@ -138,5 +143,4 @@ public class AdminService {
         }
         return complaints;
     }
-
 }

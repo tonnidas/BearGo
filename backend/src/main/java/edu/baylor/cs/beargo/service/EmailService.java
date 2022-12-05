@@ -26,8 +26,10 @@ public class EmailService {
 
     Map<String, Integer> confirmationCodes = new HashMap<>();
 
-    /** sends code to the destination email address
-     * @param email    the email
+    /**
+     * sends code to the destination email address
+     *
+     * @param email the email
      */
     public void sendVerificationEmail(String email) throws IOException {
         Integer code = new Random().nextInt(9000) + 1000;
@@ -51,8 +53,9 @@ public class EmailService {
 
     /**
      * Checks if the action taken by the admin is for blocking the productPost
-     * @param email         the email
-     * @param code          the code
+     *
+     * @param email the email
+     * @param code  the code
      * @return a boolean
      */
     public boolean verifyCode(String email, int code) {
@@ -64,7 +67,7 @@ public class EmailService {
     }
 
     /**
-     * @param mail          the Mail
+     * @param mail the Mail
      */
     public void sendEmail(Mail mail) throws IOException {
         SendGrid sg = new SendGrid(sendgridApiKey);

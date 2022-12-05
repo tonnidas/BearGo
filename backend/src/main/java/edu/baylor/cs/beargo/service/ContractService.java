@@ -1,11 +1,11 @@
 package edu.baylor.cs.beargo.service;
 
+import edu.baylor.cs.beargo.dto.UserContractsDto;
 import edu.baylor.cs.beargo.model.Contract;
 import edu.baylor.cs.beargo.model.DeliveryStatus;
 import edu.baylor.cs.beargo.model.ProductPost;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ContractRepository;
-import edu.baylor.cs.beargo.dto.UserContractsDto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -226,7 +226,7 @@ public class ContractService {
      */
     public Contract updateCost(User user, Long contractId, Double cost) {
         Contract contract = getContractById(contractId);
-        if(contract == null) {
+        if (contract == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No contract found with this id.");
         }
         return productPostService.updateCost(contract.getProductPost().getId(), cost).getContract();

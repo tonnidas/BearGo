@@ -11,7 +11,6 @@ import edu.baylor.cs.beargo.repository.UserRepository;
 import edu.baylor.cs.beargo.security.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,6 +54,11 @@ public class UserService implements UserDetailsService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    /**
+     * @param username the user name
+     * @return the user
+     * @throws UsernameNotFoundException an UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByUsername(username);
@@ -65,7 +69,12 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    // Log in user
+    /**
+     * Log in user
+     *
+     * @param user the logged user
+     * @return a string confirmation
+     */
     public String login(User user) {
         String username = user.getUsername();
         String password = user.getPassword();
@@ -101,11 +110,12 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * Resets the password
      *
-     * @param email
-     * @param newPassword
-     * @param code
-     * @return
+     * @param email       the email
+     * @param newPassword the new password
+     * @param code        the verification code
+     * @return an user
      */
     public User resetPassword(String email, String newPassword, int code) {
         if (emailService.verifyCode(email, code)) {
@@ -135,6 +145,8 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * Gets user by user id
+     *
      * @param id the user id
      * @return the user
      */
@@ -149,6 +161,8 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * Gets user by username
+     *
      * @param username the username
      * @return the user
      */
@@ -163,6 +177,8 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * Gets user by user's fullname
+     *
      * @param fullname required for search
      * @return List of users contains this full name
      */
@@ -177,8 +193,13 @@ public class UserService implements UserDetailsService {
         return retUserList;
     }
 
-    // user is current user
-    // user details represents updated fields
+    /**
+     * Updates an existing user
+     *
+     * @param updatedUser the user to be updated
+     * @param user        the logged user
+     * @return
+     */
     public User updateUser(User updatedUser, User user) {
         // copy the fields that are allowed to update
         // username/email and associations are not allowed to update
@@ -212,8 +233,6 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
-
-    // Checked and tested
 
     /**
      * @param userId the user id
@@ -306,8 +325,6 @@ public class UserService implements UserDetailsService {
 
         return reviewAndRatingListRet;
     }
-
-    // TODO: Need to check
 
     /**
      * @param userId the user id

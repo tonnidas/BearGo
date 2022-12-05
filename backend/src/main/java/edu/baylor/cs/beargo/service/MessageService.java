@@ -58,7 +58,6 @@ public class MessageService {
         kafkaTemplate.send(topicName, saveddto);
 
 
-
         // Sent to websocket
         //String topic = "/topic/newmsg" + savedMsg.getId().toString();
         //messagingTemplate.convertAndSend(topic, savedMsg);
@@ -67,18 +66,17 @@ public class MessageService {
     }
 
     /**
-     * @param user     user who is sending the msg
-     * @param toId     user id
+     * @param user user who is sending the msg
+     * @param toId user id
      * @return a image file
      */
     public List<Message> getMyMsg(User user, Long toId) {
         User toUser = userRepo.findById(toId).orElse(null);
-        return msgRepo.findMyMsg(user,toUser);
+        return msgRepo.findMyMsg(user, toUser);
     }
 
 
     /**
-     *
      * @return a list of msgs
      */
     public List<Message> getAllmsg() {

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
-public class TwitterService{
+public class TwitterService {
 
     @Value("${beargo.twitter.pagesize}")
     private int pageSize;
@@ -30,25 +29,32 @@ public class TwitterService{
     @Autowired
     private TwitterModelRepository repo;
 
-   public List<TwitterModel> getAllTweets(){
-       //Pageable pageable = PageRequest.of(0, pageSize);
-       Pageable sortedCreatedDate = PageRequest.of(0, pageSize, Sort.by("createdAt").descending());
-       Page<TwitterModel> tweetList =  repo.findAll(sortedCreatedDate);
+    /**
+     * @return a list of tweets
+     */
+    public List<TwitterModel> getAllTweets() {
+        //Pageable pageable = PageRequest.of(0, pageSize);
+        Pageable sortedCreatedDate = PageRequest.of(0, pageSize, Sort.by("createdAt").descending());
+        Page<TwitterModel> tweetList = repo.findAll(sortedCreatedDate);
 
-       if(tweetList.hasContent()) {
-           return tweetList.getContent();
-       } else {
-           return new ArrayList<TwitterModel>();
-       }
+        if (tweetList.hasContent()) {
+            return tweetList.getContent();
+        } else {
+            return new ArrayList<TwitterModel>();
+        }
 
-   }
+    }
 
-   public TwitterModel saveTweet(TwitterModel t){
+    /**
+     * @param t a twitter model
+     * @return the saved twitter
+     */
+    public TwitterModel saveTweet(TwitterModel t) {
 
         String tUrl = "https://twitter.com/" + t.getTUsername() + "/status/" + t.getTid().toString();
         t.setTweeturl(tUrl);
         t.setTidstring(t.getTid().toString());
         TwitterModel savedTweet = repo.save(t);
         return savedTweet;
-   }
+    }
 }

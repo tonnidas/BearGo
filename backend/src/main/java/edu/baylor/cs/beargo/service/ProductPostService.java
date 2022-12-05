@@ -17,7 +17,10 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -147,6 +150,11 @@ public class ProductPostService {
         return productPostRepository.save(productPost);
     }
 
+    /**
+     * @param user           the logges user
+     * @param newProductPost the new product post
+     * @return the updated product post
+     */
     public ProductPost updateProductPost(User user, ProductPost newProductPost) {
         Optional<ProductPost> opt = productPostRepository.findById(newProductPost.getId());
         if (!opt.isPresent()) {
@@ -210,6 +218,10 @@ public class ProductPostService {
         return productPostRepository.save(oldProductPost);
     }
 
+    /**
+     * @param searchDto a search filter Dto
+     * @return a list of product post maintaining search criteria
+     */
     public List<ProductPost> searchProductPost(SearchDto searchDto) {
         List<ProductPost> posts = productPostRepository.findAll();
         List<ProductPost> searchPosts = new ArrayList<>();

@@ -32,6 +32,9 @@ public class MyService {
     @Autowired
     ReviewAndRatingRepository reviewAndRatingRepository;
 
+    /**
+     * Creates 3 products, 3 admins, 10 users, 5 blogposts, 5 reviewAndRatings
+     */
     public void populate() {
         for (int i = 1; i <= 3; i++) {
             Product product = new Product();
