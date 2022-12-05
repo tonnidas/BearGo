@@ -4,17 +4,18 @@ import edu.baylor.cs.beargo.model.*;
 import edu.baylor.cs.beargo.repository.ReviewAndRatingRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
@@ -115,9 +116,13 @@ public class ReviewAndRatingService {
         /*
             Sending Notification to User
          */
-        Notification notification = new Notification();
-        notification.setNotificationMsg(user.getUsername() + " reviewed you - " + review);
-        notificationService.saveNotification(reviewAndRating.getReviewedBy(), notification, reviewAndRating.getReviewedTo().getId());
+        try {
+            Notification notification = new Notification();
+            notification.setNotificationMsg(user.getUsername() + " reviewed you - " + review);
+            notificationService.saveNotification(reviewAndRating.getReviewedBy(), notification, reviewAndRating.getReviewedTo().getId());
+        } catch (Exception e) {
+            log.error("Can not send notification, reason: " + e);
+        }
 
         return reviewAndRatingRepository.save(reviewAndRating);
     }

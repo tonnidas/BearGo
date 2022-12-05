@@ -7,6 +7,7 @@ import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.repository.ProductPostComplaintRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
@@ -70,17 +72,21 @@ public class ProductPostComplaintService {
         complaint.setResolvedBy(null);
         complaint.setResolveDate(null);
 
-        // TODO: check complaints count for the product post and send notification - Saad
-        Notification notification = new Notification();
-        notification.setNotificationMsg("You complain is recorded");
-        notificationService.saveNotification(user, notification, user.getId());
+        try {
+            Notification notification = new Notification();
+            notification.setNotificationMsg("You complain is recorded");
+            notificationService.saveNotification(user, notification, user.getId());
 
-        List<User> admins = adminService.getAdmins();
-        for (User admin : admins) {
-            Notification notification1 = new Notification();
-            notification1.setNotificationMsg("A user has complained a product post");
-            notificationService.saveNotification(admin, notification, admin.getId());
+            List<User> admins = adminService.getAdmins();
+            for (User admin : admins) {
+                Notification notification1 = new Notification();
+                notification1.setNotificationMsg("A user has complained a product post");
+                notificationService.saveNotification(admin, notification, admin.getId());
+            }
+        } catch (Exception e) {
+            log.error("Can not send notification, reason: " + e);
         }
+
 
         return productPostComplaintRepository.save(complaint);
     }

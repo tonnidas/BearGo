@@ -7,19 +7,18 @@ import edu.baylor.cs.beargo.model.UserComplaint;
 import edu.baylor.cs.beargo.repository.UserComplaintRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
@@ -58,9 +57,13 @@ public class UserComplaintService {
         /*
             Sending Notification to User
          */
-        Notification notification = new Notification();
-        notification.setNotificationMsg(user.getUsername() + " reported you - " + reason);
-        notificationService.saveNotification(reportBy, notification, reportTo);
+        try {
+            Notification notification = new Notification();
+            notification.setNotificationMsg(user.getUsername() + " reported you - " + reason);
+            notificationService.saveNotification(reportBy, notification, reportTo);
+        } catch (Exception e) {
+            log.error("Can not send notification, reason: " + e);
+        }
 
         return userComplaintRepository.save(userComplaint);
     }
@@ -88,11 +91,11 @@ public class UserComplaintService {
         }
         return allComplaints;
     }
+
     public UserComplaint resolveComplaint(User user, Long complaintid) {
         Optional<UserComplaint> opt = userComplaintRepository.findById(complaintid);
         UserComplaint userC = new UserComplaint();
-        if(opt.isPresent())
-        {
+        if (opt.isPresent()) {
             UserComplaint userComplaint = opt.get();
             userComplaint.setIsResolved(true);
             userComplaint.setId(complaintid);
