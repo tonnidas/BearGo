@@ -16,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -225,61 +224,9 @@ public class ProductPostService {
                 LocalDate date2 = pr.getExpectedDeliveryDate();
 
                 if ((date1.isAfter(startdate) && date1.isBefore(endDate)) ||
-                        (date2.isAfter(startdate) && date2.isBefore(endDate)))
-                {
+                        (date2.isAfter(startdate) && date2.isBefore(endDate))) {
                     //searchPosts.add(pr);
 
-                if ((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
-                        (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")))
-                {
-                    if (pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
-                            pr.getDestination().getCity().equals(searchDto.getDestCity()))
-                        searchPosts.add(pr);
-                } else if ((searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
-                        searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))
-                {
-                    System.out.println(pr.getDestination().getState());
-                    if (pr.getSource().getState().equals(searchDto.getSourceState()) &&
-                            pr.getDestination().getState().equals(searchDto.getDestState())) {
-                        System.out.println(pr.getDestination().getState());
-                        searchPosts.add(pr);
-                    }
-                }
-                    else if ((searchDto.getSourceCity().equals("-") && searchDto.getSourceState().equals("-")) &&
-                            (searchDto.getDestCity().equals("-") && searchDto.getDestState().equals("-")))
-                    {
-                            searchPosts.add(pr);
-                    }
-                else if(searchDto.getDestCity().equals("-") && searchDto.getDestState().equals("-"))
-                {
-                    if (pr.getSource().getCity().equals(searchDto.getSourceCity()))
-                    {
-                        System.out.println(pr.getDestination().getState());
-                        searchPosts.add(pr);
-                    }
-                    else if (pr.getSource().getState().equals(searchDto.getSourceState()))
-                    {
-                        System.out.println(pr.getDestination().getState());
-                        searchPosts.add(pr);
-                    }
-                }
-                else if(searchDto.getSourceCity().equals("-") && searchDto.getSourceCity().equals("-"))
-                {
-                    if (pr.getDestination().getCity().equals(searchDto.getDestCity()))
-                    {
-                        System.out.println(pr.getDestination().getState());
-                        searchPosts.add(pr);
-                    }
-                    else if (pr.getDestination().getState().equals(searchDto.getDestState()))
-                    {
-                        System.out.println(pr.getDestination().getState());
-                        searchPosts.add(pr);
-                    }
-                }
-
-            }
-            }
-            else if (stDate == null && enDate == null) {
                     if ((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
                             (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))) {
                         if (pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
@@ -293,37 +240,61 @@ public class ProductPostService {
                             System.out.println(pr.getDestination().getState());
                             searchPosts.add(pr);
                         }
-                    }
-                    else if(searchDto.getDestCity().equals("-"))
-                    {
-                        if (pr.getSource().getCity().equals(searchDto.getSourceCity()))
-                        {
+                    } else if ((searchDto.getSourceCity().equals("-") && searchDto.getSourceState().equals("-")) &&
+                            (searchDto.getDestCity().equals("-") && searchDto.getDestState().equals("-"))) {
+                        searchPosts.add(pr);
+                    } else if (searchDto.getDestCity().equals("-") && searchDto.getDestState().equals("-")) {
+                        if (pr.getSource().getCity().equals(searchDto.getSourceCity())) {
+                            System.out.println(pr.getDestination().getState());
+                            searchPosts.add(pr);
+                        } else if (pr.getSource().getState().equals(searchDto.getSourceState())) {
                             System.out.println(pr.getDestination().getState());
                             searchPosts.add(pr);
                         }
-                        else if (pr.getSource().getState().equals(searchDto.getSourceState()))
-                        {
+                    } else if (searchDto.getSourceCity().equals("-") && searchDto.getSourceCity().equals("-")) {
+                        if (pr.getDestination().getCity().equals(searchDto.getDestCity())) {
                             System.out.println(pr.getDestination().getState());
                             searchPosts.add(pr);
-                        }
-                    }
-                    else if(searchDto.getSourceCity().equals("-"))
-                    {
-                        if (pr.getDestination().getCity().equals(searchDto.getDestCity()))
-                        {
-                            System.out.println(pr.getDestination().getState());
-                            searchPosts.add(pr);
-                        }
-                        else if (pr.getDestination().getState().equals(searchDto.getDestState()))
-                        {
+                        } else if (pr.getDestination().getState().equals(searchDto.getDestState())) {
                             System.out.println(pr.getDestination().getState());
                             searchPosts.add(pr);
                         }
                     }
 
-            }
-            else if(stDate != null && enDate != null && searchDto.getSourceState().equals("-") && searchDto.getDestState().equals("-"))
-            {
+                }
+            } else if (stDate == null && enDate == null) {
+                if ((!searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
+                        (!searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-"))) {
+                    if (pr.getSource().getCity().equals(searchDto.getSourceCity()) &&
+                            pr.getDestination().getCity().equals(searchDto.getDestCity()))
+                        searchPosts.add(pr);
+                } else if ((searchDto.getSourceCity().equals("-") && !searchDto.getSourceState().equals("-")) &&
+                        searchDto.getDestCity().equals("-") && !searchDto.getDestState().equals("-")) {
+                    System.out.println(pr.getDestination().getState());
+                    if (pr.getSource().getState().equals(searchDto.getSourceState()) &&
+                            pr.getDestination().getState().equals(searchDto.getDestState())) {
+                        System.out.println(pr.getDestination().getState());
+                        searchPosts.add(pr);
+                    }
+                } else if (searchDto.getDestCity().equals("-")) {
+                    if (pr.getSource().getCity().equals(searchDto.getSourceCity())) {
+                        System.out.println(pr.getDestination().getState());
+                        searchPosts.add(pr);
+                    } else if (pr.getSource().getState().equals(searchDto.getSourceState())) {
+                        System.out.println(pr.getDestination().getState());
+                        searchPosts.add(pr);
+                    }
+                } else if (searchDto.getSourceCity().equals("-")) {
+                    if (pr.getDestination().getCity().equals(searchDto.getDestCity())) {
+                        System.out.println(pr.getDestination().getState());
+                        searchPosts.add(pr);
+                    } else if (pr.getDestination().getState().equals(searchDto.getDestState())) {
+                        System.out.println(pr.getDestination().getState());
+                        searchPosts.add(pr);
+                    }
+                }
+
+            } else if (stDate != null && enDate != null && searchDto.getSourceState().equals("-") && searchDto.getDestState().equals("-")) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
                 LocalDate startdate = LocalDate.parse(stDate, formatter);
                 LocalDate endDate = LocalDate.parse(enDate, formatter);
@@ -331,8 +302,7 @@ public class ProductPostService {
                 LocalDate date2 = pr.getExpectedDeliveryDate();
 
                 if ((date1.isAfter(startdate) && date1.isBefore(endDate)) ||
-                        (date2.isAfter(startdate) && date2.isBefore(endDate)))
-                {
+                        (date2.isAfter(startdate) && date2.isBefore(endDate))) {
                     searchPosts.add(pr);
                 }
             }
@@ -345,43 +315,34 @@ public class ProductPostService {
         List<ProductPost> senderPosts = new ArrayList<>();
         Long id = user.getId();
         System.out.println("del status " + deliveryStatus);
-        for(ProductPost p : posts)
-        {
+        for (ProductPost p : posts) {
             Contract c = p.getContract();
             System.out.println("cost " + p.getContract().getCost());
-            if(userType.equals("sender"))
-            {
-
+            if (userType.equals("sender")) {
                 User u = c.getSender();
                 Long uid = u.getId();
                 String status = c.getDeliveryStatus().toString();
-                if(id == uid)
-                {
-                    if(deliveryStatus!=null && deliveryStatus.equals(status))
+                if (Objects.equals(id, uid)) {
+                    if (deliveryStatus != null && deliveryStatus.equals(status))
                         senderPosts.add(p);
-                    else if (deliveryStatus.equals("NONE"))
-                    {
+                    else if (deliveryStatus.equals("NONE")) {
                         senderPosts.add(p);
                     }
                 }
 
-            }
-            else if(userType.equals("traveler"))
-            {
+            } else if (userType.equals("traveler")) {
                 User u = c.getTraveler();
+                if (u == null) continue;
                 Long uid = u.getId();
                 String status = c.getDeliveryStatus().toString();
-                if(id == uid)
-                {
-                    if(deliveryStatus!=null && deliveryStatus.equals(status))
+                if (Objects.equals(id, uid)) {
+                    if (deliveryStatus != null && deliveryStatus.equals(status))
                         senderPosts.add(p);
-                    else if (deliveryStatus.equals("NONE"))
-                    {
+                    else if (deliveryStatus.equals("NONE")) {
                         senderPosts.add(p);
                     }
                 }
             }
-
         }
         return senderPosts;
     }
