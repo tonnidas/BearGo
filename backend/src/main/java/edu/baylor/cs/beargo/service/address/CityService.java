@@ -25,6 +25,10 @@ public class CityService {
     @Autowired
     CityRepository cityRepository;
 
+    public CityService(CityRepository cityRepository) {
+        this.cityRepository = cityRepository;
+    }
+
     public City save(City city) {
         return cityRepository.save(city);
     }
