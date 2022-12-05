@@ -4,6 +4,7 @@ import edu.baylor.cs.beargo.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 public class SampleModels {
 
@@ -61,6 +62,23 @@ public class SampleModels {
         productPost.setProduct(product);
 
         return productPost;
+    }
+    public static Contract getSampleContract() {
+        Contract contract = new Contract();
+        contract.setDescription("New contract created");
+        contract.setCost(30.2);
+        contract.setContractStartDate(LocalDate.of(2022, Month.DECEMBER, 10));
+        contract.setContractEndDate(LocalDate.of(2022, Month.DECEMBER, 30));
+        contract.setDeliveryStatus(DeliveryStatus.INITIATED);
+        return contract;
+    }
+
+    public static ProductPostComplaint getSampleComplaints() {
+        ProductPostComplaint productPostComplaint = new ProductPostComplaint();
+        productPostComplaint.setIsResolved(false);
+        productPostComplaint.setReason("Bad");
+        productPostComplaint.setComplainDate(LocalDate.of(2022, Month.DECEMBER, 01));
+        return productPostComplaint;
     }
 
     public static User getSampleAdmin(int suffix) {
