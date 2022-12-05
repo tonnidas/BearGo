@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   beargo-frontend:
-    image: tonnidas/beargo-frontend
+    image: tonnidas/beargo-frontend:latest
     build:
       context: frontend/React/project_react
       dockerfile: Dockerfile
@@ -19,7 +19,7 @@ services:
       - beargo-backend
 
   beargo-backend:
-    image: tonnidas/beargo-backend
+    image: tonnidas/beargo-backend:latest
     build:
       context: backend
       dockerfile: Dockerfile
@@ -48,7 +48,7 @@ services:
       - db-data:/var/lib/mysql
 
   twitter-stream-integration:
-    image: tonnidas/twitter-stream-integration
+    image: tonnidas/twitter-stream-integration:latest
     build:
       context: twitter-stream-integration
       dockerfile: Dockerfile
