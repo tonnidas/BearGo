@@ -59,7 +59,7 @@ public class UserComplaintService {
          */
         try {
             Notification notification = new Notification();
-            notification.setNotificationMsg(user.getUsername() + " reported you - " + reason);
+            notification.setNotificationMsg(reportBy.getUsername() + " reported " + user.getUsername() + " - " + reason);
             notificationService.saveNotification(reportBy, notification, reportTo);
         } catch (Exception e) {
             log.error("Can not send notification, reason: " + e);
