@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import AuthService from '../Service/AuthService';
+import { Modal } from "@daypilot/modal";
 
 
 export default function ForgetPassword() {
@@ -38,7 +39,9 @@ export default function ForgetPassword() {
             return;
         }
 
-        const verificationCode = prompt("Enter verfication code sent to your email", "");
+        // const verificationCode = prompt("Enter verification code sent to your email", "");
+        const modal = await Modal.form([{ name: "Enter verification code sent to your email", id: "code" }]);
+        const verificationCode = modal.result ? modal.result.code : null;
         if (verificationCode === null) {
             return;
         }
