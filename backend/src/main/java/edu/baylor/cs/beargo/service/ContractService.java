@@ -33,6 +33,10 @@ public class ContractService {
     @Autowired
     ProductPostService productPostService;
 
+    public ContractService(ContractRepository contractRepository) {
+        this.contractRepository = contractRepository;
+    }
+
     /**
      * @return all contracts
      */
