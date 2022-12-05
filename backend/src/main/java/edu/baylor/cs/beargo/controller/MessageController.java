@@ -2,7 +2,6 @@ package edu.baylor.cs.beargo.controller;
 
 import edu.baylor.cs.beargo.dto.MessageDto;
 import edu.baylor.cs.beargo.model.Message;
-
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.AdminService;
 import edu.baylor.cs.beargo.service.MessageService;
@@ -25,8 +24,15 @@ public class MessageController {
     @Autowired
     AdminService adminService;
 
+    /**
+     * Selects all the msgs of user
+     *
+     * @param toId the toId
+     * @param user The logged user
+     * @return
+     */
     @GetMapping(value = "/{toId}")
-    public ResponseEntity<List<Message>> getMyMsg(@PathVariable(value = "toId") Long toId,@AuthenticationPrincipal User user) {
+    public ResponseEntity<List<Message>> getMyMsg(@PathVariable(value = "toId") Long toId, @AuthenticationPrincipal User user) {
 
         //Long uid = user.getId();
         log.info("Retrieving Message for User: " + user.getId().toString());
@@ -34,6 +40,12 @@ public class MessageController {
         return new ResponseEntity<>(msgList, HttpStatus.OK);
     }
 
+    /**
+     * Selects all msgs of user
+     *
+     * @param user the logged user
+     * @return
+     */
     @GetMapping(path = "/all")
     public ResponseEntity<List<Message>> getAllMsg(@AuthenticationPrincipal User user) {
 
@@ -43,6 +55,10 @@ public class MessageController {
         return new ResponseEntity<>(msgList, HttpStatus.OK);
     }
 
+    /**
+     * @param user the logged user
+     * @return a list of msg Dto
+     */
     @GetMapping(path = "/msngrList")
     public ResponseEntity<List<MessageDto>> getAllmsngrList(@AuthenticationPrincipal User user) {
 
@@ -53,18 +69,28 @@ public class MessageController {
         return new ResponseEntity<>(msgListdto, HttpStatus.OK);
     }
 
+    /**
+     * @param toId the to id
+     * @param user the logged user
+     * @param m    the msg
+     * @return the saved msg
+     */
     @PostMapping(value = "/{toId}")
-    public ResponseEntity<Message> saveMsg(@PathVariable(value = "toId") Long toId, @AuthenticationPrincipal User user,@RequestBody Message m) {
+    public ResponseEntity<Message> saveMsg(@PathVariable(value = "toId") Long toId, @AuthenticationPrincipal User user, @RequestBody Message m) {
 
         System.out.println("------------------------------");
         System.out.println(m.getMsg());
         System.out.println("------------------------------");
 
         log.info("Saving Message for User: " + user.getId().toString());
-        Message msg = msgService.saveMsg(m,user,toId);
+        Message msg = msgService.saveMsg(m, user, toId);
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
+    /**
+     * @param user the logged user
+     * @return a list of users
+     */
     @GetMapping(path = "/all/users")
     public ResponseEntity<List<User>> getAllUsers(@AuthenticationPrincipal User user) {
 

@@ -28,6 +28,7 @@ public class AdminController {
 
     /**
      * Populates 10 admins and 10 users
+     *
      * @return a confirmation string
      */
     @PostMapping("/populate")
@@ -38,6 +39,7 @@ public class AdminController {
 
     /**
      * selects all admins (except general users) from list of users
+     *
      * @return a list of users aho are admins
      */
     @GetMapping
@@ -48,6 +50,7 @@ public class AdminController {
 
     /**
      * selects only users (except admins) from list of users
+     *
      * @return a list of users aho are not admins
      */
     @GetMapping("/onlyUsers")
@@ -58,6 +61,7 @@ public class AdminController {
 
     /**
      * Selects all users (including admins)
+     *
      * @return a list of users
      */
     @GetMapping("/allUsers")
@@ -68,7 +72,8 @@ public class AdminController {
 
     /**
      * Get admin by id
-     * @param id     The id
+     *
+     * @param id The id
      * @return an admin
      */
     @GetMapping("/{id}")
@@ -79,7 +84,8 @@ public class AdminController {
 
     /**
      * Promote a user with the id to be admin
-     * @param id     The id
+     *
+     * @param id The id
      * @return a promoted user
      */
     @GetMapping("/promote/{id}")
@@ -89,8 +95,7 @@ public class AdminController {
     }
 
     /**
-     *
-     * @param threshold  the limit of complaints count
+     * @param threshold the limit of complaints count
      * @return a list of reported productPosts
      */
     @GetMapping("/getReportedProductPosts")
@@ -100,10 +105,9 @@ public class AdminController {
     }
 
     /**
-     *
-     * @param user           the logged user
-     * @param productPostId  the complained productPost id
-     * @param verdict        the decision
+     * @param user          the logged user
+     * @param productPostId the complained productPost id
+     * @param verdict       the decision
      * @return a set of productPost Complaints
      */
     @PostMapping("/resolve/productPost")

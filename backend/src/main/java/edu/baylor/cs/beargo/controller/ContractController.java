@@ -1,9 +1,9 @@
 package edu.baylor.cs.beargo.controller;
 
+import edu.baylor.cs.beargo.dto.UserContractsDto;
 import edu.baylor.cs.beargo.model.Contract;
 import edu.baylor.cs.beargo.model.User;
 import edu.baylor.cs.beargo.service.ContractService;
-import edu.baylor.cs.beargo.dto.UserContractsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ public class ContractController {
     ContractService contractService;
 
     /**
-     *
      * @return a list of all contracts
      */
     @GetMapping
@@ -31,8 +30,7 @@ public class ContractController {
     }
 
     /**
-     *
-     * @param id  the contract id
+     * @param id the contract id
      * @return the contract
      */
     @GetMapping("/{id}")
@@ -42,9 +40,8 @@ public class ContractController {
     }
 
     /**
-     *
-     * @param user         the logged user
-     * @param contractId   the contract id
+     * @param user       the logged user
+     * @param contractId the contract id
      * @return a boolean value
      */
     @GetMapping("/getReviewCompletion/{contractId}")
@@ -54,9 +51,8 @@ public class ContractController {
     }
 
     /**
-     *
-     * @param userId          the user id
-     * @param lookBackMonths  the time
+     * @param userId         the user id
+     * @param lookBackMonths the time
      * @return the user contract Dto
      */
     @GetMapping("/userContracts")
@@ -66,7 +62,6 @@ public class ContractController {
     }
 
     /**
-     *
      * @param user          the logged user
      * @param productPostId the product post id
      * @param travelerId    the traveler id
@@ -81,10 +76,9 @@ public class ContractController {
     }
 
     /**
-     *
-     * @param user        the logged user
-     * @param contractId  the contract id
-     * @param newStatus   the new status of contract
+     * @param user       the logged user
+     * @param contractId the contract id
+     * @param newStatus  the new status of contract
      * @return the updated contract
      */
     @PostMapping("/updateStatus/{contractId}/{newStatus}")
@@ -96,22 +90,20 @@ public class ContractController {
     }
 
     /**
-     *
-     * @param user        the logged user
-     * @param contractId  the contract id
-     * @param cost        the cost
+     * @param user       the logged user
+     * @param contractId the contract id
+     * @param cost       the cost
      * @return the updated contract
      */
     @PostMapping("/addCost/{contractId}/{cost}")
     public ResponseEntity<Contract> addCost(@AuthenticationPrincipal User user,
-                                                 @PathVariable("contractId") Long contractId,
-                                                 @PathVariable("cost") Double cost ) {
+                                            @PathVariable("contractId") Long contractId,
+                                            @PathVariable("cost") Double cost) {
         Contract updatedContract = contractService.updateCost(user, contractId, cost);
         return new ResponseEntity<>(updatedContract, HttpStatus.OK);
     }
 
     /**
-     *
      * @param user       the logged user
      * @param postid     the product post id
      * @param travelerid the traveler id
@@ -122,12 +114,11 @@ public class ContractController {
      */
     @PostMapping("/updateEverything/{parampostid}/{travelervalue}/{contractid}/{status}/{cost}")
     public ResponseEntity<Contract> updateEverything(@AuthenticationPrincipal User user,
-                                            @PathVariable("parampostid") Long postid,
-                                            @PathVariable("travelervalue") Long travelerid,
-                                            @PathVariable("contractid") Long contractid,
-                                            @PathVariable("status") String status,
-                                            @PathVariable("cost") Double cost )
-    {
+                                                     @PathVariable("parampostid") Long postid,
+                                                     @PathVariable("travelervalue") Long travelerid,
+                                                     @PathVariable("contractid") Long contractid,
+                                                     @PathVariable("status") String status,
+                                                     @PathVariable("cost") Double cost) {
 
         System.out.println("postid  " + postid);
         System.out.println("travelerid  " + travelerid);

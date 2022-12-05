@@ -20,7 +20,6 @@ public class BlogPostController {
     BlogPostService blogPostService;
 
     /**
-     *
      * @return a list of all Blog Posts
      */
     @GetMapping("/getAllBlogPost")
@@ -31,8 +30,7 @@ public class BlogPostController {
     }
 
     /**
-     *
-     * @param user    the logged user
+     * @param user the logged user
      * @return a list of Blog Posts of the logged user
      */
     @GetMapping("/getMyBlogPosts")
@@ -43,8 +41,7 @@ public class BlogPostController {
     }
 
     /**
-     *
-     * @param id     the id of a Blog Post
+     * @param id the id of a Blog Post
      * @return a list of Blog Posts by id
      */
     @GetMapping("/getBlogPostById")
@@ -54,9 +51,8 @@ public class BlogPostController {
     }
 
     /**
-     *
-     * @param user       the logged user
-     * @param blogPost   the Blog Post
+     * @param user     the logged user
+     * @param blogPost the Blog Post
      * @return the saved Blog Post
      */
     @PostMapping("/createBlogPost")
@@ -66,9 +62,8 @@ public class BlogPostController {
     }
 
     /**
-     *
-     * @param username  the username
-     * @return  a list of Blog Posts by the username
+     * @param username the username
+     * @return a list of Blog Posts by the username
      */
     @GetMapping("/getBlogPostByUsername")
     public ResponseEntity<List<BlogPost>> getBlogPostByUsername(@RequestParam(name = "username") String username) {
@@ -77,9 +72,8 @@ public class BlogPostController {
     }
 
     /**
-     *
-     * @param id   the user id
-     * @return  a list of Blog Posts by user id
+     * @param id the user id
+     * @return a list of Blog Posts by user id
      */
     @GetMapping("/getBlogPostByUserId")
     public ResponseEntity<List<BlogPost>> getBlogPostByUserId(@RequestParam(name = "id") Long id) {
@@ -88,9 +82,8 @@ public class BlogPostController {
     }
 
     /**
-     *
-     * @param user      the logged user
-     * @param blogPost  the Blog Post
+     * @param user     the logged user
+     * @param blogPost the Blog Post
      * @return the updated Blog post
      */
     @PutMapping("/updateBlogPost")

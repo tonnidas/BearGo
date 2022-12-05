@@ -21,6 +21,10 @@ public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
+    /**
+     * @param user the logged user
+     * @return a list of notifications for the logged user
+     */
     @GetMapping
     public ResponseEntity<List<Notification>> getNotification(@AuthenticationPrincipal User user) {
 
@@ -31,13 +35,18 @@ public class NotificationController {
         return new ResponseEntity<>(notificationList, HttpStatus.OK);
     }
 
-
+    /**
+     * @param toId         the to id for notification sending
+     * @param user         the logged user
+     * @param notification the notification
+     * @return the notification
+     */
     @PostMapping(value = "/{toId}")
-    public ResponseEntity<Notification> setNotification(@PathVariable(value = "toId") Long toId,@AuthenticationPrincipal User user, @RequestBody Notification notification) {
+    public ResponseEntity<Notification> setNotification(@PathVariable(value = "toId") Long toId, @AuthenticationPrincipal User user, @RequestBody Notification notification) {
 
         log.info("Saving Notification for User ID: " + user.getId().toString());
 
-        Notification retVal = notificationService.saveNotification(user, notification,toId);
+        Notification retVal = notificationService.saveNotification(user, notification, toId);
         return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 }

@@ -21,7 +21,8 @@ public class AuthController {
 
     /**
      * Logs a user
-     * @param user   the user desiring to login
+     *
+     * @param user the user desiring to login
      * @return a token of login
      */
     @PostMapping("/login")
@@ -32,8 +33,9 @@ public class AuthController {
 
     /**
      * Registers a user
-     * @param user   the user to be registered
-     * @param code   the code
+     *
+     * @param user the user to be registered
+     * @param code the code
      * @return a registered user
      */
     @PostMapping("/register")
@@ -44,6 +46,7 @@ public class AuthController {
 
     /**
      * Sends verification code to email
+     *
      * @param email the email
      * @return a confirmation of code sending
      * @throws IOException an IOException
@@ -56,6 +59,7 @@ public class AuthController {
 
     /**
      * Resets the password
+     *
      * @param email       the email
      * @param newPassword the password
      * @param code        the verification code

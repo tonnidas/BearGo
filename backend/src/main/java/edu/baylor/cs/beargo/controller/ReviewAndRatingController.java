@@ -18,12 +18,22 @@ public class ReviewAndRatingController {
     @Autowired
     ReviewAndRatingService reviewAndRatingService;
 
+    /**
+     * @return a list of ReviewAndRating
+     */
     @GetMapping("/getAllReviewAndRating")
     public ResponseEntity<List<ReviewAndRating>> getAllReviewAndRating() {
         List<ReviewAndRating> reviewAndRatings = reviewAndRatingService.getReviewAndRatings();
         return new ResponseEntity<>(reviewAndRatings, HttpStatus.OK);
     }
 
+    /**
+     * @param user       the logged user
+     * @param contractId the contract id
+     * @param rating     the rating
+     * @param review     the review
+     * @return the created ReviewAndRating
+     */
     @PostMapping("/reviewAndRate")
     public ResponseEntity<ReviewAndRating> reviewAndRate(@AuthenticationPrincipal User user, @RequestParam Long contractId,
                                                          @RequestParam Integer rating, @RequestParam String review) {

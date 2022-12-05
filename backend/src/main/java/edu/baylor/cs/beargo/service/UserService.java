@@ -100,6 +100,13 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    /**
+     *
+     * @param email
+     * @param newPassword
+     * @param code
+     * @return
+     */
     public User resetPassword(String email, String newPassword, int code) {
         if (emailService.verifyCode(email, code)) {
             User user = getUserByUsername(email);

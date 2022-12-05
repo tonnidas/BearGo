@@ -16,7 +16,6 @@ public class ImageController {
     ImageService imageService;
 
     /**
-     *
      * @param file the image file
      * @return the uploaded image
      * @throws IOException an IOException
@@ -27,8 +26,7 @@ public class ImageController {
     }
 
     /**
-     *
-     * @param id   the image id
+     * @param id the image id
      * @return byte
      */
     @GetMapping(value = "download/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
