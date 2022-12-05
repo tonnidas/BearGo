@@ -15,9 +15,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @DataJpaTest
-public class NotificationTest {
+public class MessageTest {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    MessageRepository messageRepository;
 
     @Autowired
     ProductPostComplaintRepository productPostComplaintRepository;
