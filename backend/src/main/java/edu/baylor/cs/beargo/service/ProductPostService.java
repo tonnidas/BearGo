@@ -164,6 +164,10 @@ public class ProductPostService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Only sender can update the product post");
         }
 
+        if (!oldProductPost.getContract().getDeliveryStatus().equals(DeliveryStatus.SEARCHING_TRAVELER)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "You can not edit the post anymore.");
+        }
+
         if (newProductPost.getExpectedPickupDate().isBefore(LocalDate.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pick up date cannot be before today");
         }
