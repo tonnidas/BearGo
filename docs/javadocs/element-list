@@ -1,0 +1,13 @@
+edu.baylor.cs.beargo
+edu.baylor.cs.beargo.Config
+edu.baylor.cs.beargo.controller
+edu.baylor.cs.beargo.controller.address
+edu.baylor.cs.beargo.dto
+edu.baylor.cs.beargo.model
+edu.baylor.cs.beargo.model.address
+edu.baylor.cs.beargo.repository
+edu.baylor.cs.beargo.repository.address
+edu.baylor.cs.beargo.security
+edu.baylor.cs.beargo.service
+edu.baylor.cs.beargo.service.address
+edu.baylor.cs.beargo.util
